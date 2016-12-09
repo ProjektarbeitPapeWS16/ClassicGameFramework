@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A5A1DB03-51B0-4436-8686-F39AEA1FE6A9}</ProjectGuid>
+    <ProjectGuid>{464950CA-C785-40E9-BC97-B6C7251751EB}</ProjectGuid>
     <RootNamespace>ClassicGameFramework</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -110,6 +110,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EngineController.cpp" />
+    <ClCompile Include="EngineModel.cpp" />
+    <ClCompile Include="EngineView.cpp" />
+    <ClCompile Include="KeyPressedListener.cpp" />
+    <ClCompile Include="KeyReleasedListener.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineController.h" />
+    <ClInclude Include="EngineModel.h" />
+    <ClInclude Include="EngineView.h" />
+    <ClInclude Include="KeyPressedListener.h" />
+    <ClInclude Include="KeyReleasedListener.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
