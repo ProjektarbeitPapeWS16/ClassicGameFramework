@@ -4,15 +4,14 @@
 
 class EngineController
 {
-private:
-	virtual void gameLoop() = 0;
-	EngineView* view;
-	EngineModel* model;
+protected:
+	EngineView view;
+	EngineModel model;
 public:
-	EngineController(EngineView* view, EngineModel* model);
-	~EngineController();
+	EngineController(const EngineView& view, const EngineModel& model);
 
+	virtual void gameLoop();
+	virtual ~EngineController();
 
-	
 };
 
