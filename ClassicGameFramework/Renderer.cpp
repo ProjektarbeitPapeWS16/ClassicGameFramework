@@ -1,8 +1,10 @@
 ﻿#include "Renderer.h"
+//#include <iostream>
+#include "glfw3.h"
 
 void Renderer::init()
 {
-	std::cout << "Starting GLFW context, OpenGL " << GL_VERSION_MAJOR << "." << GL_VERSION_MINOR << std::endl;
+	//std::cout << "Starting GLFW context, OpenGL " << GL_VERSION_MAJOR << "." << GL_VERSION_MINOR << std::endl;
 	// Initializing GLFW (OpenGL interfaces)
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GL_VERSION_MAJOR);
@@ -34,7 +36,7 @@ void Renderer::terminate()
 
 void Renderer::log(const char* message)
 {
-	std::cout << std::endl << message << std::endl;
+	//std::cout << std::endl << message << std::endl;
 }
 
 GLfloat* Renderer::translateToWorldCoordinates(GLuint xPos, GLuint yPos)

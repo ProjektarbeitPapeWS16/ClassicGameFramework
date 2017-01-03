@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Config.h"
 
 class Entity;
 
@@ -12,7 +13,7 @@ public:
 	virtual int getMovementSpeed() { return 0; };
 	virtual bool isSolid() { return false; };
 
-	virtual Boundaries* getBoundaries() { return nullptr; };
+	virtual Boundaries* getBoundaries() { return new Boundaries(); };
 
 	virtual void setPosition(int xPos, int yPos) {};
 	virtual Entity* getEntity() { return nullptr; };

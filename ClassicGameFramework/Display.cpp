@@ -2,6 +2,7 @@
 
 std::vector<Drawable> Display::getDrawables()
 {
+	return std::vector<Drawable>();
 }
 
 void Display::setDrawables(std::vector<Drawable> drawables)

@@ -12,7 +12,7 @@ class Entity : public Drawable, public PhysicalObject
 	int animationSpeed;
 public:
 	
-	Entity(const Texture & texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
+	Entity( Texture & texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
 
 	unsigned getWidth() override;
 	unsigned getHeight() override;

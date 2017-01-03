@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FE6B30DA-1A6D-4106-BB35-8A44C77442FF}</ProjectGuid>
+    <ProjectGuid>{4A2AF4B8-2F07-4A9C-96D3-57FFDDAD7969}</ProjectGuid>
     <RootNamespace>SpacePanic</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -68,7 +68,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>..\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -81,7 +84,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\ClassicGameFramework;..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\libs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\x64\Debug\ClassicGameFramework.lib;..\libs\glew32.lib;..\libs\glfw3.lib;..\libs\SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,6 +118,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="bgimage.jpg" />
+    <Image Include="herz.jpg" />
+    <Image Include="herz.png" />
+    <Image Include="pacman.png" />
+    <Image Include="stern.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="colorShader.frag" />
+    <None Include="colorShader.vert" />
+    <None Include="textureShader.frag" />
+    <None Include="textureShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sample1.cpp" />
+    <ClCompile Include="SpacePanicController.cpp" />
+    <ClCompile Include="SpacePanicModel.cpp" />
+    <ClCompile Include="SpacePanicView.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="SpacePanicController.h" />
+    <ClInclude Include="SpacePanicModel.h" />
+    <ClInclude Include="SpacePanicView.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassicGameFramework\ClassicGameFramework.vcxproj">
+      <Project>{464950ca-c785-40e9-bc97-b6c7251751eb}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

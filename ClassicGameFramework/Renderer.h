@@ -4,8 +4,8 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
-#include <iostream>
 #include "Display.h"
+
 
 class Renderer
 {

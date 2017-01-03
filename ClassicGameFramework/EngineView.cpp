@@ -1,7 +1,8 @@
 #include "EngineView.h"
-#include <functional>
+//#include <functional>
+//#include <glfw3.h>
 
-EngineView::EngineView(const EngineModel& model, const Display& display, const Renderer& renderer): model(model),
+EngineView::EngineView( EngineModel& model,  Display& display,  Renderer& renderer): model(model),
                                                                                                     display(display),
                                                                                                     renderer(renderer)
 {
@@ -22,7 +23,6 @@ void EngineView::key_callback(GLFWwindow* window, Key key, int scancode, int act
 
 EngineView::~EngineView()
 {
-	glfwTerminate();
 }
 
 void EngineView::addKeyPressedListener(Key GLFW_KEY, std::function<void()> listener)

@@ -48,9 +48,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Image.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">

@@ -10,7 +10,7 @@ class Level
 	Physics physics;
 	// TODO: lifes? siehe Klassendiagramm
 public:
-	Level(int row_count, int column_count, const std::string& path, const Physics& physics)
+	Level(int row_count, int column_count, const std::string& path,  Physics& physics)
 		: rowCount(row_count),
 		  columnCount(column_count),
 		  path(path),

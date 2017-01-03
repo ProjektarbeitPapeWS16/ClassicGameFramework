@@ -19,7 +19,7 @@ protected:
 	Renderer renderer;
 
 public:
-	EngineView(const EngineModel& model, const Display& display, const Renderer& renderer);
+	EngineView( EngineModel& model,  Display& display,  Renderer& renderer);
 
 	static void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode);
 

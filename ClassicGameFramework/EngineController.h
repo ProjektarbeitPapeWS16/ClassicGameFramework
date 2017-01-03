@@ -8,7 +8,7 @@ protected:
 	EngineView view;
 	EngineModel model;
 public:
-	EngineController(const EngineView& view, const EngineModel& model);
+	EngineController( EngineView& view,  EngineModel& model);
 
 	virtual void gameLoop();
 	virtual ~EngineController();

@@ -1,6 +1,8 @@
 #include "EngineModel.h"
 #include <glfw3.h>
 
+bool EngineModel::gameloopShouldEnd = false;
+
 EngineModel::EngineModel(Session& session, Physics& physics): session(session),
                                                               physics(physics)
 {

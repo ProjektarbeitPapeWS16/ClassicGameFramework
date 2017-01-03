@@ -1,6 +1,6 @@
 #include "EngineController.h"
 
-EngineController::EngineController(const EngineView& view, const EngineModel& model): view(view),
+EngineController::EngineController( EngineView& view,  EngineModel& model): view(view),
                                                                                       model(model)
 {
 }

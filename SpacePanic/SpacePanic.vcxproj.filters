@@ -14,4 +14,55 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bgimage.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="herz.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="herz.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="pacman.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="stern.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="colorShader.frag" />
+    <None Include="colorShader.vert" />
+    <None Include="textureShader.frag" />
+    <None Include="textureShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sample1.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePanicController.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePanicModel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePanicView.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePanicController.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePanicModel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePanicView.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

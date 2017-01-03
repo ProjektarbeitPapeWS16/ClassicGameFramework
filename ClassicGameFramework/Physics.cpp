@@ -9,12 +9,3 @@ void Physics::checkCollisions()
 
 }
 
-void Physics::addCollisionListener(PhysicalObject& object, std::function<void(PhysicalObject&)> listener)
-{
-	collisionListeners.insert_or_assign(object, listener);
-}
-
-void Physics::removeCollisionListener(PhysicalObject& object)
-{
-	collisionListeners.erase(object);
-}
