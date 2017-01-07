@@ -1,24 +1,18 @@
 ﻿#pragma once
 #include <string>
-#include "Physics.h"
+class Physics;
 
 class Level
 {
 	int rowCount;
 	int columnCount;
-	std::string path;
-	Physics physics;
+	const std::string *path;
+	Physics *physics;
 	// TODO: lifes? siehe Klassendiagramm
 public:
-	Level(int row_count, int column_count, const std::string& path,  Physics& physics)
-		: rowCount(row_count),
-		  columnCount(column_count),
-		  path(path),
-		  physics(physics)
-	{
-	}
+	Level(int row_count, int column_count, const std::string *path, Physics *physics);
 
 	int getRowCount();
 	int getColumnCount();
-	std::string getPath();
+	const std::string *getPath();
 };

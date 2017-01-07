@@ -7,6 +7,12 @@ EngineController::EngineController( EngineView& view,  EngineModel& model): view
 
 void EngineController::gameLoop()
 {
+	while (model.gameloopShouldEnd == false) 
+	{
+		// TODO
+		// model.nextIteration(); 
+		view.update();
+	}
 	
 }
 

@@ -6,6 +6,17 @@ bool EngineModel::gameloopShouldEnd = false;
 EngineModel::EngineModel(Session& session, Physics& physics): session(session),
                                                               physics(physics)
 {
+	
+}
+
+std::map<int, std::function<void()>> *EngineModel::getKeyPressedListeners()
+{
+	return keyPressedListeners;
+}
+
+std::map<int, std::function<void()>> *EngineModel::getKeyReleasedListeners()
+{
+	return keyReleasedListeners;
 }
 
 Session& EngineModel::getSession()
@@ -14,10 +25,14 @@ Session& EngineModel::getSession()
 	return this->session;
 }
 
-void EngineModel::nextIteration(std::set<Key> keys)
+void EngineModel::initialization()
+{
+}
+
+void EngineModel::nextIteration()
 {
 	// TODO
-	if(keys.find(GLFW_KEY_ESCAPE) != keys.end())
+	if (false)
 	{
 		gameloopShouldEnd = true;
 	}
