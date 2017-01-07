@@ -1,7 +1,12 @@
 #include "EngineController.h"
+#include "../SpacePanic/SpacePanicModel.h"
 
 void EngineController::key_callback(GLFWwindow * window, Key key, int scancode, int action, int mode)
 {
+	if(action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
+	{
+		EngineModel::gameloopShouldEnd = true;
+	}
 	/*
 	if (action == GLFW_PRESS && keyPressedListeners.find(key) != keyPressedListeners.end())
 	{

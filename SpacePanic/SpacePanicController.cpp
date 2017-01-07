@@ -2,8 +2,69 @@
 
 //set<Key> SpacePanicController::keys = set<Key>();
 
+
+void upPress()
+{
+	
+}
+
+void upRelease()
+{
+	
+}
+
+void downPress()
+{
+
+}
+
+void downRelease()
+{
+
+}
+
+void leftPress()
+{
+
+}
+
+void leftRelease()
+{
+
+}
+
+void rightPress()
+{
+
+}
+
+void rightRelease()
+{
+
+}
+
+void escPress()
+{
+	EngineModel::gameloopShouldEnd = true;
+}
+
+
 SpacePanicController::SpacePanicController(const SpacePanicView& view, const SpacePanicModel& model): EngineController((EngineView&)view, (EngineModel&)model)
 {
+	this->model.getKeyPressedListeners(). addKeyPressedListener(GLFW_KEY_ESCAPE, &escPress);
+
+	this->model.addKeyPressedListener(GLFW_KEY_UP, &upPress);
+	this->model.addKeyReleasedListener(GLFW_KEY_UP, &upRelease);
+
+	this->model.addKeyPressedListener(GLFW_KEY_DOWN, &downPress);
+	this->model.addKeyReleasedListener(GLFW_KEY_DOWN, &downRelease);
+
+	this->model.addKeyPressedListener(GLFW_KEY_LEFT, &leftPress);
+	this->model.addKeyReleasedListener(GLFW_KEY_LEFT, &leftRelease);
+
+	this->model.addKeyPressedListener(GLFW_KEY_RIGHT, &rightPress);
+	this->model.addKeyReleasedListener(GLFW_KEY_RIGHT, &rightRelease);
+
 	/*
 	//this->view.addKeyPressedListener(GLFW_KEY_ESCAPE, []() { gameloopShouldEnd = true; });
 
@@ -35,7 +96,7 @@ void SpacePanicController::gameLoop()
 	while(!EngineModel::gameloopShouldEnd)
 	{
 		this->view.update();
-		//this->model.nextIteration(keys);
+		//this->model.nextIteration();
 	}
 }
 
