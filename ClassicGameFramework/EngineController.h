@@ -8,6 +8,9 @@ protected:
 	EngineView view;
 	EngineModel model;
 public:
+
+	static void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode);
+
 	EngineController( EngineView& view,  EngineModel& model);
 
 	virtual void gameLoop();
