@@ -69,14 +69,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\_workspaces\cpp_ws\_libraries\OpenGL\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\_workspaces\cpp_ws\_libraries\OpenGL\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\libs;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>D:\Programme (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\_workspaces\cpp_ws\CGF_aktuell\includes;..\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\_workspaces\cpp_ws\CGF_aktuell\libs;..\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,6 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>..\includes</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -95,6 +96,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\_workspaces\cpp_ws\CGF_aktuell\libs;..\libs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
