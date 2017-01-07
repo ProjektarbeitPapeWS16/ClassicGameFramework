@@ -1,6 +1,14 @@
 ﻿#include "Level.h"
+#include "Physics.h"
 
-int Level::getRowCount() 
+Level::Level(int row_count, int column_count, const std::string * path, Physics * physics) : rowCount(row_count),
+	columnCount(column_count),
+	path(path),
+	physics(physics)
+{
+}
+
+int Level::getRowCount()
 {
 	return rowCount;
 }
@@ -10,7 +18,7 @@ int Level::getColumnCount()
 	return columnCount;
 }
 
-std::string Level::getPath() 
+const std::string * Level::getPath() 
 {
 	return path;
 }
