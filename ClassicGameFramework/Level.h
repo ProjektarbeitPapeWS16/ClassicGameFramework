@@ -8,8 +8,8 @@ class Level
 {
 	int rowCount;
 	int columnCount;
+	Physics *physics;
 	std::string* path;
-	// TODO: lifes? siehe Klassendiagramm
 public:
 	Level(int row_count, int column_count, std::string* path);
 

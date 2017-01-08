@@ -29,11 +29,6 @@ unsigned Entity::getPosY()
 	return this->boundaries->position.y;
 }
 
-Texture* Entity::getTexture()
-{
-	return this->texture;
-}
-
 int Entity::getMovementSpeed()
 {
 	return this->movementSpeed;
@@ -42,6 +37,11 @@ int Entity::getMovementSpeed()
 bool Entity::isSolid()
 {
 	return this->solid;
+}
+
+Texture* Entity::getTexture()
+{
+	return this->texture;
 }
 
 Boundaries* Entity::getBoundaries()
