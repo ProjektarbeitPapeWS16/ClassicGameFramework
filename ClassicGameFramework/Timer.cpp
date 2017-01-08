@@ -1,6 +1,5 @@
 #pragma once
 #include"Renderer.h"
-#include <glfw3.h>
 #include "Timer.h"
 
 void Timer::init(int timelimit)

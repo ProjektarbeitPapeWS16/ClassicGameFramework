@@ -17,9 +17,7 @@ EngineView::~EngineView()
 void EngineView::update()
 {
 	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-	glfwPollEvents();
-
-
+	
 	//TODO generate display
 	renderer->render(this->display);
 }

@@ -14,7 +14,7 @@ void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, i
 
 	//if(action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
 	//{
-	//	EngineModel::gameloopShouldEnd = true;
+	//	EngineModel::escPressed = true;
 	//}
 	/*
 	if (action == GLFW_PRESS && keyPressedListeners.find(key) != keyPressedListeners.end())
@@ -36,12 +36,17 @@ EngineController::EngineController(EngineView* view, EngineModel* model): view(v
 
 void EngineController::gameLoop()
 {
-	while (model->gameloopShouldEnd == false)
+	while (glfwWindowShouldClose(view->renderer->window) == 0)
 	{
-		// TODO
-		// model.nextIteration(); 
+		model->nextIteration(); 
 		view->update();
+		glfwPollEvents();
 	}
+}
+
+void EngineController::closeWindow() const
+{
+	glfwSetWindowShouldClose(view->renderer->window, 1);
 }
 
 EngineController::~EngineController()

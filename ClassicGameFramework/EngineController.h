@@ -17,5 +17,6 @@ public:
 	EngineController(EngineView* view, EngineModel* model);
 
 	virtual void gameLoop();
+	void closeWindow() const;
 	virtual ~EngineController();
 };

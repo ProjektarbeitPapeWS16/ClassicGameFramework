@@ -3,7 +3,6 @@
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
-bool EngineModel::gameloopShouldEnd = false;
 
 void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const
 {
@@ -54,8 +53,4 @@ void EngineModel::initialization()
 void EngineModel::nextIteration()
 {
 	// TODO
-	if (false)
-	{
-		gameloopShouldEnd = true;
-	}
 }

@@ -30,6 +30,9 @@
     <Image Include="stern.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="textur.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="colorShader.frag" />

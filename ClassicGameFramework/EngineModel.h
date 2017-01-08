@@ -18,7 +18,6 @@ public:
 	{
 	}
 
-	static bool gameloopShouldEnd;
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;
 	EngineModel(Session* session);
 

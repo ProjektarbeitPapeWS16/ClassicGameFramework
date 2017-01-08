@@ -131,6 +131,7 @@
     <Image Include="herz.png" />
     <Image Include="pacman.png" />
     <Image Include="stern.jpg" />
+    <Image Include="textur.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="colorShader.frag" />

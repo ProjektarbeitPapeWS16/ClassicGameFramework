@@ -39,14 +39,14 @@ void rightRelease()
 
 void escPress()
 {
-	EngineModel::gameloopShouldEnd = true;
+	//((EngineController*)(model))->closeWindow();
 }
 
 
 SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel* model)
 	: EngineController(reinterpret_cast<EngineView*>(view), reinterpret_cast<EngineModel*>(model))
 {
-	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_ESCAPE, new std::function<void()>(escPress));
+	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_ESCAPE, new std::function<void()>(escPress));// , model));
 
 	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_UP, new std::function<void()>(upPress));
 	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_DOWN, new std::function<void()>(downPress));
@@ -57,15 +57,6 @@ SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel
 	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_DOWN, new std::function<void()>(downRelease));
 	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_LEFT, new std::function<void()>(leftRelease));
 	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_RIGHT, new std::function<void()>(rightRelease));
-}
-
-void SpacePanicController::gameLoop()
-{
-	while (!EngineModel::gameloopShouldEnd)
-	{
-		this->view->update();
-		//this->model->nextIteration();
-	}
 }
 
 SpacePanicController::~SpacePanicController()

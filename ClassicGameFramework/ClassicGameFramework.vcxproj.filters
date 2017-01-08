@@ -92,13 +92,10 @@
     <ClInclude Include="Entity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Image.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Shader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

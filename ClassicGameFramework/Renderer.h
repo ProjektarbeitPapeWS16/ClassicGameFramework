@@ -4,6 +4,7 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
+#include "Drawable.h"
 class Display;
 
 
@@ -68,6 +69,9 @@ public:
 	Renderer();
 
 	~Renderer();
+	GLuint LoadTexture(const char* filename);
+	void loadTextures();
 
+	void render(Drawable* drawable);
 	void render(Display* display);
 };
