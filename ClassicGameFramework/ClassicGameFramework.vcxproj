@@ -136,6 +136,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Image.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\colorShader.frag" />

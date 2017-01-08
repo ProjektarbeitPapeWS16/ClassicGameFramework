@@ -30,3 +30,13 @@ void Session::setScore(int score)
 {
 	this->score = score;
 }
+
+Level * Session::getLevel()
+{
+	return level;
+}
+
+void Session::setLevel(Level * level)
+{
+	this->level = level;
+}
