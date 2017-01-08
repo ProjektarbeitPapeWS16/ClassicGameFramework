@@ -1,10 +1,14 @@
 #pragma once
 #include "EngineController.h"
 
+class PacManView;
+class PacManModel;
+
 class PacManController : public EngineController
 {
 public:
-	PacManController();
+	PacManController(PacManView *view, PacManModel* model);
 
-	static void init();
+	void gameLoop() override;
+	~PacManController() override;
 };
