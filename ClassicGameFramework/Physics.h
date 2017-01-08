@@ -7,7 +7,7 @@ class Level;
 class Physics
 {
 	Level *level;
-	std::map<PhysicalObject*, std::function<void>(PhysicalObject*)> *collisionListener;
+	//std::map<PhysicalObject*, std::function<void>(PhysicalObject*)> *collisionListener;
  
 	std::map<PhysicalObject*, std::function<void(PhysicalObject*)>*> *collisionListener;
 
