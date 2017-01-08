@@ -30,6 +30,7 @@ void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, i
 EngineController::EngineController(EngineView* view, EngineModel* model): view(view), model(model)
 {
 	EngineController::staticModel = model;
+	//TODO: window ist NULL bei erstem Aufruf?
 	glfwSetKeyCallback(view->renderer->window, key_callback);
 }
 

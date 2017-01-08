@@ -8,7 +8,6 @@ class Level
 {
 	int rowCount;
 	int columnCount;
-	const std::string *path;
 	Physics *physics;
 	std::string* path;
 public:
