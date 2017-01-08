@@ -15,7 +15,9 @@ public:
 
 	virtual Boundaries* getBoundaries() { return new Boundaries(); };
 
-	virtual void setPosition(int xPos, int yPos) {};
+	virtual void setPosition(int xPos, int yPos)
+	{
+	};
 	virtual Entity* getEntity() { return nullptr; };
 	virtual bool isMovable() { return false; };
 };

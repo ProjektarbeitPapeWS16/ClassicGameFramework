@@ -5,9 +5,9 @@
 
 EngineModel* EngineController::staticModel = nullptr;
 
-void EngineController::key_callback(GLFWwindow * window, Key key, int scancode, int action, int mode)
+void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode)
 {
-	if(EngineController::staticModel != nullptr)
+	if (EngineController::staticModel != nullptr)
 	{
 		EngineController::staticModel->key_callback(window, key, scancode, action, mode);
 	}
@@ -25,10 +25,9 @@ void EngineController::key_callback(GLFWwindow * window, Key key, int scancode, 
 	{
 		keyReleasedListeners.at(key)();
 	}*/
-	
 }
 
-EngineController::EngineController( EngineView* view,  EngineModel* model): view(view), model(model)
+EngineController::EngineController(EngineView* view, EngineModel* model): view(view), model(model)
 {
 	EngineController::staticModel = model;
 	glfwSetKeyCallback(view->renderer->window, key_callback);
@@ -36,13 +35,12 @@ EngineController::EngineController( EngineView* view,  EngineModel* model): view
 
 void EngineController::gameLoop()
 {
-	while (model->gameloopShouldEnd == false) 
+	while (model->gameloopShouldEnd == false)
 	{
 		// TODO
 		// model.nextIteration(); 
 		view->update();
 	}
-	
 }
 
 EngineController::~EngineController()

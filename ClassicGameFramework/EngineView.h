@@ -12,7 +12,7 @@ protected:
 public:
 	Display* display = nullptr;
 	Renderer* renderer = nullptr;
-	EngineView( EngineModel* model,  Display* display,  Renderer* renderer);
+	EngineView(EngineModel* model, Display* display, Renderer* renderer);
 
 
 	~EngineView();
@@ -21,6 +21,4 @@ public:
 	/// Updates the view components
 	/// </summary>
 	void update();
-
 };
-

@@ -3,11 +3,10 @@
 //#include <functional>
 //#include <glfw3.h>
 
-EngineView::EngineView( EngineModel* model,  Display* display,  Renderer* renderer): model(model),
-                                                                                                    display(display),
-                                                                                                    renderer(renderer)
+EngineView::EngineView(EngineModel* model, Display* display, Renderer* renderer): model(model),
+                                                                                  display(display),
+                                                                                  renderer(renderer)
 {
-	
 }
 
 EngineView::~EngineView()
