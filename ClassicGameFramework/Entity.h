@@ -12,8 +12,8 @@ class Entity : public Drawable, public PhysicalObject
 	bool movable;
 	int animationSpeed;
 public:
-	
-	Entity( Texture * texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
+
+	Entity(Texture* texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed);
 
 	unsigned getWidth() override;
 	unsigned getHeight() override;

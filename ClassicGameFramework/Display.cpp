@@ -20,7 +20,7 @@ void Display::removeDrawable(Drawable* drawable) const
 {
 	for (auto i = 0; i < drawables->size(); i++)
 	{
-		if(drawables->at(i) == drawable)
+		if (drawables->at(i) == drawable)
 		{
 			// TODO
 			//drawables->erase(drawables->begin() + i);

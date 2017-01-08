@@ -8,7 +8,6 @@
 #include "Display.h"
 
 
-
 #include "SpacePanicModel.h"
 #include "SpacePanicView.h"
 #include "SpacePanicController.h"
@@ -24,7 +23,6 @@ int main()
 	levels.push_back(new Level(15, 20, new std::string("level1.txt")));
 	levels.push_back(new Level(15, 20, new std::string("level2.txt")));
 	levels.push_back(new Level(15, 20, new std::string("level3.txt")));
-	
 
 
 	auto model = new SpacePanicModel(session);

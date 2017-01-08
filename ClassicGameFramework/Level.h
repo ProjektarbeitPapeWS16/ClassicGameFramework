@@ -8,14 +8,14 @@ class Level
 {
 	int rowCount;
 	int columnCount;
-	std::string *path;
+	std::string* path;
 	// TODO: lifes? siehe Klassendiagramm
 public:
-	Level(int row_count, int column_count, std::string *path);
+	Level(int row_count, int column_count, std::string* path);
 
 	int getRowCount();
 	int getColumnCount();
-	std::string *getPath();
+	std::string* getPath();
 
-	std::vector<PhysicalObject> * getPhysicalObjects();
+	std::vector<PhysicalObject>* getPhysicalObjects();
 };

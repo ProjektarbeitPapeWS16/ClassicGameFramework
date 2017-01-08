@@ -17,9 +17,9 @@ static long currentTimeMillis()
 
 	auto since_epoch = time.time_since_epoch(); // get the duration since epoch
 
-												// I don't know what system_clock returns
-												// I think it's uint64_t nanoseconds since epoch
-												// Either way this duration_cast will do the right thing
+	// I don't know what system_clock returns
+	// I think it's uint64_t nanoseconds since epoch
+	// Either way this duration_cast will do the right thing
 	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(since_epoch);
 
 	return millis.count(); // just like java (new Date()).getTime();
