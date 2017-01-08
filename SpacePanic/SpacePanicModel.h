@@ -4,8 +4,12 @@
 class SpacePanicModel : public EngineModel
 {
 public:
-	SpacePanicModel(Session& session, Physics& physics)
-		: EngineModel(session, physics)
+	SpacePanicModel(Session* session)
+		: EngineModel(session)
 	{
 	}
+
+	~SpacePanicModel() override;
+	void initialization() override;
+	void nextIteration() override;
 };

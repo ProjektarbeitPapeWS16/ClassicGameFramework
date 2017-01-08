@@ -1,22 +1,19 @@
 #pragma once
 
-#include "EngineModel.h"
-#include "Renderer.h"
-
-
-using namespace std;
+class Renderer;
+class Display;
+class EngineModel;
 
 class EngineView
 {
 protected:
-	EngineModel model;
+	EngineModel* model = nullptr;
 
 public:
-	Display display;
-	Renderer renderer;
-	EngineView( EngineModel& model,  Display& display,  Renderer& renderer);
+	Display* display = nullptr;
+	Renderer* renderer = nullptr;
+	EngineView( EngineModel* model,  Display* display,  Renderer* renderer);
 
-	
 
 	~EngineView();
 

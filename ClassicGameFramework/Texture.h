@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "Config.h"
+
+typedef char byte;
 
 class Texture
 {

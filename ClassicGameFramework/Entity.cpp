@@ -1,6 +1,6 @@
 ﻿#include "Entity.h"
 
-Entity::Entity( Texture& texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): texture(texture),
+Entity::Entity( Texture* texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): texture(texture),
                                                                                                                                          movementSpeed(movement_speed),
                                                                                                                                          solid(solid),
                                                                                                                                          boundaries(boundaries),
@@ -29,7 +29,7 @@ unsigned Entity::getPosY()
 	return this->boundaries->position.y;
 }
 
-Texture Entity::getTexture()
+Texture* Entity::getTexture()
 {
 	return this->texture;
 }

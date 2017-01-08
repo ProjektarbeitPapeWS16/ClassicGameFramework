@@ -1,6 +1,7 @@
 ﻿#pragma once
-#include "Config.h"
-#include "Level.h"
+
+static long currentTimeMillis();
+class Level;
 
 
 class Session

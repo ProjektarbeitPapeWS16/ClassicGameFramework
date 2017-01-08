@@ -1,4 +1,5 @@
 ﻿#include "Session.h"
+
 #include "Config.h"
 
 int Session::getLifes()

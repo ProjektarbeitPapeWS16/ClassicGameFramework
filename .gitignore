@@ -159,6 +159,7 @@ ipch/
 *.opendb
 *.opensdf
 *.sdf
+ClassicGameFramework.sdf
 *.cachefile
 *.VC.db
 *.VC.VC.opendb

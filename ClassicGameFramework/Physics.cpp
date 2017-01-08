@@ -49,7 +49,7 @@ void Physics::checkCollisions()
 					catch (int e)
 					{
 
-					}
+}
 				}
 			}
 		}

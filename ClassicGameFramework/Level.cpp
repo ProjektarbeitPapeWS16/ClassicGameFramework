@@ -2,10 +2,9 @@
 #include "Physics.h"
 #include "PhysicalObject.h"
 
-Level::Level(int row_count, int column_count, const std::string * path, Physics * physics) : rowCount(row_count),
+Level::Level(int row_count, int column_count, std::string * path) : rowCount(row_count),
 	columnCount(column_count),
-	path(path),
-	physics(physics)
+	path(path)
 {
 }
 
@@ -19,7 +18,7 @@ int Level::getColumnCount()
 	return columnCount;
 }
 
-const std::string * Level::getPath() 
+std::string * Level::getPath() 
 {
 	return path;
 }

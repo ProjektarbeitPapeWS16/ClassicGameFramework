@@ -1,10 +1,11 @@
 ﻿#pragma once
-#include "Drawable.h"
+
 #include "PhysicalObject.h"
+#include "Drawable.h"
 
 class Entity : public Drawable, public PhysicalObject
 {
-	Texture texture;
+	Texture* texture;
 	int movementSpeed;
 	bool solid;
 	Boundaries* boundaries;
@@ -12,13 +13,13 @@ class Entity : public Drawable, public PhysicalObject
 	int animationSpeed;
 public:
 	
-	Entity( Texture & texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
+	Entity( Texture * texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
 
 	unsigned getWidth() override;
 	unsigned getHeight() override;
 	unsigned getPosX() override;
 	unsigned getPosY() override;
-	Texture getTexture() override;
+	Texture* getTexture() override;
 	int getMovementSpeed() override;
 	bool isSolid() override;
 	Boundaries* getBoundaries() override;
