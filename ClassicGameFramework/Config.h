@@ -36,4 +36,12 @@ struct Boundaries
 	Position position;
 	int width;
 	int height;
+	
+	Boundaries(int x, int y, int width, int height)
+	{
+		this->position.x = x;
+		this->position.y = y;
+		this->width = width;
+		this->height = height;
+	}
 };

@@ -5,6 +5,7 @@
 
 class Entity : public Drawable, public PhysicalObject
 {
+protected:
 	Texture* texture;
 	int movementSpeed;
 	bool solid;
@@ -12,16 +13,17 @@ class Entity : public Drawable, public PhysicalObject
 	bool movable;
 	int animationSpeed;
 
+
 public:
 	Entity (Texture * texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
 
 	bool isSolid() override;
 	bool isMovable() override;
 
-	unsigned getWidth() override;
-	unsigned getHeight() override;
-	unsigned getPosX() override;
-	unsigned getPosY() override;
+	int getWidth() override;
+	int getHeight() override;
+	int getPosX() override;
+	int getPosY() override;
 	int getMovementSpeed() override;
 
 	Entity* getEntity() override;

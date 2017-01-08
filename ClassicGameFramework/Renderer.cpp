@@ -1,4 +1,6 @@
 ﻿#include "Renderer.h"
+#include "Display.h"
+#include "Drawable.h"
 
 void Renderer::init()
 {
@@ -80,8 +82,11 @@ void Renderer::render(Display* display)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	// TODO: render stuff with display here
-
+	std::vector<Drawable*>* drawables = display->getDrawables();
+	for (int i = 0; i < drawables->size(); i++)
+	{
+		drawables->at(i)->getTexture();
+	}
 
 	// Swap the buffers
 	glfwSwapBuffers(window);

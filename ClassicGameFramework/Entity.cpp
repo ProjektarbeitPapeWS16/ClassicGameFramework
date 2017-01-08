@@ -9,22 +9,22 @@ Entity::Entity(Texture* texture, int movement_speed, bool solid, Boundaries* bou
 {
 }
 
-unsigned Entity::getWidth()
+int Entity::getWidth()
 {
 	return this->boundaries->width;
 }
 
-unsigned Entity::getHeight()
+int Entity::getHeight()
 {
 	return this->boundaries->height;
 }
 
-unsigned Entity::getPosX()
+int Entity::getPosX()
 {
 	return this->boundaries->position.x;
 }
 
-unsigned Entity::getPosY()
+int Entity::getPosY()
 {
 	return this->boundaries->position.y;
 }
