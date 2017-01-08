@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-#include <glew.h>
+#include "Renderer.h"
 
 class Shader
 {

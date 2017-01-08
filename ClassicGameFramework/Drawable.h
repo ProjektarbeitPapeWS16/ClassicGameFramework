@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "Texture.h"
+
+class Texture;
 
 class Drawable
 {
@@ -8,9 +9,9 @@ public:
 	{
 	}
 
-	virtual unsigned int getWidth() { return 0; };
-	virtual unsigned int getHeight() { return 0; };
-	virtual unsigned int getPosX() { return 0; };
-	virtual unsigned int getPosY() { return 0; };
-	virtual Texture getTexture() { return {}; };
+	virtual unsigned int getWidth() = 0;
+	virtual unsigned int getHeight() = 0;
+	virtual unsigned int getPosX() = 0;
+	virtual unsigned int getPosY() = 0;
+	virtual Texture* getTexture() = 0;
 };

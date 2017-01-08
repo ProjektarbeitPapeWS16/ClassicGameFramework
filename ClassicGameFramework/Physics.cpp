@@ -2,7 +2,7 @@
 #include "Level.h"
 #include <functional>
 
-Physics::Physics(Level *level) : level(level)
+Physics::Physics()
 {
 }
 
@@ -11,7 +11,7 @@ void Physics::checkCollisions()
 
 }
 
-std::map<PhysicalObject, std::function<void>(PhysicalObject)> *Physics::getCollisionListener()
+std::map<PhysicalObject*, std::function<void>(PhysicalObject*)> *Physics::getCollisionListener()
 {
 	return collisionListener;
 }

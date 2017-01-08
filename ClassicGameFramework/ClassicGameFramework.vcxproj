@@ -138,8 +138,6 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Image.h" />
-    <ClInclude Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\Shader.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="EngineController.h" />
