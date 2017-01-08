@@ -4,7 +4,7 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
-#include "Display.h"
+class Display;
 
 
 class Renderer
@@ -69,5 +69,5 @@ public:
 
 	~Renderer();
 
-	void render(Display& display);
+	void render(Display* display);
 };

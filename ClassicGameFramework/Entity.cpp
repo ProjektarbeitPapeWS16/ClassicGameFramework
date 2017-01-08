@@ -1,10 +1,11 @@
 ﻿#include "Entity.h"
 
-Entity::Entity( Texture* texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): texture(texture),
-                                                                                                                              solid(solid),
-                                                                                                                              boundaries(boundaries),
-                                                                                                                              movable(movable),
-                                                                                                                              animationSpeed(animation_speed)
+Entity::Entity(Texture* texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): texture(texture),
+                                                                                                                             movementSpeed(movement_speed),
+                                                                                                                             solid(solid),
+                                                                                                                             boundaries(boundaries),
+                                                                                                                             movable(movable),
+                                                                                                                             animationSpeed(animation_speed)
 {
 }
 

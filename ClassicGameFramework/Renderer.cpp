@@ -1,6 +1,4 @@
 ﻿#include "Renderer.h"
-//#include <iostream>
-#include "glfw3.h"
 
 void Renderer::init()
 {
@@ -76,7 +74,7 @@ Renderer::~Renderer()
 	terminate();
 }
 
-void Renderer::render(Display& display)
+void Renderer::render(Display* display)
 {
 	// Clear the color buffer
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

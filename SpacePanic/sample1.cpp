@@ -1,30 +1,35 @@
 #pragma once
 
+#include "Config.h"
+
+#include "Level.h"
+#include "Session.h"
+#include "Renderer.h"
+#include "Display.h"
+
+
 #include "SpacePanicModel.h"
 #include "SpacePanicView.h"
 #include "SpacePanicController.h"
 
-#include "Session.h"
-#include "Display.h"
-#include "Renderer.h"
+int main()
+{
+	auto session = new Session();
+	auto display = new Display();
+	auto renderer = new Renderer();
 
-int main() {
-	Session session;
-	Physics physics;
-	std::vector<Level> levels;
-	Display display;
-	Renderer renderer;
+	std::vector<Level*> levels;
+	levels.push_back(new Level(15, 20, new std::string("menu.txt")));
+	levels.push_back(new Level(15, 20, new std::string("level1.txt")));
+	levels.push_back(new Level(15, 20, new std::string("level2.txt")));
+	levels.push_back(new Level(15, 20, new std::string("level3.txt")));
 
-	levels.push_back(Level(15, 20, "level1.txt", physics));
-	levels.push_back(Level(15, 20, "level2.txt", physics));
-	levels.push_back(Level(15, 20, "level3.txt", physics));
 
-	auto model = SpacePanicModel(session, physics);
-	auto view = SpacePanicView(model, display, renderer);
-	auto controller = SpacePanicController(view, model);
+	auto model = new SpacePanicModel(session);
+	auto view = new SpacePanicView(model, display, renderer);
+	auto controller = new SpacePanicController(view, model);
 
-	controller.gameLoop();
+	controller->gameLoop();
 
 	return 0;
 }
-

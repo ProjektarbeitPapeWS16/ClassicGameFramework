@@ -1,12 +1,12 @@
 #include "EngineView.h"
+#include "Renderer.h"
 //#include <functional>
 //#include <glfw3.h>
 
-EngineView::EngineView( EngineModel& model,  Display& display,  Renderer& renderer): model(model),
-                                                                                                    display(display),
-                                                                                                    renderer(renderer)
+EngineView::EngineView(EngineModel* model, Display* display, Renderer* renderer): model(model),
+                                                                                  display(display),
+                                                                                  renderer(renderer)
 {
-	
 }
 
 EngineView::~EngineView()
@@ -21,5 +21,5 @@ void EngineView::update()
 
 
 	//TODO generate display
-	renderer.render(this->display);
+	renderer->render(this->display);
 }

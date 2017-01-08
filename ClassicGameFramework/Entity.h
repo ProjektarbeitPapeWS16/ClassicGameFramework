@@ -1,10 +1,10 @@
 ﻿#pragma once
-#include "Drawable.h"
+
 #include "PhysicalObject.h"
+#include "Drawable.h"
 
 class Entity : public Drawable, public PhysicalObject
 {
-private:
 	Texture* texture;
 	int movementSpeed;
 	bool solid;

@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
 class Physics;
+class PhysicalObject;
 
 class Level
 {
@@ -8,10 +10,13 @@ class Level
 	int columnCount;
 	const std::string *path;
 	Physics *physics;
+	std::string* path;
 public:
-	Level(int row_count, int column_count, const std::string *path, Physics *physics);
+	Level(int row_count, int column_count, std::string* path);
 
 	int getRowCount();
 	int getColumnCount();
-	const std::string *getPath();
+	std::string* getPath();
+
+	std::vector<PhysicalObject>* getPhysicalObjects();
 };

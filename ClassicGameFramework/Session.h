@@ -1,10 +1,8 @@
 ﻿#pragma once
-#include "Config.h"
-#include "Level.h"
-#include <chrono>	// for exact time measurment independant from CPU usage
-#include <thread>
 
-typedef std::chrono::high_resolution_clock Clock;
+static long currentTimeMillis();
+class Level;
+
 
 class Session
 {
