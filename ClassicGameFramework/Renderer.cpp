@@ -89,8 +89,7 @@ GLuint Renderer::LoadTexture(const char * filename)
 	unsigned char * data;
 
 	FILE * file;
-
-	fopen_s(&file, filename, "rb");
+	fopen_s(&file, filename, "rb"); // assumes correct file type (bitmap?)
 
 	if (file == NULL) return 0;
 	width = 1024;
