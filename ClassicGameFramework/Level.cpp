@@ -1,5 +1,6 @@
 ﻿#include "Level.h"
 #include "Physics.h"
+#include "PhysicalObject.h"
 
 Level::Level(int row_count, int column_count, const std::string * path, Physics * physics) : rowCount(row_count),
 	columnCount(column_count),
@@ -21,5 +22,10 @@ int Level::getColumnCount()
 const std::string * Level::getPath() 
 {
 	return path;
+}
+
+std::vector<PhysicalObject>* Level::getPhysicalObjects()
+{
+	return nullptr;
 }
 
