@@ -51,6 +51,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
@@ -98,24 +101,19 @@
     <ClInclude Include="Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\colorShader.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\colorShader.vert">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\textureShader.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\textureShader.vert">
-      <Filter>Shader</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\bgimage.jpg">
+    <Image Include="textur.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="textureShader.frag" />
+    <None Include="textureShader.vert" />
+    <None Include="colorShader.vert" />
+    <None Include="colorShader.frag" />
   </ItemGroup>
 </Project>

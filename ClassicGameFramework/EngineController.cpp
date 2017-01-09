@@ -3,7 +3,13 @@
 #include "Renderer.h"
 #include "EngineModel.h"
 
+EngineController* EngineController::instance = nullptr;
 EngineModel* EngineController::staticModel = nullptr;
+
+EngineController* EngineController::getInstance()
+{
+	return instance;
+}
 
 void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode)
 {
@@ -29,6 +35,7 @@ void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, i
 
 EngineController::EngineController(EngineView* view, EngineModel* model): view(view), model(model)
 {
+	instance = this;
 	EngineController::staticModel = model;
 	//TODO: window ist NULL bei erstem Aufruf?
 	glfwSetKeyCallback(view->renderer->window, key_callback);
@@ -36,8 +43,15 @@ EngineController::EngineController(EngineView* view, EngineModel* model): view(v
 
 void EngineController::gameLoop()
 {
+	EngineController::lastTime = glfwGetTime();
 	while (glfwWindowShouldClose(view->renderer->window) == 0)
 	{
+		double now = glfwGetTime();
+		EngineController::timeElapsed = now - EngineController::lastTime;
+		EngineController::lastTime = now;
+
+		model->key_down();
+		
 		model->nextIteration(); 
 		view->update();
 		glfwPollEvents();

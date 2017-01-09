@@ -3,6 +3,7 @@
 
 class SpacePanicModel : public EngineModel
 {
+	
 public:
 	SpacePanicModel(Session* session)
 		: EngineModel(session)

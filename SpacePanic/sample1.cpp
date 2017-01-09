@@ -29,6 +29,8 @@ int main()
 	auto view = new SpacePanicView(model, display, renderer);
 	auto controller = new SpacePanicController(view, model);
 
+
+
 	controller->gameLoop();
 
 	return 0;
