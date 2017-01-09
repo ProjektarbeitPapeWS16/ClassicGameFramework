@@ -33,9 +33,9 @@ int Renderer::initGLEW()
 	return ret;
 }
 
-GLFWwindow* Renderer::createWindow()
+GLFWwindow* Renderer::createWindow(int width ,int height, const char* title)
 {
-	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 	if (window != nullptr)
 	{
 		glfwMakeContextCurrent(window);
@@ -64,13 +64,13 @@ GLfloat* Renderer::translateToWorldCoordinates(GLint xPos, GLint yPos)
 	};
 }
 
-Renderer::Renderer()
+Renderer::Renderer(int width, int height, const char* title)
 {
 	// Initializing
 	this->init();
 
 	// Creating a window
-	window = this->createWindow();
+	window = this->createWindow(width, height, title);
 
 	// Initializing GLEW (OpenGL implementations)
 	this->initGLEW();

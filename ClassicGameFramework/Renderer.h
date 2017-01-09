@@ -32,7 +32,7 @@ class Renderer
 	/// <param name="height">the window height</param>
 	/// <param name="title">the window title</param>
 	/// <returns></returns>
-	GLFWwindow* createWindow();
+	GLFWwindow* createWindow(int width, int height, const char* title);
 
 	/// <summary>
 	/// Clears all resources allocated by GLFW and GLEW
@@ -55,7 +55,7 @@ public:
 	// Window options
 	const GLboolean RESIZABLE_WINDOW = GL_FALSE;
 	const GLuint WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600; // Window dimensions
-	const GLchar* WINDOW_TITLE = "Rechteck-Beispiel";
+	//const GLchar* WINDOW_TITLE = "Rechteck-Beispiel";
 
 	// Rendering options
 	const GLboolean VSYNC = GL_TRUE;
@@ -63,7 +63,7 @@ public:
 
 	GLFWwindow* window;
 
-	Renderer();
+	Renderer(int width, int height, const char* title);
 
 	~Renderer();
 
