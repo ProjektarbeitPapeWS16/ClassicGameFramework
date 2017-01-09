@@ -22,5 +22,5 @@ public:
 	/// Used for setting Game Session Clocks that adapt themselves to slowdown during gameplay.
 	/// </summary>
 	/// <returns>Time passed in ns.</returns>
-	int getTimePassed();
+	int getTimePassed() const;
 };

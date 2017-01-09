@@ -1,4 +1,5 @@
 ﻿#include "Entity.h"
+#include "Boundaries.h"
 
 Entity::Entity(Image* image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): image(image),
                                                                                                                              movementSpeed(movement_speed),

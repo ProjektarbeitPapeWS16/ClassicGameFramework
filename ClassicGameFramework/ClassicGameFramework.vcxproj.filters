@@ -57,6 +57,15 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Boundaries.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
@@ -110,6 +119,12 @@
     <ClInclude Include="Grid.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Boundaries.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textur.bmp">
@@ -117,9 +132,11 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="textureShader.frag" />
-    <None Include="textureShader.vert" />
-    <None Include="colorShader.vert" />
-    <None Include="colorShader.frag" />
+    <Text Include="textureShader.frag">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="textureShader.vert">
+      <Filter>Shader</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -26,7 +26,8 @@ int Renderer::initGLEW()
 {
 	glewExperimental = GL_TRUE;
 	int ret = glewInit();
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Lade alle Texturen
 	//loadTextures();
 
@@ -111,7 +112,7 @@ void Renderer::render(Display* display)
 	fillEntireScreenWithColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	std::vector<Drawable*>* drawables = display->getDrawables();
-	for(int i = 0; i < drawables->size(); i++)
+	for(size_t i = 0; i < drawables->size(); i++)
 	{
 		drawables->at(i)->getImage()->render();
 	}

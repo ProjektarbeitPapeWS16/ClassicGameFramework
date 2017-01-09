@@ -35,12 +35,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="colorShader.frag" />
-    <None Include="colorShader.vert" />
-    <None Include="textureShader.frag" />
-    <None Include="textureShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="sample1.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -64,9 +58,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="SpacePanicController.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

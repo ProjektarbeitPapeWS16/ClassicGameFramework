@@ -3,6 +3,8 @@
 #include "PhysicalObject.h"
 #include "Drawable.h"
 
+struct Boundaries;
+
 class Entity : public Drawable, public PhysicalObject
 {
 protected:

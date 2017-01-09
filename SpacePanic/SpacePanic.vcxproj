@@ -85,6 +85,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>ClassicGameFramework.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,12 +135,6 @@
     <Image Include="textur.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="colorShader.frag" />
-    <None Include="colorShader.vert" />
-    <None Include="textureShader.frag" />
-    <None Include="textureShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="EnemyEntity.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
@@ -151,7 +146,6 @@
   <ItemGroup>
     <ClInclude Include="EnemyEntity.h" />
     <ClInclude Include="PlayerEntity.h" />
-    <ClInclude Include="Shader.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicView.h" />
