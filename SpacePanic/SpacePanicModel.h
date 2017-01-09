@@ -8,6 +8,7 @@ public:
 	SpacePanicModel(Session* session)
 		: EngineModel(session)
 	{
+		session->level.
 	}
 
 	~SpacePanicModel() override;
