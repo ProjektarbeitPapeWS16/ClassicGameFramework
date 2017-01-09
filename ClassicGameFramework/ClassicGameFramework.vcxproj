@@ -165,9 +165,6 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textur.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="textureShader.vert">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

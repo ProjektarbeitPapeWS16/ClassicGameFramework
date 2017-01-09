@@ -127,11 +127,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textur.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="textureShader.frag">
       <Filter>Shader</Filter>
     </Text>
