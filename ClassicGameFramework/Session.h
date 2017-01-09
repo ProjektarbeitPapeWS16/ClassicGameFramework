@@ -24,5 +24,4 @@ public:
 
 	Level* getLevel();
 	void setLevel(Level* level);
-	
 };

@@ -54,6 +54,9 @@
     <ClCompile Include="Image.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
@@ -102,6 +105,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

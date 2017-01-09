@@ -25,12 +25,14 @@ static long currentTimeMillis()
 	return millis.count(); // just like java (new Date()).getTime();
 }
 
+// 2D coordinate for entities or grid
 struct Position
 {
 	int x;
 	int y;
 };
 
+// Boundaries in pixels, for the level or entities
 struct Boundaries
 {
 	Position position;

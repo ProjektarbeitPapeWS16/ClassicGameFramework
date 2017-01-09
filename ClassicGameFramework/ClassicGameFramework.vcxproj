@@ -131,6 +131,7 @@
     <ClCompile Include="EngineModel.cpp" />
     <ClCompile Include="EngineView.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Physics.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="Physics.h" />

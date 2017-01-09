@@ -1,21 +1,22 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
+#include "Grid.h"
 class Physics;
 class PhysicalObject;
 
 class Level
 {
-	int rowCount;
+	/* neu: über Grid Objekt
+	int colCount;
 	int columnCount;
-	Physics *physics;
-	std::string* path;
+	*/
+	Grid* grid; // determines dimensions, and grid size
+	Physics* physics;
+	std::string* path; // to layout info file
 public:
-	Level(int row_count, int column_count, std::string* path);
-
-	int getRowCount();
-	int getColumnCount();
-	std::string* getPath();
+	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path);
 
 	std::vector<PhysicalObject>* getPhysicalObjects();
+	char** getLeveldata(char* filepath, int rows, int cols);
 };
