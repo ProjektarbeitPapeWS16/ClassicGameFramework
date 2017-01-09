@@ -2,6 +2,9 @@
 
 SpacePanicModel::~SpacePanicModel()
 {
+
+
+
 }
 
 void SpacePanicModel::initialization()

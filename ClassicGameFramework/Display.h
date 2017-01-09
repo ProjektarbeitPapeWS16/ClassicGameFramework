@@ -8,8 +8,8 @@ class Display
 	std::vector<Drawable*>* drawables = new std::vector<Drawable*>();
 
 public:
-	std::vector<Drawable*>* getDrawables() const;
+	std::vector<Drawable*>* getDrawables() ;
 	void setDrawables(std::vector<Drawable*>* drawables);
-	void addDrawable(Drawable* drawable) const;
-	void removeDrawable(Drawable* drawable) const;
+	void addDrawable(Drawable* drawable) ;
+	void removeDrawable(Drawable* drawable) ;
 };

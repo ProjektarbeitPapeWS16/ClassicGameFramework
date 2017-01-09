@@ -1,45 +1,41 @@
 ﻿#include "SpacePanicController.h"
 
+#include "EngineController.h"
 #include "EngineModel.h"
 #include "EngineView.h"
 #include <glfw3.h>
+#include "Display.h"
+#include "Drawable.h"
 
-
-void upPress()
+// TODO make static and put in Model
+void upDown()
 {
+	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
+	drawable->setPosY(drawable->getPosY() + 5);
 }
 
-void upRelease()
+
+void downDown()
 {
+	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
+	drawable->setPosY(drawable->getPosY() - 5);
 }
 
-void downPress()
+void leftDown()
 {
+	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
+	drawable->setPosX(drawable->getPosX() - 5);
 }
 
-void downRelease()
+void rightDown()
 {
-}
-
-void leftPress()
-{
-}
-
-void leftRelease()
-{
-}
-
-void rightPress()
-{
-}
-
-void rightRelease()
-{
+	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
+	drawable->setPosX(drawable->getPosX() + 5);
 }
 
 void escPress()
 {
-	//((EngineController*)(model))->closeWindow();
+	EngineController::getInstance()->closeWindow();
 }
 
 
@@ -48,15 +44,17 @@ SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel
 {
 	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_ESCAPE, new std::function<void()>(escPress));// , model));
 
-	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_UP, new std::function<void()>(upPress));
-	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_DOWN, new std::function<void()>(downPress));
-	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_LEFT, new std::function<void()>(leftPress));
-	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_RIGHT, new std::function<void()>(rightPress));
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_UP, new std::function<void()>(upDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_UP);
 
-	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_UP, new std::function<void()>(upRelease));
-	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_DOWN, new std::function<void()>(downRelease));
-	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_LEFT, new std::function<void()>(leftRelease));
-	this->model->getKeyReleasedListeners()->insert_or_assign(GLFW_KEY_RIGHT, new std::function<void()>(rightRelease));
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_DOWN, new std::function<void()>(downDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_DOWN);
+
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_LEFT, new std::function<void()>(leftDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_LEFT);
+
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_RIGHT, new std::function<void()>(rightDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_RIGHT);
 }
 
 SpacePanicController::~SpacePanicController()

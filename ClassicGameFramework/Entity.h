@@ -5,7 +5,8 @@
 
 class Entity : public Drawable, public PhysicalObject
 {
-	Texture* texture;
+protected:
+	Image* image;
 	int movementSpeed;
 	bool solid;
 	Boundaries* boundaries;
@@ -13,22 +14,27 @@ class Entity : public Drawable, public PhysicalObject
 	int animationSpeed;
 
 public:
-	Entity (Texture * texture, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
+	Entity (Image * image, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
 
 	bool isSolid() override;
 	bool isMovable() override;
 
-	unsigned getWidth() override;
-	unsigned getHeight() override;
-	unsigned getPosX() override;
-	unsigned getPosY() override;
+	int getWidth() override;
+	int getHeight() override;
+	int getPosX() override;
+	int getPosY() override;
 	int getMovementSpeed() override;
 
 	Entity* getEntity() override;
-	Texture* getTexture() override;
+	Image* getImage() override;
 	Boundaries* getBoundaries() override;
 
 	~Entity() override;
 
 	void setPosition(int xPos, int yPos) override;
+
+	void setWidth(int width) override;
+	void setHeight(int height) override;
+	void setPosX(int posX) override;
+	void setPosY(int posY) override;
 };

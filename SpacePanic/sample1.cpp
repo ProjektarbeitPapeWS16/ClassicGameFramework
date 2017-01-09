@@ -19,15 +19,17 @@ int main()
 	auto renderer = new Renderer();
 
 	std::vector<Level*> levels;
-	levels.push_back(new Level(15, 20, new std::string("menu.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level1.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level2.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level3.txt")));
+	levels.push_back(new Level(0,0,0,0, new std::string("menu.txt")));
+	levels.push_back(new Level(0, 0, 0, 0, new std::string("level1.txt")));
+	levels.push_back(new Level(0, 0, 0, 0, new std::string("level2.txt")));
+	levels.push_back(new Level(0, 0, 0, 0, new std::string("level3.txt")));
 
 
 	auto model = new SpacePanicModel(session);
 	auto view = new SpacePanicView(model, display, renderer);
 	auto controller = new SpacePanicController(view, model);
+
+
 
 	controller->gameLoop();
 
