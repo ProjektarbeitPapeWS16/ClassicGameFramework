@@ -51,8 +51,8 @@ void EngineController::gameLoop()
 		EngineController::lastTime = now;
 
 		model->key_down();
-		
 		model->nextIteration(); 
+		cycle();
 		view->update();
 		glfwPollEvents();
 	}

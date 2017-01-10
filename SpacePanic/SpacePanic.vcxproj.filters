@@ -33,6 +33,24 @@
     <Image Include="textur.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="textures\player_climb1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_climb2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_run1_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_run1_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_run2_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_run2_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sample1.cpp">

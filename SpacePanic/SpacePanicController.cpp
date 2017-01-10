@@ -6,31 +6,32 @@
 #include <glfw3.h>
 #include "Display.h"
 #include "Drawable.h"
+#include "PlayerEntity.h"
 
 // TODO make static and put in Model
 void upDown()
 {
-	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
-	drawable->setPosY(drawable->getPosY() + 5);
+	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	player->request(PlayerEntity::MOVE_UP);
 }
 
 
 void downDown()
 {
-	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
-	drawable->setPosY(drawable->getPosY() - 5);
+	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	player->request(PlayerEntity::MOVE_DOWN);
 }
 
 void leftDown()
 {
-	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
-	drawable->setPosX(drawable->getPosX() - 5);
+	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	player->request(PlayerEntity::MOVE_LEFT);
 }
 
 void rightDown()
 {
-	Drawable* drawable = EngineView::getInstance()->display->getDrawables()->at(0);
-	drawable->setPosX(drawable->getPosX() + 5);
+	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	player->request(PlayerEntity::MOVE_RIGHT);
 }
 
 void escPress()
@@ -59,4 +60,15 @@ SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel
 
 SpacePanicController::~SpacePanicController()
 {
+}
+
+long cycles = 0L;
+void SpacePanicController::cycle()
+{
+	if(cycles % 7 == 0)
+	{
+		PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+		player->execute();
+	}
+	cycles++;
 }

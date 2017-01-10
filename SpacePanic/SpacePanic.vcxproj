@@ -133,6 +133,12 @@
     <Image Include="pacman.png" />
     <Image Include="stern.jpg" />
     <Image Include="textur.bmp" />
+    <Image Include="textures\player_climb1.bmp" />
+    <Image Include="textures\player_climb2.bmp" />
+    <Image Include="textures\player_run1_left.bmp" />
+    <Image Include="textures\player_run1_right.bmp" />
+    <Image Include="textures\player_run2_left.bmp" />
+    <Image Include="textures\player_run2_right.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyEntity.cpp" />

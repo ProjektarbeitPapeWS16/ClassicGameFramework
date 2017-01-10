@@ -9,4 +9,5 @@ public:
 	SpacePanicController(SpacePanicView* view, SpacePanicModel* model);
 
 	~SpacePanicController() override;
+	void cycle() override;
 };
