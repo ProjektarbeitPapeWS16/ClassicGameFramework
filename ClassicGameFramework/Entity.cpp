@@ -1,7 +1,13 @@
 ﻿#include "Entity.h"
 #include "Boundaries.h"
+#include "Image.h"
 
-Entity::Entity(Image* image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): image(image),
+int Entity::getImageCount() const
+{
+	return this->imageCount;
+}
+
+Entity::Entity(Image** image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): image(image),
                                                                                                                              movementSpeed(movement_speed),
                                                                                                                              solid(solid),
                                                                                                                              boundaries(boundaries),
@@ -83,9 +89,25 @@ Entity* Entity::getEntity()
 
 Image* Entity::getImage()
 {
+	int imageIndex = internalCounter / animationSpeed;
+	int maxCounter = imageCount * animationSpeed;
+
+	Image* image = this->image[imageIndex];
+
+	internalCounter++;
+	if(internalCounter >= maxCounter)
+	{
+		internalCounter = 0;
+	}
+
 	return image;
 }
 
 Entity::~Entity()
 {
+	for (int i = 0; i < imageCount; i++)
+	{
+		delete image[i];
+	}
+	delete image;
 }

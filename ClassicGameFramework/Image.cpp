@@ -1,5 +1,6 @@
 ﻿#include "Image.h"
 #include "Boundaries.h"
+#include "Entity.h"
 
 unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, int& height, unsigned short transR, unsigned short transG, unsigned short transB)
 {
@@ -31,15 +32,15 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 	}
 	auto widthnew = width * 3 + padding;
 
-	auto endPos = 54 + (widthnew * height);
+	//auto endPos = 54 + (widthnew * height);
 
 	auto ret = new unsigned char[width * 4 * height];
 
 	for (auto line = 0; line < height; line++)
 	{
-		for (auto column = 0, retcolumn = 0; column < widthnew - padding; column += 3, retcolumn += 4)
+		for (auto column = 0, retcolumn = 0; column < widthnew - padding; column += 3 , retcolumn += 4)
 		{
-			auto ri = line * (width*4) + retcolumn;
+			auto ri = line * (width * 4) + retcolumn;
 			auto gi = ri + 1;
 			auto bi = ri + 2;
 			auto ai = ri + 3;
@@ -48,10 +49,11 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 			ret[gi] = data[line * widthnew + column + 54 + 1];
 			ret[bi] = data[line * widthnew + column + 54 + 0];
 
-			if(transR != 256 && transB != 265 && transG != 265 && ret[ri] == static_cast<unsigned char>(transR) && ret[gi] == static_cast<unsigned char>(transG) && ret[bi] == static_cast<unsigned char>(transB))
+			if (transR != 256 && transB != 265 && transG != 265 && ret[ri] == static_cast<unsigned char>(transR) && ret[gi] == static_cast<unsigned char>(transG) && ret[bi] == static_cast<unsigned char>(transB))
 			{
 				ret[ai] = 0;
-			} else
+			}
+			else
 			{
 				ret[ai] = 255;
 			}
@@ -62,19 +64,26 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 	return ret;
 }
 
-Image::Image(Renderer* renderer, const GLchar* imageFile, Boundaries* boundaries, unsigned short transR, unsigned short transG, unsigned short transB) : renderer(renderer), imageFile(imageFile), boundaries(boundaries)
+Image::Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) : renderer(renderer), imageFile(imageFile), entity(entity)
 {
 	textureShader = new Shader("../ClassicGameFramework/textureShader.vert", "../ClassicGameFramework/textureShader.frag");
 
-	auto start = renderer->translateToWorldCoordinates(boundaries->position.x, boundaries->position.y);
-	auto end = renderer->translateToWorldCoordinates(boundaries->position.x + boundaries->width, boundaries->position.y + boundaries->height);
+	auto start = renderer->translateToWorldCoordinates(
+		entity->getPosX(),
+		entity->getPosY()
+		);
+
+	auto end = renderer->translateToWorldCoordinates(
+		entity->getPosX() + entity->getWidth(),
+		entity->getPosY() + entity->getHeight()
+		);
 
 	GLfloat vertices[] = {
 		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f,		1.0f, 0.0f, 0.0f,		1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f,		0.0f, 1.0f, 0.0f,		1.0f, 1.0f, // Bottom Right
-		start[0], start[1], 0.0f,	0.0f, 0.0f, 1.0f,		0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f,		1.0f, 1.0f, 0.0f,		0.0f, 0.0f // Top Left 
+		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
+		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
+		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
+		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
 	};
 
 	delete[] start;
@@ -119,7 +128,7 @@ Image::Image(Renderer* renderer, const GLchar* imageFile, Boundaries* boundaries
 
 
 	// Load and create a texture 
-	glGenTextures(1, &(Image::texture));//TODO 2
+	glGenTextures(1, &(Image::texture));
 	glBindTexture(GL_TEXTURE_2D, Image::texture);// All upcoming GL_TEXTURE_2D operations now have effect on our texture object
 	// Set our texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Set texture wrapping to GL_REPEAT
@@ -134,7 +143,7 @@ Image::Image(Renderer* renderer, const GLchar* imageFile, Boundaries* boundaries
 		image = readImage2ByteArray(imageFile, imageWidth, imageHeight, transR, transG, transB);
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);//TODO 3
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 
@@ -143,20 +152,28 @@ Image::Image(Renderer* renderer, const GLchar* imageFile, Boundaries* boundaries
 
 void Image::render() const
 {
-	auto start = renderer->translateToWorldCoordinates(boundaries->position.x, boundaries->position.y);
-	auto end = renderer->translateToWorldCoordinates(boundaries->position.x + boundaries->width, boundaries->position.y + boundaries->height);
+	auto start = renderer->translateToWorldCoordinates(
+		entity->getPosX(),
+		entity->getPosY()
+	);
+	auto end = renderer->translateToWorldCoordinates(
+		entity->getPosX() + entity->getWidth(),
+		entity->getPosY() + entity->getHeight()
+	);
 
 	GLfloat vertices[] = {
 		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f,		1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f,		0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
-		start[0], start[1], 0.0f,	 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f,		1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
+		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
+		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
+		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
+		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
 	};
 
 	delete[] start;
 	delete[] end;
+	glBindVertexArray(Image::VAO);
 
+	glBindBuffer(GL_ARRAY_BUFFER, Image::VBO);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
 	Image::textureShader->Use();
@@ -170,6 +187,7 @@ void Image::render() const
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 }
 
 

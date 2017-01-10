@@ -17,13 +17,13 @@ class Renderer
 	/// <summary>
 	/// Initializes GLFW
 	/// </summary>
-	void init();
+	void init() const;
 
 	/// <summary>
 	/// Initializes GLEW
 	/// </summary>
 	/// <returns></returns>
-	int initGLEW();
+	static int initGLEW();
 
 	/// <summary>
 	/// Creates a GLFW window
@@ -32,18 +32,18 @@ class Renderer
 	/// <param name="height">the window height</param>
 	/// <param name="title">the window title</param>
 	/// <returns></returns>
-	GLFWwindow* createWindow(int width, int height, const char* title);
+	static GLFWwindow* createWindow(int width, int height, const char* title);
 
 	/// <summary>
 	/// Clears all resources allocated by GLFW and GLEW
 	/// </summary>
-	void terminate();
+	static void terminate();
 
 	/// <summary>
 	/// Prints a given log message on the console
 	/// </summary>
 	/// <param name="message">the message</param>
-	void log(const char* message);
+	static void log(const char* message);
 
 	std::vector<Image*> imageBuffer;
 	
@@ -76,5 +76,5 @@ public:
 	/// <param name="xPos"></param>
 	/// <param name="yPos"></param>
 	/// <returns></returns>
-	GLfloat* translateToWorldCoordinates(GLint xPos, GLint yPos);
+	GLfloat* translateToWorldCoordinates(GLint xPos, GLint yPos) const;
 };

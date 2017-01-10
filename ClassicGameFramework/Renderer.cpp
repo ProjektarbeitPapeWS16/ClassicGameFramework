@@ -5,7 +5,7 @@
 #include "Image.h"
 //#include <glfw3.h>
 
-void Renderer::init()
+void Renderer::init() const
 {
 	//std::cout << "Starting GLFW context, OpenGL " << GL_VERSION_MAJOR << "." << GL_VERSION_MINOR << std::endl;
 	// Initializing GLFW (OpenGL interfaces)
@@ -36,7 +36,7 @@ int Renderer::initGLEW()
 
 GLFWwindow* Renderer::createWindow(int width ,int height, const char* title)
 {
-	GLFWwindow* window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+	auto window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 	if (window != nullptr)
 	{
 		glfwMakeContextCurrent(window);
@@ -54,10 +54,10 @@ void Renderer::log(const char* message)
 	//std::cout << std::endl << message << std::endl;
 }
 
-GLfloat* Renderer::translateToWorldCoordinates(GLint xPos, GLint yPos)
+GLfloat* Renderer::translateToWorldCoordinates(GLint xPos, GLint yPos) const
 {
-	GLfloat halfWidth = WINDOW_WIDTH / 2.0f;
-	GLfloat halfHeight = WINDOW_HEIGHT / 2.0f;
+	auto halfWidth = WINDOW_WIDTH / 2.0f;
+	auto halfHeight = WINDOW_HEIGHT / 2.0f;
 
 	return new GLfloat[2]{
 		(xPos - halfWidth) / halfWidth,
