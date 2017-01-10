@@ -131,6 +131,9 @@
     <ClCompile Include="EngineModel.cpp" />
     <ClCompile Include="EngineView.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityRefTable.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -146,34 +149,26 @@
     <ClInclude Include="EngineView.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityRefTable.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Session.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\colorShader.frag" />
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\colorShader.vert" />
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\textureShader.frag">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\textureShader.vert">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <FileType>Document</FileType>
-    </None>
+    <Image Include="textur.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\VS_OpenGL_Sample_Textured Rectangle\OpenGL_Sample_Textured Rectangle\bgimage.jpg" />
+    <None Include="colorShader.frag" />
+    <None Include="colorShader.vert" />
+    <None Include="textureShader.frag" />
+    <None Include="textureShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

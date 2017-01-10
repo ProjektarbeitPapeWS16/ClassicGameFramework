@@ -1,6 +1,6 @@
 ﻿#include "Entity.h"
 
-Entity::Entity(Texture* texture, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): texture(texture),
+Entity::Entity(Image* image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): image(image),
                                                                                                                              movementSpeed(movement_speed),
                                                                                                                              solid(solid),
                                                                                                                              boundaries(boundaries),
@@ -9,22 +9,22 @@ Entity::Entity(Texture* texture, int movement_speed, bool solid, Boundaries* bou
 {
 }
 
-unsigned Entity::getWidth()
+int Entity::getWidth()
 {
 	return this->boundaries->width;
 }
 
-unsigned Entity::getHeight()
+int Entity::getHeight()
 {
 	return this->boundaries->height;
 }
 
-unsigned Entity::getPosX()
+int Entity::getPosX()
 {
 	return this->boundaries->position.x;
 }
 
-unsigned Entity::getPosY()
+int Entity::getPosY()
 {
 	return this->boundaries->position.y;
 }
@@ -39,11 +39,6 @@ bool Entity::isSolid()
 	return this->solid;
 }
 
-Texture* Entity::getTexture()
-{
-	return this->texture;
-}
-
 Boundaries* Entity::getBoundaries()
 {
 	return this->boundaries;
@@ -55,6 +50,33 @@ void Entity::setPosition(int xPos, int yPos)
 	this->boundaries->position.y = yPos;
 }
 
+void Entity::setPosition(Position pos)
+{
+	this->boundaries->position = pos;
+}
+/*
+
+void Entity::setWidth(int width)
+{
+	boundaries->width = width;
+}
+
+void Entity::setHeight(int height)
+{
+	boundaries->height = height;
+}
+
+void Entity::setPosX(int posX)
+{
+	boundaries->position.x = posX;
+}
+
+void Entity::setPosY(int posY)
+{
+	boundaries->position.y = posY;
+}
+*/
+
 bool Entity::isMovable()
 {
 	return this->movable;
@@ -63,6 +85,11 @@ bool Entity::isMovable()
 Entity* Entity::getEntity()
 {
 	return this;
+}
+
+Image* Entity::getImage()
+{
+	return image;
 }
 
 Entity::~Entity()

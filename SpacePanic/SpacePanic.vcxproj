@@ -131,6 +131,7 @@
     <Image Include="herz.png" />
     <Image Include="pacman.png" />
     <Image Include="stern.jpg" />
+    <Image Include="textur.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="colorShader.frag" />
@@ -139,16 +140,22 @@
     <None Include="textureShader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnemyEntity.cpp" />
+    <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
     <ClCompile Include="SpacePanicController.cpp" />
     <ClCompile Include="SpacePanicModel.cpp" />
     <ClCompile Include="SpacePanicView.cpp" />
+    <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyEntity.h" />
+    <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicView.h" />
+    <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassicGameFramework\ClassicGameFramework.vcxproj">

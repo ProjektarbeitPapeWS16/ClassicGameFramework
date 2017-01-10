@@ -1,4 +1,3 @@
-/*
 #pragma once
 #include "Config.h"
 
@@ -16,13 +15,13 @@ int main()
 {
 	auto session = new Session();
 	auto display = new Display();
-	auto renderer = new Renderer();
+	auto renderer = new Renderer(800, 600, "PacMan");
 
 	std::vector<Level*> levels;
-	levels.push_back(new Level(15, 20, new std::string("menu.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level1.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level2.txt")));
-	levels.push_back(new Level(15, 20, new std::string("level3.txt")));
+	levels.push_back(new Level(15, 20, 0, 0, new std::string("menu.txt")));
+	levels.push_back(new Level(15, 20, 0, 0, new std::string("level1.txt")));
+	levels.push_back(new Level(15, 20, 0, 0, new std::string("level2.txt")));
+	levels.push_back(new Level(15, 20, 0, 0, new std::string("level3.txt")));
 
 
 	auto model = new PacManModel(session);

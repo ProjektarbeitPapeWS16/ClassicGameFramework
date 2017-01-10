@@ -1,6 +1,5 @@
 #pragma once
 #include"Renderer.h"
-#include <glfw3.h>
 #include "Timer.h"
 
 void Timer::init(int timelimit)
@@ -11,11 +10,11 @@ void Timer::init(int timelimit)
 	// printf("Milliseconds: %f\n", timer / 1000000.0);
 	// alternative: https://www.opengl.org/sdk/docs/man4/html/glQueryCounter.xhtml
 	// glQueryCounter(GL_TIMESTAMP; &timestamp);
-	GLuint m_iTimeQuery;
-	GLuint timeElapsed = 0;
 }
 
-int Timer::getTimePassed()
+int Timer::getTimePassed() // returns time passed in seconds since session start
 {
-	return 0;
+	int timeInNS = (GL_TIMESTAMP - timestamp);
+	int timeInS = std::nearbyint(timeInNS / SECONDS_TO_NANO);
+	return timeInS;
 }

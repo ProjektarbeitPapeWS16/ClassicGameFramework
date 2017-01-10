@@ -1,9 +1,16 @@
 #include "EngineModel.h"
 //#include <glfw3.h>
+#include "EngineView.h"
+#include "Renderer.h"
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
-bool EngineModel::gameloopShouldEnd = false;
+EngineModel *EngineModel::instance = nullptr;
+
+EngineModel* EngineModel::getInstance()
+{
+	return instance;
+}
 
 void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const
 {
@@ -25,10 +32,26 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 	}
 }
 
+void EngineModel::key_down()
+{
+	for(int i = 0; i < keyDownKeys->size(); i++)
+	{
+		Key key = keyDownKeys->at(i);
+		if(glfwGetKey(EngineView::getInstance()->renderer->window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
+		{
+			std::function<void()>* fptr = keyDownListeners->at(key);
+			(*fptr)();
+		}
+	}
+}
+
 EngineModel::EngineModel(Session* session): session(session)
 {
+	EngineModel::instance = this;
 	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
 	keyPressedListeners = new std::map<Key, std::function<void()>*>();
+	keyDownListeners = new std::map<Key, std::function<void()>*>();
+	keyDownKeys = new std::vector<Key>();
 }
 
 std::map<Key, std::function<void()>*>* EngineModel::getKeyPressedListeners() const
@@ -39,6 +62,16 @@ std::map<Key, std::function<void()>*>* EngineModel::getKeyPressedListeners() con
 std::map<Key, std::function<void()>*>* EngineModel::getKeyReleasedListeners() const
 {
 	return keyReleasedListeners;
+}
+
+std::map<Key, std::function<void()>*>* EngineModel::getKeyDownListeners() const
+{
+	return keyDownListeners;
+}
+
+std::vector<Key>* EngineModel::getKeyDownKeys() const
+{
+	return keyDownKeys;
 }
 
 Session* EngineModel::getSession()
@@ -54,8 +87,4 @@ void EngineModel::initialization()
 void EngineModel::nextIteration()
 {
 	// TODO
-	if (false)
-	{
-		gameloopShouldEnd = true;
-	}
 }

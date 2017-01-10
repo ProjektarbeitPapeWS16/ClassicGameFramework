@@ -13,7 +13,8 @@ public:
 	virtual int getMovementSpeed() { return 0; };
 	virtual bool isSolid() { return false; };
 
-	virtual Boundaries* getBoundaries() { return new Boundaries(); };
+	// TODO: Get boundaries from Entity
+	virtual Boundaries* getBoundaries() { return new Boundaries(0, 0, 0, 0); };
 
 	virtual void setPosition(int xPos, int yPos)
 	{
