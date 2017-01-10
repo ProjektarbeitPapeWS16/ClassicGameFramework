@@ -50,6 +50,12 @@ void Entity::setPosition(int xPos, int yPos)
 	this->boundaries->position.y = yPos;
 }
 
+void Entity::setPosition(Position pos)
+{
+	this->boundaries->position = pos;
+}
+/*
+
 void Entity::setWidth(int width)
 {
 	boundaries->width = width;
@@ -69,6 +75,7 @@ void Entity::setPosY(int posY)
 {
 	boundaries->position.y = posY;
 }
+*/
 
 bool Entity::isMovable()
 {

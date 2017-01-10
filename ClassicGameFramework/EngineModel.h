@@ -10,6 +10,7 @@ struct GLFWwindow;
 class EngineModel
 {
 	Session* session = nullptr;
+	//TODO: Add EntityRefTable? (to specify entity types out of initialization method)
 
 	std::map<Key, std::function<void()>*>* keyPressedListeners = nullptr;
 	std::map<Key, std::function<void()>*>* keyReleasedListeners = nullptr;

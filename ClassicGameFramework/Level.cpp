@@ -1,12 +1,23 @@
 ﻿#include "Level.h"
 #include "Physics.h"
 #include "PhysicalObject.h"
+#include "EntityRefTable.h"
 #include <iostream>
 #include <fstream>
 
 Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) : path(path)
 {
+	// 1. set Grid. TODO: Overload with Grid parameter?
 	this->grid = new Grid(colsGrid, rowsGrid, xTileSize, yTileSize);
+	
+	// 2. set basic Physics. TODO: add parameter for determining special physics? (with gravity/velocity)
+	this->physics = new Physics;
+	
+	// 3.1 set 2D array with entity data from given file.
+	this->leveldata = getLevelFromFile(path, rowsGrid, colsGrid);
+
+	// 3.2 create and store entities according to leveldata
+	this->entities = getEntitiesFromFile(path, rowsGrid, colsGrid);
 }
 
 // TODO:
@@ -26,65 +37,91 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 
 
 // get list of all entities' data for collision detection etc
-std::vector<PhysicalObject>* Level::getPhysicalObjects()
+/*
+ *std::vector<PhysicalObject>* Level::getPhysicalObjects()
 {
 	return nullptr;
 }
+*/
 
 // opens a text file at given filepath,
 // then saves that information in a 2D char array.
 // assumes: give textfile has proper syntax
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
-char** Level::getLeveldata(char* filepath, int rows, int cols)
+char** Level::getLevelFromFile(std::string* filepath, int cols, int rows)
 {
-	char** array2D = nullptr;
-	FILE * file;
+	char** array2D = new char*[rows];
 
-	fopen_s(&file, filepath, "rb");
-	char* code;
+	// FILE * file;
+	std::string str; //for reading the lines
+	char entityCharacter; //for storing the respective character
 
-
-	// read content of textfile line by line
-	std::ifstream in(filepath);
-	std::string str;
-	char entityCharacter;
-	array2D = new char*[rows];
-	for (int iRow = 0; iRow < rows; iRow++)
+	try
 	{
-		// load next line of text; which contains one row
-		array2D[iRow] = new char[cols];
-		std::getline(in, str);
-		for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		//% alt: fopen_s(&file, filepath, "rb"); // try opening file
+		auto levelfile = std::ifstream(reinterpret_cast<char*>(filepath));
+		if (!levelfile.is_open())
 		{
-			entityCharacter = str[iCol];
-			array2D[iRow, iCol] = reinterpret_cast<char*>(entityCharacter); //TODO: does this properly store the char?
-
+			throw 1;
 		}
+		
+		//% std::ifstream in(filepath);
+		
+		// read content of file line by line (each one represents a row of the grid)
+		for (int iRow = 0; iRow < rows; iRow++)
+		{
+			array2D[iRow] = new char[cols];
+			//% std::getline(in, str);
+			std::getline(levelfile, str);
+			for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+			{
+				// read character for respective column in the grid
+				entityCharacter = str[iCol];
+				//TODO: does this properly store the char?
+				array2D[iRow, iCol] = reinterpret_cast<char*>(entityCharacter); 
+			}
+		}
+	}
+	catch (int e)
+	{
+		std::cout << "ERROR::LEVEL::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
 	return array2D;
 }
 
-/*
-// from http://stackoverflow.com/questions/4823177/reading-a-file-character-by-character-in-c 
-// checks file length, then reads char by char
-char *readFile(char *fileName) {
-	FILE *file = fopen(fileName, "r");
-	char *code;
-	size_t n = 0;
-	int c;
+// 1. save level information with entity typesymbols in 2D array.
+// 2. for each typesymbol:
+// 2.1 create entity using EntityRefTable as reference for type data
+// 2.2 set entity position on level by using Grid information
+std::vector<PhysicalObject>* Level::getEntitiesFromFile(std::string * filepath, int cols, int rows)
+{
+	char** leveldata = getLevelFromFile(filepath, cols, rows);
+	char typeSymbol;
+	EntityRefTable* entityRef = new EntityRefTable(); //TODO: Create one with values
+	EntityTypeStats* entityStats;
+	Entity* entity;
+	Position entityPos;
+	std::vector<PhysicalObject>* result = new std::vector<PhysicalObject>;
 
-	if (file == NULL) return NULL; //could not open file
-	fseek(file, 0, SEEK_END);
-	long f_size = ftell(file);
-	fseek(file, 0, SEEK_SET);
-	code = malloc(f_size);
-
-	while ((c = fgetc(file)) != EOF) {
-		code[n++] = (char)c;
+	for (int iCol = 0; iCol < cols; iCol++)
+	{
+		for (int iRow = 0; iRow < rows; iRow++)
+		{
+			typeSymbol = leveldata[iCol][iRow];
+			// check if level coordinate isn't empty, i.e. contains an entity
+			if (typeSymbol != '\n' && typeSymbol != '\0' && typeSymbol != ' ')
+			{
+				// 2.1 get info on entity type:
+				entityStats = entityRef->getEntityTypeStats(typeSymbol);
+				// 2.2 create using entityStats and set position via grid
+				entityPos = this->grid->getCoordinates(iCol, iRow);
+				entity = entityRef->getEntity(typeSymbol, entityPos);
+				// 2.3 save entity in vector list using an iterator
+				//result->push_back(entity);
+			}
+		}
 	}
+	return result;
+}
 
-	code[n] = '\0';
-
-	return code;
-}*/
