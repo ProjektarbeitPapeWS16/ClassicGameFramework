@@ -18,9 +18,6 @@
     <ClInclude Include="PacManController.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Main.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="PacManView.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -28,6 +25,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="WallEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,6 +48,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="WallEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

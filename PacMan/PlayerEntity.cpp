@@ -1,0 +1,12 @@
+#include "PlayerEntity.h"
+#include "Image.h"
+#include "EngineView.h"
+#include "PacManView.h"
+
+PlayerEntity::PlayerEntity(Renderer* renderer) : Entity(nullptr, 10, false, new Boundaries(100, 100, 100, 100), true, 3), renderer(renderer)
+{
+	this->image = new Image(PacManView::getInstance()->renderer, "mario.bmp", // need that file :o
+		this->Entity::getBoundaries()
+		);
+}
+
