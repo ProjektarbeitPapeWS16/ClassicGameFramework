@@ -14,8 +14,5 @@ Grid::Grid(unsigned xCount, unsigned yCount, unsigned xSize, unsigned ySize) : c
 
 Position Grid::getCoordinates(unsigned xGridPos, unsigned yGridPos)
 {
-	Position pixelPos;
-	pixelPos.x = this->xCellSize * xGridPos;
-	pixelPos.y = this->yCellSize * yGridPos;
-	return pixelPos;
+	return Position(this->xCellSize * xGridPos, this->yCellSize * yGridPos);
 }

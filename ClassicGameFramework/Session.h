@@ -1,13 +1,14 @@
 ﻿#pragma once
+#include "Config.h"
 
-static long currentTimeMillis();
+
 class Level;
 
 
 class Session
 {
 	int lifes;
-	unsigned long creationTime = currentTimeMillis();
+	unsigned long creationTime = Config::currentTimeMillis();
 	int score;
 	Level* level;	//[C] bei Init: Startbildschirm?
 

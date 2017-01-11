@@ -3,18 +3,25 @@
 #include "PhysicalObject.h"
 #include "Drawable.h"
 
+struct Boundaries;
+
 class Entity : public Drawable, public PhysicalObject
 {
+	int internalCounter = 0;
 protected:
-	Image* image;
+	int imageCount = 0;
+	Image** image;
 	int movementSpeed;
 	bool solid;
 	Boundaries* boundaries;
 	bool movable;
+
+	// speed = anzahl frames, nach denen umgeschaltet werden soll
 	int animationSpeed;
 
 public:
-	Entity (Image * image, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
+	int getImageCount() const;
+	Entity (Image ** image, int movement_speed, bool solid, Boundaries * boundaries, bool movable, int animation_speed);
 
 	bool isSolid() override;
 	bool isMovable() override;
