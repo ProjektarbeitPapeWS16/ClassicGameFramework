@@ -14,10 +14,11 @@ Grid::Grid(unsigned xCount, unsigned yCount, unsigned xSize, unsigned ySize) : c
 
 Position Grid::getCoordinates(unsigned col, unsigned row)
 {
-	Position pixelPos;
-	pixelPos.x = this->xCellSize * col;
-	pixelPos.y = this->yCellSize * row;
-	return pixelPos;
+	return Position(this->xCellSize * xGridPos, this->yCellSize * yGridPos);
+	//Position pixelPos;
+	//pixelPos.x = this->xCellSize * col;
+	//pixelPos.y = this->yCellSize * row;
+	//return pixelPos;
 }
 
 void Grid::setEntityPositionOnGrid(Entity * entity, unsigned col, unsigned row)

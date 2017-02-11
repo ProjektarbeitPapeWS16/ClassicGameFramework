@@ -12,9 +12,13 @@ void Timer::init(int timelimit)
 	// glQueryCounter(GL_TIMESTAMP; &timestamp);
 }
 
-int Timer::getTimePassed() // returns time passed in seconds since session start
+/// <summary>
+/// returns time passed in seconds since session start
+/// </summary>
+/// <returns>time passed in seconds since session start</returns>
+int Timer::getTimePassed() const
 {
-	int timeInNS = (GL_TIMESTAMP - timestamp);
-	int timeInS = std::nearbyint(timeInNS / SECONDS_TO_NANO);
-	return timeInS;
+	auto timeInNS = (GL_TIMESTAMP - timestamp);
+	auto timeInS = (std::nearbyint(timeInNS / SECONDS_TO_NANO));
+	return static_cast<int>(timeInS);
 }

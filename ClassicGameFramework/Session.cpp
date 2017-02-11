@@ -19,7 +19,7 @@ unsigned long Session::getCreationTime()
 
 unsigned long Session::getPassedTime()
 {
-	return currentTimeMillis() - creationTime;
+	return Config::currentTimeMillis() - creationTime;
 }
 
 int Session::getScore()

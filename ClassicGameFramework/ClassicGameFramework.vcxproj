@@ -126,6 +126,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boundaries.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="EngineController.cpp" />
     <ClCompile Include="EngineModel.cpp" />
@@ -136,12 +138,15 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Position.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Session.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boundaries.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="EngineController.h" />
@@ -155,6 +160,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Shader.h" />
@@ -162,13 +168,18 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textur.bmp" />
+    <Text Include="textureShader.vert">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="colorShader.frag" />
-    <None Include="colorShader.vert" />
-    <None Include="textureShader.frag" />
-    <None Include="textureShader.vert" />
+    <Text Include="textureShader.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
