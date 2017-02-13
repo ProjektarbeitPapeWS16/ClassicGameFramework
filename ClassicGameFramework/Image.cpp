@@ -22,7 +22,7 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 	fclose(file);
 
 
-	// extract image height and width from header 
+	// extract image height and width from bmp header 
 	width = *reinterpret_cast<int*>(&data[18]);
 	height = *reinterpret_cast<int*>(&data[22]);
 	auto padding = 0;
@@ -49,7 +49,10 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 			ret[gi] = data[line * widthnew + column + 54 + 1];
 			ret[bi] = data[line * widthnew + column + 54 + 0];
 
-			if (transR != 256 && transB != 265 && transG != 265 && ret[ri] == static_cast<unsigned char>(transR) && ret[gi] == static_cast<unsigned char>(transG) && ret[bi] == static_cast<unsigned char>(transB))
+			if (transR != 256 && transB != 265 && transG != 265 
+				&& ret[ri] == static_cast<unsigned char>(transR) 
+				&& ret[gi] == static_cast<unsigned char>(transG) 
+				&& ret[bi] == static_cast<unsigned char>(transB))
 			{
 				ret[ai] = 0;
 			}
@@ -66,8 +69,10 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 
 Image::Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) : renderer(renderer), imageFile(imageFile), entity(entity)
 {
+	// 1. set Shader
 	textureShader = new Shader("../ClassicGameFramework/textureShader.vert", "../ClassicGameFramework/textureShader.frag");
 
+	// 2.1 Set start and end points for renderer based on entity coords on canvas.
 	auto start = renderer->translateToWorldCoordinates(
 		entity->getPosX(),
 		entity->getPosY()
@@ -78,12 +83,13 @@ Image::Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsign
 		entity->getPosY() + entity->getHeight()
 		);
 
+	// 2.2 Set 2d vertex coordinates
 	GLfloat vertices[] = {
 		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
+		end[0], end[1],		0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,		// Top Right
+		end[0], start[1],	0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,	// Bottom Right
 		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
+		start[0], end[1],	0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f	// Top Left 
 	};
 
 	delete[] start;
@@ -150,6 +156,7 @@ Image::Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsign
 	// Activate shader
 }
 
+// Renders the current image of the entity from top left to bottom right.
 void Image::render() const
 {
 	auto start = renderer->translateToWorldCoordinates(
