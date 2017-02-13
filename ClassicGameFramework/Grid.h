@@ -4,29 +4,32 @@
 
 class Boundaries;
 class Entity;
-const unsigned COUNT_DEFAULT = 32; // 32x32 Grid, e.g. for PacMan
-const unsigned GRIDSIZE_DEFAULT = 16; // for Entities with 16x16px Graphics
+const unsigned TILECOUNT_DEFAULT = 32; // 32x32 Grid, e.g. for PacMan
+const unsigned TILESIZE_DEFAULT = 8; // for Entities with 8x8px Graphics
+// Arcade machine resolution in Pixels: 224x256. Translates into 28x32 8px Tiles.
 
-// 2D Grid structure for initial entity positions in a Level
+// Purpose: 2D Grid structure that translates a canvas with NxN pixels into subsets of MxM tiles, and vice versa.
+//			Used for creating tile-based level design; can translate tile positions into pixel positions.
+// Used by: Level.cpp:	To initialize entities at their repsective position in the level.
 class Grid 
 {
 	Boundaries* boundaries; // default: window size?
-	unsigned colCount; // amount of columns in grid
-	unsigned rowCount; // amount of rows in grid
-	unsigned xCellSize; // horizontal Cell size in Pixels
-	unsigned yCellSize; // vertical Cell size in Pixels
+	unsigned xTileCount; // amount of columns in grid
+	unsigned yTileCount; // amount of rows in grid
+	unsigned xTileSize; // horizontal grid cell size in Pixels
+	unsigned yTileSize; // vertical grid cell size in Pixels
 
 public:
-	Grid(unsigned colCount = COUNT_DEFAULT, unsigned rowCount = COUNT_DEFAULT,
-			unsigned xCellSize = GRIDSIZE_DEFAULT, unsigned yCellSize = GRIDSIZE_DEFAULT);
+	Grid(unsigned xTileCount = TILECOUNT_DEFAULT, unsigned yTileCount = TILECOUNT_DEFAULT,
+			unsigned xTileSize = TILESIZE_DEFAULT, unsigned yTileSize = TILESIZE_DEFAULT);
 
 
 		// Returns Pixel coordinates for a given Grid coordinate
-		Position getCoordinates(unsigned xGridPos, unsigned yGridPos);
+		Position getCoordinates(unsigned xTilePos, unsigned yTilePos);
 
 		// Centers the position of a given entity at the given grid coordinates.
 		// Used by: Level for initialization of all entities for a given level data.
 		// Affects: The given Entity
-		void setEntityPositionOnGrid(Entity* entity, unsigned col, unsigned row);
+		void setEntityPositionOnGrid(Entity* entity, unsigned xTilePos, unsigned yTilePos);
 };
 

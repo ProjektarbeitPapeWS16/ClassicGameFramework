@@ -1,10 +1,10 @@
 #include "Grid.h"
 #include "Entity.h"
 
-Grid::Grid(unsigned xCount, unsigned yCount, unsigned xSize, unsigned ySize) : colCount(xCount),
-																			   rowCount(yCount),
-																			   xCellSize(xSize),
-																			   yCellSize(ySize)
+Grid::Grid(unsigned xCount, unsigned yCount, unsigned xSize, unsigned ySize) : xTileCount(xCount),
+																			   yTileCount(yCount),
+																			   xTileSize(xSize),
+																			   yTileSize(ySize)
 {
 	/* TODO: Set boundaries based on window bounds (--> max bounds)
 	 *this->boundaries->position.x = x[GLFW Window bounds];
@@ -12,9 +12,9 @@ Grid::Grid(unsigned xCount, unsigned yCount, unsigned xSize, unsigned ySize) : c
 	 *	*/
 }
 
-Position Grid::getCoordinates(unsigned col, unsigned row)
+Position Grid::getCoordinates(unsigned xTilePos, unsigned yTilePos)
 {
-	return Position(this->xCellSize * xGridPos, this->yCellSize * yGridPos);
+	return Position(this->xTileSize * xTilePos, this->yTileSize * yTilePos);
 	//Position pixelPos;
 	//pixelPos.x = this->xCellSize * col;
 	//pixelPos.y = this->yCellSize * row;

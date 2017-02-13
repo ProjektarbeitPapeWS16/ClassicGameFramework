@@ -49,45 +49,83 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 // assumes: give textfile has proper syntax
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
-char** Level::getLevelFromFile(std::string* filepath, int cols, int rows)
+// Returns: char** that Stores coordinates of all Level-Info-File symbols to translate into entities in the level
+char** Level::getLevelFromFile(std::string* filepath, int cols = 28, int rows = 32)
 {
-	char** array2D = new char*[rows];
+	const char IGNORE_AFTER = '"';	// Level-Info-File Symbol	"				used for comments
+	const char READ_AFTER = '°';	// Level-Info-File Symbol	°				used for starting level input
+	const char IGNORE = ' ';		// Level-Info-File Symbol	(Whitespace)	ignored
+	const int MAX = 96;
 
-	// FILE * file;
-	std::string str; //for reading the lines
-	char entityCharacter; //for storing the respective character
+	int xTileMax = cols;
+	int yTileMax = rows;
+	char** grid = new char*[rows];	// 2D grid: (for the rows) y pointers to a pointer to (for the columns) the address of an array of size x.
+	for (int i = 0; i < rows; i++) {
+		grid[i] = new char[cols]; // allocate each row with the respective amount of column entries.
+	}
+
+	bool readLine = false;			// Flag for enabling row input from Level-Info-File
+	char rowBuffer[MAX];			// for iterating through tile rows
 
 	try
 	{
-		//% alt: fopen_s(&file, filepath, "rb"); // try opening file
 		auto levelfile = std::ifstream(reinterpret_cast<char*>(filepath));
-		if (!levelfile.is_open())
-		{
+
+		if (!levelfile.is_open()) {
 			throw 1;
 		}
-		
-		//% std::ifstream in(filepath);
-		
-		// read content of file line by line (each one represents a row of the grid)
-		for (int iRow = 0; iRow < rows; iRow++)
-		{
-			array2D[iRow] = new char[cols];
-			//% std::getline(in, str);
-			std::getline(levelfile, str);
-			for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
-			{
-				// read character for respective column in the grid
-				entityCharacter = str[iCol];
-				//TODO: does this properly store the char?
-				array2D[iRow, iCol] = reinterpret_cast<char*>(entityCharacter); 
+
+		int row = 0;
+		int col = 0;
+		std::string test;
+		while (!levelfile.eof()) {
+
+			levelfile.getline(rowBuffer, MAX);
+			std::string str = rowBuffer;
+			if (row < yTileMax) {
+				readLine = false;
+				col = 0;
+
+				for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
+
+					if (*it != IGNORE && readLine) { // Ignore whitespace
+						if (col <= yTileMax) {
+							grid[row][col] = *it; // Set tile symbol for grid coordinate
+							std::cout << "Symbol at (" << row << "," << col << "): " << *it << ". Added to Grid-Info: " << grid[row][col] << std::endl;
+							test += *it;
+							++col;
+						}
+						else {
+							std::cout << "Warning: Level layout file contains excess tile information at row " << row << "." << std::endl;
+							//#pragma message("Warning: Level layout file contains excess row tile information.")
+						}
+					}
+					else if (*it == READ_AFTER) {
+						readLine = true;
+						std::cout << "Start reading Line " << row << " now." << std::endl;
+					}
+					else if (*it == IGNORE_AFTER) {
+						readLine = false;
+						std::cout << "End reading Line " << row << " now. Read columns: " << col << std::endl;
+					}
+				}
+				if (col > 0) {
+					++row;
+					if (col < xTileMax) {
+						std::cout << "Warning: Row " << row << "only contained " << col << " out of " << xTileMax << " Tiles." << std::endl;
+					}
+				}
+			}
+			else {
+				std::cout << "Warning: Level layout file contains tile information beyond row " << row << "." << std::endl;
+				//#pragma message("Warning: Level layout file contains excess column tile information.")
 			}
 		}
 	}
-	catch (int e)
-	{
-		std::cout << "ERROR::LEVEL::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	catch (int e) {
+		std::cout <<  "ERROR::LEVEL::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
-	return array2D;
+	return grid;
 }
 
 // 1. save level information with entity typesymbols in 2D array.
@@ -97,12 +135,14 @@ char** Level::getLevelFromFile(std::string* filepath, int cols, int rows)
 std::vector<PhysicalObject>* Level::getEntitiesFromFile(std::string * filepath, int cols, int rows)
 {
 	char** leveldata = getLevelFromFile(filepath, cols, rows);
+
 	char typeSymbol;
 	EntityRefTable* entityRef = new EntityRefTable(); //TODO: Create one with values
 	EntityTypeStats* entityStats;
 	Entity* entity;
-	Position entityPos;
-	std::vector<PhysicalObject>* result = new std::vector<PhysicalObject>;
+	Position entityPos(0,0);						  // initialize at origin; set later
+	
+	std::vector<PhysicalObject> *result = new std::vector<PhysicalObject>;
 
 	for (int iCol = 0; iCol < cols; iCol++)
 	{
@@ -115,10 +155,10 @@ std::vector<PhysicalObject>* Level::getEntitiesFromFile(std::string * filepath, 
 				// 2.1 get info on entity type:
 				entityStats = entityRef->getEntityTypeStats(typeSymbol);
 				// 2.2 create using entityStats and set position via grid
-				entityPos = this->grid->getCoordinates(iCol, iRow);
+				Position entityPos = this->grid->getCoordinates(iCol, iRow);
 				entity = entityRef->getEntity(typeSymbol, entityPos);
 				// 2.3 save entity in vector list using an iterator
-				//result->push_back(entity);
+				result->vector::push_back(*entity);
 			}
 		}
 	}

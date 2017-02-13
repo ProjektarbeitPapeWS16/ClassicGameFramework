@@ -6,4 +6,5 @@ struct Position
 	int x;
 	int y;
 	Position(int x, int y);
+	void setPosition(int x, int y);
 };
