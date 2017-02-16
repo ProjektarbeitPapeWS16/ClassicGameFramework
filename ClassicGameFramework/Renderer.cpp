@@ -3,6 +3,7 @@
 #include "Drawable.h"
 #include "Shader.h"
 #include "Image.h"
+
 //#include <glfw3.h>
 
 void Renderer::init() const
@@ -36,6 +37,8 @@ int Renderer::initGLEW()
 
 GLFWwindow* Renderer::createWindow(int width ,int height, const char* title)
 {
+	
+
 	auto window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 	if (window != nullptr)
 	{
@@ -65,8 +68,9 @@ GLfloat* Renderer::translateToWorldCoordinates(GLint xPos, GLint yPos) const
 	};
 }
 
-Renderer::Renderer(int width, int height, const char* title)
+Renderer::Renderer(int width, int height, const char* title) : WINDOW_WIDTH(width), WINDOW_HEIGHT(height)
 {
+	
 	// Initializing
 	this->init();
 
@@ -77,7 +81,7 @@ Renderer::Renderer(int width, int height, const char* title)
 	this->initGLEW();
 
 	// Creating viewport
-	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	glViewport(0, 0, width, height);
 
 	// Turn on Vsync
 	if (VSYNC == GL_TRUE)
@@ -112,9 +116,17 @@ void Renderer::render(Display* display)
 	fillEntireScreenWithColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	std::vector<Drawable*>* drawables = display->getDrawables();
+	
 	for(size_t i = 0; i < drawables->size(); i++)
 	{
-		drawables->at(i)->getImage()->render();
+		Image* image = drawables->at(i)->getImage();
+
+		if(imageRenderers.find(image->getImageFile()) == imageRenderers.end())
+		{
+			imageRenderers.insert(std::make_pair(image->getImageFile(), new ImageRenderer(this, image)));
+		}
+
+		imageRenderers.at(image->getImageFile())->render();
 	}
 
 	// Swap the buffers

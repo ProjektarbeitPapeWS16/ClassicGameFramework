@@ -1,11 +1,16 @@
 ﻿#include "Image.h"
-#include "Boundaries.h"
 #include "Entity.h"
+#include <cstdio>
 
-unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, int& height, unsigned short transR, unsigned short transG, unsigned short transB)
+const char* Image::getImageFile() const
+{
+	return imageFile;
+}
+
+unsigned char* Image::readImage2ByteArray()
 {
 	FILE* file;
-	fopen_s(&file, filename, "rb");
+	fopen_s(&file, imageFile, "rb");
 
 	if (file == nullptr)
 	{
@@ -23,24 +28,27 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 
 
 	// extract image height and width from header 
-	width = *reinterpret_cast<int*>(&data[18]);
-	height = *reinterpret_cast<int*>(&data[22]);
+	imageWidth = *reinterpret_cast<int*>(&data[18]);
+	imageHeight = *reinterpret_cast<int*>(&data[22]);
 	auto padding = 0;
-	while ((width * 3 + padding) % 4 != 0)
+	while ((imageWidth * 3 + padding) % 4 != 0)
 	{
 		padding++;
 	}
-	auto widthnew = width * 3 + padding;
+	auto widthnew = imageWidth * 3 + padding;
 
 	//auto endPos = 54 + (widthnew * height);
 
-	auto ret = new unsigned char[width * 4 * height];
 
-	for (auto line = 0; line < height; line++)
+
+
+	auto ret = new unsigned char[imageWidth * 4 * imageHeight];
+
+	for (auto line = 0; line < imageHeight; line++)
 	{
 		for (auto column = 0, retcolumn = 0; column < widthnew - padding; column += 3 , retcolumn += 4)
 		{
-			auto ri = line * (width * 4) + retcolumn;
+			auto ri = line * (imageWidth * 4) + retcolumn;
 			auto gi = ri + 1;
 			auto bi = ri + 2;
 			auto ai = ri + 3;
@@ -64,137 +72,45 @@ unsigned char* Image::readImage2ByteArray(const GLchar* filename, int& width, in
 	return ret;
 }
 
-Image::Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) : renderer(renderer), imageFile(imageFile), entity(entity)
-{
-	textureShader = new Shader("../ClassicGameFramework/textureShader.vert", "../ClassicGameFramework/textureShader.frag");
-
-	auto start = renderer->translateToWorldCoordinates(
-		entity->getPosX(),
-		entity->getPosY()
-		);
-
-	auto end = renderer->translateToWorldCoordinates(
-		entity->getPosX() + entity->getWidth(),
-		entity->getPosY() + entity->getHeight()
-		);
-
-	GLfloat vertices[] = {
-		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
-		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
-	};
-
-	delete[] start;
-	delete[] end;
-
-	GLuint indices[] = {// Note that we start from 0!
-		0, 1, 3, // First Triangle
-		1, 2, 3 // Second Triangle
-	};
-
-	glGenVertexArrays(1, &(Image::VAO));
-	glGenBuffers(1, &(Image::VBO));
-	glGenBuffers(1, &(Image::EBO));
-
-	/*
-	Toggle wireframe polygons
-	*/
-	if (renderer->JUST_WIREFRAMES == GL_TRUE)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	glBindVertexArray(Image::VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, Image::VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Image::EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), static_cast<GLvoid*>(nullptr));
-	glEnableVertexAttribArray(0);
-	// COLOR
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)));
-	//glEnableVertexAttribArray(1);
-	// TexCoord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(6 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
-
-	glBindVertexArray(0); // Unbind VAO
-
-
-	// Load and create a texture 
-	glGenTextures(1, &(Image::texture));
-	glBindTexture(GL_TEXTURE_2D, Image::texture);// All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-	// Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Load, create texture and generate mipmaps
-
-	if (image == nullptr)
-	{
-		image = readImage2ByteArray(imageFile, imageWidth, imageHeight, transR, transG, transB);
-	}
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
-
-	// Activate shader
-}
-
-void Image::render() const
-{
-	auto start = renderer->translateToWorldCoordinates(
-		entity->getPosX(),
-		entity->getPosY()
-	);
-	auto end = renderer->translateToWorldCoordinates(
-		entity->getPosX() + entity->getWidth(),
-		entity->getPosY() + entity->getHeight()
-	);
-
-	GLfloat vertices[] = {
-		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
-		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
-	};
-
-	delete[] start;
-	delete[] end;
-	glBindVertexArray(Image::VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, Image::VBO);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-
-	Image::textureShader->Use();
-
-	// Bind Textures using texture units
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1i(glGetUniformLocation(textureShader->Program, "textureBmp"), 0);
-
-	// Draw container
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
+Image::Image(const char* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) : imageFile(imageFile), entity(entity), transR(transR), transG(transG), transB(transB)
+{	
 }
 
 
 Image::~Image()
 {
-	delete image;
-	glDeleteVertexArrays(1, &(VAO));
-	glDeleteBuffers(1, &(VBO));
-	glDeleteBuffers(1, &(EBO));
+	delete imageBytes;
+}
+
+Entity* Image::getEntity() const
+{
+	return entity;
+}
+
+bool Image::isLoaded() const
+{
+	return imageBytes != nullptr;
+}
+
+void Image::loadImageBytes()
+{
+	if(!isLoaded())
+	{
+		imageBytes = readImage2ByteArray();
+	}
+}
+
+int Image::getWidth() const
+{
+	return imageWidth;
+}
+
+int Image::getHeight() const
+{
+	return imageHeight;
+}
+
+unsigned char* Image::getImageBytes() const
+{
+	return imageBytes;
 }
