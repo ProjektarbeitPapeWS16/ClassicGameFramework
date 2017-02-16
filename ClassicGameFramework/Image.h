@@ -1,27 +1,27 @@
 ﻿#pragma once
 
-#include <glew.h>
-#include "Shader.h"
-
 class Entity;
 struct Boundaries;
 
 class Image
 {
-	GLuint VBO, VAO, EBO;
-	GLuint texture;
-	Shader* textureShader;
-	unsigned char * image;
 	int imageWidth, imageHeight;
-	
-	Renderer* renderer;
-	const GLchar* imageFile;
+	const char* imageFile;
 
 	Entity* entity;
-	static unsigned char* readImage2ByteArray(const GLchar* filename, int& width, int& height, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
+	unsigned char* imageBytes;
+	unsigned short transR, transG, transB;
+	unsigned char* readImage2ByteArray();
 public:
-	
-	Image(Renderer* renderer, const GLchar* imageFile, Entity* entity, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
-	void render() const;
+
+	Image(const char* imageFile, Entity* entity, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
 	~Image();
+
+	const char* getImageFile() const;
+	Entity* getEntity() const;
+	bool isLoaded() const;
+	void loadImageBytes();
+	int getWidth() const;
+	int getHeight() const;
+	unsigned char* getImageBytes() const;
 };
