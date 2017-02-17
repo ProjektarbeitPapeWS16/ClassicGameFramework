@@ -14,11 +14,11 @@ PacManView::PacManView(PacManModel* model, Display* display, Renderer* renderer)
 	Level* level = static_cast<PacManModel*>(model)->getSession()->getLevel();
 
 	// add entities from level to display
-	std::vector<Entity>* entities = level->getEntities();
-	for (int i = 0; i < entities->size(); i++)
+	std::vector<Entity*>* entities = level->getEntities();
+	for (auto i = 0; i < entities->size(); i++)
 	{
-		display->addDrawable(&(entities->at(i)));
-		PlayerEntity* pacman = dynamic_cast<PlayerEntity*>(&((*entities)[i]));
+		display->addDrawable(entities->at(i));
+		PlayerEntity* pacman = static_cast<PlayerEntity*>(entities->at(i));
 		if (pacman)
 		{
 			display->addDrawable(pacman);
@@ -33,7 +33,7 @@ PacManView::PacManView(PacManModel* model, Display* display, Renderer* renderer)
 			moveLeft = new Image(renderer, "textures/PacMan/pacmanLeft.bmp", this, 0, 0, 0);
 			*/
 		}
-		else if (auto ghost = dynamic_cast<EnemyEntity*>(&(entities->at(i))))
+		else if (auto ghost = entities->at(i))
 		{
 			display->addDrawable(ghost);
 		}

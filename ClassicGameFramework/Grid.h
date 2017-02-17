@@ -1,7 +1,7 @@
 #pragma once
 #include "Position.h"
 
-class Boundaries;
+struct Boundaries;
 
 const unsigned COUNT_DEFAULT = 32; // 32x32 Grid, e.g. for PacMan
 const unsigned GRIDSIZE_DEFAULT = 16; // for Entities with 16x16px Graphics

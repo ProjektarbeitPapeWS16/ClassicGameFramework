@@ -5,10 +5,11 @@
 #include <iostream>
 #include <fstream>
 
-Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) : path(path)
+Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) :
+	grid(new Grid(colsGrid, rowsGrid, xTileSize, yTileSize)),
+	path(path),
+	entities(new std::vector<Entity*>())
 {
-	this->grid = new Grid(colsGrid, rowsGrid, xTileSize, yTileSize);
-	entities = new std::vector<Entity>;
 }
 
 // TODO:
@@ -26,21 +27,21 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 //		xPosition = 5*16 + 16/2, yPosition = 4*16 + 16/2. 
 //		Pixel-position in level: (88px, 72px)
 
-std::vector<Entity> * Level::getEntities() 
+std::vector<Entity*>* Level::getEntities() const
 {
 	return entities;
 }
 
 // get list of all entities' data for collision detection etc
-std::vector<PhysicalObject> * Level::getPhysicalObjects()
+std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 {
 	if (entities)
 	{
-		std::vector<PhysicalObject> * physicalObjects = new std::vector<PhysicalObject>;
-		for (int i = 0; i < entities->size(); i++)
+		auto physicalObjects = new std::vector<PhysicalObject*>;
+		for (auto i = 0; i < entities->size(); i++)
 		{
-			PhysicalObject* phys = dynamic_cast<PhysicalObject*>(&(entities->at(i)));
-			physicalObjects->push_back(*phys);
+			PhysicalObject* phys = entities->at(i);
+			physicalObjects->push_back(phys);
 		}
 		return physicalObjects;
 	}
@@ -69,15 +70,15 @@ char** Level::getLeveldata(char* filepath, int rows, int cols)
 	std::string str;
 	char entityCharacter;
 	array2D = new char*[rows];
-	for (int iRow = 0; iRow < rows; iRow++)
+	for (auto iRow = 0; iRow < rows; iRow++)
 	{
 		// load next line of text; which contains one row
 		array2D[iRow] = new char[cols];
 		std::getline(in, str);
-		for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
 		{
 			entityCharacter = str[iCol];
-			array2D[iRow, iCol] = reinterpret_cast<char*>(entityCharacter); //TODO: does this properly store the char?
+			array2D[iRow][iCol] = entityCharacter;
 
 		}
 	}

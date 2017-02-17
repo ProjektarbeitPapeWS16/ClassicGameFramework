@@ -48,12 +48,12 @@ void PacManModel::collisionPacGhost(PhysicalObject* collided) {
 void PacManModel::nextIteration()
 {
 	// Collision detection
-	if (std::vector<std::pair<PhysicalObject, PhysicalObject>> * collisionPairs = physic->checkCollisions())
+	if (std::vector<std::pair<PhysicalObject*, PhysicalObject*>> * collisionPairs = physic->checkCollisions())
 	{
 
 		for (unsigned int i = 0; i < (*collisionPairs).size(); i++)
 		{
-			Entity* ent = dynamic_cast<Entity*>(&((*collisionPairs)[i].first));
+			Entity* ent = static_cast<Entity*>(collisionPairs->at(i).first);
 
 			if (PlayerEntity* pacman = dynamic_cast<PlayerEntity*>(ent))
 			{
