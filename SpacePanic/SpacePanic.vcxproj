@@ -70,7 +70,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\ClassicGameFramework;..\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>..\libs;..\ClassicGameFramework;..\x64\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Debug;..\ClassicGameFramework;..\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\ClassicGameFramework;..\includes;$(IncludePath)</IncludePath>
@@ -96,8 +96,9 @@
       <AdditionalIncludeDirectories>..\ClassicGameFramework;..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\libs</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ClassicGameFramework.lib;opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ClassicGameFramework.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,6 +142,7 @@
     <Image Include="textures\player_run2_right.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
@@ -150,6 +152,7 @@
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="EnemyEntity.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="SpacePanicController.h" />
@@ -161,6 +164,9 @@
     <ProjectReference Include="..\ClassicGameFramework\ClassicGameFramework.vcxproj">
       <Project>{464950ca-c785-40e9-bc97-b6c7251751eb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

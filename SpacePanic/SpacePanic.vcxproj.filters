@@ -74,6 +74,9 @@
     <ClCompile Include="WallEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="GameConfig.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -94,5 +97,11 @@
     <ClInclude Include="WallEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="GameConfig.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
