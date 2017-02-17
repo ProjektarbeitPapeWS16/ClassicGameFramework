@@ -137,6 +137,7 @@
     <ClInclude Include="PacManView.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StdLevel.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +147,13 @@
     <ClCompile Include="PacManModel.cpp" />
     <ClCompile Include="PacManView.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
+    <ClCompile Include="StdLevel.cpp" />
     <ClCompile Include="WallEntity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SpacePanic\textur.bmp" />
+    <Image Include="..\SpacePanic\textures\player_run1_left.bmp" />
+    <Image Include="textures\pacmanExperimental.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

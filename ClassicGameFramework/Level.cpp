@@ -1,5 +1,6 @@
 ﻿#include "Level.h"
 #include "Physics.h"
+#include "Entity.h"
 #include "PhysicalObject.h"
 #include <iostream>
 #include <fstream>
@@ -7,6 +8,7 @@
 Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) : path(path)
 {
 	this->grid = new Grid(colsGrid, rowsGrid, xTileSize, yTileSize);
+	entities = new std::vector<Entity>;
 }
 
 // TODO:
@@ -24,11 +26,28 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 //		xPosition = 5*16 + 16/2, yPosition = 4*16 + 16/2. 
 //		Pixel-position in level: (88px, 72px)
 
+std::vector<Entity> * Level::getEntities() 
+{
+	return entities;
+}
 
 // get list of all entities' data for collision detection etc
-std::vector<PhysicalObject>* Level::getPhysicalObjects()
+std::vector<PhysicalObject> * Level::getPhysicalObjects()
 {
-	return nullptr;
+	if (entities)
+	{
+		std::vector<PhysicalObject> * physicalObjects = new std::vector<PhysicalObject>;
+		for (int i = 0; i < entities->size(); i++)
+		{
+			PhysicalObject* phys = dynamic_cast<PhysicalObject*>(&(entities->at(i)));
+			physicalObjects->push_back(*phys);
+		}
+		return physicalObjects;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 // opens a text file at given filepath,
