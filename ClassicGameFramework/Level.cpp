@@ -25,12 +25,6 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 //		Pixel-position in level: (88px, 72px)
 
 
-// get list of all entities' data for collision detection etc
-std::vector<PhysicalObject>* Level::getPhysicalObjects()
-{
-	return nullptr;
-}
-
 // opens a text file at given filepath,
 // then saves that information in a 2D char array.
 // assumes: give textfile has proper syntax
@@ -50,15 +44,15 @@ char** Level::getLeveldata(char* filepath, int rows, int cols)
 	std::string str;
 	char entityCharacter;
 	array2D = new char*[rows];
-	for (int iRow = 0; iRow < rows; iRow++)
+	for (auto iRow = 0; iRow < rows; iRow++)
 	{
 		// load next line of text; which contains one row
 		array2D[iRow] = new char[cols];
 		std::getline(in, str);
-		for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
 		{
 			entityCharacter = str[iCol];
-			array2D[iRow, iCol] = reinterpret_cast<char*>(entityCharacter); //TODO: does this properly store the char?
+			array2D[iRow][iCol] = entityCharacter; 
 
 		}
 	}

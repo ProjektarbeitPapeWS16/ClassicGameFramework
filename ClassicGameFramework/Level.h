@@ -15,8 +15,12 @@ class Level
 	Physics* physics;
 	std::string* path; // to layout info file
 public:
+	virtual ~Level()
+	{
+	}
+
 	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path);
 
-	std::vector<PhysicalObject>* getPhysicalObjects();
-	char** getLeveldata(char* filepath, int rows, int cols);
+	virtual std::vector<PhysicalObject*>* getPhysicalObjects() = 0;
+	char** getLeveldata(char* filepath, int rows, int cols) const;
 };

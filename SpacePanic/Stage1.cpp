@@ -16,17 +16,17 @@ void Stage1::addBackgroundEntity(Entity* backgroundEntity) const
 	backgroundEntities->push_back(backgroundEntity);
 }
 
-Stage1::Stage1(GameConfig* config): Level(config->getRasterColumnsCount(), config->getRasterRowsCount(), config->getRasterWidth(), config->getRasterHeight(), FILE_PATH),
+Stage1::Stage1(GameConfig* config): Level(config->getRasterColumnsCount(), config->getRasterRowsCount(), config->getRasterWidth(), config->getRasterHeight(), new std::string(FILE_PATH)),
                                     gameConfig(config),
                                     FILE_PATH("levels/stage1.txt"),
+                                    player(nullptr),
                                     enemys(new std::vector<EnemyEntity*>()),
                                     backgroundEntities(new std::vector<Entity*>()),
                                     allEntities(new std::vector<Entity*>()),
                                     physicalObjects(new std::vector<PhysicalObject*>())
 {
-
+	player = new PlayerEntity(config, new Position(15, 15)); // TODO
 }
-
 
 
 const char* Stage1::getFilePath() const

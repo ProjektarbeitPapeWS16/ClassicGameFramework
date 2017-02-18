@@ -15,24 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bgimage.jpg">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="herz.jpg">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="herz.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="pacman.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="stern.jpg">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="textur.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="textures\player_climb1.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
@@ -49,6 +31,45 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="textures\player_run2_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\border_bottom.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\border_top.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\ladder.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dig1_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dig1_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dig2_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dig2_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone1left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone1middle.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone1right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone2left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone2middle.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\stone2right.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
@@ -77,6 +98,9 @@
     <ClCompile Include="GameConfig.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -100,8 +124,8 @@
     <ClInclude Include="GameConfig.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ClInclude Include="Stage1.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

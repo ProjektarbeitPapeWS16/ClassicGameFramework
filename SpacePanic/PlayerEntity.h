@@ -48,6 +48,7 @@ private:
 public:
 	PlayerEntity(GameConfig* config, Position* position);
 	void request(Request request);
+	int schrittweite() const;
 	void execute();
 	Image* getImage() override;
 };

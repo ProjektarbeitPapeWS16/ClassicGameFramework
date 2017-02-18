@@ -11,6 +11,7 @@
 #include "SpacePanicView.h"
 #include "SpacePanicController.h"
 #include "GameConfig.h"
+#include "Stage1.h"
 
 
 //#include <iostream>
@@ -33,26 +34,15 @@ int main()
 	auto display = new Display();
 	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Space Panic");
 
-	std::vector<Level*> levels;
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("menu.txt")));
-	levels.push_back(
-		new Level(
-			config->getRasterColumnsCount(),
-			config->getRasterRowsCount(),
-			config->getRasterWidth(),
-			config->getRasterHeight(),
-			new std::string("levels/level1.txt")
-		)
-	);
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level2.txt")));
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level3.txt")));
-
+	//std::vector<Level*> levels;
+	//levels.push_back(new Stage1(config));
+	
 
 	auto model = new SpacePanicModel(session);
-	auto view = new SpacePanicView(model, display, renderer);
+	auto view = new SpacePanicView(model, display, renderer, config);
 	auto controller = new SpacePanicController(view, model);
 
-
+	
 	controller->gameLoop();
 
 	return 0;

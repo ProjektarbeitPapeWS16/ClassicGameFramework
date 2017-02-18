@@ -2,10 +2,10 @@
 #include "Display.h"
 #include "PlayerEntity.h"
 
-SpacePanicView::SpacePanicView(SpacePanicModel* model, Display* display, Renderer* renderer)
+SpacePanicView::SpacePanicView(SpacePanicModel* model, Display* display, Renderer* renderer, GameConfig* config)
 	: EngineView((EngineModel*)(model), display, renderer)
 {
-	Drawable* drawable = new PlayerEntity(renderer);
+	Drawable* drawable = new PlayerEntity(config, new Position(15, 15));
 	display->addDrawable(drawable);
 	
 }

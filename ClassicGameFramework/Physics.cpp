@@ -4,46 +4,51 @@
 #include "Level.h"
 
 
-Physics::Physics()
+Physics::Physics():
+	level(nullptr),
+	collisionListener(new std::map<
+		PhysicalObject*,
+		std::function<void(PhysicalObject*)>*
+	>())
 {
 }
 
-void Physics::checkCollisions()
+void Physics::checkCollisions() const
 {
 	// bewegbare Objekte werden nach Kollision abgefragt
-	std::vector<PhysicalObject>* physicalObjects = level->getPhysicalObjects();
+	auto physicalObjects = level->getPhysicalObjects();
 
 	// ginge wohl auch: for (auto i = std::begin(*physicalObjects); i != std::end(*physicalObjects); ++i)
 	//for (auto iteratorA = std::begin(*physicalObjects); iteratorA != std::end(*physicalObjects); ++iteratorA)
 
-	std::vector<PhysicalObject>::iterator v = physicalObjects->begin();
+	auto v = physicalObjects->begin();
 	while (v != physicalObjects->end())
 	{
-		PhysicalObject objA = *v;
-		if (objA.isMovable())
+		auto objA = *v;
+		if (objA->isMovable())
 		{
 			// Schleife über alle die in Frage kommen
 
-			for (std::vector<PhysicalObject>::iterator iteratorB = physicalObjects->begin(); iteratorB != physicalObjects->end(); ++iteratorB)
+			for (auto iteratorB = physicalObjects->begin(); iteratorB != physicalObjects->end(); ++iteratorB)
 			{
-				PhysicalObject objB = *iteratorB;
-				if (objA.getBoundaries()->position.x + (0.5 * objA.getBoundaries()->width) >= objB.getBoundaries()->position.x - (0.5 * objB.getBoundaries()->width) && // aRight >= bLeft &&
-					objB.getBoundaries()->position.x + (0.5 * objB.getBoundaries()->width) >= objA.getBoundaries()->position.x - (0.5 * objA.getBoundaries()->width) && // bRight >= aLeft &&
-					objA.getBoundaries()->position.y + (0.5 * objA.getBoundaries()->height) >= objB.getBoundaries()->position.y - (0.5 * objB.getBoundaries()->height) && // aTop >= bBot &&
-					objB.getBoundaries()->position.y + (0.5 * objB.getBoundaries()->height) >= objA.getBoundaries()->position.y - (0.5 * objA.getBoundaries()->height)) // aBot >= bTop
+				auto objB = *iteratorB;
+				if (objA->getBoundaries()->position.x + (0.5 * objA->getBoundaries()->width) >= objB->getBoundaries()->position.x - (0.5 * objB->getBoundaries()->width) && // aRight >= bLeft &&
+					objB->getBoundaries()->position.x + (0.5 * objB->getBoundaries()->width) >= objA->getBoundaries()->position.x - (0.5 * objA->getBoundaries()->width) && // bRight >= aLeft &&
+					objA->getBoundaries()->position.y + (0.5 * objA->getBoundaries()->height) >= objB->getBoundaries()->position.y - (0.5 * objB->getBoundaries()->height) && // aTop >= bBot &&
+					objB->getBoundaries()->position.y + (0.5 * objB->getBoundaries()->height) >= objA->getBoundaries()->position.y - (0.5 * objA->getBoundaries()->height)) // aBot >= bTop
 				{
 					try
 					{
-						std::function<void(PhysicalObject*)>* foo = collisionListener->at(&objB);
-						(*foo)(&objA);
+						auto foo = collisionListener->at(objB);
+						(*foo)(objA);
 					}
 					catch (int e)
 					{
 					}
 					try
 					{
-						std::function<void(PhysicalObject*)>* foo = collisionListener->at(&objA);
-						(*foo)(&objB);
+						auto foo = collisionListener->at(objA);
+						(*foo)(objB);
 					}
 					catch (int e)
 					{
@@ -54,12 +59,12 @@ void Physics::checkCollisions()
 	}
 }
 
-std::map<PhysicalObject*, std::function<void(PhysicalObject*)>*>* Physics::getCollisionListener()
+std::map<PhysicalObject*, std::function<void(PhysicalObject*)>*>* Physics::getCollisionListener() const
 {
 	return collisionListener;
 }
 
-Level* Physics::getLevel()
+Level* Physics::getLevel() const
 {
 	return level;
 }
