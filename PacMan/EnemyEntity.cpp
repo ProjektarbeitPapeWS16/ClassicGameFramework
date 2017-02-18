@@ -3,7 +3,7 @@
 #include "EngineView.h"
 #include "PacManView.h"
 
-EnemyEntity::EnemyEntity(Renderer* renderer) : Entity(nullptr, 5*3, false, new Boundaries(200, 200, 14*3, 14*3), true, 100), renderer(renderer)
+EnemyEntity::EnemyEntity() : Entity(nullptr, 5*3, false, new Boundaries(200, 200, 14*3, 14*3), true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
@@ -103,11 +103,7 @@ void EnemyEntity::execute()
 		}
 		break;
 	case DO_ACTION:
-		switch (state)
-		{
-			break;
-		}
-		break;
+		
 	default: break;
 	}
 	lastRequest = NONE;

@@ -8,5 +8,5 @@ struct Config
 	/// Gets the current time in milliseconds
 	/// </summary>
 	/// <returns>current time in milliseconds</returns>
-	static long currentTimeMillis();
+	static __int64 currentTimeMillis();
 };

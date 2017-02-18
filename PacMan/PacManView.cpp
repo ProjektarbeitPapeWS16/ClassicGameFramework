@@ -5,17 +5,15 @@
 #include "WallEntity.h"
 #include "EnemyEntity.h"
 #include "Session.h"
-#include "StdLevel.h"
 #include "Image.h"
 
 PacManView::PacManView(PacManModel* model, Display* display, Renderer* renderer)
 	: EngineView((EngineModel*)(model), display, renderer)
 {
-	Level* level = static_cast<PacManModel*>(model)->getSession()->getLevel();
 
 	// add entities from level to display
-	std::vector<Entity*>* entities = level->getEntities();
-	for (auto i = 0; i < entities->size(); i++)
+	std::vector<Entity*>* entities = model->getEntities();
+	for (unsigned int i = 0; i < entities->size(); i++)
 	{
 		display->addDrawable(entities->at(i));
 		PlayerEntity* pacman = static_cast<PlayerEntity*>(entities->at(i));

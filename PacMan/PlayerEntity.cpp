@@ -106,7 +106,7 @@ void PlayerEntity::execute()
 		break;
 	default: break;
 	}
-	lastRequest = NONE;
+	//lastRequest = NONE;
 }
 
 Image* PlayerEntity::getImage()

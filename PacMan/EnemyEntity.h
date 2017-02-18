@@ -16,8 +16,6 @@ class EnemyEntity : public Entity
 	Image* energized1;
 	Image* energized2;
 	//Image* dead; TODO
-	
-	Renderer* renderer;
 
 	bool energized;
 
@@ -50,7 +48,7 @@ private:
 	Request lastRequest = NONE;
 
 public:
-	EnemyEntity(Renderer* renderer);
+	EnemyEntity();
 	void request(Request request);
 	void execute();
 	Image* getImage() override;

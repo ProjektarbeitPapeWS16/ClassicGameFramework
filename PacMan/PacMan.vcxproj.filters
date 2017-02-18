@@ -36,9 +36,6 @@
     <ClInclude Include="EnemyEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="StdLevel.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacManController.cpp">
@@ -60,9 +57,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="WallEntity.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="StdLevel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

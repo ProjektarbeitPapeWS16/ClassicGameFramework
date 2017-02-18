@@ -1,5 +1,5 @@
 ﻿#include "Level.h"
-#include "Physics.h"
+//#include "Physics.h"
 #include "Entity.h"
 #include "PhysicalObject.h"
 #include <iostream>
@@ -32,13 +32,18 @@ std::vector<Entity*>* Level::getEntities() const
 	return entities;
 }
 
+void Level::setEntities(std::vector<Entity*>* entities)
+{
+	this->entities = entities;
+}
+
 // get list of all entities' data for collision detection etc
 std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 {
 	if (entities)
 	{
 		auto physicalObjects = new std::vector<PhysicalObject*>;
-		for (auto i = 0; i < entities->size(); i++)
+		for (unsigned int i = 0; i < entities->size(); i++)
 		{
 			PhysicalObject* phys = entities->at(i);
 			physicalObjects->push_back(phys);
@@ -62,7 +67,7 @@ char** Level::getLeveldata(char* filepath, int rows, int cols)
 	FILE * file;
 
 	fopen_s(&file, filepath, "rb");
-	char* code;
+
 
 
 	// read content of textfile line by line
@@ -75,7 +80,7 @@ char** Level::getLeveldata(char* filepath, int rows, int cols)
 		// load next line of text; which contains one row
 		array2D[iRow] = new char[cols];
 		std::getline(in, str);
-		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
 		{
 			entityCharacter = str[iCol];
 			array2D[iRow][iCol] = entityCharacter;
@@ -108,3 +113,10 @@ char *readFile(char *fileName) {
 
 	return code;
 }*/
+
+/*
+Physics* Level::getPhysics()
+{
+	return physics;
+}
+*/

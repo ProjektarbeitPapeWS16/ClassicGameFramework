@@ -4,12 +4,17 @@
 #include <functional>
 #include <vector>
 class Session;
+class Level;
+class Entity;
+class Physics;
+
 typedef int Key;
 struct GLFWwindow;
 
 class EngineModel
 {
-	Session* session = nullptr;
+private:
+	static EngineModel* instance;
 
 	// Listener
 	std::map<Key, std::function<void()>*>* keyPressedListeners = nullptr;
@@ -17,12 +22,17 @@ class EngineModel
 	std::map<Key, std::function<void()>*>* keyDownListeners = nullptr;
 
 	std::vector<Key>* keyDownKeys = nullptr;
-	
-	static EngineModel* instance;
+
+protected:
+	Session* session;
+	Level* level;
+	Physics* physic;
+	std::vector<Entity*>* entities;
+
+	virtual void handleCollisions();
 
 public:
 	// Konstruktor
-	//EngineModel(Session* session); // deprecated
 	EngineModel();
 
 	// Destruktor
@@ -38,16 +48,16 @@ public:
 	
 
 	// initializes the keyListeners and other stuff
-	// (override)
 	virtual void initialization();
 
 	// calculates the next Iteration
-	// (override)
 	virtual void nextIteration();
 
 	// getter
 	static EngineModel* getInstance();
-	Session* getSession();
+	virtual Session* getSession();
+	virtual Level* getLevel();
+	virtual std::vector<Entity*>* getEntities();
 	std::map<Key, std::function<void()>*>* getKeyPressedListeners() const;
 	std::map<Key, std::function<void()>*>* getKeyReleasedListeners() const;
 	std::map<Key, std::function<void()>*>* getKeyDownListeners() const;
