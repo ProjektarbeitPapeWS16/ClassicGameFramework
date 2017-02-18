@@ -7,21 +7,38 @@ EnemyEntity::EnemyEntity() : Entity(nullptr, 5*3, false, new Boundaries(200, 200
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
-	moveUp1 = new Image("textures/Ghosts/blueGhost/blueGhostUp1.bmp", this, 0, 0, 0);
-	moveUp2 = new Image("textures/Ghosts/blueGhost/blueGhostUp2.bmp", this, 0, 0, 0);
-	moveDown1 = new Image("textures/Ghosts/blueGhost/blueGhostDown1.bmp", this, 0, 0, 0);
-	moveDown2 = new Image("textures/Ghosts/blueGhost/blueGhostDown2.bmp", this, 0, 0, 0);
-	moveRight1 = new Image("textures/Ghosts/blueGhost/blueGhostRight1.bmp", this, 0, 0, 0);
-	moveRight2 = new Image("textures/Ghosts/blueGhost/blueGhostRight2.bmp", this, 0, 0, 0);
-	moveLeft1 = new Image("textures/Ghosts/blueGhost/blueGhostLeft1.bmp", this, 0, 0, 0);
-	moveLeft2 = new Image("textures/Ghosts/blueGhost/blueGhostLeft2.bmp", this, 0, 0, 0);
-	energized1 = new Image("textures/Ghosts/energizedGhost1.bmp", this, 0, 0, 0);
-	energized2 = new Image("textures/Ghosts/energizedGhost2.bmp", this, 0, 0, 0);
+}
+
+EnemyEntity::EnemyEntity(Boundaries * boundaries) : Entity(nullptr, 5 * 3, false, boundaries, true, 100)
+{
+	this->imageCount = 0;
+	this->image = new Image*[0];
+}
+
+void EnemyEntity::setTextures(char* moveUp1, char* moveUp2, char* moveDown1, char* moveDown2,
+	char* moveRight1, char* moveRight2, char* moveLeft1, char* moveLeft2,
+	char* energized1, char* energized2)
+{
+	this->moveUp1 = new Image(moveUp1, this, 0, 0, 0);
+	this->moveUp2 = new Image(moveUp2, this, 0, 0, 0);
+	this->moveDown1 = new Image(moveDown1, this, 0, 0, 0);
+	this->moveDown2 = new Image(moveDown2, this, 0, 0, 0);
+	this->moveRight1 = new Image(moveRight1, this, 0, 0, 0);
+	this->moveRight2 = new Image(moveRight2, this, 0, 0, 0);
+	this->moveLeft1 = new Image(moveLeft1, this, 0, 0, 0);
+	this->moveLeft2 = new Image(moveLeft2, this, 0, 0, 0);
+	this->energized1 = new Image(energized1, this, 0, 0, 0);
+	this->energized2 = new Image(energized2, this, 0, 0, 0);
 }
 
 void EnemyEntity::request(Request request)
 {
 	lastRequest = request;
+}
+
+void EnemyEntity::specialRequest(SpecialState request)
+{
+	specialState = request;
 }
 
 void EnemyEntity::execute()
@@ -32,7 +49,6 @@ void EnemyEntity::execute()
 	case MOVE_RIGHT:
 		switch (state)
 		{
-		case DEAD: break;
 		case MOVE_RIGHT_1:
 			this->setPosX(this->getPosX() + movementSpeed);
 			state = MOVE_RIGHT_2;
@@ -51,7 +67,6 @@ void EnemyEntity::execute()
 	case MOVE_LEFT:
 		switch (state)
 		{
-		case DEAD: break;
 		case MOVE_LEFT_1:
 			this->setPosX(this->getPosX() - movementSpeed);
 			state = MOVE_LEFT_2;
@@ -69,7 +84,6 @@ void EnemyEntity::execute()
 	case MOVE_UP:
 		switch (state)
 		{
-		case DEAD: break;
 		case MOVE_UP_1:
 			this->setPosY(this->getPosY() + movementSpeed);
 			state = MOVE_UP_2;
@@ -87,7 +101,6 @@ void EnemyEntity::execute()
 	case MOVE_DOWN:
 		switch (state)
 		{
-		case DEAD: break;
 		case MOVE_DOWN_1:
 			this->setPosY(this->getPosY() - movementSpeed);
 			state = MOVE_DOWN_2;
@@ -102,7 +115,6 @@ void EnemyEntity::execute()
 			break;
 		}
 		break;
-	case DO_ACTION:
 		
 	default: break;
 	}
@@ -111,6 +123,14 @@ void EnemyEntity::execute()
 
 Image* EnemyEntity::getImage()
 {
+	switch (specialState)
+	{
+	case ALIVE: break;
+	case DEAD: break;
+	case ENERGIZED1: return energized1;
+	case ENERGIZED2: return energized2;
+	}
+
 	switch (state)
 	{
 	case MOVE_RIGHT_1: return moveRight1;
@@ -121,6 +141,8 @@ Image* EnemyEntity::getImage()
 	case MOVE_UP_2: return moveUp2;
 	case MOVE_DOWN_1: return moveDown1;
 	case MOVE_DOWN_2: return moveDown2;
-	default: return moveUp1;
+	default: return moveRight1;
 	}
 }
+
+
