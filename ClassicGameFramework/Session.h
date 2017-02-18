@@ -13,6 +13,8 @@ class Session
 	Level* level;	//[C] bei Init: Startbildschirm?
 
 public:
+	// Konstruktor
+	Session();
 
 	int getLifes();
 	void setLifes(int lifes);

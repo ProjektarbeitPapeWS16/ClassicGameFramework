@@ -2,6 +2,11 @@
 
 #include "Config.h"
 
+Session::Session()
+{
+
+}
+
 int Session::getLifes()
 {
 	return lifes;

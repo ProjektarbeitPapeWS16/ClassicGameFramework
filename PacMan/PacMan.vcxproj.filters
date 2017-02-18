@@ -36,6 +36,9 @@
     <ClInclude Include="EnemyEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="StdLevel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacManController.cpp">
@@ -59,5 +62,19 @@
     <ClCompile Include="WallEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="StdLevel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SpacePanic\textur.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\SpacePanic\textures\player_run1_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\pacmanExperimental.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

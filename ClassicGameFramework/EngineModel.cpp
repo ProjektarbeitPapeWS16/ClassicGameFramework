@@ -2,10 +2,21 @@
 //#include <glfw3.h>
 #include "EngineView.h"
 #include "Renderer.h"
+#include "Session.h"
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
 EngineModel *EngineModel::instance = nullptr;
+
+EngineModel::EngineModel()
+{
+	session = new Session();
+	EngineModel::instance = this;
+	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
+	keyPressedListeners = new std::map<Key, std::function<void()>*>();
+	keyDownListeners = new std::map<Key, std::function<void()>*>();
+	keyDownKeys = new std::vector<Key>();
+}
 
 EngineModel* EngineModel::getInstance()
 {
@@ -45,14 +56,7 @@ void EngineModel::key_down()
 	}
 }
 
-EngineModel::EngineModel(Session* session): session(session)
-{
-	EngineModel::instance = this;
-	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
-	keyPressedListeners = new std::map<Key, std::function<void()>*>();
-	keyDownListeners = new std::map<Key, std::function<void()>*>();
-	keyDownKeys = new std::vector<Key>();
-}
+
 
 std::map<Key, std::function<void()>*>* EngineModel::getKeyPressedListeners() const
 {
