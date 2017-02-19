@@ -2,7 +2,7 @@
 #include <map>
 #include "../SpacePanic/EnemyEntity.h"
 
-const int DEFAULT_SIZE = 16; // common sprite size for arcade games (e.g. Pacman Ghosts)
+const int DEFAULT_SIZE = 8; // common sprite size for arcade games (e.g. Pacman Ghosts)
 const int DEFAULT_SPEED = 8; // fraction of common grid cell size
 // const std::string DEFAULT_IMAGE = "../images/entity_TypeDefault.bmp"; 
 const char DEFAULT_TYPESYMBOL = 'x'; // default entity character (usually wall)
