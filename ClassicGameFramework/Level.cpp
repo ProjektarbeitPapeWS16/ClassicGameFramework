@@ -4,10 +4,10 @@
 #include "PhysicalObject.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
-Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) :
+Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize) :
 	grid(new Grid(colsGrid, rowsGrid, xTileSize, yTileSize)),
-	path(path),
 	entities(new std::vector<Entity*>())
 {
 }
@@ -61,7 +61,7 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 // assumes: give textfile has proper syntax
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
-char** Level::getLeveldata(char* filepath, unsigned int rows, unsigned int cols) const
+char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int cols) const
 {
 	char** array2D = nullptr;
 	FILE * file;

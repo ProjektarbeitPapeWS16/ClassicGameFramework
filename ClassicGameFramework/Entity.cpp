@@ -89,7 +89,7 @@ Entity* Entity::getEntity()
 
 Image* Entity::getImage()
 {
-	auto imageIndex = internalCounter / animationSpeed;
+	auto imageIndex = animationSpeed == 0 ? 0 : internalCounter / animationSpeed;
 	auto maxCounter = imageCount * animationSpeed;
 
 	Image* image = this->image[imageIndex];
