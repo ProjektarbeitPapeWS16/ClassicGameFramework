@@ -8,7 +8,7 @@
 class Stage1 : public Level
 {
 	GameConfig* gameConfig;
-	const char* FILE_PATH;// = new std::string("levels/stage1.txt");
+	char* FILE_PATH;// = new std::string("levels/stage1.txt");
 	PlayerEntity* player;
 	std::vector<EnemyEntity*>* enemys;
 	std::vector<Entity*>* backgroundEntities;

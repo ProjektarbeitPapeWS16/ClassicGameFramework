@@ -101,6 +101,9 @@
     <ClCompile Include="Stage1.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="LadderEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -125,6 +128,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Stage1.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="LadderEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

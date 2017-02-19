@@ -28,7 +28,7 @@ int main()
 	//Skalierung x3
 	auto config = new GameConfig(192, 256, 2, 8, 8);
 
-	std::string x = getexepath();
+	//std::string x = getexepath();
 
 	auto session = new Session();
 	auto display = new Display();

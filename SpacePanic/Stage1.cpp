@@ -1,5 +1,6 @@
 ﻿#include "Stage1.h"
 #include "WallEntity.h"
+#include "LadderEntity.h"
 
 void Stage1::setPlayer(PlayerEntity* player)
 {
@@ -28,8 +29,7 @@ Stage1::Stage1(GameConfig* config):
 		config->getRasterColumnsCount(),
 		config->getRasterRowsCount(),
 		config->getRasterWidth(),
-		config->getRasterHeight(),
-		new std::string(FILE_PATH)
+		config->getRasterHeight()
 	),
 	gameConfig(config),
 	FILE_PATH("levels/stage1.txt"),
@@ -37,14 +37,59 @@ Stage1::Stage1(GameConfig* config):
 	enemys(new std::vector<EnemyEntity*>()),
 	backgroundEntities(new std::vector<Entity*>())
 {
+	char** leveldata = this->getLeveldata(FILE_PATH, 22, config->getRasterColumnsCount());
+	for (int row = 0, _row = -3; row < 22; row++ , _row++)
+	{
+		for (int col = 0; col < config->getRasterColumnsCount(); col++)
+		{
+			switch (leveldata[row][col])
+			{
+			case 'q':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::LEFT_WALL_1));
+				break;
+			case 'Q':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::LEFT_WALL_2));
+				break;
+			case 'w':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::MIDDLE_WALL_1));
+				break;
+			case 'W':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::MIDDLE_WALL_2));
+				break;
+			case 'e':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::RIGHT_WALL_1));
+				break;
+			case 'E':
+				addBackgroundEntity(new WallEntity(config, new Position(col, 22 - _row), WallEntity::WallState::RIGHT_WALL_2));
+				break;
+
+			case 'P':
+				setPlayer(new PlayerEntity(config, new Position(col, 22 - _row)));
+				break;
+
+			case 'M':
+				addEnemy(new EnemyEntity(config, new Position(col, 22 - _row)));
+				break;
+
+			case 'H':
+				addBackgroundEntity(new LadderEntity(config, new Position(col, 22 - _row)));
+				break;
+
+			default: break;
+
+
+			}
+		}
+	}
+
 
 	//addEnemy()
 
-	//addBackgroundEntity(new WallEntity(config, new Position(config->)));
+	//
 
 	//char** leveldata = this->getLeveldata("levels/stage1.txt", 23, config->getRasterColumnsCount());
 
-	
+
 	//addEnemy();
 	//setPlayer(new PlayerEntity(config, new Position(config->applyFactor(5), config->applyFactor(5))));
 }
