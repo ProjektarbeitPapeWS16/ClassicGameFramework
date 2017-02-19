@@ -137,7 +137,6 @@
     <ClInclude Include="PacManView.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="StdLevel.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +146,6 @@
     <ClCompile Include="PacManModel.cpp" />
     <ClCompile Include="PacManView.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="StdLevel.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>

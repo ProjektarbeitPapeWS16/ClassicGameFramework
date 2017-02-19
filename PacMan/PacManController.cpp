@@ -33,16 +33,7 @@ PacManController::~PacManController()
 {
 }
 
-// not sure if this is in the correct spot / what is this
-long cycles = 0L;
 void PacManController::cycle()
 {
-	if (cycles % 7 == 0)
-	{
-		// TODO: schöner machen, session und level sollten nicht bekannt sein
-		PlayerEntity* pacman = static_cast<PacManModel*>(model)->getPacman();
-		pacman->execute();
-		
-	}
-	cycles++;
+
 }

@@ -16,8 +16,6 @@ class EnemyEntity : public Entity
 	Image* energized1;
 	Image* energized2;
 	//Image* dead; TODO
-	
-	Renderer* renderer;
 
 	bool energized;
 
@@ -28,12 +26,12 @@ public:
 		MOVE_RIGHT,
 		MOVE_LEFT,
 		MOVE_UP,
-		MOVE_DOWN,
-		DO_ACTION
+		MOVE_DOWN
 	};
 
-	enum PlayerState
+	enum GhostState
 	{
+		MOVE_NONE, 
 		MOVE_RIGHT_1,
 		MOVE_RIGHT_2,
 		MOVE_LEFT_1,
@@ -41,17 +39,32 @@ public:
 		MOVE_UP_1,
 		MOVE_UP_2,
 		MOVE_DOWN_1,
-		MOVE_DOWN_2,
-		DEAD
+		MOVE_DOWN_2
 	};
 
+	enum SpecialState
+	{
+		ALIVE,
+		DEAD,
+		ENERGIZED1,
+		ENERGIZED2
+	};
+
+
 private: 
-	PlayerState state = MOVE_RIGHT_1;
+	GhostState state = MOVE_NONE;
 	Request lastRequest = NONE;
+	SpecialState specialState = ALIVE;
 
 public:
-	EnemyEntity(Renderer* renderer);
+	EnemyEntity();
+	EnemyEntity(Boundaries * boundaries);
+	void setTextures(char* moveUp1, char* moveUp2, char* moveDown1, char* moveDown2, 
+		char* moveRight1, char* moveRight2, char* moveLeft1, char* moveLeft2, 
+		char* energized1, char* energized2);
 	void request(Request request);
+	void specialRequest(SpecialState request);
 	void execute();
+	void stepBack(); // for collision
 	Image* getImage() override;
 };

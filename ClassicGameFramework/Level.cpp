@@ -1,5 +1,5 @@
 ﻿#include "Level.h"
-#include "Physics.h"
+//#include "Physics.h"
 #include "Entity.h"
 #include "PhysicalObject.h"
 #include <iostream>
@@ -32,6 +32,10 @@ std::vector<Entity*>* Level::getEntities() const
 	return entities;
 }
 
+void Level::setEntities(std::vector<Entity*>* entities)
+{
+	this->entities = entities;
+}
 
 // get list of all entities' data for collision detection etc
 std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
@@ -39,7 +43,7 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 	if (entities)
 	{
 		auto physicalObjects = new std::vector<PhysicalObject*>;
-		for (auto i = 0; i < entities->size(); i++)
+		for (unsigned int i = 0; i < entities->size(); i++)
 		{
 			PhysicalObject* phys = entities->at(i);
 			physicalObjects->push_back(phys);
@@ -63,7 +67,7 @@ char** Level::getLeveldata(char* filepath, unsigned int rows, unsigned int cols)
 	FILE * file;
 
 	fopen_s(&file, filepath, "rb");
-	char* code;
+
 
 
 	// read content of textfile line by line
@@ -109,3 +113,10 @@ char *readFile(char *fileName) {
 
 	return code;
 }*/
+
+/*
+Physics* Level::getPhysics()
+{
+	return physics;
+}
+*/

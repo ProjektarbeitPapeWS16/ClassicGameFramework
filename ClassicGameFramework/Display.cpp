@@ -18,7 +18,7 @@ void Display::addDrawable(Drawable* drawable)
 
 void Display::removeDrawable(Drawable* drawable) 
 {
-	for (auto i = 0; i < drawables->size(); i++)
+	for (unsigned int i = 0; i < drawables->size(); i++)
 	{
 		if (drawables->at(i) == drawable)
 		{
