@@ -1,9 +1,11 @@
 ﻿#pragma once
-#include "Drawable.h"
+//#include "Drawable.h"
+#include "Entity.h"
+class GameConfig;
 class Font;
 struct Position;
 
-class Text : public Drawable
+class Text : public Entity
 {
 public:
 	void setWidth(int width) override;
@@ -16,17 +18,18 @@ public:
 	int getPosY() override;
 	Image* getImage() override;
 private:
-	int textLength, textWidth, textHeight;
+	int textLength;// , textWidth, textHeight;
 	Font* font;
 
-	Position* position;
+	//Position* position;
 	Image* image;
 	char* text;
 	double R, G, B;
 	double scale;
+	GameConfig* config;
 public:
 
-	Text(Font* font, char* text, Position* position, double scale, unsigned char R, unsigned char G, unsigned short B);
+	Text(GameConfig* config, Font* font, char* text, Position* position, double scale, unsigned char R, unsigned char G, unsigned short B);
 	~Text();
 
 	const char* getText() const;
