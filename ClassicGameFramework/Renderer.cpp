@@ -103,30 +103,23 @@ void fillEntireScreenWithColor(GLclampf red, GLclampf green, GLclampf blue, GLcl
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::render(Drawable* drawable)
-{
-	// TODO
-	
-}
-
-
 void Renderer::render(Display* display)
 {
 	// Clear screen
 	fillEntireScreenWithColor(0.0f, 0.0f, 0.0f, 1.0f);
-	
-	std::vector<Drawable*>* drawables = display->getDrawables();
+
+	auto drawables = display->getDrawables();
 	
 	for(size_t i = 0; i < drawables->size(); i++)
 	{
-		Image* image = drawables->at(i)->getImage();
+		auto image = drawables->at(i)->getImage();
 
-		if(imageRenderers.find(image->getImageFile()) == imageRenderers.end())
+		if(imageRenderers.find(image->getId()) == imageRenderers.end())
 		{
-			imageRenderers.insert(std::make_pair(image->getImageFile(), new ImageRenderer(this, image)));
+			imageRenderers.insert(std::make_pair(image->getId(), new ImageRenderer(this, drawables->at(i))));
 		}
 
-		imageRenderers.at(image->getImageFile())->render();
+		imageRenderers.at(image->getId())->render();
 	}
 
 	// Swap the buffers

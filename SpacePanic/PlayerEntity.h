@@ -2,13 +2,13 @@
 #include "Entity.h"
 
 
-class Renderer;
-
-
+class GameConfig;
 
 class PlayerEntity : public Entity
 {
-	const int schrittweite = 20;
+	GameConfig* config;
+
+	//const int schrittweite = 20;
 	Image* moveRight1;// = new Image(nullptr, "textures/player_run1_right.bmp", this, 200, 80, 0);
 	Image* moveRight2;// = new Image(nullptr, "textures/player_run2_right.bmp", this, 200, 80, 0);
 	Image* moveLeft1;// = new Image(nullptr, "textures/player_run1_left.bmp", this, 200, 80, 0);
@@ -18,7 +18,7 @@ class PlayerEntity : public Entity
 	Image* dig1;// = new Image(nullptr, "textur.bmp", this);
 	Image* dig2;// = new Image(nullptr, "textur.bmp", this);
 	Image* dead;// = new Image(nullptr, "textur.bmp", this);
-
+	
 public:
 	enum Request
 	{
@@ -45,11 +45,10 @@ public:
 private:
 	PlayerState state = MOVE_RIGHT_1;
 	Request lastRequest = NONE;
-	Renderer* renderer;
 public:
-
-	PlayerEntity(Renderer* renderer);
+	PlayerEntity(GameConfig* config, Position* position);
 	void request(Request request);
+	int schrittweite() const;
 	void execute();
 	Image* getImage() override;
 };

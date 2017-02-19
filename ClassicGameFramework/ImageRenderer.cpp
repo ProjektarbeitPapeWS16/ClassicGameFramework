@@ -2,7 +2,7 @@
 #include "Image.h"
 #include "Shader.h"
 #include "Renderer.h"
-#include "Entity.h"
+#include "Drawable.h"
 
 ImageRenderer::~ImageRenderer()
 {
@@ -11,19 +11,18 @@ ImageRenderer::~ImageRenderer()
 	glDeleteBuffers(1, &(EBO));
 }
 
-ImageRenderer::ImageRenderer(Renderer* renderer, Image* image): renderer(renderer), image(image)
+ImageRenderer::ImageRenderer(Renderer* renderer, Drawable* drawable): renderer(renderer), drawable(drawable)
 {
 	textureShader = new Shader("../ClassicGameFramework/textureShader.vert", "../ClassicGameFramework/textureShader.frag");
-	Entity* entity = image->getEntity();
 
 	auto start = renderer->translateToWorldCoordinates(
-		entity->getPosX(),
-		entity->getPosY()
+		drawable->getPosX(),
+		drawable->getPosY()
 	);
 
 	auto end = renderer->translateToWorldCoordinates(
-		entity->getPosX() + entity->getWidth(),
-		entity->getPosY() + entity->getHeight()
+		drawable->getPosX() + drawable->getWidth(),
+		drawable->getPosY() + drawable->getHeight()
 	);
 
 	GLfloat vertices[] = {
@@ -86,6 +85,7 @@ ImageRenderer::ImageRenderer(Renderer* renderer, Image* image): renderer(rendere
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 
+	Image* image = drawable->getImage();
 	image->loadImageBytes();
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getImageBytes());
@@ -98,12 +98,12 @@ ImageRenderer::ImageRenderer(Renderer* renderer, Image* image): renderer(rendere
 void ImageRenderer::render() const
 {
 	auto start = renderer->translateToWorldCoordinates(
-		image->getEntity()->getPosX(),
-		image->getEntity()->getPosY()
+		drawable->getPosX(),
+		drawable->getPosY()
 	);
 	auto end = renderer->translateToWorldCoordinates(
-		image->getEntity()->getPosX() + image->getEntity()->getWidth(),
-		image->getEntity()->getPosY() + image->getEntity()->getHeight()
+		drawable->getPosX() + drawable->getWidth(),
+		drawable->getPosY() + drawable->getHeight()
 	);
 
 	GLfloat vertices[] = {

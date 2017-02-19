@@ -4,9 +4,9 @@
 #include "Level.h"
 
 
-Physics::Physics()
+Physics::Physics():
+	collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
 {
-	collisionListener = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>;
 }
 
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects) const
@@ -47,6 +47,3 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 		return nullptr;
 	}
 }
-
-
-
