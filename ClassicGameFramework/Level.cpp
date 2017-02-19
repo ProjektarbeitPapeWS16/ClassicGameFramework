@@ -32,6 +32,7 @@ std::vector<Entity*>* Level::getEntities() const
 	return entities;
 }
 
+
 // get list of all entities' data for collision detection etc
 std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 {
@@ -56,7 +57,7 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 // assumes: give textfile has proper syntax
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
-char** Level::getLeveldata(char* filepath, int rows, int cols)
+char** Level::getLeveldata(char* filepath, unsigned int rows, unsigned int cols) const
 {
 	char** array2D = nullptr;
 	FILE * file;

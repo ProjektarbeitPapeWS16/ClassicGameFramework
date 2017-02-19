@@ -5,11 +5,7 @@ class SpacePanicModel : public EngineModel
 {
 	
 public:
-	SpacePanicModel(Session* session)
-		: EngineModel(session)
-	{
-		
-	}
+	SpacePanicModel(Session* session);
 
 	~SpacePanicModel() override;
 	void initialization() override;

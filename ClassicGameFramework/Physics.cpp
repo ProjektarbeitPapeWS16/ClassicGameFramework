@@ -6,13 +6,8 @@
 
 Physics::Physics():
 	level(nullptr),
-	collisionListener(new std::map<
-		PhysicalObject*,
-		std::function<void(PhysicalObject*)>*
-	>())
-Physics::Physics(): level(nullptr), collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
+	collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
 {
-	
 }
 
 void Physics::setLevel(Level* level)
@@ -30,7 +25,7 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 	collisionListener->clear();
 
 	// bewegbare Objekte werden nach Kollision abgefragt
-	if (level->getPhysicalObjects()) 
+	if (level->getPhysicalObjects())
 	{
 		auto physicalObjects = level->getPhysicalObjects();
 
@@ -55,12 +50,9 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 			}
 		}
 		return collisionListener;
-	} 
+	}
 	else
 	{
 		return nullptr;
 	}
 }
-
-
-

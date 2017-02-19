@@ -26,7 +26,7 @@ int main()
 {
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
-	auto config = new GameConfig(192, 256, 3, 8, 8);
+	auto config = new GameConfig(192, 256, 2, 8, 8);
 
 	std::string x = getexepath();
 

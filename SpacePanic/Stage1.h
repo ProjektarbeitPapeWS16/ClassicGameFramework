@@ -12,8 +12,8 @@ class Stage1 : public Level
 	PlayerEntity* player;
 	std::vector<EnemyEntity*>* enemys;
 	std::vector<Entity*>* backgroundEntities;
-	std::vector<Entity*>* allEntities;
-	std::vector<PhysicalObject*>* physicalObjects;
+	//std::vector<Entity*>* allEntities;
+	//std::vector<PhysicalObject*>* physicalObjects;
 
 public:
 	void setPlayer(PlayerEntity* player);
@@ -25,6 +25,6 @@ public:
 	std::vector<EnemyEntity*>* getEnemys() const;
 	std::vector<Entity*>* getBackgroundEntities() const;
 	~Stage1() override;
-	std::vector<PhysicalObject*>* getPhysicalObjects() override;
-	std::vector<Entity*>* getEntities() const;
+	//std::vector<PhysicalObject*>* getPhysicalObjects() override;
+	//std::vector<Entity*>* getEntities() const;
 };

@@ -128,4 +128,7 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\stage1.txt" />
+  </ItemGroup>
 </Project>

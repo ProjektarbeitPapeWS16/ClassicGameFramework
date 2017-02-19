@@ -1,31 +1,52 @@
 ﻿#include "Stage1.h"
+#include "WallEntity.h"
 
 void Stage1::setPlayer(PlayerEntity* player)
 {
-	delete this->player;
+	if (this->player != nullptr)
+	{
+		delete this->player;
+	}
 	this->player = player;
+	this->entities->push_back(player);
 }
 
 void Stage1::addEnemy(EnemyEntity* enemy) const
 {
-	enemys->push_back(enemy);
+	this->enemys->push_back(enemy);
+	this->entities->push_back(enemy);
 }
 
 void Stage1::addBackgroundEntity(Entity* backgroundEntity) const
 {
 	backgroundEntities->push_back(backgroundEntity);
+	this->entities->push_back(backgroundEntity);
 }
 
-Stage1::Stage1(GameConfig* config): Level(config->getRasterColumnsCount(), config->getRasterRowsCount(), config->getRasterWidth(), config->getRasterHeight(), new std::string(FILE_PATH)),
-                                    gameConfig(config),
-                                    FILE_PATH("levels/stage1.txt"),
-                                    player(nullptr),
-                                    enemys(new std::vector<EnemyEntity*>()),
-                                    backgroundEntities(new std::vector<Entity*>()),
-                                    allEntities(new std::vector<Entity*>()),
-                                    physicalObjects(new std::vector<PhysicalObject*>())
+Stage1::Stage1(GameConfig* config):
+	Level(
+		config->getRasterColumnsCount(),
+		config->getRasterRowsCount(),
+		config->getRasterWidth(),
+		config->getRasterHeight(),
+		new std::string(FILE_PATH)
+	),
+	gameConfig(config),
+	FILE_PATH("levels/stage1.txt"),
+	player(nullptr),
+	enemys(new std::vector<EnemyEntity*>()),
+	backgroundEntities(new std::vector<Entity*>())
 {
-	player = new PlayerEntity(config, new Position(15, 15)); // TODO
+
+	//addEnemy()
+
+	//addBackgroundEntity(new WallEntity(config, new Position(config->)));
+
+	//char** leveldata = this->getLeveldata("levels/stage1.txt", 23, config->getRasterColumnsCount());
+
+	
+	//addEnemy();
+	//setPlayer(new PlayerEntity(config, new Position(config->applyFactor(5), config->applyFactor(5))));
 }
 
 
@@ -51,14 +72,4 @@ std::vector<Entity*>* Stage1::getBackgroundEntities() const
 
 Stage1::~Stage1()
 {
-}
-
-std::vector<Entity*>* Stage1::getEntities() const
-{
-	return allEntities;
-}
-
-std::vector<PhysicalObject*>* Stage1::getPhysicalObjects()
-{
-	return physicalObjects;
 }

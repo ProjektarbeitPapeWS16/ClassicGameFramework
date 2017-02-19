@@ -65,7 +65,7 @@ SpacePanicController::~SpacePanicController()
 long cycles = 0L;
 void SpacePanicController::cycle()
 {
-	if(cycles % 7 == 0)
+	if(cycles % 4 == 0)
 	{
 		PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
 		player->execute();

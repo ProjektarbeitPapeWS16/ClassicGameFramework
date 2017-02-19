@@ -15,6 +15,7 @@ class Level
 	Grid* grid; // determines dimensions, and grid size
 	Physics* physics;
 	std::string* path; // to layout info file
+protected:
 	std::vector<Entity*>* entities;
 public:
 	virtual ~Level()
@@ -24,6 +25,6 @@ public:
 	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path);
 
 	std::vector<Entity*>* getEntities() const;
-	virtual std::vector<PhysicalObject*>* getPhysicalObjects() = 0;
-	char** getLeveldata(char* filepath, int rows, int cols) const;
+	std::vector<PhysicalObject*>* getPhysicalObjects() const;
+	char** getLeveldata(char* filepath, unsigned int rows, unsigned int cols) const;
 };
