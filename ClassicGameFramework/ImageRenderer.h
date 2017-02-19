@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <glew.h>
+class Drawable;
 class Image;
 class Renderer;
 class Shader;
@@ -14,10 +15,10 @@ class ImageRenderer
 	Shader* textureShader;
 	Renderer* renderer;
 
-	Image* image;
+	Drawable* drawable;
 public:
 
-	ImageRenderer(Renderer* renderer, Image* image);
+	ImageRenderer(Renderer* renderer, Drawable* drawable);
 	~ImageRenderer();
 
 	void render() const;

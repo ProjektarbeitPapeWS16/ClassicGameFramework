@@ -89,8 +89,8 @@ Entity* Entity::getEntity()
 
 Image* Entity::getImage()
 {
-	int imageIndex = internalCounter / animationSpeed;
-	int maxCounter = imageCount * animationSpeed;
+	auto imageIndex = internalCounter / animationSpeed;
+	auto maxCounter = imageCount * animationSpeed;
 
 	Image* image = this->image[imageIndex];
 
@@ -105,7 +105,7 @@ Image* Entity::getImage()
 
 Entity::~Entity()
 {
-	for (int i = 0; i < imageCount; i++)
+	for (auto i = 0; i < imageCount; i++)
 	{
 		delete image[i];
 	}

@@ -61,7 +61,7 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 // assumes: give textfile has proper syntax
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
-char** Level::getLeveldata(char* filepath, int rows, int cols)
+char** Level::getLeveldata(char* filepath, unsigned int rows, unsigned int cols) const
 {
 	char** array2D = nullptr;
 	FILE * file;
@@ -80,7 +80,7 @@ char** Level::getLeveldata(char* filepath, int rows, int cols)
 		// load next line of text; which contains one row
 		array2D[iRow] = new char[cols];
 		std::getline(in, str);
-		for (int iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
 		{
 			entityCharacter = str[iCol];
 			array2D[iRow][iCol] = entityCharacter;
