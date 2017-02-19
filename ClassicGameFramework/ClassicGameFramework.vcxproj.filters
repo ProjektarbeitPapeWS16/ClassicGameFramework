@@ -75,6 +75,9 @@
     <ClCompile Include="Spritesheet.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ImageRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
@@ -138,6 +141,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Spritesheet.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,8 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
+#include <map>
+#include "ImageRenderer.h"
 class Drawable;
 #include <vector>
 class Display;
@@ -45,8 +47,12 @@ class Renderer
 	/// <param name="message">the message</param>
 	static void log(const char* message);
 
-	std::vector<Image*> imageBuffer;
-	
+	std::map<const char*, ImageRenderer*> imageRenderers;
+	const GLuint WINDOW_WIDTH;
+	const GLuint WINDOW_HEIGHT;
+
+	//std::map<Image>
+
 public:
 	// OpenGL Version
 	const GLuint GL_VERSION_MAJOR = 3;
@@ -54,9 +60,7 @@ public:
 
 	// Window options
 	const GLboolean RESIZABLE_WINDOW = GL_FALSE;
-	const GLuint WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600; // Window dimensions
-	//const GLchar* WINDOW_TITLE = "Rechteck-Beispiel";
-
+	
 	// Rendering options
 	const GLboolean VSYNC = GL_TRUE;
 	const GLboolean JUST_WIREFRAMES = GL_FALSE;

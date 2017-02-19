@@ -8,17 +8,19 @@ class Level;
 class Session
 {
 	int lifes;
-	unsigned long creationTime = Config::currentTimeMillis();
+	unsigned __int64 creationTime = Config::currentTimeMillis();
 	int score;
 	Level* level;	//[C] bei Init: Startbildschirm?
 
 public:
+	// Konstruktor
+	Session();
 
 	int getLifes();
 	void setLifes(int lifes);
 
-	unsigned long getCreationTime();
-	unsigned long getPassedTime();
+	unsigned __int64 getCreationTime();
+	unsigned __int64 getPassedTime();
 
 	int getScore();
 	void setScore(int score);

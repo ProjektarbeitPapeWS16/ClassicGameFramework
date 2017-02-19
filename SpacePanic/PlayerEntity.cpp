@@ -5,13 +5,13 @@ PlayerEntity::PlayerEntity(Renderer* renderer): Entity(nullptr, 10, false, new B
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
-	 moveRight1 = new Image(renderer, "textures/player_run1_right.bmp", this, 200, 80, 0);
-	 moveRight2 = new Image(renderer, "textures/player_run2_right.bmp", this, 200, 80, 0);
-	 moveLeft1 = new Image(renderer, "textures/player_run1_left.bmp", this, 200, 80, 0);
-	 moveLeft2 = new Image(renderer, "textures/player_run2_left.bmp", this, 200, 80, 0);
-	 climb1 = new Image(renderer, "textures/player_climb1.bmp", this, 200, 80, 0);
-	 climb2 = new Image(renderer, "textures/player_climb2.bmp", this, 200, 80, 0);
-	 dig1 = new Image(renderer, "textur.bmp", this);
+	 moveRight1 = new Image("textures/player_run1_right.bmp", this, 200, 80, 0);
+	 moveRight2 = new Image("textures/player_run2_right.bmp", this, 200, 80, 0);
+	 moveLeft1 = new Image("textures/player_run1_left.bmp", this, 200, 80, 0);
+	 moveLeft2 = new Image("textures/player_run2_left.bmp", this, 200, 80, 0);
+	 climb1 = new Image("textures/player_climb1.bmp", this, 200, 80, 0);
+	 climb2 = new Image("textures/player_climb2.bmp", this, 200, 80, 0);
+	 dig1 = new Image("textur.bmp", this);
 	 dig2 = dig1;
 	 dead = dig1;
 }
@@ -123,14 +123,14 @@ Image* PlayerEntity::getImage()
 {
 	switch(state)
 	{
-	case MOVE_RIGHT_1: return moveRight1;
-	case MOVE_RIGHT_2: return moveRight2;
-	case MOVE_LEFT_1: return moveLeft1;
-	case MOVE_LEFT_2: return moveLeft2;
-	case CLIMB_1: return climb1;
-	case CLIMB_2: return climb2;
-	case DIG_1: return dig1;
-	case DIG_2: return dig2;
-	default: return dead;
+		case MOVE_RIGHT_1: return moveRight1;
+		case MOVE_RIGHT_2: return moveRight2;
+		case MOVE_LEFT_1: return moveLeft1;
+		case MOVE_LEFT_2: return moveLeft2;
+		case CLIMB_1: return climb1;
+		case CLIMB_2: return climb2;
+		case DIG_1: return dig1;
+		case DIG_2: return dig2;
+		default: return dead;
 	}
 }

@@ -2,8 +2,9 @@
 #include <string>
 #include <vector>
 #include "Grid.h"
-class Physics;
+//class Physics;
 class PhysicalObject;
+class Entity;
 
 class Level
 {

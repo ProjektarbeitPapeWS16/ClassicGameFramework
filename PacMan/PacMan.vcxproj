@@ -148,6 +148,11 @@
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SpacePanic\textur.bmp" />
+    <Image Include="..\SpacePanic\textures\player_run1_left.bmp" />
+    <Image Include="textures\pacmanExperimental.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

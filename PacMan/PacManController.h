@@ -10,4 +10,5 @@ public:
 	PacManController(PacManView *view, PacManModel* model);
 
 	~PacManController() override;
+	void cycle();
 };

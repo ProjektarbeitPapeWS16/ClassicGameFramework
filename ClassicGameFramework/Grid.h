@@ -2,7 +2,7 @@
 #include "Position.h"
 #include "Config.h"
 
-class Boundaries;
+struct Boundaries; // statt class
 class Entity;
 const unsigned TILECOUNT_DEFAULT = 32; // 32x32 Grid, e.g. for PacMan
 const unsigned TILESIZE_DEFAULT = 8; // for Entities with 8x8px Graphics

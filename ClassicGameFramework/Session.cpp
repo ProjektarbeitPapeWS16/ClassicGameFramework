@@ -2,6 +2,11 @@
 
 #include "Config.h"
 
+Session::Session()
+{
+
+}
+
 int Session::getLifes()
 {
 	return lifes;
@@ -12,12 +17,12 @@ void Session::setLifes(int lifes)
 	this->lifes = lifes;
 }
 
-unsigned long Session::getCreationTime()
+unsigned __int64 Session::getCreationTime()
 {
 	return creationTime;
 }
 
-unsigned long Session::getPassedTime()
+unsigned __int64 Session::getPassedTime()
 {
 	return Config::currentTimeMillis() - creationTime;
 }

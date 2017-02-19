@@ -2,10 +2,28 @@
 //#include <glfw3.h>
 #include "EngineView.h"
 #include "Renderer.h"
+#include "Session.h"
+#include "Level.h"
+#include "Entity.h"
+#include "Physics.h"
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
 EngineModel *EngineModel::instance = nullptr;
+
+EngineModel::EngineModel()
+{
+	session = new Session();
+	level = new Level(100, 100, 1, 1, nullptr);
+	entities = new std::vector<Entity*>();
+	physic = new Physics();
+
+	EngineModel::instance = this;
+	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
+	keyPressedListeners = new std::map<Key, std::function<void()>*>();
+	keyDownListeners = new std::map<Key, std::function<void()>*>();
+	keyDownKeys = new std::vector<Key>();
+}
 
 EngineModel* EngineModel::getInstance()
 {
@@ -34,7 +52,7 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 
 void EngineModel::key_down()
 {
-	for(int i = 0; i < keyDownKeys->size(); i++)
+	for(unsigned int i = 0; i < keyDownKeys->size(); i++)
 	{
 		Key key = keyDownKeys->at(i);
 		if(glfwGetKey(EngineView::getInstance()->renderer->window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
@@ -45,14 +63,7 @@ void EngineModel::key_down()
 	}
 }
 
-EngineModel::EngineModel(Session* session): session(session)
-{
-	EngineModel::instance = this;
-	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
-	keyPressedListeners = new std::map<Key, std::function<void()>*>();
-	keyDownListeners = new std::map<Key, std::function<void()>*>();
-	keyDownKeys = new std::vector<Key>();
-}
+
 
 std::map<Key, std::function<void()>*>* EngineModel::getKeyPressedListeners() const
 {
@@ -74,17 +85,35 @@ std::vector<Key>* EngineModel::getKeyDownKeys() const
 	return keyDownKeys;
 }
 
-Session* EngineModel::getSession()
-{
-	// TODO
-	return this->session;
-}
-
 void EngineModel::initialization()
 {
 }
 
 void EngineModel::nextIteration()
 {
+	handleCollisions();
 	// TODO
+}
+
+
+void EngineModel::handleCollisions()
+{
+	// TODO
+}
+
+
+// getter
+Session* EngineModel::getSession() 
+{	
+	return session;	
+}
+
+Level* EngineModel::getLevel() 
+{	
+	return level;	
+}
+
+std::vector<Entity*>* EngineModel::getEntities()
+{
+	return entities;
 }

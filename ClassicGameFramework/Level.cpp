@@ -1,11 +1,15 @@
 ﻿#include "Level.h"
-#include "Physics.h"
+//#include "Physics.h"
+#include "Entity.h"
 #include "PhysicalObject.h"
 #include "EntityRefTable.h"
 #include <iostream>
 #include <fstream>
 
-Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) : path(path)
+Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) :
+	grid(new Grid(colsGrid, rowsGrid, xTileSize, yTileSize)),
+	path(path),
+	entities(new std::vector<Entity*>())
 {
 	// 1. set Grid. TODO: Overload with Grid parameter?
 	this->grid = new Grid(colsGrid, rowsGrid, xTileSize, yTileSize);
@@ -35,14 +39,34 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::stri
 //		xPosition = 5*16 + 16/2, yPosition = 4*16 + 16/2. 
 //		Pixel-position in level: (88px, 72px)
 
+std::vector<Entity*>* Level::getEntities() const
+{
+	return entities;
+}
+
+void Level::setEntities(std::vector<Entity*>* entities)
+{
+	this->entities = entities;
+}
 
 // get list of all entities' data for collision detection etc
-/*
- *std::vector<PhysicalObject>* Level::getPhysicalObjects()
+std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 {
-	return nullptr;
+	if (entities)
+	{
+		auto physicalObjects = new std::vector<PhysicalObject*>;
+		for (unsigned int i = 0; i < entities->size(); i++)
+		{
+			PhysicalObject* phys = entities->at(i);
+			physicalObjects->push_back(phys);
+		}
+		return physicalObjects;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
-*/
 
 // opens a text file at given filepath,
 // then saves that information in a 2D char array.
@@ -63,6 +87,8 @@ char** Level::getLevelFromFile(std::string* filepath, int cols = 28, int rows = 
 	for (int i = 0; i < rows; i++) {
 		grid[i] = new char[cols]; // allocate each row with the respective amount of column entries.
 	}
+	fopen_s(&file, filepath, "rb");
+
 
 	bool readLine = false;			// Flag for enabling row input from Level-Info-File
 	char rowBuffer[MAX];			// for iterating through tile rows

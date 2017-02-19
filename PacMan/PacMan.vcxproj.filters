@@ -60,4 +60,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SpacePanic\textur.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\SpacePanic\textures\player_run1_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\pacmanExperimental.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
