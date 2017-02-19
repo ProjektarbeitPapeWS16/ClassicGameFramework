@@ -3,6 +3,7 @@
 #include "Position.h"
 #include "Image.h"
 #include <iostream>
+#include "../SpacePanic/GameConfig.h"
 
 void Text::setWidth(int width)
 {
@@ -16,32 +17,32 @@ void Text::setHeight(int height)
 
 void Text::setPosX(int posX)
 {
-	position->x = posX;
+	boundaries->position.x = posX;
 }
 
 void Text::setPosY(int posY)
 {
-	position->y = posY;
+	boundaries->position.y = posY;
 }
 
 int Text::getWidth()
 {
-	return textWidth * scale;
+	return boundaries->width * scale;
 }
 
 int Text::getHeight()
 {
-	return textHeight * scale;
+	return boundaries->height * scale;
 }
 
 int Text::getPosX()
 {
-	return position->x;
+	return boundaries->position.x;
 }
 
 int Text::getPosY()
 {
-	return position->y;
+	return boundaries->position.y;
 }
 
 Image* Text::getImage()
@@ -54,18 +55,20 @@ Image* Text::getImage()
 	return image;
 }
 
-Text::Text(Font* font, char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned short B = 255) :
-	scale(scale),
-	textLength(0),
-	textWidth(0),
-	textHeight(font->getFontSize()),
+Text::Text(GameConfig* config, Font* font, char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned short B = 255) :
+	Entity(nullptr, 0, false, nullptr, false ,0),
+textLength(0),
+	//textWidth(0),
+	//textHeight(font->getFontSize()),
 	font(font),
-	position(position),
+	//position(position),
 	image(nullptr),
 	text(text),
 	R(255.0 / R),
 	G(255.0 / G),
-	B(255.0 / B)
+	B(255.0 / B),
+	scale(scale),
+	config(config)
 {
 	// count letters
 	while (text[this->textLength] != '\0')
@@ -73,7 +76,9 @@ Text::Text(Font* font, char* text, Position* position, double scale = 1.0, unsig
 		this->textLength++;
 	}
 
-	this->textWidth = this->textLength * font->getFontWidth();
+	//this->textWidth = this->textLength * font->getFontWidth();
+
+	boundaries = new Boundaries(config->getRasterWidth() * position->x, config->getRasterHeight() * position->y, this->textLength * font->getFontWidth(), font->getFontSize());
 }
 
 Text::~Text()
@@ -125,7 +130,7 @@ void Text::loadImage()
 		}
 	}
 
-	image = new Image(imageBytes, textWidth, textHeight, font->getTransR(), font->getTransG(), font->getTransB());
+	image = new Image(imageBytes, boundaries->width, boundaries->height, font->getTransR(), font->getTransG(), font->getTransB());
 }
 
 

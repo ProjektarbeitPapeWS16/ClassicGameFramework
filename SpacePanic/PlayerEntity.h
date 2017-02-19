@@ -8,16 +8,17 @@ class PlayerEntity : public Entity
 {
 	GameConfig* config;
 
-	//const int schrittweite = 20;
-	Image* moveRight1;// = new Image(nullptr, "textures/player_run1_right.bmp", this, 200, 80, 0);
-	Image* moveRight2;// = new Image(nullptr, "textures/player_run2_right.bmp", this, 200, 80, 0);
-	Image* moveLeft1;// = new Image(nullptr, "textures/player_run1_left.bmp", this, 200, 80, 0);
-	Image* moveLeft2;// = new Image(nullptr, "textures/player_run2_left.bmp", this, 200, 80, 0);
-	Image* climb1;// = new Image(nullptr, "textures/player_climb1.bmp", this, 200, 80, 0);
-	Image* climb2;// = new Image(nullptr, "textures/player_climb2.bmp", this, 200, 80, 0);
-	Image* dig1;// = new Image(nullptr, "textur.bmp", this);
-	Image* dig2;// = new Image(nullptr, "textur.bmp", this);
-	Image* dead;// = new Image(nullptr, "textur.bmp", this);
+	Image* moveRight1;
+	Image* moveRight2;
+	Image* moveLeft1;
+	Image* moveLeft2;
+	Image* climb1;
+	Image* climb2;
+	Image* dead;
+	Image* digLeft1;
+	Image* digLeft2;
+	Image* digRight1;
+	Image* digRight2;
 	
 public:
 	enum Request
@@ -38,9 +39,11 @@ public:
 		MOVE_LEFT_2,
 		CLIMB_1,
 		CLIMB_2,
-		DIG_1,
-		DIG_2,
-		DEAD
+		DIG_LEFT_1,
+		DIG_LEFT_2,
+		DIG_RIGHT_1,
+		DIG_RIGHT_2,
+		DEAD,
 	};
 private:
 	PlayerState state = MOVE_RIGHT_1;
@@ -49,6 +52,7 @@ public:
 	PlayerEntity(GameConfig* config, Position* position);
 	void request(Request request);
 	int schrittweite() const;
+	bool canMove();
 	void execute();
 	Image* getImage() override;
 };
