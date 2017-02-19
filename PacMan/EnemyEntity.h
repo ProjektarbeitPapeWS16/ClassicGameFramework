@@ -65,5 +65,6 @@ public:
 	void request(Request request);
 	void specialRequest(SpecialState request);
 	void execute();
+	void stepBack(); // for collision
 	Image* getImage() override;
 };

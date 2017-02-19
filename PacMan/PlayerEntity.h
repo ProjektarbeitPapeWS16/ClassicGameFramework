@@ -44,5 +44,6 @@ public:
 	PlayerEntity();
 	void request(Request request);
 	void execute();
+	void stepBack();
 	Image* getImage() override;
 };

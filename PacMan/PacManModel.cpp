@@ -89,11 +89,12 @@ void PacManModel::initialization()
 
 void PacManModel::nextIteration()
 {
-	handleCollisions();
-
+	
 	slowit++;
 	if (slowit % 7 == 0)
 	{
+		
+		
 		gamecounter++;
 		gamecounter = gamecounter % 16;
 		switch (gamecounter)
@@ -116,8 +117,11 @@ void PacManModel::nextIteration()
 		case 15: 
 		default: blueGhost->request(EnemyEntity::MOVE_DOWN);	break;;
 		}
+		pacman->execute();
+		handleCollisions();
 	}
 	blueGhost->execute();
+
 }
 
 
@@ -137,7 +141,9 @@ void PacManModel::handleCollisions()
 			if (PlayerEntity* pacman = dynamic_cast<PlayerEntity*>(first))
 			{
 				// pacman collides
-				pacman->request(PlayerEntity::NONE);
+				// if collides, has to take a step back
+				pacman->stepBack();
+				//pacman->request(PlayerEntity::NONE);
 			}
 		}
 	}

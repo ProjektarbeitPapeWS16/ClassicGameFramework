@@ -121,6 +121,22 @@ void EnemyEntity::execute()
 	lastRequest = NONE;
 }
 
+void EnemyEntity::stepBack()
+{
+	switch (state)
+	{
+	case MOVE_RIGHT_1:
+	case MOVE_RIGHT_2: this->setPosX(this->getPosX() - movementSpeed); break;
+	case MOVE_LEFT_1:
+	case MOVE_LEFT_2: this->setPosX(this->getPosX() + movementSpeed); break;
+	case MOVE_UP_1:
+	case MOVE_UP_2: this->setPosY(this->getPosY() - movementSpeed); break;
+	case MOVE_DOWN_1:
+	case MOVE_DOWN_2: this->setPosY(this->getPosY() + movementSpeed); break;
+	default: break;
+	}
+}
+
 Image* EnemyEntity::getImage()
 {
 	switch (specialState)
