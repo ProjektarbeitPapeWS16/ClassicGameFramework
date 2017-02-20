@@ -5,10 +5,10 @@
 #include "EntityRefTable.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
-Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, std::string* path) :
+Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize) :
 	grid(new Grid(colsGrid, rowsGrid, xTileSize, yTileSize)),
-	path(path),
 	entities(new std::vector<Entity*>())
 {
 	// 1. set Grid. TODO: Overload with Grid parameter?
@@ -74,7 +74,7 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 // (correct amount of lines and characters corresponding with
 //  level grid; and known entity type symbols.)
 // Returns: char** that Stores coordinates of all Level-Info-File symbols to translate into entities in the level
-char** Level::getLevelFromFile(std::string* filepath, int cols = 28, int rows = 32)
+char** Level::getLevelFromFile(std::string* filepath, unsigned int rows = 32, unsigned int cols = 28)
 {
 	const char IGNORE_AFTER = '"';	// Level-Info-File Symbol	"				used for comments
 	const char READ_AFTER = '°';	// Level-Info-File Symbol	°				used for starting level input

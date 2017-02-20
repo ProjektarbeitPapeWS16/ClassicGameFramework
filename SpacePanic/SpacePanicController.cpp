@@ -7,30 +7,32 @@
 #include "Display.h"
 #include "Drawable.h"
 #include "PlayerEntity.h"
+#include "Stage1.h"
+#include "Session.h"
 
 // TODO make static and put in Model
 void upDown()
 {
-	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_UP);
 }
 
 
 void downDown()
 {
-	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_DOWN);
 }
 
 void leftDown()
 {
-	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_LEFT);
 }
 
 void rightDown()
 {
-	PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
+	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_RIGHT);
 }
 
@@ -65,10 +67,20 @@ SpacePanicController::~SpacePanicController()
 long cycles = 0L;
 void SpacePanicController::cycle()
 {
-	if(cycles % 7 == 0)
+	if(cycles % 4 == 0)
 	{
-		PlayerEntity* player = static_cast<PlayerEntity*>(EngineView::getInstance()->display->getDrawables()->at(0));
-		player->execute();
+		PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+		if(player != nullptr)
+		{
+			player->execute();
+		}
+
+		std::vector<EnemyEntity*>* enemys = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
+		for(int i = 0; i < enemys->size(); i++)
+		{
+			enemys->at(i)->execute();
+		}
+		
 	}
 	cycles++;
 }

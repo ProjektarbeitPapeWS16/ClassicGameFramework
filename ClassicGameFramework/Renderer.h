@@ -6,6 +6,7 @@
 #include <glfw3.h>
 #include <map>
 #include "ImageRenderer.h"
+class Text;
 class Drawable;
 #include <vector>
 class Display;
@@ -47,7 +48,7 @@ class Renderer
 	/// <param name="message">the message</param>
 	static void log(const char* message);
 
-	std::map<const char*, ImageRenderer*> imageRenderers;
+	std::map<unsigned long, ImageRenderer*> imageRenderers;
 	const GLuint WINDOW_WIDTH;
 	const GLuint WINDOW_HEIGHT;
 
@@ -71,7 +72,6 @@ public:
 
 	~Renderer();
 
-	void render(Drawable* drawable);
 	void render(Display* display);
 
 	/// <summary>

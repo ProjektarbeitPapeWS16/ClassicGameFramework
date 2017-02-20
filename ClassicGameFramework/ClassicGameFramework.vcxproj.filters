@@ -63,10 +63,16 @@
     <ClCompile Include="Boundaries.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="Config.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="ImageRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="EntityRefTable.cpp">
@@ -75,7 +81,7 @@
     <ClCompile Include="Spritesheet.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ImageRenderer.cpp">
+    <ClCompile Include="Font.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,9 +105,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
@@ -143,7 +146,16 @@
     <ClInclude Include="Spritesheet.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="ImageRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

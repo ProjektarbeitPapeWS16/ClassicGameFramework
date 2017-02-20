@@ -11,6 +11,7 @@
 #include "SpacePanicView.h"
 #include "SpacePanicController.h"
 #include "GameConfig.h"
+#include "Stage1.h"
 
 
 //#include <iostream>
@@ -25,34 +26,23 @@ int main()
 {
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
-	auto config = new GameConfig(192, 256, 3, 8, 8);
+	auto config = new GameConfig(192, 256, 2, 8, 8);
 
-	std::string x = getexepath();
+	//std::string x = getexepath();
 
 	auto session = new Session();
 	auto display = new Display();
 	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Space Panic");
 
-	std::vector<Level*> levels;
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("menu.txt")));
-	levels.push_back(
-		new Level(
-			config->getRasterColumnsCount(),
-			config->getRasterRowsCount(),
-			config->getRasterWidth(),
-			config->getRasterHeight(),
-			new std::string("levels/level1.txt")
-		)
-	);
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level2.txt")));
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level3.txt")));
-
+	//std::vector<Level*> levels;
+	//levels.push_back(new Stage1(config));
+	
 
 	auto model = new SpacePanicModel(session);
-	auto view = new SpacePanicView(model, display, renderer);
+	auto view = new SpacePanicView(model, display, renderer, config);
 	auto controller = new SpacePanicController(view, model);
 
-
+	
 	controller->gameLoop();
 
 	return 0;

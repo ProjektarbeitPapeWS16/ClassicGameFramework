@@ -70,7 +70,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\ClassicGameFramework;..\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>..\libs;..\ClassicGameFramework;..\x64\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Debug;..\ClassicGameFramework;..\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\ClassicGameFramework;..\includes;$(IncludePath)</IncludePath>
@@ -96,8 +96,9 @@
       <AdditionalIncludeDirectories>..\ClassicGameFramework;..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\libs</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ClassicGameFramework.lib;opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ClassicGameFramework.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,40 +128,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="bgimage.jpg" />
-    <Image Include="herz.jpg" />
-    <Image Include="herz.png" />
-    <Image Include="pacman.png" />
-    <Image Include="stern.jpg" />
-    <Image Include="textur.bmp" />
+    <Image Include="textures\border_bottom.bmp" />
+    <Image Include="textures\border_top.bmp" />
+    <Image Include="textures\ladder.bmp" />
     <Image Include="textures\player_climb1.bmp" />
     <Image Include="textures\player_climb2.bmp" />
+    <Image Include="textures\player_dig1_left.bmp" />
+    <Image Include="textures\player_dig1_right.bmp" />
+    <Image Include="textures\player_dig2_left.bmp" />
+    <Image Include="textures\player_dig2_right.bmp" />
     <Image Include="textures\player_run1_left.bmp" />
     <Image Include="textures\player_run1_right.bmp" />
     <Image Include="textures\player_run2_left.bmp" />
     <Image Include="textures\player_run2_right.bmp" />
+    <Image Include="textures\stone1left.bmp" />
+    <Image Include="textures\stone1middle.bmp" />
+    <Image Include="textures\stone1right.bmp" />
+    <Image Include="textures\stone2left.bmp" />
+    <Image Include="textures\stone2middle.bmp" />
+    <Image Include="textures\stone2right.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
+    <ClCompile Include="LadderEntity.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
     <ClCompile Include="SpacePanicController.cpp" />
     <ClCompile Include="SpacePanicModel.cpp" />
     <ClCompile Include="SpacePanicView.cpp" />
+    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="EnemyEntity.h" />
+    <ClInclude Include="LadderEntity.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicView.h" />
+    <ClInclude Include="Stage1.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassicGameFramework\ClassicGameFramework.vcxproj">
       <Project>{464950ca-c785-40e9-bc97-b6c7251751eb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\stage1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

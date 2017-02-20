@@ -3,17 +3,12 @@
 #include "EngineView.h"
 #include "PacManView.h"
 
-WallEntity::WallEntity(Renderer* renderer, Boundaries* boundaries) : Entity(nullptr, 10, false, boundaries, true, 3), renderer(renderer)
+WallEntity::WallEntity(char* imagePath, Boundaries* boundaries) : Entity(nullptr, 0, true, boundaries, false, 3)
 {
-	//this->image = new Image(PacManView::getInstance()->renderer, "mario.bmp", // need that file :o
-		//boundaries
-		//);
+	image = new Image(imagePath, this, 0, 0, 0);
 }
 
-WallEntity::WallEntity(Renderer* renderer) : Entity(nullptr, 10, false, new Boundaries(100, 100, 100, 100), true, 3), renderer(renderer)
+Image* WallEntity::getImage()
 {
-	//this->image = new Image(PacManView::getInstance()->renderer, "mario.bmp", // need that file :o
-		//this->Entity::getBoundaries()
-		//);
+	return image;
 }
-

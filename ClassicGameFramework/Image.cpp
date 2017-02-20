@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include <cstdio>
 
+unsigned long Image::image_count = 0;
+
 const char* Image::getImageFile() const
 {
 	return imageFile;
@@ -40,8 +42,6 @@ unsigned char* Image::readImage2ByteArray()
 	//auto endPos = 54 + (widthnew * height);
 
 
-
-
 	auto ret = new unsigned char[imageWidth * 4 * imageHeight];
 
 	for (auto line = 0; line < imageHeight; line++)
@@ -75,8 +75,17 @@ unsigned char* Image::readImage2ByteArray()
 	return ret;
 }
 
-Image::Image(const char* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) : imageFile(imageFile), entity(entity), transR(transR), transG(transG), transB(transB)
-{	
+Image::Image(const char* imageFile, Entity* entity,
+             unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
+                                                                                    imageWidth(0), imageHeight(0), imageFile(imageFile), entity(entity), imageBytes(nullptr),
+                                                                                    transR(transR), transG(transG), transB(transB)
+{
+}
+
+Image::Image(unsigned char* imageBytes, int width, int height, unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
+                                                                                                                                      imageWidth(width), imageHeight(height), imageFile(nullptr), entity(nullptr), imageBytes(imageBytes),
+                                                                                                                                      transR(transR), transG(transG), transB(transB)
+{
 }
 
 
@@ -97,7 +106,7 @@ bool Image::isLoaded() const
 
 void Image::loadImageBytes()
 {
-	if(!isLoaded())
+	if (!isLoaded())
 	{
 		imageBytes = readImage2ByteArray();
 	}
@@ -116,4 +125,9 @@ int Image::getHeight() const
 unsigned char* Image::getImageBytes() const
 {
 	return imageBytes;
+}
+
+unsigned long Image::getId() const
+{
+	return id;
 }

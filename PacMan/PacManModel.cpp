@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include "Level.h"
 #include "EnemyEntity.h"
+#include "WallEntity.h"
 
 PacManModel::PacManModel() : EngineModel()
 {
@@ -72,6 +73,18 @@ PacManModel::PacManModel() : EngineModel()
 	entities->push_back(orangeGhost);
 	entities->push_back(pinkGhost);
 
+	entities->push_back(new WallEntity("textures/Walls/wall24x16.bmp", new Boundaries(500, 200, 24*3, 16*3)));
+	entities->push_back(new WallEntity("textures/Walls/wall24x16Kopie.bmp", new Boundaries(572, 200, 24 * 3, 16 * 3)));
+	entities->push_back(new WallEntity("textures/Walls/wall32x16.bmp", new Boundaries(572, 248, 32 * 3, 16 * 3)));
+
+	//entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(0, 500 - 5*3, 5 * 3, 5 * 3)));
+	//entities->push_back(new WallEntity("textures/Walls/wall2x70.bmp", new Boundaries(0, 275, 2 * 3, 70 * 3)));
+	//entities->push_back(new WallEntity("textures/Walls/wall102x2.bmp", new Boundaries(5*3, 500 - 5*3, 102 * 3, 2 * 3)));
+
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(500, 500, 5*5, 5*5)));
+	entities->push_back(new WallEntity("textures/Walls/wall2x70.bmp", new Boundaries(500, 500-5*70, 4*5, 70*5)));
+	entities->push_back(new WallEntity("textures/Walls/wall102x2.bmp", new Boundaries(500+5*5, 505, 102*5, 4*5)));
+
 	session->setLevel(level);
 	level->setEntities(entities);
 }
@@ -89,11 +102,12 @@ void PacManModel::initialization()
 
 void PacManModel::nextIteration()
 {
-	handleCollisions();
-
+	
 	slowit++;
 	if (slowit % 7 == 0)
 	{
+		
+		
 		gamecounter++;
 		gamecounter = gamecounter % 16;
 		switch (gamecounter)
@@ -116,8 +130,11 @@ void PacManModel::nextIteration()
 		case 15: 
 		default: blueGhost->request(EnemyEntity::MOVE_DOWN);	break;;
 		}
+		pacman->execute();
+		handleCollisions();
 	}
 	blueGhost->execute();
+
 }
 
 
@@ -137,7 +154,9 @@ void PacManModel::handleCollisions()
 			if (PlayerEntity* pacman = dynamic_cast<PlayerEntity*>(first))
 			{
 				// pacman collides
-				pacman->request(PlayerEntity::NONE);
+				// if collides, has to take a step back
+				pacman->stepBack();
+				//pacman->request(PlayerEntity::NONE);
 			}
 		}
 	}

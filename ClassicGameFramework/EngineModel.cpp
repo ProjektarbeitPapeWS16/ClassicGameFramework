@@ -14,7 +14,7 @@ EngineModel *EngineModel::instance = nullptr;
 EngineModel::EngineModel()
 {
 	session = new Session();
-	level = new Level(100, 100, 1, 1, nullptr);
+	level = new Level(100, 100, 1, 1);
 	entities = new std::vector<Entity*>();
 	physic = new Physics();
 

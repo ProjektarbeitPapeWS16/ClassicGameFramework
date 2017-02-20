@@ -4,9 +4,9 @@
 #include "Level.h"
 
 
-Physics::Physics()
+Physics::Physics():
+	collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
 {
-	collisionListener = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>;
 }
 
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects) const
@@ -29,10 +29,10 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 					auto objB = *iteratorB;
 					if (objA != objB)
 					{
-						if (objA->getBoundaries()->position.x + (0.5 * objA->getBoundaries()->width) >= objB->getBoundaries()->position.x - (0.5 * objB->getBoundaries()->width) && // aRight >= bLeft &&
-							objB->getBoundaries()->position.x + (0.5 * objB->getBoundaries()->width) >= objA->getBoundaries()->position.x - (0.5 * objA->getBoundaries()->width) && // bRight >= aLeft &&
-							objA->getBoundaries()->position.y + (0.5 * objA->getBoundaries()->height) >= objB->getBoundaries()->position.y - (0.5 * objB->getBoundaries()->height) && // aTop >= bBot &&
-							objB->getBoundaries()->position.y + (0.5 * objB->getBoundaries()->height) >= objA->getBoundaries()->position.y - (0.5 * objA->getBoundaries()->height)) // aBot >= bTop
+						if ( (objA->getBoundaries()->position.x + objA->getBoundaries()->width) >= objB->getBoundaries()->position.x && // aRight >= bLeft &&
+							 (objB->getBoundaries()->position.x + objB->getBoundaries()->width) >= objA->getBoundaries()->position.x && // bRight >= aLeft &&
+							 (objA->getBoundaries()->position.y + objA->getBoundaries()->height) >= objB->getBoundaries()->position.y && // aTop >= bBot &&
+							 (objB->getBoundaries()->position.y + objB->getBoundaries()->height) >= objA->getBoundaries()->position.y ) // bTop >= aBot
 						{
 							collisionListener->push_back(std::make_pair(objA, objB));
 						}
@@ -47,6 +47,3 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 		return nullptr;
 	}
 }
-
-
-
