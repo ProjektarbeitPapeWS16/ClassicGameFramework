@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
+    <ClCompile Include="LadderEntity.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
     <ClCompile Include="SpacePanicController.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="EnemyEntity.h" />
+    <ClInclude Include="LadderEntity.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
