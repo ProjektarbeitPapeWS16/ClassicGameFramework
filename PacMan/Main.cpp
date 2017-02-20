@@ -27,7 +27,7 @@ int main()
 
 	//auto session = new Session();
 	auto display = new Display();
-	auto renderer = new Renderer(800, 600, "PacMan");
+	auto renderer = new Renderer(224*3, 288*3, "PacMan");
 
 	//std::vector<Level*> levels;
 	//levels.push_back(new Level(0, 0, 0, 0, new std::string("menu.txt")));

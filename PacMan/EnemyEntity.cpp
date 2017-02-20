@@ -3,7 +3,7 @@
 #include "EngineView.h"
 #include "PacManView.h"
 
-EnemyEntity::EnemyEntity() : Entity(nullptr, 5*3, false, new Boundaries(200, 200, 14*3, 14*3), true, 100)
+EnemyEntity::EnemyEntity() : Entity(nullptr, 3*3, false, new Boundaries(200, 200, 14*3, 14*3), true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
@@ -34,6 +34,11 @@ void EnemyEntity::setTextures(char* moveUp1, char* moveUp2, char* moveDown1, cha
 void EnemyEntity::request(Request request)
 {
 	lastRequest = request;
+}
+
+void EnemyEntity::setState(GhostState state)
+{
+	this->state = state;
 }
 
 void EnemyEntity::specialRequest(SpecialState request)
