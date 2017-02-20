@@ -29,10 +29,10 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 					auto objB = *iteratorB;
 					if (objA != objB)
 					{
-						if ( (objA->getBoundaries()->position.x + objA->getBoundaries()->width) >= objB->getBoundaries()->position.x && // aRight >= bLeft &&
-							 (objB->getBoundaries()->position.x + objB->getBoundaries()->width) >= objA->getBoundaries()->position.x && // bRight >= aLeft &&
-							 (objA->getBoundaries()->position.y + objA->getBoundaries()->height) >= objB->getBoundaries()->position.y && // aTop >= bBot &&
-							 (objB->getBoundaries()->position.y + objB->getBoundaries()->height) >= objA->getBoundaries()->position.y ) // bTop >= aBot
+						if ( (objA->getBoundaries()->position.x + objA->getBoundaries()->width-1) >= objB->getBoundaries()->position.x && // aRight >= bLeft &&
+							 (objB->getBoundaries()->position.x + objB->getBoundaries()->width-1) >= objA->getBoundaries()->position.x && // bRight >= aLeft &&
+							 (objA->getBoundaries()->position.y + objA->getBoundaries()->height-1) >= objB->getBoundaries()->position.y && // aTop >= bBot &&
+							 (objB->getBoundaries()->position.y + objB->getBoundaries()->height-1) >= objA->getBoundaries()->position.y ) // bTop >= aBot
 						{
 							collisionListener->push_back(std::make_pair(objA, objB));
 						}

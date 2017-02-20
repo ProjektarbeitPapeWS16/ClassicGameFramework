@@ -22,7 +22,7 @@ PacManModel::PacManModel() : EngineModel()
 	level = new Level(100, 100, 1, 1, nullptr);
 
 	entities = new std::vector<Entity*>();
-	pacman = new PlayerEntity(new Boundaries(106 * AMP, 70 * AMP , 13 * AMP, 13 * AMP));
+	pacman = new PlayerEntity(new Boundaries(106 * AMP, 69 * AMP , 13 * AMP, 13 * AMP));
 
 	blueGhost = new EnemyEntity(new Boundaries(89 * AMP, 141 * AMP, 14 * AMP, 14 * AMP));
 	blueGhost->setTextures("textures/Ghosts/blueGhost/blueGhostUp1.bmp",

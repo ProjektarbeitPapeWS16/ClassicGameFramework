@@ -2,7 +2,7 @@
 #include "Image.h"
 
 
-PlayerEntity::PlayerEntity(Boundaries* boundaries) : Entity(nullptr, 3*3, false, boundaries, true, 100)
+PlayerEntity::PlayerEntity(Boundaries* boundaries) : Entity(nullptr, 3 * 3, false, boundaries, true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
