@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Entity.h"
-
-class GameConfig;
+#include "Stage.h"
+class SpacePanicModel;
 
 class EnemyEntity : public Entity
 {
@@ -11,16 +11,22 @@ public:
 		LAUF_1,
 		LAUF_2
 	} EnemyState;
-private:
-	EnemyState state;
-	unsigned long counter = 0;
-public:
-	EnemyEntity(GameConfig* config, Position* position);
-	void execute();
-	Image* lauf1;
-	Image* lauf2;
 
 	
-
+private:
+	Stage::Cells::Direction currentRunningDirection;
+	EnemyState state;
+	unsigned long counter = 0;
+	Image* lauf1;
+	Image* lauf2;
+	SpacePanicModel* model;
+	double difficulty;
+public:
+	EnemyEntity(SpacePanicModel* model, Position* position, double difficulty);
+	Stage::Cells::Direction getRandomAllowedDirection(double row, double column);
+	Stage::Cells::Direction getRandomAllowedDirection();
+	Stage::Cells::Direction getNextRunningDirection(double row, double column);
+	void execute();
+	
 	Image* getImage() override;
 };

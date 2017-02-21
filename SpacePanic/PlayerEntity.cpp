@@ -4,7 +4,7 @@
 #include "EngineModel.h"
 #include "Session.h"
 #include "Level.h"
-#include "Stage1.h"
+#include "Stage.h"
 
 PlayerEntity::PlayerEntity(GameConfig* config, Position* position):
 	config(config),
@@ -49,7 +49,7 @@ int PlayerEntity::schrittweite() const
 
 bool PlayerEntity::canMove()
 {
-	Stage1::Cells* cells = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getCells();
+	Stage::Cells* cells = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getCells();
 
 	double row = static_cast<double>(this->getPosY()) / config->getRasterHeight();
 	double column = (static_cast<double>(this->getPosX()) + (0.5 * config->getRasterWidth())) / config->getRasterWidth();
@@ -57,13 +57,13 @@ bool PlayerEntity::canMove()
 	switch (lastRequest)
 	{
 	case MOVE_RIGHT:
-		return cells->canMove(Stage1::Cells::RIGHT, row, column);
+		return cells->canMove(Stage::Cells::RIGHT, row, column);
 	case MOVE_LEFT:
-		return cells->canMove(Stage1::Cells::LEFT, row, column);
+		return cells->canMove(Stage::Cells::LEFT, row, column);
 	case MOVE_UP:
-		return cells->canMove(Stage1::Cells::UP, row, column);
+		return cells->canMove(Stage::Cells::UP, row, column);
 	case MOVE_DOWN:
-		return cells->canMove(Stage1::Cells::DOWN, row, column);
+		return cells->canMove(Stage::Cells::DOWN, row, column);
 	case DO_ACTION:
 		return cells->canDig(row, column);
 	default: return true;

@@ -157,7 +157,8 @@
     <ClCompile Include="SpacePanicController.cpp" />
     <ClCompile Include="SpacePanicModel.cpp" />
     <ClCompile Include="SpacePanicView.cpp" />
-    <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +169,8 @@
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicView.h" />
-    <ClInclude Include="Stage1.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>

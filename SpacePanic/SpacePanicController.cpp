@@ -5,34 +5,35 @@
 #include "EngineView.h"
 #include <glfw3.h>
 #include "Display.h"
-#include "Drawable.h"
 #include "PlayerEntity.h"
-#include "Stage1.h"
+#include "Stage.h"
 #include "Session.h"
+#include "EnemyEntity.h"
+#include "SpacePanicModel.h"
 
 // TODO make static and put in Model
 void upDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_UP);
 }
 
 
 void downDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_DOWN);
 }
 
 void leftDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_LEFT);
 }
 
 void rightDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_RIGHT);
 }
 
@@ -69,14 +70,14 @@ void SpacePanicController::cycle()
 {
 	if(cycles % 4 == 0)
 	{
-		PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+		auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 		if(player != nullptr)
 		{
 			player->execute();
 		}
 
-		std::vector<EnemyEntity*>* enemys = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
-		for(int i = 0; i < enemys->size(); i++)
+		auto enemys = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
+		for(auto i = 0; i < enemys->size(); i++)
 		{
 			enemys->at(i)->execute();
 		}
