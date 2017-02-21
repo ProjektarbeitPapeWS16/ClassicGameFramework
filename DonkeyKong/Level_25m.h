@@ -1,13 +1,12 @@
 #pragma once
+#include "Level.h"
+#include "Entity.h"
+
+#include "GameConfig.h"
+#include "Entity_Jumpman.h" 
+#include "Entity_Barrel.h" 
 
 /// Meant to replicate the first Level of the Donkey Kong arcade game; titled "25m".
-#pragma once
-#include "Level.h"
-#include "DK_Config.h"
-#include "Entity.h"
-#include "PlayerEntity.h" //TODO
-#include "EnemyEntity.h" //TODO
-
 class Level_25m : public Level
 {
 public:
@@ -38,36 +37,36 @@ public:
 		} Direction;
 
 		Direction** possibleDirections;
-		DK_Config* config;
+		GameConfig* config;
 		unsigned rowsCount, columnsCount;
-		Cells(DK_Config* config, char** movementData, unsigned rowsCount, unsigned columnsCount);
+		Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount);
 		bool canMove(Direction direction, int row, int column) const;
 		bool canMove(Direction direction, double row, double column) const;
 		bool canDig(unsigned i, unsigned i1) const;
 	};
 
 private:
-	DK_Config* DK_Config;
-	char* FILE_PATH;// = new std::string("levels/stage1.txt");
-	PlayerEntity* player;
-	std::vector<EnemyEntity*>* enemys;
+	GameConfig* gameConfig;
+	char* FILE_PATH;// = new std::string("levels/Level_25m.txt");
+	Entity_Jumpman* player;
+	std::vector<Entity_Barrel*>* enemys;
 	std::vector<Entity*>* backgroundEntities;
 	Cells* cells;
 	//std::vector<Entity*>* allEntities;
 	//std::vector<PhysicalObject*>* physicalObjects;
 
 public:
-
-
-	void setPlayer(PlayerEntity* player);
-	void addEnemy(EnemyEntity* enemy) const;
+	void setPlayer(Entity_Jumpman* player);
+	void addEnemy(Entity_Barrel* enemy) const;
 	void addBackgroundEntity(Entity* backgroundEntity) const;
-	Stage1(DK_Config* config);
+
+	Level_25m(GameConfig* config);
+
 	const char* getFilePath() const;
-	PlayerEntity* getPlayer() const;
-	std::vector<EnemyEntity*>* getEnemys() const;
+	Entity_Jumpman* getPlayer() const;
+	std::vector<Entity_Barrel*>* getEnemys() const;
 	std::vector<Entity*>* getBackgroundEntities() const;
-	~Stage1() override;
+	~Level_25m() override;
 	//std::vector<PhysicalObject*>* getPhysicalObjects() override;
 	//std::vector<Entity*>* getEntities() const;
 

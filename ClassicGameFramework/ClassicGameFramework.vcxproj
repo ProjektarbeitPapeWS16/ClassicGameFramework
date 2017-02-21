@@ -134,6 +134,7 @@
     <ClCompile Include="EngineView.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="ImageRenderer.h" />

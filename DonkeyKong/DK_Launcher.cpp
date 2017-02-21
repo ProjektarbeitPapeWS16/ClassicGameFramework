@@ -6,11 +6,10 @@
 #include "Renderer.h"
 #include "Display.h"
 
-
 #include "DK_Model.h"
 #include "DK_View.h"
 #include "DK_Controller.h"
-#include "DK_Config.h"
+#include "GameConfig.h"
 #include "Level_25m.h"
 
 
@@ -26,13 +25,13 @@ int main()
 {
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
-	auto config = new DK_Config(192, 256, 2, 8, 8);
+	auto config = new GameConfig(192, 256, 2, 8, 8);
 
 	//std::string x = getexepath();
 
 	auto session = new Session();
 	auto display = new Display();
-	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Space Panic");
+	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Donkey Kong");
 
 	//std::vector<Level*> levels;
 	//levels.push_back(new Level_25m(config));

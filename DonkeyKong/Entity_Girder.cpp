@@ -1,8 +1,10 @@
-#include "Entity_Girder.h"
-#include "DK_Config.h"
 #include "Image.h"
 
-Entity_Girder::Entity_Girder(DK_Config* config, Position* position, WallState wallState) :
+#include "GameConfig.h"
+#include "Entity_Girder.h"
+
+
+Entity_Girder::Entity_Girder(GameConfig* config, Position* position, WallState wallState) :
 	Entity(
 		new Image*[1],
 		0,

@@ -1,17 +1,16 @@
-//#include "stdafx.h"DK_Controller
 #include "DK_Controller.h"
 
-#include "DK_Controller.h"
-
-#include "EngineController.h"
-#include "EngineModel.h"
-#include "EngineView.h"
 #include <glfw3.h>
 #include "Display.h"
 #include "Drawable.h"
+#include "Session.h"
+#include "EngineController.h"
+#include "EngineModel.h"
+#include "EngineView.h"
+
 #include "Entity_Jumpman.h"
 #include "Level_25m.h"
-#include "Session.h"
+
 
 // TODO make static and put in Model
 void upDown()
@@ -78,7 +77,7 @@ void DK_Controller::cycle()
 			player->execute();
 		}
 
-		std::vector<EnemyEntity*>* enemys = static_cast<Level_25m*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
+		std::vector<Entity_Barrel*>* enemys = static_cast<Level_25m*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
 		for (int i = 0; i < enemys->size(); i++)
 		{
 			enemys->at(i)->execute();

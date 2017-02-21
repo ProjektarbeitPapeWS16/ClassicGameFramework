@@ -1,12 +1,11 @@
 #pragma once
 #include "Entity.h"
 
-
-class DK_Config;
+class GameConfig;
 
 class Entity_Jumpman : public Entity
 {
-	DK_Config* config;
+	GameConfig* config;
 
 	Image* moveRight1;
 	Image* moveRight2;
@@ -49,7 +48,7 @@ private:
 	PlayerState state = MOVE_RIGHT_1;
 	Request lastRequest = NONE;
 public:
-	Entity_Jumpman(DK_Config* config, Position* position);
+	Entity_Jumpman(GameConfig* config, Position* position);
 	void request(Request request);
 	int schrittweite() const;
 	bool canMove();

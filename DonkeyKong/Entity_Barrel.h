@@ -20,7 +20,5 @@ public:
 	Image* lauf1;
 	Image* lauf2;
 
-
-
 	Image* getImage() override;
 };

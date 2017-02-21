@@ -1,11 +1,12 @@
 #pragma once
 #include "Entity.h"
 #include "Image.h"
-#include "DK_Config.h"
+
+#include "GameConfig.h"
 
 class Entity_Ladder : public Entity
 {
 public:
 
-	Entity_Ladder(DK_Config* config, Position* position);
+	Entity_Ladder(GameConfig* config, Position* position);
 };

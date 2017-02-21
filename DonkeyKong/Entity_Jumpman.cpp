@@ -1,12 +1,13 @@
-#include "Entity_Jumpman.h"
-#include "Image.h"
-#include "DK_Config.h"
 #include "EngineModel.h"
 #include "Session.h"
+
+#include "Entity_Jumpman.h"
+#include "Image.h"
+#include "GameConfig.h"
 #include "Level.h"
 #include "Level_25m.h"
 
-Entity_Jumpman::Entity_Jumpman(DK_Config* config, Position* position) :
+Entity_Jumpman::Entity_Jumpman(GameConfig* config, Position* position) :
 	config(config),
 	Entity(
 		nullptr,

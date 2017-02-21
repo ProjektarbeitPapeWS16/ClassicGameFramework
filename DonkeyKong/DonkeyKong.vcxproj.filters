@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DK_Launcher.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Entity_DonkeyKong.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

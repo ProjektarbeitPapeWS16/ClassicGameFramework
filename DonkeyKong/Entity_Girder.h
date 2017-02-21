@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-class DK_Config;
+class GameConfig;
 
 class Entity_Girder : public Entity
 {
@@ -18,5 +18,5 @@ public:
 private:
 	WallState wallState;
 public:
-	Entity_Girder(DK_Config* config, Position* position, WallState wallState);
+	Entity_Girder(GameConfig* config, Position* position, WallState wallState);
 };

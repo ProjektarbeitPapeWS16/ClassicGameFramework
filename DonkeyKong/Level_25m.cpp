@@ -1,15 +1,16 @@
-#include "Level_25m.h"
-#include "Entity_Girder.h"
-#include "LadderEntity.h"
 #include "Font.h"
 #include "Text.h"
+
+#include "Level_25m.h"
+#include "Entity_Girder.h"
+#include "Entity_Ladder.h"
 
 Level_25m::Cells* Level_25m::getCells() const
 {
 	return cells;
 }
 
-Level_25m::Cells::Cells(DK_Config* config, char** movementData, unsigned rowsCount, unsigned columnsCount) :
+Level_25m::Cells::Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount) :
 	possibleDirections(new Direction*[rowsCount]),
 	config(config), rowsCount(rowsCount), columnsCount(columnsCount)
 {
@@ -129,14 +130,14 @@ void Level_25m::addBackgroundEntity(Entity* backgroundEntity) const
 	this->entities->push_back(backgroundEntity);
 }
 
-Level_25m::Level_25m(DK_Config* config) :
+Level_25m::Level_25m(GameConfig* config) :
 	Level(
 		config->getRasterColumnsCount(),
 		config->getRasterRowsCount(),
 		config->getRasterWidth(),
 		config->getRasterHeight()
 	),
-	DK_Config(config),
+	gameConfig(config),
 	FILE_PATH("levels/Level_25m.txt"),
 	player(nullptr),
 	enemys(new std::vector<Entity_Barrel*>()),
@@ -167,7 +168,7 @@ Level_25m::Level_25m(DK_Config* config) :
 				break;
 			case 'M': addEnemy(new Entity_Barrel(config, new Position(col, 25 - row)));
 				break;
-			case 'H': addBackgroundEntity(new LadderEntity(config, new Position(col, 25 - row)));
+			case 'H': addBackgroundEntity(new Entity_Ladder(config, new Position(col, 25 - row)));
 				break;
 			default: break;
 			}
