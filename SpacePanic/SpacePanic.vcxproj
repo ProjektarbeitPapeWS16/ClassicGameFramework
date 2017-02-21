@@ -128,11 +128,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="fonts\normal\.bmp" />
+    <Image Include="fonts\normal\0.bmp" />
+    <Image Include="fonts\normal\1.bmp" />
+    <Image Include="fonts\normal\2.bmp" />
+    <Image Include="fonts\normal\3.bmp" />
+    <Image Include="fonts\normal\4.bmp" />
+    <Image Include="fonts\normal\5.bmp" />
+    <Image Include="fonts\normal\6.bmp" />
+    <Image Include="fonts\normal\7.bmp" />
+    <Image Include="fonts\normal\8.bmp" />
+    <Image Include="fonts\normal\9.bmp" />
+    <Image Include="fonts\normal\A.bmp" />
+    <Image Include="fonts\normal\B.bmp" />
+    <Image Include="fonts\normal\C.bmp" />
+    <Image Include="fonts\normal\D.bmp" />
+    <Image Include="fonts\normal\E.bmp" />
+    <Image Include="fonts\normal\F.bmp" />
+    <Image Include="fonts\normal\G.bmp" />
+    <Image Include="fonts\normal\H.bmp" />
+    <Image Include="fonts\normal\I.bmp" />
+    <Image Include="fonts\normal\J.bmp" />
+    <Image Include="fonts\normal\K.bmp" />
+    <Image Include="fonts\normal\L.bmp" />
+    <Image Include="fonts\normal\M.bmp" />
+    <Image Include="fonts\normal\N.bmp" />
+    <Image Include="fonts\normal\O.bmp" />
+    <Image Include="fonts\normal\P.bmp" />
+    <Image Include="fonts\normal\Q.bmp" />
+    <Image Include="fonts\normal\R.bmp" />
+    <Image Include="fonts\normal\S.bmp" />
+    <Image Include="fonts\normal\T.bmp" />
+    <Image Include="fonts\normal\U.bmp" />
+    <Image Include="fonts\normal\V.bmp" />
+    <Image Include="fonts\normal\W.bmp" />
+    <Image Include="fonts\normal\X.bmp" />
+    <Image Include="fonts\normal\Y.bmp" />
+    <Image Include="fonts\normal\Z.bmp" />
     <Image Include="textures\border_bottom.bmp" />
     <Image Include="textures\border_top.bmp" />
+    <Image Include="textures\enemy_lauf1.bmp" />
+    <Image Include="textures\enemy_lauf2.bmp" />
+    <Image Include="textures\hole1.bmp" />
+    <Image Include="textures\hole2.bmp" />
+    <Image Include="textures\hole3.bmp" />
     <Image Include="textures\ladder.bmp" />
     <Image Include="textures\player_climb1.bmp" />
     <Image Include="textures\player_climb2.bmp" />
+    <Image Include="textures\player_dead_ladder.bmp" />
+    <Image Include="textures\player_dead_left.bmp" />
+    <Image Include="textures\player_dead_right.bmp" />
     <Image Include="textures\player_dig1_left.bmp" />
     <Image Include="textures\player_dig1_right.bmp" />
     <Image Include="textures\player_dig2_left.bmp" />
@@ -184,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\stage1.txt" />
+    <Text Include="levels\stage1_movement.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
