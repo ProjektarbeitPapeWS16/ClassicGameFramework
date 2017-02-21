@@ -5,13 +5,13 @@
 
 
 Physics::Physics():
-	collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
+	collisionListeners(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
 {
 }
 
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects) const
 {
-	collisionListener->clear();
+	collisionListeners->clear();
 
 	// bewegbare Objekte werden nach Kollision abgefragt
 	if (physicalObjects) 
@@ -34,16 +34,30 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 							objA->getBoundaries()->position.y + (0.5 * objA->getBoundaries()->height) >= objB->getBoundaries()->position.y - (0.5 * objB->getBoundaries()->height) && // aTop >= bBot &&
 							objB->getBoundaries()->position.y + (0.5 * objB->getBoundaries()->height) >= objA->getBoundaries()->position.y - (0.5 * objA->getBoundaries()->height)) // aBot >= bTop
 						{
-							collisionListener->push_back(std::make_pair(objA, objB));
+							collisionListeners->push_back(std::make_pair(objA, objB));
 						}
 					}
 				}
 			}
 		}
-		return collisionListener;
+		return collisionListeners;
 	} 
 	else
 	{
 		return nullptr;
 	}
 }
+
+/*
+void Physics::addCollisionListener(PhysicalObject* phys1, PhysicalObject* phys2)
+{
+	collisionListeners->push_back(std::make_pair(phys1, phys2));
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::getCollisionListeners()
+{
+}
+
+void Physics::clearCollisionListeners()
+{
+}*/
