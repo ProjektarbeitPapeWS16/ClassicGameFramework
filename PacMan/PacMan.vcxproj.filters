@@ -79,13 +79,286 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\SpacePanic\textur.bmp">
+    <Image Include="textures\dot.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\SpacePanic\textures\player_run1_left.bmp">
+    <Image Include="textures\energizer.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="textures\pacmanExperimental.bmp">
+    <Image Include="textures\Walls\playfield.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall4x24.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall4x38.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall4x70.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall5x10L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall5x10R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall8x23n.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall8x23u.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall8x31.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall8x32.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall9x9L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall9x9R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall9x10L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall9x10R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall10x5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall10x9D.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall10x9U.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall15x8L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall15x8R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall16x4special.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall20x4L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall20x4R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall23x8o-.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall23x8-o.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall24x8.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall24x16.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall32x8.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall32x16.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall35x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall39x8o--.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall39x8--o.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall40x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall56x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall102x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall214x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerDL4x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerDL5x5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerDR4x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerDR5x5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerUL4x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerUL5x5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerUR4x4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wallCornerUR5x5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacman.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath3.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath6.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath7.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath8.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDeath9.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanDown.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanLeft.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanRight.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\PacMan\pacmanUp.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\energizedGhost2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\energizedGhost1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostDown1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostDown2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostLeft1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostLeft2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostRight1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostRight2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostUp1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\blueGhost\blueGhostUp2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostDown1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostDown2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostLeft1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostLeft2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostRight1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostRight2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostUp1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\orangeGhost\orangeGhostUp2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostDown1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostDown2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostLeft1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostLeft2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostRight1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostRight2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostUp1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\pinkGhost\pinkGhostUp2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostDown1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostDown2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostLeft1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostLeft2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostRight1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostRight2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostUp1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\redGhost\redGhostUp2.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
