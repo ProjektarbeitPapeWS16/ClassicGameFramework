@@ -26,7 +26,7 @@ private:
 protected:
 	Session* session;
 	Level* level;
-	Physics* physic;
+	Physics* physics;
 	std::vector<Entity*>* entities;
 
 	virtual void handleCollisions();
@@ -34,7 +34,7 @@ protected:
 public:
 	// Konstruktor
 	EngineModel();
-
+	EngineModel(Physics* physics, Session* session, Level* level);
 	// Destruktor
 	virtual ~EngineModel()
 	{
@@ -55,7 +55,13 @@ public:
 
 	// getter
 	static EngineModel* getInstance();
-	virtual Session* getSession();
+	Session* getSession();
+	Level* getLevel();
+	Physics* getPhysics();
+	void setSession(Session* session);
+	void setLevel(Level* level);
+	void setPhysics(Physics* physics);
+
 	virtual std::vector<Entity*>* getEntities();
 	std::map<Key, std::function<void()>*>* getKeyPressedListeners() const;
 	std::map<Key, std::function<void()>*>* getKeyReleasedListeners() const;
