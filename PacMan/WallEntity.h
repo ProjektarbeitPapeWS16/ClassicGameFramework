@@ -5,7 +5,7 @@ class Renderer;
 
 class WallEntity : public Entity
 {
-	Image* image;
+	Image* helper;
 public:
 	WallEntity(char* imagePath, Boundaries* boundaries);
 	Image* getImage() override;

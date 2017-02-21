@@ -39,17 +39,10 @@ void PacManModel::nextIteration()
 {
 	if (static_cast<MyLevel*>(session->getLevel())->gameState == MyLevel::RESTARTGAME)
 	{
-		delete session->getLevel();
 		session->setLevel(new MyLevel(100, 100, 1, 1));
 	}
 	static_cast<MyLevel*>(session->getLevel())->gameLoop();
 }
-/*
-void PacManModel::handleCollisions()
-{
-	static_cast<MyLevel*>(session->getLevel())->handleCollisions();
-}*/
-
 
 
 // Functions for the KeyListeners

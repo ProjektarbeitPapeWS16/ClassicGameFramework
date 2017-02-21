@@ -182,15 +182,14 @@ Image* PlayerEntity::deadAnimation()
 
 PlayerEntity::~PlayerEntity()
 {
-	//delete move;
-	//delete moveUp;
-	//delete moveDown;
-	//delete moveRight;
-	//delete moveLeft;
-	/*
+	delete move;
+	delete moveUp;
+	delete moveDown;
+	delete moveRight;
+	delete moveLeft;
+	
 	for (unsigned int i = 0; i < 9; i++)
 	{
 		delete pacmanDeath[i];
-	}*/
-	//delete[] pacmanDeath;
+	}
 }
