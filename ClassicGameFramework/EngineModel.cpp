@@ -3,7 +3,7 @@
 #include "EngineView.h"
 #include "Renderer.h"
 #include "Session.h"
-#include "Level.h"
+//#include "Level.h"
 #include "Entity.h"
 #include "Physics.h"
 #define GLFW_PRESS 1
@@ -14,7 +14,7 @@ EngineModel *EngineModel::instance = nullptr;
 EngineModel::EngineModel()
 {
 	session = new Session();
-	level = new Level(100, 100, 1, 1);
+	//level = new Level(100, 100, 1, 1);
 	entities = new std::vector<Entity*>();
 	physic = new Physics();
 
@@ -50,11 +50,11 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 	}
 }
 
-void EngineModel::key_down()
+void EngineModel::key_down() const
 {
 	for(unsigned int i = 0; i < keyDownKeys->size(); i++)
 	{
-		Key key = keyDownKeys->at(i);
+		auto key = keyDownKeys->at(i);
 		if(glfwGetKey(EngineView::getInstance()->renderer->window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
 		{
 			std::function<void()>* fptr = keyDownListeners->at(key);
@@ -106,11 +106,6 @@ void EngineModel::handleCollisions()
 Session* EngineModel::getSession() 
 {	
 	return session;	
-}
-
-Level* EngineModel::getLevel() 
-{	
-	return level;	
 }
 
 std::vector<Entity*>* EngineModel::getEntities()

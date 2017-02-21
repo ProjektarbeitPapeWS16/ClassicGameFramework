@@ -44,7 +44,7 @@ public:
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;
 	
 	// TODO description
-	void key_down();
+	void key_down() const;
 	
 
 	// initializes the keyListeners and other stuff
@@ -56,7 +56,6 @@ public:
 	// getter
 	static EngineModel* getInstance();
 	virtual Session* getSession();
-	virtual Level* getLevel();
 	virtual std::vector<Entity*>* getEntities();
 	std::map<Key, std::function<void()>*>* getKeyPressedListeners() const;
 	std::map<Key, std::function<void()>*>* getKeyReleasedListeners() const;
