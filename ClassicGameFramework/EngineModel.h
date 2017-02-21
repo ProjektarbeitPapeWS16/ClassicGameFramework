@@ -25,9 +25,9 @@ private:
 
 protected:
 	Session* session;
-	Level* level;
+	//Level* level;
 	Physics* physics;
-	std::vector<Entity*>* entities;
+	//std::vector<Entity*>* entities;
 
 	virtual void handleCollisions();
 
