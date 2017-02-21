@@ -40,7 +40,7 @@ void rightDown()
 
 void escPress()
 {
-	EngineController::getInstance()->closeWindow();
+	EngineModel::getInstance()->shouldClose = true;
 }
 
 
