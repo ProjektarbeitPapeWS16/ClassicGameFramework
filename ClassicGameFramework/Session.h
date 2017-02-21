@@ -15,6 +15,7 @@ class Session
 public:
 	// Konstruktor
 	Session();
+	Session(int defaultLifes, int defaultScore);
 
 	int getLifes();
 	void setLifes(int lifes);

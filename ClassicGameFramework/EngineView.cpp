@@ -3,19 +3,19 @@
 //#include <functional>
 //#include <glfw3.h>
 
-EngineView* EngineView::instance = nullptr;
+//EngineView* EngineView::instance = nullptr;
 
 EngineView::EngineView(EngineModel* model, Display* display, Renderer* renderer): model(model),
                                                                                   display(display),
                                                                                   renderer(renderer)
 {
-	instance = this;
+	//instance = this;
 }
 
-EngineView* EngineView::getInstance()
-{
-	return instance;
-}
+//EngineView* EngineView::getInstance()
+//{
+//	return instance;
+//}
 
 EngineView::~EngineView()
 {

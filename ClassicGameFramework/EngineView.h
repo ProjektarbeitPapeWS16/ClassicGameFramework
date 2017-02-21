@@ -7,7 +7,7 @@ class EngineModel;
 class EngineView
 {
 protected:
-	static EngineView* instance;
+	//static EngineView* instance;
 	EngineModel* model = nullptr;
 
 public:
@@ -16,9 +16,9 @@ public:
 	Renderer* renderer = nullptr;
 	EngineView(EngineModel* model, Display* display, Renderer* renderer);
 
-	static EngineView* getInstance();
+	//static EngineView* getInstance();
 
-	~EngineView();
+	virtual ~EngineView();
 
 	virtual void draw() = 0;
 

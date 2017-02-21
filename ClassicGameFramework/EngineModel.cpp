@@ -62,12 +62,12 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 	}
 }
 
-void EngineModel::key_down() const
+void EngineModel::key_down(GLFWwindow* window) const
 {
 	for(unsigned int i = 0; i < keyDownKeys->size(); i++)
 	{
 		auto key = keyDownKeys->at(i);
-		if(glfwGetKey(EngineView::getInstance()->renderer->window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
+		if(glfwGetKey(window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
 		{
 			std::function<void()>* fptr = keyDownListeners->at(key);
 			(*fptr)();
