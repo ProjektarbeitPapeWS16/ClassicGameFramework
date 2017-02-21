@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Ressourcendateien\Images">
+      <UniqueIdentifier>{75b0907a-e2fc-464d-b3eb-fb049855b736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressourcendateien\Leveldata">
+      <UniqueIdentifier>{788c3a58-71dd-4db6-9e37-f907895a3b08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity_DonkeyKong.h">
@@ -45,17 +51,20 @@
     <ClInclude Include="Entity_Pauline.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="DK_Config.h">
+    <ClInclude Include="Level_25m.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Level_25m.h">
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="resource2.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DK_Config.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="DK_Controller.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -83,5 +92,78 @@
     <ClCompile Include="DK_Launcher.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\border_bottom.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\border_top.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\enemy_lauf1.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\enemy_lauf2.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\ladder.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_climb1.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_climb2.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_dig1_left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_dig1_right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_dig2_left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_dig2_right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_run1_left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_run1_right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_run2_left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\player_run2_right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone1left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone1middle.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone1right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone2left.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone2middle.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\stone2right.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\stage1.txt">
+      <Filter>Ressourcendateien\Leveldata</Filter>
+    </Text>
+    <Text Include="levels\stage1_movement.txt">
+      <Filter>Ressourcendateien\Leveldata</Filter>
+    </Text>
   </ItemGroup>
 </Project>

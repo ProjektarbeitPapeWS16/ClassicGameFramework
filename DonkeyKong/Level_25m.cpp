@@ -138,13 +138,13 @@ Level_25m::Level_25m(GameConfig* config) :
 		config->getRasterHeight()
 	),
 	gameConfig(config),
-	FILE_PATH("levels/Level_25m.txt"),
+	FILE_PATH("levels\\stage1.txt"), // TODO
 	player(nullptr),
 	enemys(new std::vector<Entity_Barrel*>()),
 	backgroundEntities(new std::vector<Entity*>())
 {
 	char** leveldata = this->getLeveldata(FILE_PATH, 22, config->getRasterColumnsCount());
-	cells = new Cells(config, this->getLeveldata("levels/Level_25m_movement.txt", 22, config->getRasterColumnsCount()), 22, config->getRasterColumnsCount());
+	cells = new Cells(config, this->getLeveldata("levels\\stage1_movement.txt", 22, config->getRasterColumnsCount()), 22, config->getRasterColumnsCount());
 
 	for (auto row = 0; row < 22; row++)
 	{

@@ -66,27 +66,33 @@ char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int
 	char** array2D = nullptr;
 	FILE * file;
 
-	fopen_s(&file, filepath, "rb");
-
-
-
-	// read content of textfile line by line
-	std::ifstream in(filepath);
-	std::string str;
-	char entityCharacter;
-	array2D = new char*[rows];
-	for (auto iRow = 0; iRow < rows; iRow++)
+	try
 	{
-		// load next line of text; which contains one row
-		array2D[iRow] = new char[cols];
-		std::getline(in, str);
-		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
-		{
-			entityCharacter = str[iCol];
-			array2D[iRow][iCol] = entityCharacter;
+		// load levelinfo in binary mode
+		fopen_s(&file, filepath, "rb");
 
+		// read content of textfile line by line
+		std::ifstream in(filepath);
+		std::string str;
+		char entityCharacter;
+		array2D = new char*[rows];
+		for (auto iRow = 0; iRow < rows; iRow++)
+		{
+			// load next line of text; which contains one row
+			array2D[iRow] = new char[cols];
+			std::getline(in, str);
+			for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+			{
+				entityCharacter = str[iCol];
+				array2D[iRow][iCol] = entityCharacter;
+			}
 		}
 	}
+	catch (const std::exception& ex)
+	{
+		std::cout << ex.what(); //TODO: What went wrong?
+	}
+	
 	return array2D;
 }
 
