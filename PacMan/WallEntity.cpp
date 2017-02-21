@@ -12,3 +12,8 @@ Image* WallEntity::getImage()
 {
 	return image;
 }
+
+WallEntity::~WallEntity()
+{
+	delete image;
+}

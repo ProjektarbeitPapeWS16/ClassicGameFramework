@@ -21,33 +21,6 @@ public:
 	void static keyLeftPress();
 	void static keyRightPress();
 	void static keyEscPress();
-
-	// getter
-	//std::vector<Entity*> * getEntities();
-	PlayerEntity * getPacman();
-	EnemyEntity * getBlueGhost();
-	EnemyEntity * getRedGhost();
-	EnemyEntity * getOrangeGhost();
-	EnemyEntity * getPinkGhost();
-
-private:
-	// Attribute
-	//Physics * physic;
-	//Session * session;
-	//Level * level;
-	//std::vector<Entity*> * entities;
-	int gamecounter = 0;
-	int slowit = 0;
-
-	PlayerEntity * pacman;
-	EnemyEntity * blueGhost;
-	EnemyEntity * redGhost;
-	EnemyEntity * orangeGhost;
-	EnemyEntity * pinkGhost;
-
-	// Kollisionshandler
-	void handleCollisions() override;
-
-	void collisionPacGhost(PhysicalObject * collided);
+	
 };
 

@@ -131,7 +131,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DotEntity.h" />
     <ClInclude Include="EnemyEntity.h" />
+    <ClInclude Include="EnergizerEntity.h" />
+    <ClInclude Include="MyLevel.h" />
     <ClInclude Include="PacManController.h" />
     <ClInclude Include="PacManModel.h" />
     <ClInclude Include="PacManView.h" />
@@ -140,8 +143,11 @@
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DotEntity.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
+    <ClCompile Include="EnergizerEntity.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MyLevel.cpp" />
     <ClCompile Include="PacManController.cpp" />
     <ClCompile Include="PacManModel.cpp" />
     <ClCompile Include="PacManView.cpp" />
