@@ -1,20 +1,9 @@
 #include <windows.h>
 #include "Config.h"
 
-#include "Level.h"
-#include "Session.h"
-#include "Renderer.h"
-#include "Display.h"
-
-
 #include "SpacePanicModel.h"
 #include "SpacePanicView.h"
 #include "SpacePanicController.h"
-#include "GameConfig.h"
-#include "Stage.h"
-
-
-//#include <iostream>
 
 std::string getexepath()
 {
@@ -29,6 +18,10 @@ int main()
 	auto controller = new SpacePanicController(view, model);
 	
 	controller->gameLoop();
+
+	delete controller;
+	delete view;
+	delete model;
 
 	return 0;
 }

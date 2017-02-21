@@ -16,12 +16,12 @@ class UI
 	long currentOxygenLevel = 1000L;
 	std::vector<Entity*>* entities;
 	Font* defaultFont;
-	Text* titleEntity;
-	Entity* oxygenLevelEntity; //TODO
+	Entity* titleEntity;
+	Entity* oxygenLevel;
+	Entity* score;
+	Entity* lives;
 public:
 	UI(SpacePanicModel* model);
-	std::vector<Entity*>* getEntities() const;
-	Entity* getOxygenLevelEntity();
-	long getOxygenLevel();
-	
+	void update();
+	std::vector<Entity*>* getEntities() const;	
 };

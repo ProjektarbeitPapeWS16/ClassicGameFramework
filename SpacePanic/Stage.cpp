@@ -15,31 +15,33 @@ void Stage::setPlayer(PlayerEntity* player)
 		delete this->player;
 	}
 	this->player = player;
-	//this->entities->push_back(player);
+	this->physicalObjects->push_back(player);
 }
 
 void Stage::addEnemy(EnemyEntity* enemy) const
 {
 	this->enemys->push_back(enemy);
-	//this->entities->push_back(reinterpret_cast<Entity*>(enemy));
+	this->physicalObjects->push_back(enemy);
 }
 
 void Stage::addBackgroundEntity(Entity* backgroundEntity) const
 {
 	backgroundEntities->push_back(backgroundEntity);
-	//this->entities->push_back(backgroundEntity);
+	this->physicalObjects->push_back(backgroundEntity);
 }
 
-void Stage::generateSortedEntities()
+void Stage::generateSortedEntities() const
 {
-
 	entities->clear();
 
 	//Hintergrund-Entities
-	for(auto i = 0; i < backgroundEntities->size(); i++)
+	for (auto i = 0; i < backgroundEntities->size(); i++)
 	{
 		entities->push_back(backgroundEntities->at(i));
 	}
+
+	//Player
+	entities->push_back(player);
 
 	//Enemys
 	for (auto i = 0; i < enemys->size(); i++)
@@ -47,15 +49,11 @@ void Stage::generateSortedEntities()
 		entities->push_back(enemys->at(i));
 	}
 
-	//Player
-	entities->push_back(player);
-
 	//UI
 	for (auto i = 0; i < ui->getEntities()->size(); i++)
 	{
 		entities->push_back(ui->getEntities()->at(i));
 	}
-
 }
 
 Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile):
@@ -63,7 +61,8 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 		model->getConfig()->getRasterColumnsCount(),
 		model->getConfig()->getRasterRowsCount(),
 		model->getConfig()->getRasterWidth(),
-		model->getConfig()->getRasterHeight()
+		model->getConfig()->getRasterHeight(),
+		new Physics(model)
 	),
 	config(model->getConfig()),
 	player(nullptr),
@@ -72,7 +71,6 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 	ui(new UI(model)),
 	stageFile(stageFile),
 	stageMovementFile(stageMovementFile),
-	physics(new Physics()),
 	physicalObjects(new std::vector<PhysicalObject*>())
 {
 	leveldata = this->getLeveldata(stageFile, 22, config->getRasterColumnsCount());
@@ -96,7 +94,7 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 				break;
 			case 'E': addBackgroundEntity(new WallEntity(config, new Position(col, 25 - row), WallEntity::WallState::RIGHT_WALL_2));
 				break;
-			case 'P': setPlayer(new PlayerEntity(config, new Position(col, 25 - row)));
+			case 'P': setPlayer(new PlayerEntity(model, new Position(col, 25 - row)));
 				break;
 			case 'M': addEnemy(new EnemyEntity(model, new Position(col, 25 - row), 1.0));
 				break;
@@ -112,8 +110,6 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 	{
 		addBackgroundEntity(uiEntities->at(i));
 	}
-
-	//physics->collisionListeners
 
 	generateSortedEntities();
 }
@@ -147,6 +143,11 @@ Stage::~Stage()
 Stage::Cells* Stage::getCells() const
 {
 	return cells;
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Stage::getCollisions() const
+{
+	return getPhysics()->checkCollisions(physicalObjects);
 }
 
 Stage::Cells::Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount) :

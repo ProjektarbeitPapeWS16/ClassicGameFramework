@@ -107,6 +107,12 @@
     <ClCompile Include="Stage.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="SpacePanicSession.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HoleEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -137,6 +143,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePanicSession.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HoleEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

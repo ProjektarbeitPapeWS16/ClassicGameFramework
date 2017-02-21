@@ -17,8 +17,6 @@ SpacePanicView::SpacePanicView(SpacePanicModel* model)
 		)
 	)
 {
-
-
 }
 
 void SpacePanicView::draw()

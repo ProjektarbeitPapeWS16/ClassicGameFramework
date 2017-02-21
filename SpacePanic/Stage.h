@@ -58,12 +58,11 @@ private:
 	UI* ui;
 	const char* stageFile;
 	const char* stageMovementFile;
-	Physics* physics;
 	std::vector<PhysicalObject*>* physicalObjects;
 	char** leveldata;
-	void generateSortedEntities();
+	void generateSortedEntities() const;
 public:
-	
+
 	Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile);
 	~Stage() override;
 
@@ -77,9 +76,6 @@ public:
 	std::vector<EnemyEntity*>* getEnemys() const;
 	std::vector<Entity*>* getBackgroundEntities() const;
 
-	//std::vector<PhysicalObject*>* getPhysicalObjects() override;
-	//std::vector<Entity*>* getEntities() const;
-
-
 	Cells* getCells() const;
+	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* getCollisions() const;
 };

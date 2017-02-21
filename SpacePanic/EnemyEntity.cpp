@@ -10,12 +10,17 @@ EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double diff
 		       position->x * model->getConfig()->getRasterWidth(),
 		       position->y * model->getConfig()->getRasterHeight(),
 		       model->getConfig()->getRasterWidth() * 2,
-		       model->getConfig()->getRasterHeight() * 2
+		       model->getConfig()->getRasterHeight() * 2,
+				   model->getConfig()->applyFactor(2),
+		model->getConfig()->applyFactor(1),
+		model->getConfig()->applyFactor(2),
+		model->getConfig()->applyFactor(5)
 	       ), true, 3),
 	currentRunningDirection(Stage::Cells::NONE),
 	state(LAUF_1),
 	model(model),
-	difficulty(difficulty)
+	difficulty(difficulty),
+	lastDecision(0, 0)
 {
 	lauf1 = new Image("textures/enemy_lauf1.bmp", this, 200, 80, 0);
 	lauf2 = new Image("textures/enemy_lauf2.bmp", this, 200, 80, 0);
@@ -80,7 +85,8 @@ Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection(double row, doubl
 		if (preferredDirection == Stage::Cells::UP && cells->canMove(preferredDirection, row - 0.25, column))
 		{
 			return preferredDirection;
-		} else if(preferredDirection != Stage::Cells::UP && cells->canMove(preferredDirection, row, column))
+		}
+		else if (preferredDirection != Stage::Cells::UP && cells->canMove(preferredDirection, row, column))
 		{
 			return preferredDirection;
 		}
@@ -159,6 +165,11 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection(double row, double 
 
 void EnemyEntity::execute()
 {
+	if (static_cast<Stage*>(model->getSession()->getLevel())->getPlayer()->isDead())
+	{
+		return;
+	}
+
 	double row = static_cast<double>(this->getPosY()) / model->getConfig()->getRasterHeight();
 	double column = (static_cast<double>(this->getPosX()) + (0.5 * model->getConfig()->getRasterWidth())) / model->getConfig()->getRasterWidth();
 

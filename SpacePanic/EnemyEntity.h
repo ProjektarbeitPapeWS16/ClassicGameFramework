@@ -21,10 +21,10 @@ private:
 	Image* lauf2;
 	SpacePanicModel* model;
 	double difficulty;
+	Position lastDecision;
 public:
 	EnemyEntity(SpacePanicModel* model, Position* position, double difficulty);
 	Stage::Cells::Direction getRandomAllowedDirection(double row, double column);
-	Stage::Cells::Direction getRandomAllowedDirection();
 	Stage::Cells::Direction getNextRunningDirection(double row, double column);
 	void execute();
 	
