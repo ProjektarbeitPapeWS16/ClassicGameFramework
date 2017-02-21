@@ -2,19 +2,24 @@
 #include <vector>
 #include "PhysicalObject.h"
 #include "Level.h"
+#include "EngineModel.h"
+#include "Session.h"
 
 
-Physics::Physics():
-	collisionListener(new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>())
+Physics::Physics() : Physics(nullptr)
 {
 }
 
-std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects) const
+Physics::Physics(EngineModel* model) : model(model)
 {
-	collisionListener->clear();
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool all, bool movable, bool solid)
+{
+	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
 
 	// bewegbare Objekte werden nach Kollision abgefragt
-	if (physicalObjects) 
+	if (physicalObjects)
 	{
 
 		for (unsigned int i = 0; i < physicalObjects->size(); i++)
@@ -27,23 +32,37 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 				for (auto iteratorB = physicalObjects->begin(); iteratorB != physicalObjects->end(); ++iteratorB)
 				{
 					auto objB = *iteratorB;
-					if (objA != objB)
+					if (objA != objB && (all || (objB->isMovable() == movable && objB->isSolid() == solid)))
 					{
-						if ( (objA->getBoundaries()->position.x + objA->getBoundaries()->width) >= objB->getBoundaries()->position.x && // aRight >= bLeft &&
-							 (objB->getBoundaries()->position.x + objB->getBoundaries()->width) >= objA->getBoundaries()->position.x && // bRight >= aLeft &&
-							 (objA->getBoundaries()->position.y + objA->getBoundaries()->height) >= objB->getBoundaries()->position.y && // aTop >= bBot &&
-							 (objB->getBoundaries()->position.y + objB->getBoundaries()->height) >= objA->getBoundaries()->position.y ) // bTop >= aBot
+						if ((objA->getBoundaries()->real_x() + objA->getBoundaries()->real_width() - 1) >= objB->getBoundaries()->real_x() && // aRight >= bLeft &&
+							(objB->getBoundaries()->real_x() + objB->getBoundaries()->real_width() - 1) >= objA->getBoundaries()->real_x() && // bRight >= aLeft &&
+							(objA->getBoundaries()->real_y() + objA->getBoundaries()->real_height() - 1) >= objB->getBoundaries()->real_y() && // aTop >= bBot &&
+							(objB->getBoundaries()->real_y() + objB->getBoundaries()->real_height() - 1) >= objA->getBoundaries()->real_y()) // bTop >= aBot
 						{
-							collisionListener->push_back(std::make_pair(objA, objB));
+							collisions->push_back(std::make_pair(objA, objB));
+							objA->collideWith(objB);
 						}
 					}
 				}
 			}
 		}
-		return collisionListener;
-	} 
-	else
-	{
-		return nullptr;
 	}
+
+
+	return collisions;
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool movable, bool solid)
+{
+	return checkCollisions(physicalObjects, false, movable, solid);
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects)
+{
+	return checkCollisions(physicalObjects, true, false, false);
+}
+
+std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions() const
+{
+	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;
 }

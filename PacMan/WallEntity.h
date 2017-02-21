@@ -9,4 +9,5 @@ class WallEntity : public Entity
 public:
 	WallEntity(char* imagePath, Boundaries* boundaries);
 	Image* getImage() override;
+	~WallEntity();
 };

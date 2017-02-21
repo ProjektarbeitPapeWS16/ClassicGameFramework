@@ -5,45 +5,47 @@
 #include "EngineView.h"
 #include <glfw3.h>
 #include "Display.h"
-#include "Drawable.h"
 #include "PlayerEntity.h"
-#include "Stage1.h"
+#include "Stage.h"
 #include "Session.h"
+#include "EnemyEntity.h"
+#include "SpacePanicModel.h"
+#include "SpacePanicSession.h"
 
 // TODO make static and put in Model
 void upDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_UP);
 }
 
 
 void downDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_DOWN);
 }
 
 void leftDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_LEFT);
 }
 
 void rightDown()
 {
-	PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
 	player->request(PlayerEntity::MOVE_RIGHT);
 }
 
 void escPress()
 {
-	EngineController::getInstance()->closeWindow();
+	EngineModel::getInstance()->shouldClose = true;
 }
 
 
 SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel* model)
-	: EngineController(reinterpret_cast<EngineView*>(view), reinterpret_cast<EngineModel*>(model))
+	: EngineController(reinterpret_cast<EngineView*>(view), reinterpret_cast<EngineModel*>(model)), model(model)
 {
 	this->model->getKeyPressedListeners()->insert_or_assign(GLFW_KEY_ESCAPE, new std::function<void()>(escPress));// , model));
 
@@ -67,20 +69,25 @@ SpacePanicController::~SpacePanicController()
 long cycles = 0L;
 void SpacePanicController::cycle()
 {
-	if(cycles % 4 == 0)
+
+	if(cycles++ % 4 == 0)
 	{
-		PlayerEntity* player = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+		SpacePanicSession* session = static_cast<SpacePanicSession*>(model->getSession());
+
+		session->respawnIfPossible();
+
+		auto player = session->getStage()->getPlayer();
 		if(player != nullptr)
 		{
 			player->execute();
 		}
 
-		std::vector<EnemyEntity*>* enemys = static_cast<Stage1*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
-		for(int i = 0; i < enemys->size(); i++)
+		auto enemys = session->getStage()->getEnemys();
+		for(auto i = 0; i < enemys->size(); i++)
 		{
 			enemys->at(i)->execute();
 		}
 		
+		session->getStage()->getCollisions();
 	}
-	cycles++;
 }

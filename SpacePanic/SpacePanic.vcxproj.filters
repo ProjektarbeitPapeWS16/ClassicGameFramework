@@ -98,10 +98,19 @@
     <ClCompile Include="GameConfig.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Stage1.cpp">
+    <ClCompile Include="LadderEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="LadderEntity.cpp">
+    <ClCompile Include="UI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePanicSession.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HoleEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -127,10 +136,19 @@
     <ClInclude Include="GameConfig.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Stage1.h">
+    <ClInclude Include="LadderEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="LadderEntity.h">
+    <ClInclude Include="UI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePanicSession.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HoleEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

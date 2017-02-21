@@ -12,6 +12,7 @@ class PlayerEntity : public Entity
 	Image* moveDown;
 	Image* moveRight;
 	Image* moveLeft;
+	Image* pacmanDeath[9];
 
 public:
 	enum Request
@@ -21,7 +22,7 @@ public:
 		MOVE_LEFT,
 		MOVE_UP,
 		MOVE_DOWN,
-		DO_ACTION
+		DIE
 	};
 
 	enum PlayerState
@@ -38,12 +39,22 @@ public:
 	};
 private:
 	PlayerState state = MOVE_DOWN_1;
+	PlayerState memoryState = MOVE_DOWN_1;
 	Request lastRequest = NONE;
+	Request pufferRequest = NONE;
+	Request memoryRequest = NONE;
+
+	Image* deadAnimation();
+	int animationCounter = 0;
 
 public:
-	PlayerEntity();
+	PlayerEntity(Boundaries* boundaries);
 	void request(Request request);
+	void requestPuffer();
+	void requestMemory();
+	void setMemoryRequest();
 	void execute();
 	void stepBack();
 	Image* getImage() override;
+	~PlayerEntity();
 };

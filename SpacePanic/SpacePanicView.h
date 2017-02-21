@@ -7,7 +7,6 @@ class SpacePanicModel;
 class SpacePanicView : public EngineView
 {
 public:
-	SpacePanicView(SpacePanicModel* model, Display* display, Renderer* renderer);
-	SpacePanicView(SpacePanicModel* model, Display* display, Renderer* renderer, GameConfig* config);
+	SpacePanicView(SpacePanicModel* model);
 	void draw() override;
 };
