@@ -5,11 +5,49 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Physics.h"
+
+Level::~Level()
+{
+	if(physics != nullptr)
+	{
+		delete physics;
+	}
+
+	if (entities != nullptr)
+	{
+		for(auto i = 0; i < entities->size(); i++)
+		{
+			delete entities->at(i);
+		}
+		delete entities;
+	}
+}
 
 Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize) :
+	Level(colsGrid, rowsGrid, xTileSize, yTileSize, new Physics())
+{
+}
+
+Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, Physics* physics) :
 	grid(new Grid(colsGrid, rowsGrid, xTileSize, yTileSize)),
+	physics(physics),
 	entities(new std::vector<Entity*>())
 {
+}
+
+Physics* Level::getPhysics() const
+{
+	return physics;
+}
+
+void Level::setPhysics(Physics* physics)
+{
+	if (this->physics != nullptr)
+	{
+		delete this->physics;
+	}
+	this->physics = physics;
 }
 
 // TODO:
@@ -64,10 +102,9 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int cols) const
 {
 	char** array2D = nullptr;
-	FILE * file;
+	FILE* file;
 
 	fopen_s(&file, filepath, "rb");
-
 
 
 	// read content of textfile line by line
@@ -84,7 +121,6 @@ char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int
 		{
 			entityCharacter = str[iCol];
 			array2D[iRow][iCol] = entityCharacter;
-
 		}
 	}
 	return array2D;

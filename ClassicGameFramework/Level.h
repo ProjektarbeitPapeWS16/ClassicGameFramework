@@ -4,6 +4,7 @@
 //class Physics;
 class PhysicalObject;
 class Entity;
+class Physics;
 
 class Level
 {
@@ -12,16 +13,16 @@ class Level
 	int columnCount;
 	*/
 	Grid* grid; // determines dimensions, and grid size
-	//Physics* physics;
+	Physics* physics;
 protected:
 	std::vector<Entity*>* entities;
 public:
-	virtual ~Level()
-	{
-	}
+	virtual ~Level();
 
 	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize);
-	//Physics* getPhysics();
+	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, Physics* physics);
+	Physics* getPhysics() const;
+	void setPhysics(Physics* physics);
 	std::vector<Entity*>* getEntities() const;
 	void setEntities(std::vector<Entity*>* entities);
 	std::vector<PhysicalObject*>* getPhysicalObjects() const;
