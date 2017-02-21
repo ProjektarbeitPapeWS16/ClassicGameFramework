@@ -20,4 +20,8 @@ public:
 	};
 	virtual Entity* getEntity() { return nullptr; };
 	virtual bool isMovable() { return false; };
+
+	virtual void collideWith(PhysicalObject* physicalObject)
+	{
+	};
 };

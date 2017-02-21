@@ -3,22 +3,30 @@
 #include "EngineView.h"
 #include "Renderer.h"
 #include "Session.h"
-#include "Level.h"
+//#include "Level.h"
 #include "Entity.h"
 #include "Physics.h"
+#include "Level.h"
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
 EngineModel *EngineModel::instance = nullptr;
 
-EngineModel::EngineModel()
+EngineModel::EngineModel() : EngineModel(new Physics(), new Session(), new Level(100, 100, 1, 1))
 {
-	session = new Session();
-	level = new Level(100, 100, 1, 1);
-	entities = new std::vector<Entity*>();
-	physic = new Physics();
+}
 
+EngineModel::EngineModel(Physics* physics, Session* session, Level* level) :
+session(session), physics(physics)
+{
 	EngineModel::instance = this;
+	if(session != nullptr && level != nullptr)
+	{
+		session->setLevel(level);
+	}
+	
+	entities = new std::vector<Entity*>();
+	
 	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
 	keyPressedListeners = new std::map<Key, std::function<void()>*>();
 	keyDownListeners = new std::map<Key, std::function<void()>*>();
@@ -50,11 +58,11 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 	}
 }
 
-void EngineModel::key_down()
+void EngineModel::key_down() const
 {
 	for(unsigned int i = 0; i < keyDownKeys->size(); i++)
 	{
-		Key key = keyDownKeys->at(i);
+		auto key = keyDownKeys->at(i);
 		if(glfwGetKey(EngineView::getInstance()->renderer->window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
 		{
 			std::function<void()>* fptr = keyDownListeners->at(key);
@@ -108,9 +116,42 @@ Session* EngineModel::getSession()
 	return session;	
 }
 
-Level* EngineModel::getLevel() 
-{	
-	return level;	
+Level* EngineModel::getLevel()
+{
+	return session->getLevel();
+}
+
+Physics* EngineModel::getPhysics()
+{
+	return physics;
+}
+
+// setter
+void EngineModel::setSession(Session* session)
+{
+	if(this->session != nullptr)
+	{
+		delete this->session;
+	}
+	this->session = session;
+}
+
+void EngineModel::setLevel(Level* level)
+{
+	if (this->level != nullptr)
+	{
+		delete this->level;
+	}
+	this->level = level;
+}
+
+void EngineModel::setPhysics(Physics* physics)
+{
+	if (this->physics != nullptr)
+	{
+		delete this->physics;
+	}
+	this->physics = physics;
 }
 
 std::vector<Entity*>* EngineModel::getEntities()

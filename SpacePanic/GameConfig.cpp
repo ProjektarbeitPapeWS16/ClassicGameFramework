@@ -1,14 +1,22 @@
 ﻿#include "GameConfig.h"
 
-GameConfig::GameConfig(): internal_width(192), internal_height(256), external_factor(2), raster_width(8), raster_height(8)
-{
-}
+//GameConfig::GameConfig(): internal_width(192), internal_height(256), external_factor(2), raster_width(8), raster_height(8)
+//{
+//}
 
-GameConfig::GameConfig(int internal_width, int internal_height, int external_factor, int raster_width, int raster_height): internal_width(internal_width),
-                                                                                                                           internal_height(internal_height),
-                                                                                                                           external_factor(external_factor),
-                                                                                                                           raster_width(raster_width),
-                                                                                                                           raster_height(raster_height)
+GameConfig::GameConfig(
+	const char* title,
+	int internal_width,
+	int internal_height,
+	int external_factor,
+	int raster_width,
+	int raster_height
+): internal_width(internal_width),
+   internal_height(internal_height),
+   external_factor(external_factor),
+   raster_width(raster_width),
+   raster_height(raster_height),
+   title(title)
 {
 }
 
@@ -81,4 +89,9 @@ int GameConfig::getRasterRowsCount() const
 int GameConfig::applyFactor(int someXOrYValue) const
 {
 	return someXOrYValue * external_factor;
+}
+
+const char* GameConfig::getTitle() const
+{
+	return title;
 }

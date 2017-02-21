@@ -1,6 +1,7 @@
 ﻿#include "Session.h"
 
 #include "Config.h"
+#include "Level.h"
 
 Session::Session()
 {
@@ -44,5 +45,10 @@ Level * Session::getLevel()
 
 void Session::setLevel(Level * level)
 {
+	if(this->level != nullptr)
+	{
+		delete this->level;
+	}
+
 	this->level = level;
 }

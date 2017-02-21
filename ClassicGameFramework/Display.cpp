@@ -1,6 +1,6 @@
 ﻿#include "Display.h"
 
-std::vector<Drawable*>* Display::getDrawables() 
+std::vector<Drawable*>* Display::getDrawables() const
 {
 	return this->drawables;
 }
@@ -11,12 +11,12 @@ void Display::setDrawables(std::vector<Drawable*>* drawables)
 	this->drawables = drawables;
 }
 
-void Display::addDrawable(Drawable* drawable) 
+void Display::addDrawable(Drawable* drawable) const
 {
 	this->drawables->push_back(drawable);
 }
 
-void Display::removeDrawable(Drawable* drawable) 
+void Display::removeDrawable(Drawable* drawable) const
 {
 	for (unsigned int i = 0; i < drawables->size(); i++)
 	{
@@ -26,4 +26,9 @@ void Display::removeDrawable(Drawable* drawable)
 			break;
 		}
 	}
+}
+
+void Display::clearDrawables() const
+{
+	drawables->clear();
 }

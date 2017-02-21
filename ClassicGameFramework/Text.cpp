@@ -55,7 +55,7 @@ Image* Text::getImage()
 	return image;
 }
 
-Text::Text(GameConfig* config, Font* font, char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned short B = 255) :
+Text::Text(Font* font, const char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned char B = 255) :
 	Entity(nullptr, 0, false, nullptr, false ,0),
 textLength(0),
 	//textWidth(0),
@@ -67,8 +67,7 @@ textLength(0),
 	R(255.0 / R),
 	G(255.0 / G),
 	B(255.0 / B),
-	scale(scale),
-	config(config)
+	scale(scale)
 {
 	// count letters
 	while (text[this->textLength] != '\0')
@@ -78,7 +77,7 @@ textLength(0),
 
 	//this->textWidth = this->textLength * font->getFontWidth();
 
-	boundaries = new Boundaries(config->getRasterWidth() * position->x, config->getRasterHeight() * position->y, this->textLength * font->getFontWidth(), font->getFontSize());
+	boundaries = new Boundaries(position->x, position->y, this->textLength * font->getFontWidth(), font->getFontSize());
 }
 
 Text::~Text()

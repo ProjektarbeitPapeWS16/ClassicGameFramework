@@ -5,6 +5,7 @@ class SpacePanicView;
 
 class SpacePanicController : public EngineController
 {
+	SpacePanicModel* model;
 public:
 	SpacePanicController(SpacePanicView* view, SpacePanicModel* model);
 
