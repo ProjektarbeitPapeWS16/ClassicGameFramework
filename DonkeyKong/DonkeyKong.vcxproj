@@ -144,29 +144,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="DonkeyKong.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DonkeyKong.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="DonkeyKong.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="DonkeyKong.ico" />
-    <Image Include="small.ico" />
+    <ClInclude Include="DK_Config.h" />
+    <ClInclude Include="DK_Controller.h" />
+    <ClInclude Include="DK_Launcher.h" />
+    <ClInclude Include="DK_Model.h" />
+    <ClInclude Include="DK_View.h" />
+    <ClInclude Include="Entity_Barrel.h" />
+    <ClInclude Include="Entity_DonkeyKong.h" />
+    <ClInclude Include="Entity_Girder.h" />
+    <ClInclude Include="Entity_Jumpman.h" />
+    <ClInclude Include="Entity_Ladder.h" />
+    <ClInclude Include="Entity_OilDrum.h" />
+    <ClInclude Include="Entity_Pauline.h" />
+    <ClInclude Include="Level_25m.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
