@@ -17,11 +17,15 @@ EngineModel::EngineModel() : EngineModel(new Physics(), new Session(), new Level
 }
 
 EngineModel::EngineModel(Physics* physics, Session* session, Level* level) :
-session(session), physics(physics)
+session(session)
 {
 	EngineModel::instance = this;
 	if(session != nullptr && level != nullptr)
 	{
+		if(physics != nullptr) {
+			level->setPhysics(physics);
+		}
+
 		session->setLevel(level);
 	}
 	
@@ -123,7 +127,7 @@ Level* EngineModel::getLevel()
 
 Physics* EngineModel::getPhysics()
 {
-	return physics;
+	return session->getLevel()->getPhysics();
 }
 
 // setter
@@ -143,11 +147,7 @@ void EngineModel::setLevel(Level* level)
 
 void EngineModel::setPhysics(Physics* physics)
 {
-	if (this->physics != nullptr)
-	{
-		delete this->physics;
-	}
-	this->physics = physics;
+	session->getLevel()->setPhysics(physics);
 }
 
 std::vector<Entity*>* EngineModel::getEntities()
