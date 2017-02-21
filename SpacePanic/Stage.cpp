@@ -49,6 +49,7 @@ void Stage::generateSortedEntities() const
 		entities->push_back(enemys->at(i));
 	}
 
+	ui->update();
 	//UI
 	for (auto i = 0; i < ui->getEntities()->size(); i++)
 	{
@@ -110,9 +111,8 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 	{
 		addBackgroundEntity(uiEntities->at(i));
 	}
-
-	generateSortedEntities();
 }
+
 
 
 const char* Stage::getFilePath() const
@@ -139,6 +139,11 @@ Stage::~Stage()
 {
 }
 
+std::vector<Entity*>* Stage::getEntities() const
+{
+	generateSortedEntities();
+	return super::getEntities();
+}
 
 Stage::Cells* Stage::getCells() const
 {

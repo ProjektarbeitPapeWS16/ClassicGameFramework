@@ -61,12 +61,15 @@ private:
 	std::vector<PhysicalObject*>* physicalObjects;
 	char** leveldata;
 	void generateSortedEntities() const;
+	typedef Level super;
 public:
 
 	Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile);
 	~Stage() override;
 
+	
 
+	std::vector<Entity*>* getEntities() const override;
 	void setPlayer(PlayerEntity* player);
 	void addEnemy(EnemyEntity* enemy) const;
 	void addBackgroundEntity(Entity* backgroundEntity) const;

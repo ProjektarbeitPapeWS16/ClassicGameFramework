@@ -16,7 +16,7 @@ Level::~Level()
 
 	if (entities != nullptr)
 	{
-		for(auto i = 0; i < entities->size(); i++)
+		for(size_t i = 0; i < entities->size(); i++)
 		{
 			delete entities->at(i);
 		}
@@ -112,12 +112,12 @@ char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int
 	std::string str;
 	char entityCharacter;
 	array2D = new char*[rows];
-	for (auto iRow = 0; iRow < rows; iRow++)
+	for (unsigned int iRow = 0; iRow < rows; iRow++)
 	{
 		// load next line of text; which contains one row
 		array2D[iRow] = new char[cols];
 		std::getline(in, str);
-		for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+		for (size_t iCol = 0; iCol < str.length() || iCol < cols; iCol++)
 		{
 			entityCharacter = str[iCol];
 			array2D[iRow][iCol] = entityCharacter;

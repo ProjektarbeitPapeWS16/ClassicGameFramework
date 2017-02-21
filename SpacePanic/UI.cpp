@@ -10,42 +10,53 @@ UI::UI(SpacePanicModel* model) :
 	entities(new std::vector<Entity*>()),
 	defaultFont(new Font("fonts/normal/", 8, 8, 200, 80, 0)),
 	titleEntity(new Text(defaultFont, "SPACE PANIC", new Position(
-		model->getConfig()->getRasterWidth() * 6, 
-			model->getConfig()->getRasterHeight() * 30), model->getConfig()->applyFactor(1), 255, 0, 0)),
-	oxygenLevel(nullptr),//new OxygenLevelEntity()),
+		                     model->getConfig()->getRasterWidth() * 6,
+		                     model->getConfig()->getRasterHeight() * 30), model->getConfig()->applyFactor(1), 255, 0, 0)),
+	oxygenLevel(nullptr), //new OxygenLevelEntity()),
 	score(nullptr),
 	lives(nullptr)
 {
-	//GameConfig* config = model->getConfig();
-
 }
 
 void UI::update()
 {
-	if (oxygenLevel != nullptr)
-	{
-		delete oxygenLevel;
-	}
-	oxygenLevel = new Text(defaultFont, std::to_string(static_cast<SpacePanicSession*>(model->getSession())->getOxygen()).c_str(), new Position(
-		model->getConfig()->getRasterWidth() * 8,
-		model->getConfig()->getRasterHeight() * 28), model->getConfig()->getExternalFactor(), 255, 0, 0);
+	SpacePanicSession* session = static_cast<SpacePanicSession*>(model->getSession());
 
-	if (score != nullptr)
+	if (oxygenLevelLast != session->getOxygen())
 	{
-		delete score;
+		if (oxygenLevel != nullptr)
+		{
+			delete oxygenLevel;
+		}
+		oxygenLevelLast = session->getOxygen();
+		oxygenLevel = new Text(defaultFont, std::to_string(oxygenLevelLast).c_str(), new Position(
+			                       model->getConfig()->getRasterWidth() * 8,
+			                       model->getConfig()->getRasterHeight() * 28), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}
-	score = new Text(defaultFont, std::to_string(static_cast<SpacePanicSession*>(model->getSession())->getScore()).c_str(), new Position(
-		model->getConfig()->getRasterWidth() * 8,
-		model->getConfig()->getRasterHeight() * 1), model->getConfig()->getExternalFactor(), 255, 0, 0);
 
-	if (lives != nullptr)
+	if (scoreLast != session->getScore())
 	{
-		delete lives;
+		if (score != nullptr)
+		{
+			delete score;
+		}
+		scoreLast = session->getScore();
+		score = new Text(defaultFont, (std::to_string(scoreLast) + " points").c_str(), new Position(
+			                 model->getConfig()->getRasterWidth() * 12,
+			                 model->getConfig()->getRasterHeight() * 3), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}
-	lives = new Text(defaultFont, std::to_string(static_cast<SpacePanicSession*>(model->getSession())->getLifes()).c_str(), new Position(
-		model->getConfig()->getRasterWidth() * 1,
-		model->getConfig()->getRasterHeight() * 1), model->getConfig()->getExternalFactor(), 255, 0, 0);
 
+	if (livesLast != session->getLifes())
+	{
+		if (lives != nullptr)
+		{
+			delete lives;
+		}
+		livesLast = session->getLifes();
+		lives = new Text(defaultFont, (std::to_string(livesLast) + " lives left").c_str(), new Position(
+			                 model->getConfig()->getRasterWidth() * 1,
+			                 model->getConfig()->getRasterHeight() * 2), model->getConfig()->getExternalFactor(), 255, 0, 0);
+	}
 
 	entities->clear();
 	entities->push_back(titleEntity);

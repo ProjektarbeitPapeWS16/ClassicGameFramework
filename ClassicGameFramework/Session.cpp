@@ -3,7 +3,12 @@
 #include "Config.h"
 #include "Level.h"
 
-Session::Session()
+Session::Session() : Session(3, 0)
+{
+
+}
+
+Session::Session(int defaultLifes, int defaultScore) : lifes(defaultLifes), score(defaultScore), level(nullptr)
 {
 
 }

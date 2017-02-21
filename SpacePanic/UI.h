@@ -20,6 +20,10 @@ class UI
 	Entity* oxygenLevel;
 	Entity* score;
 	Entity* lives;
+	int oxygenLevelLast = -1;
+	int scoreLast = -1;
+	int livesLast = -1;
+
 public:
 	UI(SpacePanicModel* model);
 	void update();

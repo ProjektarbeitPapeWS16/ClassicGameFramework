@@ -23,7 +23,7 @@ public:
 	Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, Physics* physics);
 	Physics* getPhysics() const;
 	void setPhysics(Physics* physics);
-	std::vector<Entity*>* getEntities() const;
+	virtual std::vector<Entity*>* getEntities() const;
 	void setEntities(std::vector<Entity*>* entities);
 	std::vector<PhysicalObject*>* getPhysicalObjects() const;
 	char** getLeveldata(const char* filepath, unsigned rows, unsigned cols) const;

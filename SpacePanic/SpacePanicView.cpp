@@ -27,6 +27,7 @@ void SpacePanicView::draw()
 
 	if (level != nullptr)
 	{
+		//static_cast<Stage*>(level)->generateSortedEntities();
 		auto entities = level->getEntities();
 
 		for (auto i = 0; i < entities->size(); i++)

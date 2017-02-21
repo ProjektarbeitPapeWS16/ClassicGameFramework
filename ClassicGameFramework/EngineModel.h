@@ -23,6 +23,7 @@ private:
 
 	std::vector<Key>* keyDownKeys = nullptr;
 
+	
 protected:
 	Session* session;
 	//Level* level;
@@ -31,7 +32,9 @@ protected:
 
 	virtual void handleCollisions();
 
+	
 public:
+	bool shouldClose = false;
 	// Konstruktor
 	EngineModel();
 	EngineModel(Physics* physics, Session* session, Level* level);
@@ -44,7 +47,7 @@ public:
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;
 	
 	// TODO description
-	void key_down() const;
+	void key_down(GLFWwindow* window) const;
 	
 
 	// initializes the keyListeners and other stuff
