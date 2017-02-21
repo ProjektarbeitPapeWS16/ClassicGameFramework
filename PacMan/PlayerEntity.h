@@ -41,7 +41,7 @@ private:
 	Request lastRequest = NONE;
 
 public:
-	PlayerEntity();
+	PlayerEntity(Boundaries* boundaries);
 	void request(Request request);
 	void execute();
 	void stepBack();

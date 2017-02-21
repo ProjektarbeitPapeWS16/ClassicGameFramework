@@ -63,6 +63,7 @@ public:
 		char* moveRight1, char* moveRight2, char* moveLeft1, char* moveLeft2, 
 		char* energized1, char* energized2);
 	void request(Request request);
+	void setState(GhostState state);
 	void specialRequest(SpecialState request);
 	void execute();
 	void stepBack(); // for collision
