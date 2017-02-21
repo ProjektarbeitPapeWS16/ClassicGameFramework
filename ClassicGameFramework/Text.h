@@ -1,7 +1,6 @@
 ﻿#pragma once
 //#include "Drawable.h"
 #include "Entity.h"
-class GameConfig;
 class Font;
 struct Position;
 
@@ -23,13 +22,12 @@ private:
 
 	//Position* position;
 	Image* image;
-	char* text;
+	const char* text;
 	double R, G, B;
 	double scale;
-	GameConfig* config;
 public:
 
-	Text(GameConfig* config, Font* font, char* text, Position* position, double scale, unsigned char R, unsigned char G, unsigned short B);
+	Text(Font* font, const char* text, Position* position, double scale, unsigned char R, unsigned char G, unsigned char B);
 	~Text();
 
 	const char* getText() const;
