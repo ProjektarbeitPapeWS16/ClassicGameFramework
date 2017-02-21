@@ -9,7 +9,7 @@ class SpacePanicModel : public EngineModel
 	GameConfig* config;
 	const char** stageFiles;
 	const char** movementFiles;
-	EngineModel* super();
+	typedef EngineModel super;
 public:
 	SpacePanicModel();
 	~SpacePanicModel() override;

@@ -45,11 +45,6 @@ const char* SpacePanicModel::getMovementFile(int i) const
 	return movementFiles[i];
 }
 
-EngineModel* SpacePanicModel::super()
-{
-	return this;
-}
-
 //SpacePanicSession* SpacePanicModel::getSpacePanicSession()
 //{
 //	return static_cast<SpacePanicSession*>(getSession());

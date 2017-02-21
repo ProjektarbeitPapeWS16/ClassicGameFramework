@@ -2,7 +2,12 @@
 #include "Stage.h"
 #include "PlayerEntity.h"
 
-SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : Session(), oxygen(DEFAULT_OXYGEN), model(model)
+SpacePanicSession::SpacePanicSession(SpacePanicModel* model, int defaultOxygen) : Session(2, 0), oxygen(defaultOxygen), model(model)
+{
+	
+}
+
+SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : SpacePanicSession(model, 100)
 {
 }
 
