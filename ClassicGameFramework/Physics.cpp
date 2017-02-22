@@ -70,7 +70,7 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 std::vector<PhysicalObject*>* Physics::checkCollisions(PhysicalObject * objA, std::vector<PhysicalObject*>* physicalObjects)
 {
 	std::vector<PhysicalObject*>* collisions = new std::vector<PhysicalObject*>();
-	for (unsigned int i = 0; physicalObjects->size(); i++)
+	for (unsigned int i = 0; i < physicalObjects->size(); i++)
 	{
 		auto objB = physicalObjects->at(i);
 		if ((objA->getBoundaries()->real_x() + objA->getBoundaries()->real_width() - 1) >= objB->getBoundaries()->real_x() && // aRight >= bLeft &&

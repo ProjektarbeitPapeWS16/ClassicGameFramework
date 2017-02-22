@@ -286,60 +286,60 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 	}
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 4 * 8) * AMP));
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 5 * 8) * AMP));
-	for (int i = 4; i < 28; i++)
-	{
-		if (i == 6) { i = 7; }
-		if (i == 9) { i = 10; }
-		if (i == 21) { i = 22; }
-		if (i == 24) { i = 25; }
-		entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
+for (int i = 4; i < 28; i++)
+{
+	if (i == 6) { i = 7; }
+	if (i == 9) { i = 10; }
+	if (i == 21) { i = 22; }
+	if (i == 24) { i = 25; }
+	entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
 
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 25; }
-		entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	//spiegel
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 25; }
-		entities->push_back(new DotEntity((11 + 14 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 23 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 22 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 4 * 8) * AMP));
-	for (int i = 4; i < 28; i++)
-	{
-		if (i == 6) { i = 7; }
-		if (i == 9) { i = 10; }
-		if (i == 21) { i = 22; }
-		if (i == 24) { i = 25; }
-		entities->push_back(new DotEntity((11 + 20 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 4 * 8) * AMP));
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 22; }
-		if (i == 24) { i = 25; }
-		if (i == 26) { i = 27; }
-		entities->push_back(new DotEntity((11 + 25 * 8) * AMP, (27 + i * 8) * AMP));
-	}
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 25; }
+	entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
+}
+//spiegel
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 25; }
+	entities->push_back(new DotEntity((11 + 14 * 8) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 23 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 22 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 4 * 8) * AMP));
+for (int i = 4; i < 28; i++)
+{
+	if (i == 6) { i = 7; }
+	if (i == 9) { i = 10; }
+	if (i == 21) { i = 22; }
+	if (i == 24) { i = 25; }
+	entities->push_back(new DotEntity((11 + 20 * 8) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 4 * 8) * AMP));
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 22; }
+	if (i == 24) { i = 25; }
+	if (i == 26) { i = 27; }
+	entities->push_back(new DotEntity((11 + 25 * 8) * AMP, (27 + i * 8) * AMP));
+}
 
-	// Energizer
-	entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 6 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 6 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 26 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 26 * 8) * AMP));
+// Energizer
+entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 6 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 6 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 26 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 26 * 8) * AMP));
 }
 
 
@@ -353,29 +353,7 @@ void MyLevel::gameLoop()
 	if ((Config::currentTimeMillis() - timer) > 60)
 	{
 		timer = Config::currentTimeMillis();
-		gamecounter++;
-		gamecounter = gamecounter % 16;
-		/*
-		switch (gamecounter)
-		{
-		case  0:
-		case  1:
-		case  2:
-		case  3:
-		case  4: blueGhost->request(EnemyEntity::MOVE_RIGHT);	break;
-		case  5:
-		case  6:
-		case  7:
-		case  8: blueGhost->request(EnemyEntity::MOVE_UP);		break;
-		case  9:
-		case 10:
-		case 11:
-		case 12: blueGhost->request(EnemyEntity::MOVE_LEFT);	break;
-		case 13:
-		case 14:
-		case 15:
-		default: blueGhost->request(EnemyEntity::MOVE_DOWN);	break;;
-		}*/
+
 		if (gameState == PACMANDEAD)
 		{
 			if (endCounter == 0)
@@ -403,9 +381,47 @@ void MyLevel::gameLoop()
 			handleCollisions();
 			gameState = NORMAL;
 		}
+
+		// TODO switch direction
+		// TODO make more complex
+		if (movementMode == EnemyEntity::SCATTER)
+		{
+			if (Config::currentTimeMillis() - ghostTimer > 7000)
+			{
+				ghostTimer = Config::currentTimeMillis();
+				EnemyEntity::CHASE;
+				blueGhost->setMovementMode(EnemyEntity::CHASE);
+				redGhost->setMovementMode(EnemyEntity::CHASE);
+				pinkGhost->setMovementMode(EnemyEntity::CHASE);
+				orangeGhost->setMovementMode(EnemyEntity::CHASE);
+			}
+		}
+		if (movementMode == EnemyEntity::CHASE)
+		{
+			if (Config::currentTimeMillis() - ghostTimer > 20000)
+			{
+				ghostTimer = Config::currentTimeMillis();
+				EnemyEntity::SCATTER;
+				blueGhost->setMovementMode(EnemyEntity::SCATTER);
+				redGhost->setMovementMode(EnemyEntity::SCATTER);
+				pinkGhost->setMovementMode(EnemyEntity::SCATTER);
+				orangeGhost->setMovementMode(EnemyEntity::SCATTER);
+			}
+		}
 		
 
-		redGhost->execute();
+		if (blinkyOut)
+		{
+			redGhost->execute();
+		}
+		else
+		{
+			blinkyOut = redGhost->moveOutOfCage();
+			if (blinkyOut)
+			{
+				redGhost->execute();
+			}
+		}
 		if (pinkyOut)
 		{
 			pinkGhost->execute();
@@ -413,6 +429,10 @@ void MyLevel::gameLoop()
 		else
 		{
 			pinkyOut = pinkGhost->moveOutOfCage();
+			if (pinkyOut)
+			{
+				pinkGhost->execute();
+			}
 		}
 
 		if (dotCounter < 240 - 30)
@@ -424,6 +444,10 @@ void MyLevel::gameLoop()
 			else
 			{
 				inkyOut = blueGhost->moveOutOfCage();
+				if (inkyOut)
+				{
+					blueGhost->execute();
+				}
 			}
 		}
 		
@@ -435,7 +459,11 @@ void MyLevel::gameLoop()
 			}
 			else
 			{
-				clydeOut = orangeGhost->moveOutOfCage();
+				clydeOut = orangeGhost->moveOutOfCage(); 
+				if (clydeOut)
+				{
+					orangeGhost->execute();
+				}
 			}
 		}
 	}
@@ -479,6 +507,7 @@ void MyLevel::handleCollisions()
 						{
 							entities->erase(entities->begin() + i);
 							delete dot;
+							dotCounter--;
 							return;
 						}
 					}

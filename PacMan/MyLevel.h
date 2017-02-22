@@ -2,7 +2,7 @@
 #include "Level.h"
 #include "Config.h"
 class PlayerEntity;
-class EnemyEntity;
+#include "EnemyEntity.h"
 
 
 class MyLevel :
@@ -38,6 +38,7 @@ private:
 	EnemyEntity* orangeGhost;
 	EnemyEntity* pinkGhost;
 
+	bool blinkyOut = false;
 	bool pinkyOut = false;
 	bool inkyOut = false;
 	bool clydeOut = false;
@@ -50,5 +51,7 @@ private:
 	int slowit = 0;
 
 	__int64 timer = Config::currentTimeMillis();
+	__int64 ghostTimer = Config::currentTimeMillis();
+	EnemyEntity::MovementMode movementMode = EnemyEntity::SCATTER;
 };
 
