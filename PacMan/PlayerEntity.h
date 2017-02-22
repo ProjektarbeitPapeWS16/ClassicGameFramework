@@ -57,5 +57,6 @@ public:
 	void execute();
 	void stepBack();
 	Image* getImage() override;
+	PlayerEntity::PlayerState getState();
 	~PlayerEntity();
 };

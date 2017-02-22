@@ -167,6 +167,11 @@ Image* PlayerEntity::getImage()
 	}
 }
 
+PlayerEntity::PlayerState PlayerEntity::getState()
+{
+	return state;
+}
+
 Image* PlayerEntity::deadAnimation()
 {
 	if (animationCounter == 1)

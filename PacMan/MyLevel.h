@@ -38,6 +38,13 @@ private:
 	EnemyEntity* orangeGhost;
 	EnemyEntity* pinkGhost;
 
+	bool pinkyOut = false;
+	bool inkyOut = false;
+	bool clydeOut = false;
+
+	int dotCounter = 240;
+	int energizerCounter = 4;
+
 	int endCounter = 0;
 	int gamecounter = 0;
 	int slowit = 0;

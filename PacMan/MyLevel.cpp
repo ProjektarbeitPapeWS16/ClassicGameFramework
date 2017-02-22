@@ -29,6 +29,10 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	blueGhost->setState(EnemyEntity::MOVE_UP_1);
+	blueGhost->setName(EnemyEntity::Inky);
+	blueGhost->setPacman(pacman);
+	blueGhost->setPhysics(getPhysics());
+	blueGhost->setLevel(this);
 
 	redGhost = new EnemyEntity(new Boundaries(105 * AMP, 165 * AMP, 14 * AMP, 14 * AMP));
 	redGhost->setTextures("textures/Ghosts/redGhost/redGhostUp1.bmp",
@@ -42,6 +46,12 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	redGhost->setState(EnemyEntity::MOVE_LEFT_1);
+	redGhost->setName(EnemyEntity::Blinky);
+	redGhost->setPacman(pacman);
+	redGhost->setPhysics(getPhysics());
+	redGhost->setLevel(this);
+
+	blueGhost->setBlinky(redGhost);
 
 	orangeGhost = new EnemyEntity(new Boundaries(121 * AMP, 141 * AMP, 14 * AMP, 14 * AMP));
 	orangeGhost->setTextures("textures/Ghosts/orangeGhost/orangeGhostUp1.bmp",
@@ -55,6 +65,10 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	orangeGhost->setState(EnemyEntity::MOVE_UP_1);
+	orangeGhost->setName(EnemyEntity::Clyde);
+	orangeGhost->setPacman(pacman);
+	orangeGhost->setPhysics(getPhysics());
+	orangeGhost->setLevel(this);
 
 	pinkGhost = new EnemyEntity(new Boundaries(105 * AMP, 141 * AMP, 14 * AMP, 14 * AMP));
 	pinkGhost->setTextures("textures/Ghosts/pinkGhost/pinkGhostUp1.bmp",
@@ -68,13 +82,17 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	pinkGhost->setState(EnemyEntity::MOVE_DOWN_1);
+	pinkGhost->setName(EnemyEntity::Pinky);
+	pinkGhost->setPacman(pacman);
+	pinkGhost->setPhysics(getPhysics());
+	pinkGhost->setLevel(this);
+
 
 	entities->push_back(pacman);
 	entities->push_back(blueGhost);
 	entities->push_back(redGhost);
 	entities->push_back(orangeGhost);
 	entities->push_back(pinkGhost);
-
 
 
 	// Left Wall, from bottom to top
@@ -387,10 +405,39 @@ void MyLevel::gameLoop()
 		}
 		
 
-		blueGhost->execute();
 		redGhost->execute();
-		pinkGhost->execute();
-		orangeGhost->execute();
+		if (pinkyOut)
+		{
+			pinkGhost->execute();
+		}
+		else
+		{
+			pinkyOut = pinkGhost->moveOutOfCage();
+		}
+
+		if (dotCounter < 240 - 30)
+		{
+			if (inkyOut)
+			{
+				blueGhost->execute();
+			}
+			else
+			{
+				inkyOut = blueGhost->moveOutOfCage();
+			}
+		}
+		
+		if (dotCounter < 240 - 80)
+		{
+			if (clydeOut)
+			{
+				orangeGhost->execute();
+			}
+			else
+			{
+				clydeOut = orangeGhost->moveOutOfCage();
+			}
+		}
 	}
 }
 
