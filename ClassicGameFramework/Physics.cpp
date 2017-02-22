@@ -66,3 +66,20 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 {
 	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;
 }
+
+std::vector<PhysicalObject*>* Physics::checkCollisions(PhysicalObject * objA, std::vector<PhysicalObject*>* physicalObjects)
+{
+	std::vector<PhysicalObject*>* collisions = new std::vector<PhysicalObject*>();
+	for (unsigned int i = 0; physicalObjects->size(); i++)
+	{
+		auto objB = physicalObjects->at(i);
+		if ((objA->getBoundaries()->real_x() + objA->getBoundaries()->real_width() - 1) >= objB->getBoundaries()->real_x() && // aRight >= bLeft &&
+			(objB->getBoundaries()->real_x() + objB->getBoundaries()->real_width() - 1) >= objA->getBoundaries()->real_x() && // bRight >= aLeft &&
+			(objA->getBoundaries()->real_y() + objA->getBoundaries()->real_height() - 1) >= objB->getBoundaries()->real_y() && // aTop >= bBot &&
+			(objB->getBoundaries()->real_y() + objB->getBoundaries()->real_height() - 1) >= objA->getBoundaries()->real_y()) // bTop >= aBot
+		{
+			collisions->push_back(objB);
+		}
+	}
+	return collisions;
+}

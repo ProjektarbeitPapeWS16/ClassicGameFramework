@@ -38,5 +38,9 @@ public:
 	 */
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* checkCollisions() const;
 
-	
+	/*
+		Checks if the parameter collides with anything, 
+		all physical objects that collided are returned as a std::vector.
+	*/
+	std::vector<PhysicalObject*>* checkCollisions(PhysicalObject*, std::vector<PhysicalObject*>*);
 };

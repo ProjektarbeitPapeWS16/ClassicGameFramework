@@ -105,9 +105,10 @@ Image* Entity::getImage()
 
 Entity::~Entity()
 {
+	/**
 	for (auto i = 0; i < imageCount; i++)
 	{
 		delete image[i];
-	}
-	delete image;
+	}*/
+//	delete image;
 }

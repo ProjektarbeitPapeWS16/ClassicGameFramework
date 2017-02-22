@@ -7,6 +7,7 @@ class Renderer;
 
 class PlayerEntity : public Entity
 {
+	Image* none;
 	Image* move;
 	Image* moveUp;
 	Image* moveDown;
@@ -56,5 +57,6 @@ public:
 	void execute();
 	void stepBack();
 	Image* getImage() override;
+	PlayerEntity::PlayerState getState();
 	~PlayerEntity();
 };

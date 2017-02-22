@@ -1,7 +1,10 @@
 #pragma once
 #include "Entity.h"
 
+class PlayerEntity;
 class Renderer;
+class Physics;
+class Level;
 
 class EnemyEntity : public Entity
 {
@@ -15,7 +18,10 @@ class EnemyEntity : public Entity
 	Image* moveLeft2;
 	Image* energized1;
 	Image* energized2;
-	//Image* dead; TODO
+	Image* deadUp;
+	Image* deadDown;
+	Image* deadRight;
+	Image* deadLeft;
 
 	bool energized;
 
@@ -50,11 +56,59 @@ public:
 		ENERGIZED2
 	};
 
+	enum Ghost
+	{
+		Blinky, // red
+		Pinky, // pink
+		Inky, // blue
+		Clyde // orange
+	};
+
 
 private: 
 	GhostState state = MOVE_NONE;
 	Request lastRequest = NONE;
 	SpecialState specialState = ALIVE;
+	__int64 energizerTimer = 0;
+	__int64 energizerTimer2 = 0;
+
+	enum Direction
+	{
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT
+	};
+	enum MovementMode
+	{
+		SCATTER,
+		CHASE,
+		FRIGHTENED
+	};
+	MovementMode movementMode;
+
+	// move one unit in the direction
+	void move(Direction);
+
+	// in which direction should we move?
+	void findDirection();
+	Direction direction;
+
+	// calculate target tile
+	void findTargetTile();
+	Boundaries targetTile;
+
+	// are we at a crossing?
+	bool isCrossing();
+
+	bool canMove(Direction);
+
+	Ghost name;
+	PlayerEntity* pacman;
+	EnemyEntity* blinky; // for Inky
+
+	Physics* physics;
+	Level* level;
 
 public:
 	EnemyEntity();
@@ -68,4 +122,18 @@ public:
 	void execute();
 	void stepBack(); // for collision
 	Image* getImage() override;
+	EnemyEntity::SpecialState getSpecialState();
+	EnemyEntity::Ghost getName();
+
+	void setName(EnemyEntity::Ghost);
+	void setPacman(PlayerEntity*);
+	void setBlinky(EnemyEntity*); // only for Inky
+
+	void setPhysics(Physics*);
+	void setLevel(Level*);
+
+	EnemyEntity::MovementMode getMovementMode();
+	void setMovementMode(EnemyEntity::MovementMode);
+
+	bool moveOutOfCage();
 };

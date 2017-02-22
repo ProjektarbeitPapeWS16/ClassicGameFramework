@@ -5,15 +5,15 @@
 
 WallEntity::WallEntity(char* imagePath, Boundaries* boundaries) : Entity(nullptr, 0, true, boundaries, false, 3)
 {
-	image = new Image(imagePath, this, 0, 0, 0);
+	helper = new Image(imagePath, this, 0, 0, 0);
 }
 
 Image* WallEntity::getImage()
 {
-	return image;
+	return helper;
 }
 
 WallEntity::~WallEntity()
 {
-	delete image;
+	delete helper;
 }

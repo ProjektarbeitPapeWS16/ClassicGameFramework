@@ -6,6 +6,7 @@ PlayerEntity::PlayerEntity(Boundaries* boundaries) : Entity(nullptr, 3 * 3, fals
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
+	none = new Image("thisTextureDoenstExist", this, 0, 0, 0);
 	move = new Image("textures/PacMan/pacman.bmp", this, 0, 0, 0);
 	moveUp = new Image("textures/PacMan/pacmanUp.bmp", this, 0, 0, 0);
 	moveDown = new Image("textures/PacMan/pacmanDown.bmp", this, 0, 0, 0);
@@ -126,6 +127,7 @@ void PlayerEntity::execute()
 		}
 		break;
 	case DIE:
+		animationCounter++;
 		state = DEAD;
 	default: break;
 	}
@@ -165,32 +167,35 @@ Image* PlayerEntity::getImage()
 	}
 }
 
+PlayerEntity::PlayerState PlayerEntity::getState()
+{
+	return state;
+}
+
 Image* PlayerEntity::deadAnimation()
 {
-	animationCounter++;
 	if (animationCounter == 1)
 	{
 		return moveUp;
 	} 
 	else if (animationCounter > 10)
 	{
-		animationCounter = 0;
-		return move;
+		return none;
 	}
 	return pacmanDeath[animationCounter - 2];
 }
 
 PlayerEntity::~PlayerEntity()
 {
-	//delete move;
-	//delete moveUp;
-	//delete moveDown;
-	//delete moveRight;
-	//delete moveLeft;
-	/*
+	delete none;
+	delete move;
+	delete moveUp;
+	delete moveDown;
+	delete moveRight;
+	delete moveLeft;
+	
 	for (unsigned int i = 0; i < 9; i++)
 	{
 		delete pacmanDeath[i];
-	}*/
-	//delete[] pacmanDeath;
+	}
 }
