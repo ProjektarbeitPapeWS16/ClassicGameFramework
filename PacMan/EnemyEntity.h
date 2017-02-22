@@ -15,7 +15,10 @@ class EnemyEntity : public Entity
 	Image* moveLeft2;
 	Image* energized1;
 	Image* energized2;
-	//Image* dead; TODO
+	Image* deadUp;
+	Image* deadDown;
+	Image* deadRight;
+	Image* deadLeft;
 
 	bool energized;
 
@@ -55,6 +58,8 @@ private:
 	GhostState state = MOVE_NONE;
 	Request lastRequest = NONE;
 	SpecialState specialState = ALIVE;
+	__int64 energizerTimer = 0;
+	__int64 energizerTimer2 = 0;
 
 public:
 	EnemyEntity();
@@ -68,4 +73,5 @@ public:
 	void execute();
 	void stepBack(); // for collision
 	Image* getImage() override;
+	EnemyEntity::SpecialState getSpecialState();
 };

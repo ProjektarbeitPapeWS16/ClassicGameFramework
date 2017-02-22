@@ -6,6 +6,7 @@
 #include "EnergizerEntity.h"
 #include "Physics.h"
 #include "PacManModel.h"
+#include "Config.h"
 
 #define AMP 3
 
@@ -77,25 +78,25 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 
 
 	// Left Wall, from bottom to top
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp", new Boundaries(0 * AMP, 16 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x38.bmp", new Boundaries(0 * AMP, 21 * AMP, 4 * AMP, 38 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall5x10L.bmp", new Boundaries(0 * AMP, 59 * AMP, 5 * AMP, 10 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall15x8L.bmp", new Boundaries(5 * AMP, 60 * AMP, 15 * AMP, 8 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x38.bmp", new Boundaries(0 * AMP, 69 * AMP, 4 * AMP, 38 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(0 * AMP, 107 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp", new Boundaries(5 * AMP, 108 * AMP, 35 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp", new Boundaries(40 * AMP, 108 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp", new Boundaries(40 * AMP, 112 * AMP, 4 * AMP, 24 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp", new Boundaries(40 * AMP, 136 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp", new Boundaries(0 * AMP, 136 * AMP, 40 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp", new Boundaries(0 * AMP, 156 * AMP, 40 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp", new Boundaries(40 * AMP, 156 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp", new Boundaries(40 * AMP, 160 * AMP, 4 * AMP, 24 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp", new Boundaries(40 * AMP, 184 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp", new Boundaries(5 * AMP, 184 * AMP, 35 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp", new Boundaries(0 * AMP, 184 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x70.bmp", new Boundaries(0 * AMP, 189 * AMP, 4 * AMP, 70 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(0 * AMP, 259 * AMP, 5 * AMP, 5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp",	new Boundaries( 0 * AMP,  16 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x38.bmp",			new Boundaries( 0 * AMP,  21 * AMP,  5 * AMP, 38 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x10L.bmp",			new Boundaries( 0 * AMP,  59 * AMP,  5 * AMP, 10 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall15x8L.bmp",			new Boundaries( 5 * AMP,  60 * AMP, 15 * AMP,  8 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x38.bmp",			new Boundaries( 0 * AMP,  69 * AMP,  5 * AMP, 38 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp",	new Boundaries( 0 * AMP, 107 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp",			new Boundaries( 5 * AMP, 108 * AMP, 35 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp",	new Boundaries(40 * AMP, 108 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp",			new Boundaries(40 * AMP, 112 * AMP,  4 * AMP, 24 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp",	new Boundaries(40 * AMP, 136 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp",			new Boundaries( 0 * AMP, 136 * AMP, 40 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp",			new Boundaries( 0 * AMP, 156 * AMP, 40 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp",	new Boundaries(40 * AMP, 156 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp",			new Boundaries(40 * AMP, 160 * AMP,  4 * AMP, 24 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp",	new Boundaries(40 * AMP, 184 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp",			new Boundaries( 5 * AMP, 184 * AMP, 35 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp",	new Boundaries( 0 * AMP, 184 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x70.bmp",			new Boundaries( 0 * AMP, 189 * AMP,  5 * AMP, 70 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp",	new Boundaries( 0 * AMP, 259 * AMP,  5 * AMP,  5 * AMP)));
 
 	// Down Wall
 	entities->push_back(new WallEntity("textures/Walls/wall214x4.bmp", new Boundaries(5 * AMP, 16 * AMP, 214 * AMP, 4 * AMP)));
@@ -331,11 +332,9 @@ MyLevel::~MyLevel()
 
 void MyLevel::gameLoop()
 {
-
-	slowit++;
-	if (slowit % 3 == 0)
+	if ((Config::currentTimeMillis() - timer) > 60)
 	{
-
+		timer = Config::currentTimeMillis();
 		gamecounter++;
 		gamecounter = gamecounter % 16;
 		/*
@@ -359,6 +358,21 @@ void MyLevel::gameLoop()
 		case 15:
 		default: blueGhost->request(EnemyEntity::MOVE_DOWN);	break;;
 		}*/
+		if (gameState == PACMANDEAD)
+		{
+			if (endCounter == 0)
+			{
+				pacman->requestPuffer();
+			}
+			if (endCounter > 10)
+			{
+				gameState = RESTARTGAME;//neustart
+			}
+			endCounter++;
+			pacman->execute();
+			return;
+		}
+
 		pacman->setMemoryRequest();
 		pacman->requestPuffer();
 		pacman->execute();
@@ -371,16 +385,13 @@ void MyLevel::gameLoop()
 			handleCollisions();
 			gameState = NORMAL;
 		}
-		if (gameState == PACMANDEAD)
-		{
-			if (endCounter > 10)
-			{
-				gameState = RESTARTGAME;//neustart
-			}
-			endCounter++;
-		}
+		
+
+		blueGhost->execute();
+		redGhost->execute();
+		pinkGhost->execute();
+		orangeGhost->execute();
 	}
-	blueGhost->execute();
 }
 
 void MyLevel::handleCollisions()
@@ -415,7 +426,7 @@ void MyLevel::handleCollisions()
 				}
 				if (DotEntity* dot = dynamic_cast<DotEntity*>(second))
 				{
-					for (int i = 0; i < entities->size(); i++)
+					for (unsigned int i = 0; i < entities->size(); i++)
 					{
 						if (entities->at(i) == dot)
 						{
@@ -427,12 +438,28 @@ void MyLevel::handleCollisions()
 				}
 				if (EnergizerEntity* energizer = dynamic_cast<EnergizerEntity*>(second))
 				{
-					for (int i = 0; i < entities->size(); i++)
+					for (unsigned int i = 0; i < entities->size(); i++)
 					{
 						if (entities->at(i) == energizer)
 						{
 							entities->erase(entities->begin() + i);
 							delete energizer;
+							if (blueGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								blueGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (redGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								redGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (orangeGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								orangeGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (pinkGhost->getSpecialState() != EnemyEntity::DEAD)
+							{
+								pinkGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
 							return;
 						}
 					}
@@ -440,8 +467,20 @@ void MyLevel::handleCollisions()
 
 				if (EnemyEntity* ghost = dynamic_cast<EnemyEntity*>(second))
 				{
-					pacman->request(PlayerEntity::DIE);
-					gameState = PACMANDEAD;
+					switch (ghost->getSpecialState())
+					{
+					case EnemyEntity::ALIVE: 
+						pacman->request(PlayerEntity::DIE);
+						gameState = PACMANDEAD; 
+						break;
+					case EnemyEntity::DEAD: break;
+					case EnemyEntity::ENERGIZED1: 
+					case EnemyEntity::ENERGIZED2: 
+						ghost->specialRequest(EnemyEntity::DEAD);
+						break;
+					default: break;
+					}
+					
 				}
 			}
 		}

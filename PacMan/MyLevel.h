@@ -1,5 +1,6 @@
 #pragma once
 #include "Level.h"
+#include "Config.h"
 class PlayerEntity;
 class EnemyEntity;
 
@@ -40,5 +41,7 @@ private:
 	int endCounter = 0;
 	int gamecounter = 0;
 	int slowit = 0;
+
+	__int64 timer = Config::currentTimeMillis();
 };
 

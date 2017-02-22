@@ -7,6 +7,7 @@ class Renderer;
 
 class PlayerEntity : public Entity
 {
+	Image* none;
 	Image* move;
 	Image* moveUp;
 	Image* moveDown;

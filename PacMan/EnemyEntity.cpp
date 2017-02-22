@@ -2,17 +2,26 @@
 #include "Image.h"
 #include "EngineView.h"
 #include "PacManView.h"
+#include "Config.h"
 
 EnemyEntity::EnemyEntity() : Entity(nullptr, 3*3, false, new Boundaries(200, 200, 14*3, 14*3), true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
+	deadUp = new Image("textures/Ghosts/deadGhostUp.bmp", this, 0, 0, 0);
+	deadDown = new Image("textures/Ghosts/deadGhostDown.bmp", this, 0, 0, 0);
+	deadRight = new Image("textures/Ghosts/deadGhostRight.bmp", this, 0, 0, 0);
+	deadLeft = new Image("textures/Ghosts/deadGhostLeft.bmp", this, 0, 0, 0);
 }
 
 EnemyEntity::EnemyEntity(Boundaries * boundaries) : Entity(nullptr, 5 * 3, false, boundaries, true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
+	deadUp = new Image("textures/Ghosts/deadGhostUp.bmp", this, 0, 0, 0);
+	deadDown = new Image("textures/Ghosts/deadGhostDown.bmp", this, 0, 0, 0);
+	deadRight = new Image("textures/Ghosts/deadGhostRight.bmp", this, 0, 0, 0);
+	deadLeft = new Image("textures/Ghosts/deadGhostLeft.bmp", this, 0, 0, 0);
 }
 
 void EnemyEntity::setTextures(char* moveUp1, char* moveUp2, char* moveDown1, char* moveDown2,
@@ -43,6 +52,11 @@ void EnemyEntity::setState(GhostState state)
 
 void EnemyEntity::specialRequest(SpecialState request)
 {
+	if (request == ENERGIZED1)
+	{
+		energizerTimer = 0;
+		energizerTimer2 = 0;
+	}
 	specialState = request;
 }
 
@@ -124,6 +138,37 @@ void EnemyEntity::execute()
 	default: break;
 	}
 	lastRequest = NONE;
+
+	if (specialState == ENERGIZED1 || specialState == ENERGIZED2)
+	{
+		if (energizerTimer == 0) 
+		{
+			energizerTimer = Config::currentTimeMillis();
+		}
+		if ((Config::currentTimeMillis() - energizerTimer) > 10000) // 10 Sekunden um
+		{
+			if (energizerTimer2 == 0)
+			{
+				specialState = ENERGIZED1;
+				energizerTimer2 = Config::currentTimeMillis();
+			}
+			if ((Config::currentTimeMillis() - energizerTimer2) > 500)
+			{
+				if (specialState == ENERGIZED1)
+				{
+					specialState = ENERGIZED2;
+				}
+				else if (specialState == ENERGIZED2)
+				{
+					specialState = ENERGIZED1;
+				}
+			}
+			if ((Config::currentTimeMillis() - energizerTimer) > 13000)
+			{
+				specialState = ALIVE;
+			}
+		}
+	}
 }
 
 void EnemyEntity::stepBack()
@@ -147,7 +192,21 @@ Image* EnemyEntity::getImage()
 	switch (specialState)
 	{
 	case ALIVE: break;
-	case DEAD: break;
+	case DEAD: 
+		switch (state)
+		{
+		case MOVE_NONE:
+		case MOVE_RIGHT_1:
+		case MOVE_RIGHT_2: return deadRight;
+		case MOVE_LEFT_1:
+		case MOVE_LEFT_2: return deadLeft;
+		case MOVE_UP_1:
+		case MOVE_UP_2: return deadUp;
+		case MOVE_DOWN_1:
+		case MOVE_DOWN_2: return deadDown;
+		default: break;
+		}
+		break;
 	case ENERGIZED1: return energized1;
 	case ENERGIZED2: return energized2;
 	}
@@ -167,3 +226,7 @@ Image* EnemyEntity::getImage()
 }
 
 
+EnemyEntity::SpecialState EnemyEntity::getSpecialState()
+{
+	return specialState;
+}
