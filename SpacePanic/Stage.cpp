@@ -97,7 +97,7 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 				break;
 			case 'P': setPlayer(new PlayerEntity(model, new Position(col, 25 - row)));
 				break;
-			case 'M': addEnemy(new EnemyEntity(model, new Position(col, 25 - row), 1.0));
+			case 'M': addEnemy(new EnemyEntity(model, new Position(col, 25 - row), 0.9));
 				break;
 			case 'H': addBackgroundEntity(new LadderEntity(config, new Position(col, 25 - row)));
 				break;
@@ -137,6 +137,9 @@ std::vector<Entity*>* Stage::getBackgroundEntities() const
 
 Stage::~Stage()
 {
+	delete cells;
+	delete[] leveldata;
+	
 }
 
 std::vector<Entity*>* Stage::getEntities() const

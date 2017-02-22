@@ -252,3 +252,9 @@ Image* EnemyEntity::getImage()
 		break;
 	}
 }
+
+EnemyEntity::~EnemyEntity()
+{
+	delete lauf1;
+	delete lauf2;
+}

@@ -1,6 +1,7 @@
 ﻿#pragma once
 //#include "Drawable.h"
 #include "Entity.h"
+#include <string>
 class Font;
 struct Position;
 
@@ -22,7 +23,7 @@ private:
 
 	//Position* position;
 	Image* image;
-	const char* text;
+	std::string text;
 	double R, G, B;
 	double scale;
 public:
@@ -30,7 +31,7 @@ public:
 	Text(Font* font, const char* text, Position* position, double scale, unsigned char R, unsigned char G, unsigned char B);
 	~Text();
 
-	const char* getText() const;
+	std::string getText() const;
 	Font* getFont() const;
 	bool isLoaded() const;
 	void loadImage();

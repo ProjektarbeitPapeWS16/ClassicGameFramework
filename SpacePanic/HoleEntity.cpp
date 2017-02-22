@@ -66,3 +66,10 @@ bool HoleEntity::shrink()
 		return false;
 	}
 }
+
+HoleEntity::~HoleEntity()
+{
+	delete stage1;
+	delete stage2;
+	delete stage3;
+}

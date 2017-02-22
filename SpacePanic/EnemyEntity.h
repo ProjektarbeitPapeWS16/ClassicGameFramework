@@ -29,4 +29,7 @@ public:
 	void execute();
 	
 	Image* getImage() override;
+
+
+	~EnemyEntity() override;
 };

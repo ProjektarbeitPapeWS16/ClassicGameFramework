@@ -206,6 +206,23 @@ bool PlayerEntity::isDead() const
 	return state == DEAD_LEFT || state == DEAD_RIGHT || state == DEAD_LADDER;
 }
 
+PlayerEntity::~PlayerEntity()
+{
+	delete moveRight1;
+	delete moveRight2;
+	delete moveLeft1;
+	delete moveLeft2;
+	delete climb1;
+	delete climb2;
+	delete deadLeft;
+	delete deadRight;
+	delete deadLadder;
+	delete digLeft1;
+	delete digLeft2;
+	delete digRight1;
+	delete digRight2;
+}
+
 void PlayerEntity::collideWith(PhysicalObject* physicalObject)
 {
 	if (isDead())

@@ -2,12 +2,12 @@
 #include "Stage.h"
 #include "PlayerEntity.h"
 
-SpacePanicSession::SpacePanicSession(SpacePanicModel* model, int defaultOxygen) : Session(2, 0), oxygen(defaultOxygen), model(model)
+SpacePanicSession::SpacePanicSession(SpacePanicModel* model, int defaultOxygen) : Session(2, 0), oxygen(defaultOxygen), defaultOxygen(defaultOxygen), model(model)
 {
 	
 }
 
-SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : SpacePanicSession(model, 100)
+SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : SpacePanicSession(model, 10000)
 {
 }
 
@@ -27,12 +27,14 @@ Stage* SpacePanicSession::getStage()
 
 void SpacePanicSession::resetOxygen()
 {
-	oxygen = DEFAULT_OXYGEN;
+	oxygen = defaultOxygen;
+	creationTime = Config::currentTimeMillis();
 }
 
 int SpacePanicSession::getOxygen()
 {
-	return oxygen;
+	int oxygen = defaultOxygen - (getPassedTime() / 1000) * 50;
+	return oxygen < 0 ? 0 : oxygen;
 }
 
 void SpacePanicSession::setOxygen(int oxygen)

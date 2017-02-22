@@ -63,6 +63,7 @@ public:
 	Image* getImage() override;
 	bool isDead() const;
 
+	~PlayerEntity() override;
 	void collideWith(PhysicalObject* physicalObject) override;
 	unsigned long long getDeadSince() const;
 };

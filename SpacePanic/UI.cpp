@@ -29,7 +29,7 @@ void UI::update()
 			delete oxygenLevel;
 		}
 		oxygenLevelLast = session->getOxygen();
-		oxygenLevel = new Text(defaultFont, std::to_string(oxygenLevelLast).c_str(), new Position(
+		oxygenLevel = new Text(defaultFont, ("Oxygen " + std::to_string(oxygenLevelLast)).c_str(), new Position(
 			                       model->getConfig()->getRasterWidth() * 8,
 			                       model->getConfig()->getRasterHeight() * 28), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}
@@ -41,9 +41,9 @@ void UI::update()
 			delete score;
 		}
 		scoreLast = session->getScore();
-		score = new Text(defaultFont, (std::to_string(scoreLast) + " points").c_str(), new Position(
+		score = new Text(defaultFont, ("Score " + std::to_string(scoreLast)).c_str(), new Position(
 			                 model->getConfig()->getRasterWidth() * 12,
-			                 model->getConfig()->getRasterHeight() * 3), model->getConfig()->getExternalFactor(), 255, 0, 0);
+			                 model->getConfig()->getRasterHeight() * 2), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}
 
 	if (livesLast != session->getLifes())
@@ -53,7 +53,7 @@ void UI::update()
 			delete lives;
 		}
 		livesLast = session->getLifes();
-		lives = new Text(defaultFont, (std::to_string(livesLast) + " lives left").c_str(), new Position(
+		lives = new Text(defaultFont, ("Lives " + std::to_string(livesLast)).c_str(), new Position(
 			                 model->getConfig()->getRasterWidth() * 1,
 			                 model->getConfig()->getRasterHeight() * 2), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}

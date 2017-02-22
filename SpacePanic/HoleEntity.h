@@ -27,4 +27,6 @@ public:
 	
 	bool grow();
 	bool shrink();
+
+	~HoleEntity() override;
 };

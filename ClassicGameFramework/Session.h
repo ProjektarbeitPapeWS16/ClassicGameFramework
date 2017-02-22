@@ -7,6 +7,7 @@ class Level;
 
 class Session
 {
+protected:
 	int lifes;
 	unsigned __int64 creationTime = Config::currentTimeMillis();
 	int score;

@@ -34,8 +34,7 @@ WallEntity::WallEntity(GameConfig* config, Position* position, WallState wallSta
 	case MIDDLE_WALL_1:
 		image[0] = new Image("textures/stone1middle.bmp", this, 200, 80, 0);
 		break;
-	case MIDDLE_WALL_2:
-	default:
+	case MIDDLE_WALL_2: default:
 		image[0] = new Image("textures/stone2middle.bmp", this, 200, 80, 0);
 		break;
 	}

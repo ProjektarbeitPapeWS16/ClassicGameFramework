@@ -5,7 +5,7 @@
 class SpacePanicSession : public Session
 {
 	int oxygen;
-	const int DEFAULT_OXYGEN = 100;
+	int defaultOxygen;
 public:
 	SpacePanicSession(SpacePanicModel* model, int defaultOxygen);
 	SpacePanicSession(SpacePanicModel* model);
