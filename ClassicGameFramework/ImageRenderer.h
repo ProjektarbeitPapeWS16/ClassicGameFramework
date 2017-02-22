@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <glew.h>
+#include "ImageService.h"
 class Drawable;
 class Image;
 class Renderer;
@@ -16,10 +17,14 @@ class ImageRenderer
 	Renderer* renderer;
 
 	Drawable* drawable;
+	long id;
+	long long lastUse;
 public:
 
 	ImageRenderer(Renderer* renderer, Drawable* drawable);
+	long getLastUse() const;
 	~ImageRenderer();
 
-	void render() const;
+	long getId() const;
+	void render();
 };

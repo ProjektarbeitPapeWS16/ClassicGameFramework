@@ -1,8 +1,8 @@
 ﻿#include "Renderer.h"
 #include "Display.h"
 #include "Drawable.h"
-#include "Shader.h"
 #include "Image.h"
+#include "Config.h"
 
 //#include <glfw3.h>
 
@@ -105,6 +105,20 @@ void fillEntireScreenWithColor(GLclampf red, GLclampf green, GLclampf blue, GLcl
 
 void Renderer::render(Display* display)
 {
+	std::vector<long> deadpool;
+	for(auto x : imageRenderers)
+	{
+		if (x.second->getLastUse() + 15000 < Config::currentTimeMillis())
+		{
+			deadpool.push_back(x.first);
+		}
+	}
+	for(auto x : deadpool)
+	{
+		imageRenderers.erase(x);
+	}
+
+
 	// Clear screen
 	fillEntireScreenWithColor(0.0f, 0.0f, 0.0f, 1.0f);
 

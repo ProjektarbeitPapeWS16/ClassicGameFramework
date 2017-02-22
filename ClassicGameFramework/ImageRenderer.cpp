@@ -3,6 +3,8 @@
 #include "Shader.h"
 #include "Renderer.h"
 #include "Drawable.h"
+#include "EngineModel.h"
+#include "Config.h"
 
 ImageRenderer::~ImageRenderer()
 {
@@ -11,8 +13,19 @@ ImageRenderer::~ImageRenderer()
 	glDeleteBuffers(1, &(EBO));
 }
 
+long ImageRenderer::getId() const
+{
+	return id;
+}
+
 ImageRenderer::ImageRenderer(Renderer* renderer, Drawable* drawable): renderer(renderer), drawable(drawable)
 {
+	Image* image = drawable->getImage();
+	const char* file = image->getImageFile();
+	int transR = image->getTransR();
+	int transG = image->getTransG();
+	int transB = image->getTransB();
+	
 	textureShader = new Shader("../ClassicGameFramework/textureShader.vert", "../ClassicGameFramework/textureShader.frag");
 
 	auto start = renderer->translateToWorldCoordinates(
@@ -85,18 +98,28 @@ ImageRenderer::ImageRenderer(Renderer* renderer, Drawable* drawable): renderer(r
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 
-	Image* image = drawable->getImage();
-	image->loadImageBytes();
+	
+	//image->loadImageBytes();
+	//image->setUnusedListener(this);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getImageBytes());
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 
-	// Activate shader
+
+
+	this->id = EngineModel::getInstance()->getImageService()->getIdBySignature(file, transR, transG, transB);
 }
 
-void ImageRenderer::render() const
+long ImageRenderer::getLastUse() const
 {
+	return lastUse;
+}
+
+void ImageRenderer::render()
+{
+	lastUse = Config::currentTimeMillis();
+
 	auto start = renderer->translateToWorldCoordinates(
 		drawable->getPosX(),
 		drawable->getPosY()

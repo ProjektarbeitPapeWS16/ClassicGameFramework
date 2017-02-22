@@ -3,6 +3,7 @@
 #include <map>
 #include <functional>
 #include <vector>
+#include "ImageService.h"
 class Session;
 class Level;
 class Entity;
@@ -23,7 +24,7 @@ private:
 
 	std::vector<Key>* keyDownKeys = nullptr;
 
-	
+	ImageService *imageService;
 protected:
 	Session* session;
 	//Level* level;
@@ -38,10 +39,9 @@ public:
 	// Konstruktor
 	EngineModel();
 	EngineModel(Physics* physics, Session* session, Level* level);
+	ImageService* getImageService() const;
 	// Destruktor
-	virtual ~EngineModel()
-	{
-	}
+	virtual ~EngineModel();
 
 	// listeners registered with key are being called.
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;

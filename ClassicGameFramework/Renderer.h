@@ -73,7 +73,7 @@ public:
 	~Renderer();
 
 	void render(Display* display);
-
+	void clearBuffer();
 	/// <summary>
 	/// Returns OpenGL-Coordinates for given pixel coordinates
 	/// </summary>

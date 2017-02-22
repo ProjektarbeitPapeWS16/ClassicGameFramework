@@ -1,86 +1,23 @@
 ﻿#include "Image.h"
 #include "Entity.h"
 #include <cstdio>
+#include "EngineModel.h"
 
-unsigned long Image::image_count = 0;
+unsigned long Image::image_count = 0L;
 
 const char* Image::getImageFile() const
 {
 	return imageFile;
 }
 
-unsigned char* Image::readImage2ByteArray()
-{
-	FILE* file;
-	fopen_s(&file, imageFile, "rb");
 
-	if (file == nullptr)
-	{
-		return nullptr;
-	}
-
-	// obtain file size:
-	fseek(file, 0, SEEK_END);
-	auto lSize = ftell(file);
-	rewind(file);
-
-	auto data = new unsigned char[lSize];
-	fread(data, lSize, 1, file);
-	fclose(file);
-
-
-	// extract image height and width from header 
-	imageWidth = *reinterpret_cast<int*>(&data[18]);
-	imageHeight = *reinterpret_cast<int*>(&data[22]);
-	auto padding = 0;
-	while ((imageWidth * 3 + padding) % 4 != 0)
-	{
-		padding++;
-	}
-	auto widthnew = imageWidth * 3 + padding;
-
-	//auto endPos = 54 + (widthnew * height);
-
-
-	auto ret = new unsigned char[imageWidth * 4 * imageHeight];
-
-	for (auto line = 0; line < imageHeight; line++)
-	{
-		for (auto column = 0, retcolumn = 0; column < widthnew - padding; column += 3 , retcolumn += 4)
-		{
-			auto ri = line * (imageWidth * 4) + retcolumn;
-			auto gi = ri + 1;
-			auto bi = ri + 2;
-			auto ai = ri + 3;
-
-			ret[ri] = data[line * widthnew + column + 54 + 2];
-			ret[gi] = data[line * widthnew + column + 54 + 1];
-			ret[bi] = data[line * widthnew + column + 54 + 0];
-
-			if (transR != 256 && transB != 256 && transG != 256 && ret[ri] == static_cast<unsigned char>(transR) && ret[gi] == static_cast<unsigned char>(transG) && ret[bi] == static_cast<unsigned char>(transB))
-			{
-				ret[ai] = 0;
-			}
-			else
-			{
-				ret[ai] = 255;
-			}
-		}
-	}
-
-	delete[] data;
-	return ret;
-}
-
-Image::Image(const char* imageFile, Entity* entity,
-             unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
-                                                                                    imageWidth(0), imageHeight(0), imageFile(imageFile), entity(entity), imageBytes(nullptr),
+Image::Image(const char* imageFile, Drawable* entity,
+             unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++), imageWidth(0), imageHeight(0), imageFile(imageFile), entity(entity), imageBytes(nullptr),
                                                                                     transR(transR), transG(transG), transB(transB)
 {
 }
 
-Image::Image(unsigned char* imageBytes, int width, int height, unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
-                                                                                                                                      imageWidth(width), imageHeight(height), imageFile(nullptr), entity(nullptr), imageBytes(imageBytes),
+Image::Image(unsigned char* imageBytes, int width, int height, unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++), imageWidth(width), imageHeight(height), imageFile(nullptr), entity(nullptr), imageBytes(imageBytes),
                                                                                                                                       transR(transR), transG(transG), transB(transB)
 {
 }
@@ -88,25 +25,15 @@ Image::Image(unsigned char* imageBytes, int width, int height, unsigned short tr
 
 Image::~Image()
 {
-	delete imageBytes;
+	if (imageBytes != nullptr)
+	{
+		delete imageBytes;
+	}
 }
 
-Entity* Image::getEntity() const
+Drawable* Image::getEntity() const
 {
 	return entity;
-}
-
-bool Image::isLoaded() const
-{
-	return imageBytes != nullptr;
-}
-
-void Image::loadImageBytes()
-{
-	if (!isLoaded())
-	{
-		imageBytes = readImage2ByteArray();
-	}
 }
 
 int Image::getWidth() const
@@ -119,12 +46,31 @@ int Image::getHeight() const
 	return imageHeight;
 }
 
-unsigned char* Image::getImageBytes() const
+unsigned char* Image::getImageBytes()
 {
-	return imageBytes;
+	return imageBytes != nullptr
+		       ? imageBytes
+		       : EngineModel::getInstance()
+		       ->getImageService()
+		       ->requestImagedata(imageFile, imageWidth, imageHeight, transR, transG, transB);
 }
 
 unsigned long Image::getId() const
 {
 	return id;
+}
+
+int Image::getTransR() const
+{
+	return transR;
+}
+
+int Image::getTransG() const
+{
+	return transG;
+}
+
+int Image::getTransB() const
+{
+	return transB;
 }

@@ -1,6 +1,8 @@
 ﻿#pragma once
-
-class Entity;
+#include "ImageRenderer.h"
+//#include "Drawable.h"
+class Drawable;
+//class Entity;
 struct Boundaries;
 
 class Image
@@ -11,23 +13,23 @@ class Image
 	int imageWidth, imageHeight;
 	const char* imageFile;
 
-	Entity* entity;
+	Drawable* entity;
 	unsigned char* imageBytes;
 	unsigned short transR, transG, transB;
-	unsigned char* readImage2ByteArray();
 public:
 
-	double getScale() const;
-	Image(const char* imageFile, Entity* entity, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
+	//double getScale() const;
+	Image(const char* imageFile, Drawable* entity, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
 	Image(unsigned char* imageBytes, int width, int height, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
 	~Image();
 
 	const char* getImageFile() const;
-	Entity* getEntity() const;
-	bool isLoaded() const;
-	void loadImageBytes();
+	Drawable* getEntity() const;
 	int getWidth() const;
 	int getHeight() const;
-	unsigned char* getImageBytes() const;
+	unsigned char* getImageBytes();
 	unsigned long getId() const;
+	int getTransR() const;
+	int getTransG() const;
+	int getTransB() const;
 };

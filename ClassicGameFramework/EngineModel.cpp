@@ -17,6 +17,7 @@ EngineModel::EngineModel() : EngineModel(new Physics(), new Session(), new Level
 }
 
 EngineModel::EngineModel(Physics* physics, Session* session, Level* level) :
+imageService(new ImageService()),
 session(session)
 {
 	EngineModel::instance = this;
@@ -35,6 +36,21 @@ session(session)
 	keyPressedListeners = new std::map<Key, std::function<void()>*>();
 	keyDownListeners = new std::map<Key, std::function<void()>*>();
 	keyDownKeys = new std::vector<Key>();
+}
+
+ImageService* EngineModel::getImageService() const
+{
+	return imageService;
+}
+
+EngineModel::~EngineModel()
+{
+	delete session;
+	delete imageService;
+	delete keyPressedListeners;
+	delete keyReleasedListeners;
+	delete keyDownListeners;
+	delete keyDownKeys;
 }
 
 EngineModel* EngineModel::getInstance()
