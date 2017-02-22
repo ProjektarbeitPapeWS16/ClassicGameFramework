@@ -145,6 +145,7 @@
     <ClInclude Include="DK_Controller.h" />
     <ClInclude Include="DK_Model.h" />
     <ClInclude Include="DK_View.h" />
+    <ClInclude Include="DK_Factory.h" />
     <ClInclude Include="Entity_Barrel.h" />
     <ClInclude Include="Entity_DonkeyKong.h" />
     <ClInclude Include="Entity_Girder.h" />
@@ -153,9 +154,6 @@
     <ClInclude Include="Entity_OilDrum.h" />
     <ClInclude Include="Entity_Pauline.h" />
     <ClInclude Include="Level_25m.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="resource2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Controller.cpp" />

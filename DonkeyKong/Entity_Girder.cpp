@@ -4,14 +4,14 @@
 #include "Entity_Girder.h"
 
 
-Entity_Girder::Entity_Girder(GameConfig* config, Position* position, WallState wallState) :
+Entity_Girder::Entity_Girder(GameConfig* config, Position* position, WallState wallState, int offset) :
 	Entity(
 		new Image*[1],
 		0,
 		true,
 		new Boundaries(
 			position->x * config->getRasterWidth(),
-			position->y * config->getRasterHeight(),
+			position->y * config->getRasterHeight() + offset,
 			config->getRasterWidth(),
 			config->getRasterHeight()
 		),

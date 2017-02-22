@@ -9,6 +9,7 @@ const char* Image::getImageFile() const
 	return imageFile;
 }
 
+// Stores RGBA-pixeldata of a given bitmap-file in a char array
 unsigned char* Image::readImage2ByteArray()
 {
 	FILE* file;
@@ -118,7 +119,7 @@ int Image::getHeight() const
 {
 	return imageHeight;
 }
-
+also 
 unsigned char* Image::getImageBytes() const
 {
 	return imageBytes;

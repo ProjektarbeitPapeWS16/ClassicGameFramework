@@ -14,6 +14,11 @@ Physics::Physics(EngineModel* model) : model(model)
 {
 }
 
+// Checks collisions for a given vector of physical objects; selection for check can be filtered.
+// Details: Checks, if any boundaries of movable POs intersect with other POs.
+// @all: If true, checks collisions with all types of other objects. Set false if you want to check for certain attributes only.
+// @moveable: If true [&&all=false], checks only collisions with other movable objects
+// @solid: If true [&&all=false], checks only collisions with solid objects
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool all, bool movable, bool solid)
 {
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
@@ -48,20 +53,23 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 		}
 	}
 
-
 	return collisions;
 }
 
+// Checks for only movable and/or solid objects.
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool movable, bool solid)
 {
 	return checkCollisions(physicalObjects, false, movable, solid);
 }
 
+// Checks for all objects.
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects)
 {
 	return checkCollisions(physicalObjects, true, false, false);
 }
 
+// Checks for all collisions of current level.
+// Asserts: this.model has a session with a level that are both initialized.
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions() const
 {
 	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;

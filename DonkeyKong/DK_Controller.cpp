@@ -40,7 +40,7 @@ void rightDown()
 
 void escPress()
 {
-	EngineController::getInstance()->closeWindow();
+	//EngineController::getInstance()->closeWindow();
 }
 
 
@@ -77,7 +77,7 @@ void DK_Controller::cycle()
 			player->execute();
 		}
 
-		std::vector<Entity_Barrel*>* enemys = static_cast<Level_25m*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemys();
+		std::vector<Entity_Barrel*>* enemys = static_cast<Level_25m*>(EngineModel::getInstance()->getSession()->getLevel())->getEnemies();
 		for (int i = 0; i < enemys->size(); i++)
 		{
 			enemys->at(i)->execute();
@@ -85,5 +85,9 @@ void DK_Controller::cycle()
 
 	}
 	cycles++;
+}
+
+void DK_Controller::handleRequest(Input input)
+{
 }
 

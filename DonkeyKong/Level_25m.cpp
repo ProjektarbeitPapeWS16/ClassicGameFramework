@@ -120,7 +120,7 @@ void Level_25m::setPlayer(Entity_Jumpman* player)
 
 void Level_25m::addEnemy(Entity_Barrel* enemy) const
 {
-	this->enemys->push_back(enemy);
+	this->enemies->push_back(enemy);
 	this->entities->push_back(enemy);
 }
 
@@ -139,8 +139,9 @@ Level_25m::Level_25m(GameConfig* config) :
 	),
 	gameConfig(config),
 	FILE_PATH("levels\\stage1.txt"), // TODO
+
 	player(nullptr),
-	enemys(new std::vector<Entity_Barrel*>()),
+	enemies(new std::vector<Entity_Barrel*>()),
 	backgroundEntities(new std::vector<Entity*>())
 {
 	char** leveldata = this->getLeveldata(FILE_PATH, 22, config->getRasterColumnsCount());
@@ -152,6 +153,7 @@ Level_25m::Level_25m(GameConfig* config) :
 		{
 			switch (leveldata[row][col])
 			{
+			//case EntityChar::CHAR_GIRDER: addBackgroundEntity(new Entity_Girder(config, new Position(col, 25 - row), Entity_Girder::WallState::LEFT_WALL_1));
 			case 'q': addBackgroundEntity(new Entity_Girder(config, new Position(col, 25 - row), Entity_Girder::WallState::LEFT_WALL_1));
 				break;
 			case 'Q': addBackgroundEntity(new Entity_Girder(config, new Position(col, 25 - row), Entity_Girder::WallState::LEFT_WALL_2));
@@ -176,9 +178,9 @@ Level_25m::Level_25m(GameConfig* config) :
 	}
 
 
-	auto font = new Font("fonts/normal/", 8, 8, 200, 80, 0);
-	auto text = new Text(config, font, "SPACE PANIC", new Position(6, 30), config->applyFactor(1), 255, 0, 0);
-	addBackgroundEntity(text);
+	auto font = new Font("fonts\\normal\\", 8, 8, 200, 80, 0);
+	//auto text = new Text(config, font, "DONKEY KONG", new Position(6, 30), config->applyFactor(1), 255, 0, 0);
+	//addBackgroundEntity(text);
 }
 
 
@@ -192,9 +194,9 @@ Entity_Jumpman* Level_25m::getPlayer() const
 	return player;
 }
 
-std::vector<Entity_Barrel*>* Level_25m::getEnemys() const
+std::vector<Entity_Barrel*>* Level_25m::getEnemies() const
 {
-	return enemys;
+	return enemies;
 }
 
 std::vector<Entity*>* Level_25m::getBackgroundEntities() const

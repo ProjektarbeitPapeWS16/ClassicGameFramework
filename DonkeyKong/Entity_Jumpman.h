@@ -7,6 +7,10 @@ class Entity_Jumpman : public Entity
 {
 	GameConfig* config;
 
+	Image* sprites;	//Spritesheet containing all sprites
+	int* animationStateCycleCount; // = { 2, 3, 4, 3 };
+	const static int stateSpriteCount = 4;
+
 	Image* moveRight1;
 	Image* moveRight2;
 	Image* moveLeft1;
@@ -32,7 +36,7 @@ public:
 
 	enum PlayerState
 	{
-		MOVE_RIGHT_1,
+		MOVE_RIGHT_1, //TODO: Combine states
 		MOVE_RIGHT_2,
 		MOVE_LEFT_1,
 		MOVE_LEFT_2,
@@ -43,6 +47,7 @@ public:
 		DIG_RIGHT_1,
 		DIG_RIGHT_2,
 		DEAD,
+		// JUMPING
 	};
 private:
 	PlayerState state = MOVE_RIGHT_1;

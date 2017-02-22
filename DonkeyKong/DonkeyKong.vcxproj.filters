@@ -54,13 +54,7 @@
     <ClInclude Include="Level_25m.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="resource1.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="resource2.h">
+    <ClInclude Include="DK_Factory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
