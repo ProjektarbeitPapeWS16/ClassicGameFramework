@@ -5,109 +5,6 @@
 #include "Entity_Girder.h"
 #include "Entity_Ladder.h"
 
-Level_25m::Cells* Level_25m::getCells() const
-{
-	return cells;
-}
-
-Level_25m::Cells::Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount) :
-	possibleDirections(new Direction*[rowsCount]),
-	config(config), rowsCount(rowsCount), columnsCount(columnsCount)
-{
-	for (unsigned row = 0; row < rowsCount; row++)
-	{
-		possibleDirections[row] = new Direction[columnsCount];
-		for (unsigned column = 0; column < columnsCount; column++)
-		{
-			possibleDirections[row][column] = static_cast<Direction>(movementData[row][column]);
-		}
-	}
-}
-
-bool Level_25m::Cells::canMove(Direction direction, int row, int column) const
-{
-	if (row < 0 || row >= rowsCount || column < 0 || column >= columnsCount)
-	{
-		return false;
-	}
-
-	switch (direction)
-	{
-	case UP:
-		switch (possibleDirections[row][column])
-		{
-		case UP:
-		case UP_RIGHT:
-		case UP_LEFT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN:
-		case UP_DOWN_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	case RIGHT:
-		switch (possibleDirections[row][column])
-		{
-		case RIGHT:
-		case LEFT_RIGHT:
-		case DOWN_RIGHT:
-		case DOWN_LEFT_RIGHT:
-		case UP_RIGHT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN_RIGHT:
-
-		case ALL: return true;
-		default: return false;
-		}
-	case LEFT:
-		switch (possibleDirections[row][column])
-		{
-		case LEFT:
-		case LEFT_RIGHT:
-		case DOWN_LEFT:
-		case DOWN_LEFT_RIGHT:
-		case UP_LEFT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	case DOWN:
-		switch (possibleDirections[row][column])
-		{
-		case DOWN:
-		case DOWN_RIGHT:
-		case DOWN_LEFT:
-		case DOWN_LEFT_RIGHT:
-		case UP_DOWN:
-		case UP_DOWN_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	default: return false;
-	}
-}
-
-bool Level_25m::Cells::canMove(Direction direction, double row, double column) const
-{
-	row = 25 - row + 0.5;
-
-	int row1, col1, row2, col2;
-	row1 = row;
-	col1 = column;
-	row2 = row + 0.5;
-	col2 = column + 0.5;
-
-	return canMove(direction, row1, col1);
-}
-
-bool Level_25m::Cells::canDig(unsigned row, unsigned column) const
-{
-	return this->possibleDirections[row][column] == LEFT_RIGHT;
-}
-
 void Level_25m::setPlayer(Entity_Jumpman* player)
 {
 	if (this->player != nullptr)
@@ -145,7 +42,7 @@ Level_25m::Level_25m(GameConfig* config) :
 	backgroundEntities(new std::vector<Entity*>())
 {
 	char** leveldata = this->getLeveldata(FILE_PATH, 22, config->getRasterColumnsCount());
-	cells = new Cells(config, this->getLeveldata("levels\\stage1_movement.txt", 22, config->getRasterColumnsCount()), 22, config->getRasterColumnsCount());
+	//cells = new Cells(config, this->getLeveldata("levels\\stage1_movement.txt", 22, config->getRasterColumnsCount()), 22, config->getRasterColumnsCount());
 
 	for (auto row = 0; row < 22; row++)
 	{

@@ -42,10 +42,10 @@ private:
 public:
 	// Creates entity of desired type and position for level.
 	// Used by: Level classes when loading levelinfo from file.
-	Entity* getEntity(char entityChar, GameConfig* config, unsigned int xGridPos, unsigned int yGridPos, int yOffset);
+	Entity* getEntity(char entityChar, GameConfig* config, unsigned int xGridPos, unsigned int yGridPos, int xOffset, int yOffset);
 
 	// Helper function for calculating pixel pos for entities in level.
-	Position* getPixelPos(GameConfig* config, unsigned int xGridPos, unsigned int yGridPos, int yOffset);
+	Position* getPixelPos(GameConfig* config, unsigned int xGridPos, unsigned int yGridPos, int xOffset, int yOffset);
 };
 
 

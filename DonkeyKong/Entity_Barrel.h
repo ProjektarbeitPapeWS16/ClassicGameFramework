@@ -8,17 +8,18 @@ class Entity_Barrel : public Entity
 public:
 	typedef enum
 	{
-		LAUF_1,
-		LAUF_2
-	} EnemyState;
+		ROLL_RIGHT,
+		ROLL_LEFT,
+		ROLL_DOWN,
+		FALL_DOWN,
+	} State;
 private:
-	EnemyState state;
+	State state;
 	unsigned long counter = 0;
 public:
 	Entity_Barrel(GameConfig* config, Position* position);
 	void execute();
-	Image* lauf1;
-	Image* lauf2;
+	Image* spritesheet;
 
 	Image* getImage() override;
 };

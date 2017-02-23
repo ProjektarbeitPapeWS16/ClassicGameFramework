@@ -18,5 +18,5 @@ public:
 private:
 	WallState wallState;
 public:
-	Entity_Girder(GameConfig* config, Position* position, WallState wallState, int offset);
+	Entity_Girder(GameConfig* config, Position* position, int offset);
 };
