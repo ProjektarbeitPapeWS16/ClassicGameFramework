@@ -6,6 +6,7 @@
 #include "EnergizerEntity.h"
 #include "Physics.h"
 #include "PacManModel.h"
+#include "Config.h"
 
 #define AMP 3
 
@@ -28,6 +29,10 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	blueGhost->setState(EnemyEntity::MOVE_UP_1);
+	blueGhost->setName(EnemyEntity::Inky);
+	blueGhost->setPacman(pacman);
+	blueGhost->setPhysics(getPhysics());
+	blueGhost->setLevel(this);
 
 	redGhost = new EnemyEntity(new Boundaries(105 * AMP, 165 * AMP, 14 * AMP, 14 * AMP));
 	redGhost->setTextures("textures/Ghosts/redGhost/redGhostUp1.bmp",
@@ -41,6 +46,12 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	redGhost->setState(EnemyEntity::MOVE_LEFT_1);
+	redGhost->setName(EnemyEntity::Blinky);
+	redGhost->setPacman(pacman);
+	redGhost->setPhysics(getPhysics());
+	redGhost->setLevel(this);
+
+	blueGhost->setBlinky(redGhost);
 
 	orangeGhost = new EnemyEntity(new Boundaries(121 * AMP, 141 * AMP, 14 * AMP, 14 * AMP));
 	orangeGhost->setTextures("textures/Ghosts/orangeGhost/orangeGhostUp1.bmp",
@@ -54,6 +65,10 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	orangeGhost->setState(EnemyEntity::MOVE_UP_1);
+	orangeGhost->setName(EnemyEntity::Clyde);
+	orangeGhost->setPacman(pacman);
+	orangeGhost->setPhysics(getPhysics());
+	orangeGhost->setLevel(this);
 
 	pinkGhost = new EnemyEntity(new Boundaries(105 * AMP, 141 * AMP, 14 * AMP, 14 * AMP));
 	pinkGhost->setTextures("textures/Ghosts/pinkGhost/pinkGhostUp1.bmp",
@@ -67,6 +82,11 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 		"textures/Ghosts/energizedGhost1.bmp",
 		"textures/Ghosts/energizedGhost2.bmp");
 	pinkGhost->setState(EnemyEntity::MOVE_DOWN_1);
+	pinkGhost->setName(EnemyEntity::Pinky);
+	pinkGhost->setPacman(pacman);
+	pinkGhost->setPhysics(getPhysics());
+	pinkGhost->setLevel(this);
+
 
 	entities->push_back(pacman);
 	entities->push_back(blueGhost);
@@ -75,27 +95,26 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 	entities->push_back(pinkGhost);
 
 
-
 	// Left Wall, from bottom to top
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp", new Boundaries(0 * AMP, 16 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x38.bmp", new Boundaries(0 * AMP, 21 * AMP, 4 * AMP, 38 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall5x10L.bmp", new Boundaries(0 * AMP, 59 * AMP, 5 * AMP, 10 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall15x8L.bmp", new Boundaries(5 * AMP, 60 * AMP, 15 * AMP, 8 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x38.bmp", new Boundaries(0 * AMP, 69 * AMP, 4 * AMP, 38 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(0 * AMP, 107 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp", new Boundaries(5 * AMP, 108 * AMP, 35 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp", new Boundaries(40 * AMP, 108 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp", new Boundaries(40 * AMP, 112 * AMP, 4 * AMP, 24 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp", new Boundaries(40 * AMP, 136 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp", new Boundaries(0 * AMP, 136 * AMP, 40 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp", new Boundaries(0 * AMP, 156 * AMP, 40 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp", new Boundaries(40 * AMP, 156 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp", new Boundaries(40 * AMP, 160 * AMP, 4 * AMP, 24 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp", new Boundaries(40 * AMP, 184 * AMP, 4 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp", new Boundaries(5 * AMP, 184 * AMP, 35 * AMP, 4 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp", new Boundaries(0 * AMP, 184 * AMP, 5 * AMP, 5 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wall4x70.bmp", new Boundaries(0 * AMP, 189 * AMP, 4 * AMP, 70 * AMP)));
-	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp", new Boundaries(0 * AMP, 259 * AMP, 5 * AMP, 5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp",	new Boundaries( 0 * AMP,  16 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x38.bmp",			new Boundaries( 0 * AMP,  21 * AMP,  5 * AMP, 38 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x10L.bmp",			new Boundaries( 0 * AMP,  59 * AMP,  5 * AMP, 10 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall15x8L.bmp",			new Boundaries( 5 * AMP,  60 * AMP, 15 * AMP,  8 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x38.bmp",			new Boundaries( 0 * AMP,  69 * AMP,  5 * AMP, 38 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp",	new Boundaries( 0 * AMP, 107 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp",			new Boundaries( 5 * AMP, 108 * AMP, 35 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp",	new Boundaries(40 * AMP, 108 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp",			new Boundaries(40 * AMP, 112 * AMP,  4 * AMP, 24 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp",	new Boundaries(40 * AMP, 136 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp",			new Boundaries( 0 * AMP, 136 * AMP, 40 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall40x4.bmp",			new Boundaries( 0 * AMP, 156 * AMP, 40 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDR4x4.bmp",	new Boundaries(40 * AMP, 156 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall4x24.bmp",			new Boundaries(40 * AMP, 160 * AMP,  4 * AMP, 24 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUR4x4.bmp",	new Boundaries(40 * AMP, 184 * AMP,  4 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall35x4.bmp",			new Boundaries( 5 * AMP, 184 * AMP, 35 * AMP,  4 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerDL5x5.bmp",	new Boundaries( 0 * AMP, 184 * AMP,  5 * AMP,  5 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wall5x70.bmp",			new Boundaries( 0 * AMP, 189 * AMP,  5 * AMP, 70 * AMP)));
+	entities->push_back(new WallEntity("textures/Walls/wallCornerUL5x5.bmp",	new Boundaries( 0 * AMP, 259 * AMP,  5 * AMP,  5 * AMP)));
 
 	// Down Wall
 	entities->push_back(new WallEntity("textures/Walls/wall214x4.bmp", new Boundaries(5 * AMP, 16 * AMP, 214 * AMP, 4 * AMP)));
@@ -267,60 +286,60 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 	}
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 4 * 8) * AMP));
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 5 * 8) * AMP));
-	for (int i = 4; i < 28; i++)
-	{
-		if (i == 6) { i = 7; }
-		if (i == 9) { i = 10; }
-		if (i == 21) { i = 22; }
-		if (i == 24) { i = 25; }
-		entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
+for (int i = 4; i < 28; i++)
+{
+	if (i == 6) { i = 7; }
+	if (i == 9) { i = 10; }
+	if (i == 21) { i = 22; }
+	if (i == 24) { i = 25; }
+	entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
 
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 25; }
-		entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	//spiegel
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 25; }
-		entities->push_back(new DotEntity((11 + 14 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 23 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 22 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 4 * 8) * AMP));
-	for (int i = 4; i < 28; i++)
-	{
-		if (i == 6) { i = 7; }
-		if (i == 9) { i = 10; }
-		if (i == 21) { i = 22; }
-		if (i == 24) { i = 25; }
-		entities->push_back(new DotEntity((11 + 20 * 8) * AMP, (27 + i * 8) * AMP));
-	}
-	entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 5 * 8) * AMP));
-	entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 4 * 8) * AMP));
-	for (int i = 1; i < 28; i++)
-	{
-		if (i == 3) { i = 7; }
-		if (i == 9) { i = 22; }
-		if (i == 24) { i = 25; }
-		if (i == 26) { i = 27; }
-		entities->push_back(new DotEntity((11 + 25 * 8) * AMP, (27 + i * 8) * AMP));
-	}
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 25; }
+	entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
+}
+//spiegel
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 25; }
+	entities->push_back(new DotEntity((11 + 14 * 8) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 23 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 22 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 17 * 8) * AMP, (27 + 4 * 8) * AMP));
+for (int i = 4; i < 28; i++)
+{
+	if (i == 6) { i = 7; }
+	if (i == 9) { i = 10; }
+	if (i == 21) { i = 22; }
+	if (i == 24) { i = 25; }
+	entities->push_back(new DotEntity((11 + 20 * 8) * AMP, (27 + i * 8) * AMP));
+}
+entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 5 * 8) * AMP));
+entities->push_back(new DotEntity((11 + 23 * 8) * AMP, (27 + 4 * 8) * AMP));
+for (int i = 1; i < 28; i++)
+{
+	if (i == 3) { i = 7; }
+	if (i == 9) { i = 22; }
+	if (i == 24) { i = 25; }
+	if (i == 26) { i = 27; }
+	entities->push_back(new DotEntity((11 + 25 * 8) * AMP, (27 + i * 8) * AMP));
+}
 
-	// Energizer
-	entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 6 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 6 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 26 * 8) * AMP));
-	entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 26 * 8) * AMP));
+// Energizer
+entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 6 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 6 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 26 * 8) * AMP));
+entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 26 * 8) * AMP));
 }
 
 
@@ -331,34 +350,25 @@ MyLevel::~MyLevel()
 
 void MyLevel::gameLoop()
 {
-
-	slowit++;
-	if (slowit % 3 == 0)
+	if ((Config::currentTimeMillis() - timer) > 60)
 	{
+		timer = Config::currentTimeMillis();
 
-		gamecounter++;
-		gamecounter = gamecounter % 16;
-		/*
-		switch (gamecounter)
+		if (gameState == PACMANDEAD)
 		{
-		case  0:
-		case  1:
-		case  2:
-		case  3:
-		case  4: blueGhost->request(EnemyEntity::MOVE_RIGHT);	break;
-		case  5:
-		case  6:
-		case  7:
-		case  8: blueGhost->request(EnemyEntity::MOVE_UP);		break;
-		case  9:
-		case 10:
-		case 11:
-		case 12: blueGhost->request(EnemyEntity::MOVE_LEFT);	break;
-		case 13:
-		case 14:
-		case 15:
-		default: blueGhost->request(EnemyEntity::MOVE_DOWN);	break;;
-		}*/
+			if (endCounter == 0)
+			{
+				pacman->requestPuffer();
+			}
+			if (endCounter > 10)
+			{
+				gameState = RESTARTGAME;//neustart
+			}
+			endCounter++;
+			pacman->execute();
+			return;
+		}
+
 		pacman->setMemoryRequest();
 		pacman->requestPuffer();
 		pacman->execute();
@@ -371,16 +381,92 @@ void MyLevel::gameLoop()
 			handleCollisions();
 			gameState = NORMAL;
 		}
-		if (gameState == PACMANDEAD)
+
+		// TODO switch direction
+		// TODO make more complex
+		if (movementMode == EnemyEntity::SCATTER)
 		{
-			if (endCounter > 10)
+			if (Config::currentTimeMillis() - ghostTimer > 7000)
 			{
-				gameState = RESTARTGAME;//neustart
+				ghostTimer = Config::currentTimeMillis();
+				EnemyEntity::CHASE;
+				blueGhost->setMovementMode(EnemyEntity::CHASE);
+				redGhost->setMovementMode(EnemyEntity::CHASE);
+				pinkGhost->setMovementMode(EnemyEntity::CHASE);
+				orangeGhost->setMovementMode(EnemyEntity::CHASE);
 			}
-			endCounter++;
+		}
+		if (movementMode == EnemyEntity::CHASE)
+		{
+			if (Config::currentTimeMillis() - ghostTimer > 20000)
+			{
+				ghostTimer = Config::currentTimeMillis();
+				EnemyEntity::SCATTER;
+				blueGhost->setMovementMode(EnemyEntity::SCATTER);
+				redGhost->setMovementMode(EnemyEntity::SCATTER);
+				pinkGhost->setMovementMode(EnemyEntity::SCATTER);
+				orangeGhost->setMovementMode(EnemyEntity::SCATTER);
+			}
+		}
+		
+
+		if (blinkyOut)
+		{
+			redGhost->execute();
+		}
+		else
+		{
+			blinkyOut = redGhost->moveOutOfCage();
+			if (blinkyOut)
+			{
+				redGhost->execute();
+			}
+		}
+		if (pinkyOut)
+		{
+			pinkGhost->execute();
+		}
+		else
+		{
+			pinkyOut = pinkGhost->moveOutOfCage();
+			if (pinkyOut)
+			{
+				pinkGhost->execute();
+			}
+		}
+
+		if (dotCounter < 240 - 30)
+		{
+			if (inkyOut)
+			{
+				blueGhost->execute();
+			}
+			else
+			{
+				inkyOut = blueGhost->moveOutOfCage();
+				if (inkyOut)
+				{
+					blueGhost->execute();
+				}
+			}
+		}
+		
+		if (dotCounter < 240 - 80)
+		{
+			if (clydeOut)
+			{
+				orangeGhost->execute();
+			}
+			else
+			{
+				clydeOut = orangeGhost->moveOutOfCage(); 
+				if (clydeOut)
+				{
+					orangeGhost->execute();
+				}
+			}
 		}
 	}
-	blueGhost->execute();
 }
 
 void MyLevel::handleCollisions()
@@ -415,24 +501,41 @@ void MyLevel::handleCollisions()
 				}
 				if (DotEntity* dot = dynamic_cast<DotEntity*>(second))
 				{
-					for (int i = 0; i < entities->size(); i++)
+					for (unsigned int i = 0; i < entities->size(); i++)
 					{
 						if (entities->at(i) == dot)
 						{
 							entities->erase(entities->begin() + i);
 							delete dot;
+							dotCounter--;
 							return;
 						}
 					}
 				}
 				if (EnergizerEntity* energizer = dynamic_cast<EnergizerEntity*>(second))
 				{
-					for (int i = 0; i < entities->size(); i++)
+					for (unsigned int i = 0; i < entities->size(); i++)
 					{
 						if (entities->at(i) == energizer)
 						{
 							entities->erase(entities->begin() + i);
 							delete energizer;
+							if (blueGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								blueGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (redGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								redGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (orangeGhost->getSpecialState() != EnemyEntity::DEAD) 
+							{
+								orangeGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
+							if (pinkGhost->getSpecialState() != EnemyEntity::DEAD)
+							{
+								pinkGhost->specialRequest(EnemyEntity::ENERGIZED1);
+							}
 							return;
 						}
 					}
@@ -440,8 +543,20 @@ void MyLevel::handleCollisions()
 
 				if (EnemyEntity* ghost = dynamic_cast<EnemyEntity*>(second))
 				{
-					pacman->request(PlayerEntity::DIE);
-					gameState = PACMANDEAD;
+					switch (ghost->getSpecialState())
+					{
+					case EnemyEntity::ALIVE: 
+						pacman->request(PlayerEntity::DIE);
+						gameState = PACMANDEAD; 
+						break;
+					case EnemyEntity::DEAD: break;
+					case EnemyEntity::ENERGIZED1: 
+					case EnemyEntity::ENERGIZED2: 
+						ghost->specialRequest(EnemyEntity::DEAD);
+						break;
+					default: break;
+					}
+					
 				}
 			}
 		}

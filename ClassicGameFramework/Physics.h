@@ -108,6 +108,11 @@ public:
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* checkCollisions() const;
 
 	/*
+		Checks if the parameter collides with anything, 
+		all physical objects that collided are returned as a std::vector.
+	*/
+	std::vector<PhysicalObject*>* checkCollisions(PhysicalObject*, std::vector<PhysicalObject*>*);
+	/*
 	 * Checks if a given object is adjacent to a solid object in the level.
 	 *	Usage: Determining possible player movement (e.g. state for standing on ground; preventing movement into walls)
 	 *	@param checkObject		The object to test
