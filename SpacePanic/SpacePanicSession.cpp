@@ -7,7 +7,7 @@ SpacePanicSession::SpacePanicSession(SpacePanicModel* model, int defaultOxygen) 
 	
 }
 
-SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : SpacePanicSession(model, 10000)
+SpacePanicSession::SpacePanicSession(SpacePanicModel* model) : SpacePanicSession(model, 2000)
 {
 }
 
@@ -33,7 +33,7 @@ void SpacePanicSession::resetOxygen()
 
 int SpacePanicSession::getOxygen()
 {
-	int oxygen = defaultOxygen - (getPassedTime() / 1000) * 50;
+	int oxygen = defaultOxygen - (getPassedTime() / 1000) * 5;
 	return oxygen < 0 ? 0 : oxygen;
 }
 

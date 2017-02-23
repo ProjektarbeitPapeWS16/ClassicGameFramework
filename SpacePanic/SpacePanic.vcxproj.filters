@@ -207,6 +207,9 @@
     <Image Include="fonts\normal\.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="textures\floor.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sample1.cpp">
@@ -248,6 +251,15 @@
     <ClCompile Include="HoleEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="MovableEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TopEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -284,6 +296,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="HoleEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TopEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

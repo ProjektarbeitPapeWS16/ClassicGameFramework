@@ -45,6 +45,7 @@ const char* SpacePanicModel::getMovementFile(int i) const
 	return movementFiles[i];
 }
 
+
 //SpacePanicSession* SpacePanicModel::getSpacePanicSession()
 //{
 //	return static_cast<SpacePanicSession*>(getSession());

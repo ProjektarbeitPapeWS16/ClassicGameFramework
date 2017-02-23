@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Level.h"
 #include "Physics.h"
+#include "HoleEntity.h"
 class SpacePanicModel;
 class Session;
 class GameConfig;
@@ -54,12 +55,13 @@ private:
 	PlayerEntity* player;
 	std::vector<EnemyEntity*>* enemys;
 	std::vector<Entity*>* backgroundEntities;
-	Cells* cells;
+	//Cells* cells;
 	UI* ui;
 	const char* stageFile;
 	const char* stageMovementFile;
-	std::vector<PhysicalObject*>* physicalObjects;
+	//std::vector<PhysicalObject*>* physicalObjects;
 	char** leveldata;
+	std::vector<HoleEntity*>* holeEntities;
 	void generateSortedEntities() const;
 	typedef Level super;
 public:
@@ -73,12 +75,16 @@ public:
 	void setPlayer(PlayerEntity* player);
 	void addEnemy(EnemyEntity* enemy) const;
 	void addBackgroundEntity(Entity* backgroundEntity) const;
+	
+	//std::vector<PhysicalObject*>* getPhysicalObjects() const override;
 
 	const char* getFilePath() const;
 	PlayerEntity* getPlayer() const;
 	std::vector<EnemyEntity*>* getEnemys() const;
 	std::vector<Entity*>* getBackgroundEntities() const;
 
-	Cells* getCells() const;
+	//Cells* getCells() const;
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* getCollisions() const;
+	void addHole(HoleEntity* hole) const;
+	void removeHole(HoleEntity* hole) const;
 };

@@ -19,6 +19,5 @@ public:
 	GameConfig* getConfig() const;
 	const char* getStageFile(int i) const;
 	const char* getMovementFile(int i) const;
-	
 	//SpacePanicSession* getSpacePanicSession();
 };

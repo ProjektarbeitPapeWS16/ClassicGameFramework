@@ -4,18 +4,42 @@
 #include "SpacePanicModel.h"
 #include "Session.h"
 #include "PlayerEntity.h"
+#include "LadderEntity.h"
+
+void EnemyEntity::collideWith(PhysicalObject* physicalObject)
+{
+	if (dynamic_cast<EnemyEntity*>(physicalObject))
+	{
+		switch (currentRunningDirection)
+		{
+		case Stage::Cells::RIGHT:
+			currentRunningDirection = Stage::Cells::LEFT;
+			break;
+		case Stage::Cells::LEFT:
+			currentRunningDirection = Stage::Cells::RIGHT;
+			break;
+		case Stage::Cells::DOWN:
+			currentRunningDirection = Stage::Cells::UP;
+			break;
+		case Stage::Cells::UP:
+			currentRunningDirection = Stage::Cells::DOWN;
+			break;
+		default: break;
+		}
+	}
+}
 
 EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double difficulty) :
-	Entity(new Image*[0], 5, false, new Boundaries(
-		       position->x * model->getConfig()->getRasterWidth(),
-		       position->y * model->getConfig()->getRasterHeight(),
-		       model->getConfig()->getRasterWidth() * 2,
-		       model->getConfig()->getRasterHeight() * 2,
-				   model->getConfig()->applyFactor(2),
-		model->getConfig()->applyFactor(1),
-		model->getConfig()->applyFactor(2),
-		model->getConfig()->applyFactor(5)
-	       ), true, 3),
+	MovableEntity(new Image*[0], 5, false, new Boundaries(
+		              position->x * model->getConfig()->getRasterWidth(),
+		              position->y * model->getConfig()->getRasterHeight(),
+		              model->getConfig()->getRasterWidth() * 2,
+		              model->getConfig()->getRasterHeight() * 2,
+		              model->getConfig()->applyFactor(2),
+		              model->getConfig()->applyFactor(1),
+		              model->getConfig()->applyFactor(2),
+		              model->getConfig()->applyFactor(5)
+	              ), true, 3),
 	currentRunningDirection(Stage::Cells::NONE),
 	state(LAUF_1),
 	model(model),
@@ -27,32 +51,55 @@ EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double diff
 }
 
 
-Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection(double row, double column)
+Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection()
 {
 	auto stage = static_cast<Stage*>(model->getSession()->getLevel());
 	auto playerPosition = stage->getPlayer()->getBoundaries()->position;
-	auto cells = stage->getCells();
+	//auto cells = stage->getCells();
 
 	auto preferredDirection = Stage::Cells::Direction::NONE;
-	if (playerPosition.y > getPosY())
+	int playerRow = ((playerPosition.y - 4 * model->getConfig()->getRasterHeight()) / model->getConfig()->getRasterHeight());
+	int enemyRow = ((getPosY() - 4 * model->getConfig()->getRasterHeight()) / model->getConfig()->getRasterHeight());
+	int rowDifference = playerRow - enemyRow;
+	if (rowDifference < 0)
 	{
-		preferredDirection = Stage::Cells::Direction::UP;
+		rowDifference *= -1;
 	}
-	else if (playerPosition.y < getPosY())
+
+	if (rowDifference < 4)
 	{
-		preferredDirection = Stage::Cells::Direction::DOWN;
+		if (playerPosition.x == this->getPosX())
+		{
+			if (playerRow > enemyRow)
+			{
+				preferredDirection = Stage::Cells::UP;
+			}
+			else
+			{
+				preferredDirection = Stage::Cells::DOWN;
+			}
+		}
+		else if (playerPosition.x > this->getPosX())
+		{
+			preferredDirection = Stage::Cells::RIGHT;
+		}
+		else
+		{
+			preferredDirection = Stage::Cells::LEFT;
+		}
 	}
-	else if (playerPosition.x > getPosX())
+	else if (playerRow > enemyRow)
 	{
-		preferredDirection = Stage::Cells::Direction::RIGHT;
+		preferredDirection = Stage::Cells::UP;
 	}
 	else
 	{
-		preferredDirection = Stage::Cells::Direction::LEFT;
+		preferredDirection = Stage::Cells::DOWN;
 	}
 
 
 	auto direction = Stage::Cells::Direction::NONE;
+	PhysicalObject* directionalObject = nullptr;
 	int max_tries = 100;
 	while (direction == Stage::Cells::NONE && max_tries-- > 0)
 	{
@@ -60,69 +107,129 @@ Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection(double row, doubl
 		switch (random)
 		{
 		case 0:
-			direction = Stage::Cells::UP;
+			if ((directionalObject = canMoveUp()))
+			{
+				direction = Stage::Cells::UP;
+			}
 			break;
 		case 1:
-			direction = Stage::Cells::DOWN;
+			if ((directionalObject = canMoveDown()))
+			{
+				direction = Stage::Cells::DOWN;
+			}
 			break;
 		case 2:
-			direction = Stage::Cells::LEFT;
+			if ((directionalObject = canMoveLeft()))
+			{
+				direction = Stage::Cells::LEFT;
+			}
 			break;
 		case 3: default:
-			direction = Stage::Cells::RIGHT;
+			if ((directionalObject = canMoveRight()))
+			{
+				direction = Stage::Cells::RIGHT;
+			}
 			break;
 		}
-
-		if (direction == Stage::Cells::UP && !cells->canMove(direction, row - 0.25, column) ||
-			direction != Stage::Cells::UP && !cells->canMove(direction, row, column))
-		{
-			direction = Stage::Cells::NONE;
-		}
 	}
 
+	PhysicalObject* preferredDirectionalObject = nullptr;
 	if ((rand() % 10000) < difficulty * 10000)
 	{
-		if (preferredDirection == Stage::Cells::UP && cells->canMove(preferredDirection, row - 0.25, column))
+		switch (preferredDirection)
 		{
-			return preferredDirection;
-		}
-		else if (preferredDirection != Stage::Cells::UP && cells->canMove(preferredDirection, row, column))
-		{
-			return preferredDirection;
+		case Stage::Cells::RIGHT:
+			if ((preferredDirectionalObject = canMoveRight()))
+			{
+				//y-axis correction
+				setPosition(getPosX(), preferredDirectionalObject->getBoundaries()->position.y + preferredDirectionalObject->getBoundaries()->height);
+				return preferredDirection;
+			}
+			break;
+		case Stage::Cells::LEFT:
+			if ((preferredDirectionalObject = canMoveLeft()))
+			{
+				//y-axis correction
+				setPosition(getPosX(), preferredDirectionalObject->getBoundaries()->position.y + preferredDirectionalObject->getBoundaries()->height);
+				return preferredDirection;
+			}
+			break;
+		case Stage::Cells::DOWN:
+			if ((preferredDirectionalObject = canMoveDown()))
+			{
+				//x-axis correction
+				setPosition(preferredDirectionalObject->getBoundaries()->position.x - getConfig()->getRasterWidth() / 2, getBoundaries()->position.y);
+				return preferredDirection;
+			}
+			break;
+		case Stage::Cells::UP:
+			if ((preferredDirectionalObject = canMoveUp()))
+			{
+				//x-axis correction
+				setPosition(preferredDirectionalObject->getBoundaries()->position.x - getConfig()->getRasterWidth() / 2, getBoundaries()->position.y);
+				return preferredDirection;
+			}
+			break;
+		default: break;
 		}
 	}
 
-
+	switch (direction)
+	{
+	case Stage::Cells::RIGHT:
+	case Stage::Cells::LEFT:
+		//y-axis correction
+		setPosition(getPosX(), directionalObject->getBoundaries()->position.y + directionalObject->getBoundaries()->height);
+		break;
+	case Stage::Cells::DOWN:
+	case Stage::Cells::UP:
+		//x-axis correction
+		setPosition(directionalObject->getBoundaries()->position.x - getConfig()->getRasterWidth() / 2, getBoundaries()->position.y);
+		break;
+	default: break;;
+	}
 	return direction;
 }
 
-Stage::Cells::Direction EnemyEntity::getNextRunningDirection(double row, double column)
+Stage::Cells::Direction EnemyEntity::getNextRunningDirection()
 {
-	auto cells = static_cast<Stage*>(model->getSession()->getLevel())->getCells();
+	auto behind = model->getPhysics()->backgroundOnPosition(Position(boundaries->real_x() + boundaries->real_width() / 2, boundaries->real_y() + boundaries->real_height() / 2));
+	for(int i = 0; i < behind->size(); i++)
+	{
+		LadderEntity* ladder = dynamic_cast<LadderEntity*>(behind->at(i));
+		if(ladder)
+		{
+			
+		}
+	}
+
+	if (getBoundaries()->real_x() % (getConfig()->getRasterWidth()) != 0 &&
+		getPosY() % (getConfig()->getRasterHeight()) != 0)
+	{
+		return Stage::Cells::NONE;
+	}
+
+	//auto cells = static_cast<Stage*>(model->getSession()->getLevel())->getCells();
 
 	switch (currentRunningDirection)
 	{
 	case Stage::Cells::UP:
-		if (cells->canMove(Stage::Cells::LEFT, row - 0.25, column) ||
-			cells->canMove(Stage::Cells::RIGHT, row, column))
+		if(canMoveLeft() || canMoveRight())
 		{
-			return getRandomAllowedDirection(row, column);
-		}
-		else if (cells->canMove(Stage::Cells::UP, row - 0.25, column))
+			return getRandomAllowedDirection();
+		} else if(canMoveUp())
 		{
 			return Stage::Cells::UP;
-		}
-		else
+		} else
 		{
 			return Stage::Cells::DOWN;
 		}
 	case Stage::Cells::DOWN:
-		if (cells->canMove(Stage::Cells::LEFT, row, column) ||
-			cells->canMove(Stage::Cells::RIGHT, row, column))
+		if (canMoveLeft() || canMoveRight())
 		{
-			return getRandomAllowedDirection(row, column);
+			return getRandomAllowedDirection();
 		}
-		else if (cells->canMove(Stage::Cells::DOWN, row, column))
+		else if (canMoveDown())
 		{
 			return Stage::Cells::DOWN;
 		}
@@ -131,12 +238,11 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection(double row, double 
 			return Stage::Cells::UP;
 		}
 	case Stage::Cells::LEFT:
-		if (cells->canMove(Stage::Cells::UP, row - 0.25, column) ||
-			cells->canMove(Stage::Cells::DOWN, row, column))
+		if (canMoveUp() || canMoveDown())
 		{
-			return getRandomAllowedDirection(row, column);
+			return getRandomAllowedDirection();
 		}
-		else if (cells->canMove(Stage::Cells::LEFT, row, column))
+		else if (canMoveLeft())
 		{
 			return Stage::Cells::LEFT;
 		}
@@ -145,12 +251,11 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection(double row, double 
 			return Stage::Cells::RIGHT;
 		}
 	case Stage::Cells::RIGHT:
-		if (cells->canMove(Stage::Cells::UP, row - 0.25, column) ||
-			cells->canMove(Stage::Cells::DOWN, row, column))
+		if (canMoveUp() || canMoveDown())
 		{
-			return getRandomAllowedDirection(row, column);
+			return getRandomAllowedDirection();
 		}
-		else if (cells->canMove(Stage::Cells::RIGHT, row, column))
+		else if (canMoveRight())
 		{
 			return Stage::Cells::RIGHT;
 		}
@@ -159,7 +264,7 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection(double row, double 
 			return Stage::Cells::LEFT;
 		}
 	case Stage::Cells::NONE: default:
-		return getRandomAllowedDirection(row, column);
+		return getRandomAllowedDirection();
 	}
 }
 
@@ -179,7 +284,7 @@ void EnemyEntity::execute()
 	case LAUF_1:
 	case LAUF_2:
 		{
-			Stage::Cells::Direction nextDirection = getNextRunningDirection(row, column);
+			Stage::Cells::Direction nextDirection = getNextRunningDirection();
 			if (nextDirection != Stage::Cells::NONE)
 			{
 				currentRunningDirection = nextDirection;
@@ -189,18 +294,39 @@ void EnemyEntity::execute()
 			{
 			case Stage::Cells::RIGHT:
 				setPosX(getPosX() + model->getConfig()->getRasterWidth() * 0.25);
-				setPosY((int)row * model->getConfig()->getRasterHeight());
+				//setPosY((int)row * model->getConfig()->getRasterHeight());
 				break;
 			case Stage::Cells::LEFT:
-				setPosX(getPosX() - model->getConfig()->getRasterWidth() * 0.25);
-				setPosY((int)row * model->getConfig()->getRasterHeight());
+				{
+					setPosX(getPosX() - model->getConfig()->getRasterWidth() * 0.25);
+
+					auto holePos = Position(boundaries->position);
+					holePos.x += (boundaries->width / 2) - 1;
+					holePos.y -= 1;
+					HoleEntity::HoleState holeState = canFall(holePos);
+
+					this->inHole = holeState;
+
+					if (this->inHole == HoleEntity::STAGE3)
+					{
+						inHole = HoleEntity::STAGE0;
+						state = EnemyState::FALLING;
+					}
+					else
+					{
+						state = EnemyState::IN_HOLE_WAITING;
+						inHoleWaitingSince = Config::currentTimeMillis();
+					}
+
+					//setPosY((int)row * model->getConfig()->getRasterHeight());
+				}
 				break;
 			case Stage::Cells::DOWN:
-				setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
+				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
 				setPosY(getPosY() - model->getConfig()->getRasterHeight() * 0.25);
 				break;
 			case Stage::Cells::UP:
-				setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
+				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
 				setPosY(getPosY() + model->getConfig()->getRasterHeight() * 0.25);
 				break;
 			default: break;
@@ -237,6 +363,21 @@ void EnemyEntity::execute()
 	}
 
 	counter++;
+}
+
+SpacePanicModel* EnemyEntity::getModel() const
+{
+	return model;
+}
+
+Boundaries* EnemyEntity::getBoundaries()
+{
+	return boundaries;
+}
+
+GameConfig* EnemyEntity::getConfig() const
+{
+	return model->getConfig();
 }
 
 Image* EnemyEntity::getImage()

@@ -169,6 +169,7 @@
     <Image Include="textures\border_top.bmp" />
     <Image Include="textures\enemy_lauf1.bmp" />
     <Image Include="textures\enemy_lauf2.bmp" />
+    <Image Include="textures\floor.bmp" />
     <Image Include="textures\hole1.bmp" />
     <Image Include="textures\hole2.bmp" />
     <Image Include="textures\hole3.bmp" />
@@ -194,10 +195,13 @@
     <Image Include="textures\stone2right.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FloorEntity.cpp" />
     <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
     <ClCompile Include="HoleEntity.cpp" />
     <ClCompile Include="LadderEntity.cpp" />
+    <ClCompile Include="LivesEntity.cpp" />
+    <ClCompile Include="MovableEntity.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="sample1.cpp" />
     <ClCompile Include="SpacePanicController.cpp" />
@@ -205,20 +209,25 @@
     <ClCompile Include="SpacePanicSession.cpp" />
     <ClCompile Include="SpacePanicView.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TopEntity.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FloorEntity.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="EnemyEntity.h" />
     <ClInclude Include="HoleEntity.h" />
     <ClInclude Include="LadderEntity.h" />
+    <ClInclude Include="LivesEntity.h" />
+    <ClInclude Include="MovableEntity.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicSession.h" />
     <ClInclude Include="SpacePanicView.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TopEntity.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>

@@ -1,9 +1,9 @@
 ﻿#pragma once
 #include "Entity.h"
-#include "SpacePanicModel.h"
+class SpacePanicModel;
 class Image;
 
-class HoleEntity : Entity
+class HoleEntity : public Entity
 {
 public:
 	typedef enum
@@ -19,7 +19,9 @@ public:
 	HoleEntity(SpacePanicModel* model, Position position);
 
 	Image* getImage() override;
-	
+	bool canGrow() const;
+	bool canShrink() const;
+	HoleState getStage() const;
 	Image* stage1;
 	Image* stage2;
 	Image* stage3;
