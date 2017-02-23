@@ -7,6 +7,8 @@
 #include "Physics.h"
 #include "PacManModel.h"
 #include "Config.h"
+#include "Font.h"
+#include "Text.h"
 
 #define AMP 3
 
@@ -87,12 +89,6 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 	pinkGhost->setPhysics(getPhysics());
 	pinkGhost->setLevel(this);
 
-
-	entities->push_back(pacman);
-	entities->push_back(blueGhost);
-	entities->push_back(redGhost);
-	entities->push_back(orangeGhost);
-	entities->push_back(pinkGhost);
 
 
 	// Left Wall, from bottom to top
@@ -286,25 +282,25 @@ MyLevel::MyLevel(int colsGrid, int rowsGrid, int xTileSize, int yTileSize)
 	}
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 4 * 8) * AMP));
 	entities->push_back(new DotEntity((11 + 8 * 2) * AMP, (27 + 5 * 8) * AMP));
-for (int i = 4; i < 28; i++)
-{
-	if (i == 6) { i = 7; }
-	if (i == 9) { i = 10; }
-	if (i == 21) { i = 22; }
-	if (i == 24) { i = 25; }
-	entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
-}
-entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
-entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
-entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
-entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
-
-for (int i = 1; i < 28; i++)
-{
-	if (i == 3) { i = 7; }
-	if (i == 9) { i = 25; }
-	entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
-}
+	for (int i = 4; i < 28; i++)
+	{
+		if (i == 6) { i = 7; }
+		if (i == 9) { i = 10; }
+		if (i == 21) { i = 22; }
+		if (i == 24) { i = 25; }
+		entities->push_back(new DotEntity((11 + 8 * 5) * AMP, (27 + i * 8) * AMP));
+	}
+	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 4 * 8) * AMP));
+	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 5 * 8) * AMP));
+	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 22 * 8) * AMP));
+	entities->push_back(new DotEntity((11 + 8 * 8) * AMP, (27 + 23 * 8) * AMP));
+	
+	for (int i = 1; i < 28; i++)
+	{
+		if (i == 3) { i = 7; }
+		if (i == 9) { i = 25; }	
+		entities->push_back(new DotEntity((11 + 11 * 8) * AMP, (27 + i * 8) * AMP));
+	}
 //spiegel
 for (int i = 1; i < 28; i++)
 {
@@ -340,6 +336,20 @@ entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 6 * 8) * AMP));
 entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 6 * 8) * AMP));
 entities->push_back(new EnergizerEntity((8 + 0 * 8) * AMP, (24 + 26 * 8) * AMP));
 entities->push_back(new EnergizerEntity((8 + 25 * 8) * AMP, (24 + 26 * 8) * AMP));
+
+
+
+	entities->push_back(pacman);
+	entities->push_back(blueGhost);
+	entities->push_back(redGhost);
+	entities->push_back(orangeGhost);
+	entities->push_back(pinkGhost);
+	
+
+	//font = ;
+	//text = Text(font, "0", new Position(24 * AMP, 272 * AMP), AMP, 255, 255, 255);
+	//entities->push_back(&text);
+
 }
 
 
@@ -350,6 +360,7 @@ MyLevel::~MyLevel()
 
 void MyLevel::gameLoop()
 {
+	showScore();
 	if ((Config::currentTimeMillis() - timer) > 60)
 	{
 		if (dotCounter == 0 && energizerCounter == 0)
@@ -525,6 +536,7 @@ void MyLevel::handleCollisions()
 							entities->erase(entities->begin() + i);
 							delete dot;
 							dotCounter--;
+							score += 10;
 							return;
 						}
 					}
@@ -537,6 +549,7 @@ void MyLevel::handleCollisions()
 						{
 							entities->erase(entities->begin() + i);
 							delete energizer;
+							score += 50;
 							energizerCounter--;
 							memoryMovementMode = movementMode;
 							movementMode = EnemyEntity::FRIGHTENED;
@@ -609,4 +622,20 @@ EnemyEntity* MyLevel::getOrangeGhost()
 EnemyEntity* MyLevel::getPinkGhost()
 {
 	return pinkGhost;
+}
+
+
+void MyLevel::showScore()
+{
+	/*
+	char s[] = { '0','0','0','0','0','0','0','0','0' };
+	for (int i = 0; score > 0; i++)
+	{
+		char character = score % 10;
+		s[i] = character + 48;
+		score = score / 10;
+	}
+
+	text = Text(font, s, new Position(24 * AMP, 272 * AMP), AMP, 255, 255, 255);
+	*/
 }

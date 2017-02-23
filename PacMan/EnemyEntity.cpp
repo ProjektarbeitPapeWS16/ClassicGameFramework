@@ -71,6 +71,13 @@ void EnemyEntity::specialRequest(SpecialState request)
 
 void EnemyEntity::execute()
 {
+	if (getPosX() < -(14 * 3)) {
+		setPosX((224 + 14 - 1) * 3);
+	}
+	if (getPosX() > (224 + 14) * 3) {
+		setPosX(-(13 * 3));
+	}
+
 	if (specialState == DEAD)
 	{
 		if (getPosX() == 105 * AMP)
@@ -233,6 +240,46 @@ void EnemyEntity::findDirection()
 		// TODO is specialcrossing?
 
 
+		if (movementMode == FRIGHTENED)
+		{
+			switch (rand() % 4)
+			{
+			case 0: //  UP
+				if (direction != DOWN)
+				{
+					if (canMove(UP)) { direction = UP; }
+				}
+			case 1: // DOWN
+				if (direction != UP)
+				{
+					if (canMove(DOWN)) { direction = DOWN; }
+				}
+			case 2: // RIGHT
+				if (direction != LEFT)
+				{
+					if (canMove(RIGHT)) { direction = RIGHT; }
+				}
+			case 3: // LEFT
+				if (direction != RIGHT)
+				{
+					if (canMove(LEFT)) { direction = LEFT; }
+				}
+				if (direction != UP)
+				{
+					if (canMove(DOWN)) { direction = DOWN; }
+				}
+				if (direction != DOWN)
+				{
+					if (canMove(UP)) { direction = UP; }
+				}
+				if (direction != LEFT)
+				{
+					if (canMove(RIGHT)) { direction = RIGHT; }
+				}
+			}
+			return;
+		}
+
 		findTargetTile();
 		// Pfad finden
 		double zDown = std::numeric_limits<int>::max();
@@ -241,35 +288,27 @@ void EnemyEntity::findDirection()
 		double zLeft = std::numeric_limits<int>::max();
 		if (canMove(UP))
 		{
-			//move(UP);
 			int x = abs(getPosX() + 3 * AMP - targetTile->real_x());
 			int y = abs(getPosY() + 3 * AMP + 8 * AMP - targetTile->real_y());
 			zUp = sqrt(pow(x, 2) + pow(y, 2));
-			//move(DOWN);
 		}
 		if (canMove(DOWN))
 		{
-			//move(DOWN);
 			int x = abs(getPosX() + 3 * AMP - targetTile->real_x());
 			int y = abs(getPosY() + 3 * AMP - 8 * AMP - targetTile->real_y());
 			zDown = sqrt(pow(x, 2) + pow(y, 2));
-			//move(UP);
 		}
 		if (canMove(RIGHT))
 		{
-			//move(RIGHT);
 			int x = abs(getPosX() + 3 * AMP + 8 * AMP - targetTile->real_x());
 			int y = abs(getPosY() + 3 * AMP - targetTile->real_y());
 			zRight = sqrt(pow(x, 2) + pow(y, 2));
-			//move(LEFT);
 		}
 		if (canMove(LEFT))
 		{
-			//move(LEFT);
 			int x = abs(getPosX() + 3 * AMP - 8 * AMP - targetTile->real_x());
 			int y = abs(getPosY() + 3 * AMP - targetTile->real_y());
 			zLeft = sqrt(pow(x, 2) + pow(y, 2));
-			//move(RIGHT);
 		}
 		
 		// can't turn back
@@ -368,6 +407,7 @@ void EnemyEntity::findTargetTile()
 			targetTile = new Boundaries(getPosX() + 3 * AMP, getPosY() - 16 * AMP + 3 * AMP, 8 * AMP, 8 * AMP);
 			break;
 		}
+		return;
 	}
 	switch (name)
 	{

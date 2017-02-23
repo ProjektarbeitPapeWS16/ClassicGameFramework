@@ -4,6 +4,8 @@
 class PlayerEntity;
 #include "EnemyEntity.h"
 
+#include "Font.h"
+#include "Text.h"
 
 class MyLevel :
 	public Level
@@ -56,5 +58,10 @@ private:
 
 	__int64 energizerTimer;
 	EnemyEntity::MovementMode memoryMovementMode = EnemyEntity::SCATTER;
+
+	int score = 0;
+	void showScore();
+	Font* font = new Font("fonts/normal/", 8, 8, 200, 80, 0);
+	Text text = Text(font, "0", new Position(24 * 3, 272 * 3), 3, 255, 255, 255);
 };
 

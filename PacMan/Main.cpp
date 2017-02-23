@@ -25,19 +25,9 @@ int main()
 {
 	std::string x = getexepath();
 
-	//auto session = new Session();
-	auto display = new Display();
-	auto renderer = new Renderer(224*3, 288*3, "PacMan");
-	//auto renderer = new Renderer(1920, 1080, "PacMan");
-
-	//std::vector<Level*> levels;
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("menu.txt")));
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level1.txt")));
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level2.txt")));
-	//levels.push_back(new Level(0, 0, 0, 0, new std::string("level3.txt")));
 
 	auto model = new PacManModel();
-	auto view = new PacManView(model, display, renderer);
+	auto view = new PacManView(model);
 	auto controller = new PacManController(view, model);
 
 	controller->gameLoop();
