@@ -352,6 +352,11 @@ void MyLevel::gameLoop()
 {
 	if ((Config::currentTimeMillis() - timer) > 60)
 	{
+		if (dotCounter == 0 && energizerCounter == 0)
+		{
+			gameState = MyLevel::RESTARTGAME;
+		}
+
 		timer = Config::currentTimeMillis();
 
 		if (gameState == PACMANDEAD)
@@ -407,6 +412,18 @@ void MyLevel::gameLoop()
 				pinkGhost->setMovementMode(EnemyEntity::SCATTER);
 				orangeGhost->setMovementMode(EnemyEntity::SCATTER);
 			}
+		}
+		if (movementMode == EnemyEntity::FRIGHTENED)
+		{
+			if (Config::currentTimeMillis() - energizerTimer > 6000)
+			{
+				movementMode = memoryMovementMode;
+				energizerTimer = Config::currentTimeMillis();
+			}
+			blueGhost->setMovementMode(EnemyEntity::FRIGHTENED);
+			redGhost->setMovementMode(EnemyEntity::FRIGHTENED);
+			pinkGhost->setMovementMode(EnemyEntity::FRIGHTENED);
+			orangeGhost->setMovementMode(EnemyEntity::FRIGHTENED);
 		}
 		
 
@@ -520,6 +537,10 @@ void MyLevel::handleCollisions()
 						{
 							entities->erase(entities->begin() + i);
 							delete energizer;
+							energizerCounter--;
+							memoryMovementMode = movementMode;
+							movementMode = EnemyEntity::FRIGHTENED;
+							energizerTimer = Config::currentTimeMillis();
 							if (blueGhost->getSpecialState() != EnemyEntity::DEAD) 
 							{
 								blueGhost->specialRequest(EnemyEntity::ENERGIZED1);

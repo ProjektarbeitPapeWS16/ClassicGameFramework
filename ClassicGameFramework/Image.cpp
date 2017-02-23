@@ -119,7 +119,6 @@ int Image::getHeight() const
 {
 	return imageHeight;
 }
-also 
 unsigned char* Image::getImageBytes() const
 {
 	return imageBytes;

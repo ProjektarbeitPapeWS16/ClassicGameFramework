@@ -8,6 +8,7 @@
 #include "Physics.h"
 #include "Level.h"
 #include "WallEntity.h"
+#include <vector>
 
 #define AMP 3
 
@@ -70,6 +71,17 @@ void EnemyEntity::specialRequest(SpecialState request)
 
 void EnemyEntity::execute()
 {
+	if (specialState == DEAD)
+	{
+		if (getPosX() == 105 * AMP)
+		{
+			if (getPosY() == 165 * AMP)
+			{
+				specialState = ALIVE;
+			}
+		}
+	}
+
 	findDirection();
 	move(direction);
 
@@ -79,7 +91,7 @@ void EnemyEntity::execute()
 		{
 			energizerTimer = Config::currentTimeMillis();
 		}
-		if ((Config::currentTimeMillis() - energizerTimer) > 10000) // 10 Sekunden um
+		if ((Config::currentTimeMillis() - energizerTimer) > 4500) // 4,5 sekunden
 		{
 			if (energizerTimer2 == 0)
 			{
@@ -97,7 +109,7 @@ void EnemyEntity::execute()
 					specialState = ENERGIZED1;
 				}
 			}
-			if ((Config::currentTimeMillis() - energizerTimer) > 13000)
+			if ((Config::currentTimeMillis() - energizerTimer) > 6000)
 			{
 				specialState = ALIVE;
 			}
@@ -127,17 +139,12 @@ Image* EnemyEntity::getImage()
 	{
 	case ALIVE: break;
 	case DEAD: 
-		switch (state)
+		switch (direction)
 		{
-		case MOVE_NONE:
-		case MOVE_RIGHT_1:
-		case MOVE_RIGHT_2: return deadRight;
-		case MOVE_LEFT_1:
-		case MOVE_LEFT_2: return deadLeft;
-		case MOVE_UP_1:
-		case MOVE_UP_2: return deadUp;
-		case MOVE_DOWN_1:
-		case MOVE_DOWN_2: return deadDown;
+		case RIGHT: return deadRight;
+		case LEFT: return deadLeft;
+		case UP: return deadUp;
+		case DOWN: return deadDown;
 		default: break;
 		}
 		break;
@@ -337,6 +344,12 @@ void EnemyEntity::findDirection()
 // TODO targetTile speicherlecks
 void EnemyEntity::findTargetTile()
 {
+	if (specialState == DEAD)
+	{
+		targetTile = new Boundaries((105 + 3) * AMP, (165 + 3) * AMP, 8 * AMP, 8 * AMP);
+		return;
+	}
+
 	if (movementMode == FRIGHTENED)
 	{
 		// random movement

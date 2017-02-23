@@ -53,5 +53,8 @@ private:
 	__int64 timer = Config::currentTimeMillis();
 	__int64 ghostTimer = Config::currentTimeMillis();
 	EnemyEntity::MovementMode movementMode = EnemyEntity::SCATTER;
+
+	__int64 energizerTimer;
+	EnemyEntity::MovementMode memoryMovementMode = EnemyEntity::SCATTER;
 };
 
