@@ -56,6 +56,110 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 	return collisions;
 }
 
+int Physics::getOverlapOnAxis(PhysicalObject * objA, PhysicalObject * objB, bool xAxis)
+{
+	int sharedPixels;
+
+	int xLeftA = objA->getBoundaries()->real_x;
+	int xRightA = objA->getBoundaries()->real_x + objA->getBoundaries()->real_width;
+	int yBottomA = objA->getBoundaries()->real_y;
+	int yTopA = objA->getBoundaries()->real_y + objA->getBoundaries()->real_height;
+
+	int xLeftB = objB->getBoundaries()->real_x;
+	int xRightB = objB->getBoundaries()->real_x + objB->getBoundaries()->real_width;
+	int yBottomB = objB->getBoundaries()->real_y;
+	int yTopB = objB->getBoundaries()->real_y + objB->getBoundaries()->real_height;
+
+	int overlapStart;
+	int overlapEnd;
+	
+	if (xAxis) {
+		(xLeftB >= xLeftA) ? overlapStart = xLeftB : overlapStart = xLeftA;
+		(xRightB <= xRightA) ? overlapEnd = xRightB : overlapEnd = xRightA;
+	} 	
+	else {
+		(yBottomB >= yBottomA) ? overlapStart = yBottomB : overlapStart = yBottomA;
+		(yTopB <= yTopA) ? overlapEnd = yTopB : overlapEnd = yTopA;
+	}
+
+	sharedPixels = overlapEnd - overlapStart;	// If negative, describes distance.
+
+	return sharedPixels;
+}
+
+int Physics::getOverlapOnXAxis(PhysicalObject * objA, PhysicalObject * objB)
+{
+	return getOverlapOnAxis(objA, objB, true);
+}
+
+int Physics::getOverlapOnYAxis(PhysicalObject * objA, PhysicalObject * objB)
+{
+	return getOverlapOnAxis(objA, objB, false);
+}
+
+
+Direction * Physics::getRelativeDirection(PhysicalObject * fromA, PhysicalObject * toB, bool xAxis)
+{
+	Direction* result = nullptr;
+	if (xAxis) {
+		(fromA->getBoundaries()->real_x <= toB->getBoundaries()->real_x) ?
+			result = new Direction(RIGHT) : result = new Direction(LEFT);
+	}
+		else {
+		(fromA->getBoundaries()->real_y < toB->getBoundaries()->real_y) ?
+			result = new Direction(UP) : result = new Direction(DOWN);
+	}
+	return result;
+}
+
+bool Physics::isRightFromOther(PhysicalObject * obj, PhysicalObject * objB)
+{
+	return (obj->getBoundaries()->real_x > objB->getBoundaries()->real_x) ?
+			true : false;
+}
+
+bool Physics::isAboveOther(PhysicalObject * obj, PhysicalObject * objB)
+{
+	return (obj->getBoundaries()->real_y > objB->getBoundaries()->real_y) ?
+		true : false;
+}
+
+int Physics::getRelativeDistance(PhysicalObject * fromA, PhysicalObject * toB, bool xAxis)
+{
+	// Determine overlap. Positive value describes an interval size along the axis.
+	//					  Negative value describes a distance along the axis.
+	int distance;
+	int overlap = Physics::getOverlapOnAxis(fromA, toB, xAxis);
+	if (overlap < 0) {
+		// Determine direction of distance: is B left or right from A?
+		Direction* direction = Physics::getRelativeDirection(fromA, toB, xAxis);
+		switch (*direction) {
+		case Direction::LEFT:
+		case Direction::DOWN:
+			// B is further from axis origin than A. Return positive distance.
+			distance = overlap * -1;
+			break;
+		case Direction::RIGHT:
+		case Direction::UP:
+			// B is closer to axis origin than A. Return negative distance.
+			distance = overlap;
+			break;
+		default:
+		}
+	}
+	return 0;
+}
+
+int Physics::getRelativeXDistance(PhysicalObject * fromA, PhysicalObject * toB)
+{
+	return getRelativeDistance(fromA, toB, true);
+}
+
+int Physics::getRelativeYDistance(PhysicalObject * fromA, PhysicalObject * toB)
+{
+	return getRelativeDistance(fromA, toB, false);
+}
+
 // Checks for only movable and/or solid objects.
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool movable, bool solid)
 {
@@ -74,3 +178,71 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 {
 	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;
 }
+
+// Checks by comparing the amount of pixels adjacent to the given edge.
+std::vector<PhysicalObject*>* Physics::checkAdjacency(PhysicalObject * checkObject, std::vector<PhysicalObject*>* physicalObjects, Direction boundaryEdge, bool checkStrict)
+{
+	std::vector<PhysicalObject*>* adjacentObjects = new std::vector<PhysicalObject*>();
+
+	// Initialize boundary points for edge comparison. Starting point at bottom right corner)
+	//int xLeft = checkObject->getBoundaries()->real_x;
+	//int xRight = checkObject->getBoundaries()->real_x + checkObject->getBoundaries()->real_width;
+	//int yBottom = checkObject->getBoundaries()->real_y;
+	//int yTop = checkObject->getBoundaries()->real_y+ checkObject->getBoundaries()->real_height;
+
+	bool isAdjacent = false;
+	static int STRICT_OVERLAP = 3;
+	static int ADJACENCY_DIST = 1;
+	//int pixelOverlap;	// Pixel overlap of boundaries [x or y direction only]; perpendicular to adjacency-test
+	int requiredOverlap = checkStrict ? STRICT_OVERLAP : 1;
+
+	if (physicalObjects)
+	{
+		for (auto iteratorB = physicalObjects->begin(); iteratorB != physicalObjects->end(); ++iteratorB)
+		{
+			auto obj = *iteratorB;
+			if (!obj->isMovable())	// Only check walls/floors
+			{
+				isAdjacent = false;
+				// Check if any pixels are adjacent
+				switch (boundaryEdge) {
+					// Boundary corner reference:
+					// topleft	(x     | y + height)		upper edge	y + height
+					// topright (x + w | y + height)		lower edge	y
+					// btmleft  (x     | y)					left  edge	x
+					// btmright (x + w | y)					right edge	x + width
+				case Direction::DOWN:
+					// y-Coordinate of lower edge (from checkObj) 'touches' y-Coordinate of upper edge (from obj)?
+					isAdjacent = Physics::getOverlapOnXAxis(checkObject, obj) >= requiredOverlap 
+							&& getRelativeYDistance(checkObject, obj) <= ADJACENCY_DIST
+							&& isAboveOther(checkObject, obj);
+					isAdjacent &= checkStrict ? getOverlapOnXAxis : isAdjacent;
+					break;
+				case Direction::UP:
+					isAdjacent = Physics::getOverlapOnXAxis(checkObject, obj) >= requiredOverlap 
+							&& getRelativeYDistance(checkObject, obj) <= ADJACENCY_DIST
+							&& !isAboveOther(checkObject, obj);
+					break;
+				case Direction::LEFT:
+					isAdjacent = Physics::getOverlapOnYAxis(checkObject, obj) >= requiredOverlap 
+							&& getRelativeXDistance(checkObject, obj) <= ADJACENCY_DIST
+							&& isRightFromOther(checkObject, obj);
+					break;
+				case Direction::RIGHT:
+					isAdjacent = Physics::getOverlapOnYAxis(checkObject, obj) >= requiredOverlap 
+							&& getRelativeXDistance(checkObject, obj) <= ADJACENCY_DIST
+							&& !isRightFromOther(checkObject, obj);
+					break;
+				default:
+					isAdjacent = false;
+					break;
+				}
+				// Store obj in result list, if deemed adjacent.
+				if (isAdjacent) adjacentObjects->push_back(obj);
+			}
+		}
+		return nullptr;
+	}
+}
+
+
