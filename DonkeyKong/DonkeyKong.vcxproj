@@ -154,6 +154,7 @@
     <ClInclude Include="Entity_OilDrum.h" />
     <ClInclude Include="Entity_Pauline.h" />
     <ClInclude Include="Level_25m.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Controller.cpp" />
@@ -190,8 +191,15 @@
     <Image Include="textures\stone2right.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="levels\level_25m.txt" />
+    <Text Include="levels\level_ui.txt" />
     <Text Include="levels\stage1.txt" />
     <Text Include="levels\stage1_movement.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="html1.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

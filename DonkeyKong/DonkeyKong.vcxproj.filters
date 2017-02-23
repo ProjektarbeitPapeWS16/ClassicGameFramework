@@ -57,6 +57,9 @@
     <ClInclude Include="DK_Factory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Controller.cpp">
@@ -159,5 +162,14 @@
     <Text Include="levels\stage1_movement.txt">
       <Filter>Ressourcendateien\Leveldata</Filter>
     </Text>
+    <Text Include="levels\level_25m.txt">
+      <Filter>Ressourcendateien\Leveldata</Filter>
+    </Text>
+    <Text Include="levels\level_ui.txt">
+      <Filter>Ressourcendateien\Leveldata</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="html1.htm" />
   </ItemGroup>
 </Project>
