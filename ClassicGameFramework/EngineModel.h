@@ -3,6 +3,8 @@
 #include <map>
 #include <functional>
 #include <vector>
+#include <set>
+#include "Session.h"
 class Session;
 class Level;
 class Entity;
@@ -17,13 +19,12 @@ private:
 	static EngineModel* instance;
 
 	// Listener
-	std::map<Key, std::function<void()>*>* keyPressedListeners = nullptr;
-	std::map<Key, std::function<void()>*>* keyReleasedListeners = nullptr;
-	std::map<Key, std::function<void()>*>* keyDownListeners = nullptr;
+	std::map<Key, std::function<void()>*>* keyPressedListeners;
+	std::map<Key, std::function<void()>*>* keyReleasedListeners;
+	std::map<Key, std::function<void()>*>* keyDownListeners;
 
-	std::vector<Key>* keyDownKeys = nullptr;
+	std::vector<Key>* keyDownKeys;
 
-	
 protected:
 	Session* session;
 	//Level* level;
@@ -32,23 +33,23 @@ protected:
 
 	virtual void handleCollisions();
 
-	
 public:
+
+	std::vector<unsigned long>* getImagesToDelete() const;
 	bool shouldClose = false;
 	// Konstruktor
 	EngineModel();
+	EngineModel(Session* session);
 	EngineModel(Physics* physics, Session* session, Level* level);
 	// Destruktor
-	virtual ~EngineModel()
-	{
-	}
+	virtual ~EngineModel();
 
 	// listeners registered with key are being called.
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;
-	
+
 	// TODO description
 	void key_down(GLFWwindow* window) const;
-	
+
 
 	// initializes the keyListeners and other stuff
 	virtual void initialization();

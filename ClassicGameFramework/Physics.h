@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <vector>
 #include "EngineModel.h"
+#include "Position.h"
 class PhysicalObject;
 class Level;
 
@@ -20,7 +21,7 @@ public:
 	 * @param model The game model.
 	 */
 	Physics(EngineModel* model);
-	
+	std::vector<PhysicalObject*>* backgroundOnPosition(Position pos) const;
 	static std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool movable, bool solid);
 	/**
 	 * Checks the given Objects for collisions. If Collisions happened, 

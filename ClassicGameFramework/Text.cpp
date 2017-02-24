@@ -87,6 +87,7 @@ textLength(0),
 
 Text::~Text()
 {
+	delete image;
 }
 
 

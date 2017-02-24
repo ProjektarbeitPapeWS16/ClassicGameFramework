@@ -14,14 +14,38 @@ Physics::Physics(EngineModel* model) : model(model)
 {
 }
 
+std::vector<PhysicalObject*>* Physics::backgroundOnPosition(Position pos) const
+{
+	auto ret = new std::vector<PhysicalObject*>();
+	auto physObj = model->getLevel()->getPhysicalObjects();
+	for (auto i = 0; i < physObj->size(); i++)
+	{
+		auto x = physObj->at(i);
+		if (x->isMovable()) // Nur Hintergründe, keine beweglichen Entities
+		{
+			continue;
+		}
+
+		auto y = x->getBoundaries();
+		if (pos.x >= y->real_x()
+			&& pos.x <= y->real_x() + y->real_width() - 1
+			&& pos.y >= y->real_y()
+			&& pos.y <= y->real_y() + y->real_height() - 1)
+		{
+			ret->push_back(x);
+		}
+	}
+	delete physObj;
+	return ret;
+}
+
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool all, bool movable, bool solid)
 {
-	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
+	auto collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
 
 	// bewegbare Objekte werden nach Kollision abgefragt
 	if (physicalObjects)
 	{
-
 		for (unsigned int i = 0; i < physicalObjects->size(); i++)
 		{
 			auto objA = physicalObjects->at(i);
@@ -64,10 +88,19 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions() const
 {
-	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;
+	if(model != nullptr)
+	{
+		auto physObj = model->getSession()->getLevel()->getPhysicalObjects();
+		auto collisions = checkCollisions(physObj);
+		delete physObj;
+		return collisions;
+	} else
+	{
+		return nullptr;
+	}
 }
 
-std::vector<PhysicalObject*>* Physics::checkCollisions(PhysicalObject * objA, std::vector<PhysicalObject*>* physicalObjects)
+std::vector<PhysicalObject*>* Physics::checkCollisions(PhysicalObject* objA, std::vector<PhysicalObject*>* physicalObjects)
 {
 	std::vector<PhysicalObject*>* collisions = new std::vector<PhysicalObject*>();
 	for (unsigned int i = 0; physicalObjects->size(); i++)

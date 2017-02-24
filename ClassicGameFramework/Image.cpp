@@ -1,6 +1,7 @@
 ﻿#include "Image.h"
 #include "Entity.h"
 #include <cstdio>
+#include "EngineModel.h"
 
 unsigned long Image::image_count = 0;
 

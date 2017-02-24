@@ -3,8 +3,6 @@
 
 
 class Level;
-
-
 class Session
 {
 protected:
@@ -17,7 +15,7 @@ public:
 	// Konstruktor
 	Session();
 	Session(int defaultLifes, int defaultScore);
-
+	Session(int defaultLifes, int defaultScore, Level* level);
 	int getLifes();
 	void setLifes(int lifes);
 

@@ -3,6 +3,7 @@
 #include "Drawable.h"
 #include "Shader.h"
 #include "Image.h"
+#include "EngineModel.h"
 
 //#include <glfw3.h>
 

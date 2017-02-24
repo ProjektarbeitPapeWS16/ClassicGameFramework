@@ -10,7 +10,7 @@ class EngineController
 protected:
 	EngineView* view = nullptr;
 	EngineModel* model = nullptr;
-
+	unsigned long cycles = 0L;
 	//static EngineController* instance;
 public:
 	double timeElapsed = 0.0;

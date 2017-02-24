@@ -6,4 +6,6 @@ struct Position
 	int x;
 	int y;
 	Position(int x, int y);
+
+	Position(const Position& other);
 };

@@ -3,14 +3,16 @@
 #include "Config.h"
 #include "Level.h"
 
-Session::Session() : Session(3, 0)
+Session::Session() : Session(3, 0, nullptr)
 {
-
 }
 
-Session::Session(int defaultLifes, int defaultScore) : lifes(defaultLifes), score(defaultScore), level(nullptr)
+Session::Session(int defaultLifes, int defaultScore) : Session(defaultLifes, defaultScore, nullptr)
 {
+}
 
+Session::Session(int defaultLifes, int defaultScore, Level* level) : lifes(defaultLifes), score(defaultScore), level(level)
+{
 }
 
 int Session::getLifes()
@@ -43,14 +45,14 @@ void Session::setScore(int score)
 	this->score = score;
 }
 
-Level * Session::getLevel()
+Level* Session::getLevel()
 {
 	return level;
 }
 
-void Session::setLevel(Level * level)
+void Session::setLevel(Level* level)
 {
-	if(this->level != nullptr)
+	if (this->level != nullptr)
 	{
 		delete this->level;
 	}

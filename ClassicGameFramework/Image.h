@@ -17,7 +17,7 @@ class Image
 	unsigned char* readImage2ByteArray();
 public:
 
-	double getScale() const;
+	//double getScale() const;
 	Image(const char* imageFile, Entity* entity, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
 	Image(unsigned char* imageBytes, int width, int height, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256);
 	~Image();

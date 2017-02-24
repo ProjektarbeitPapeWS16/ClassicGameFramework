@@ -1,6 +1,5 @@
 #include "EngineModel.h"
 //#include <glfw3.h>
-#include "EngineView.h"
 #include "Renderer.h"
 #include "Session.h"
 //#include "Level.h"
@@ -10,31 +9,43 @@
 #define GLFW_PRESS 1
 #define GLFW_RELEASE 0
 
-EngineModel *EngineModel::instance = nullptr;
+EngineModel* EngineModel::instance = nullptr;
 
-EngineModel::EngineModel() : EngineModel(new Physics(), new Session(), new Level(100, 100, 1, 1))
+
+EngineModel::EngineModel() : EngineModel(new Session())
+{
+}
+
+EngineModel::EngineModel(Session* session) : EngineModel(new Physics(this), session, new Level(100, 100, 1, 1))
 {
 }
 
 EngineModel::EngineModel(Physics* physics, Session* session, Level* level) :
-session(session)
+	keyPressedListeners(new std::map<Key, std::function<void()>*>()),
+	keyReleasedListeners(new std::map<Key, std::function<void()>*>()),
+	keyDownListeners(new std::map<Key, std::function<void()>*>()),
+	keyDownKeys(new std::vector<Key>()),
+	session(session)
 {
 	EngineModel::instance = this;
-	if(session != nullptr && level != nullptr)
+	if (session != nullptr && level != nullptr)
 	{
-		if(physics != nullptr) {
+		if (physics != nullptr)
+		{
 			level->setPhysics(physics);
 		}
 
 		session->setLevel(level);
 	}
-	
-	//entities = new std::vector<Entity*>();
-	
-	keyReleasedListeners = new std::map<Key, std::function<void()>*>();
-	keyPressedListeners = new std::map<Key, std::function<void()>*>();
-	keyDownListeners = new std::map<Key, std::function<void()>*>();
-	keyDownKeys = new std::vector<Key>();
+}
+
+EngineModel::~EngineModel()
+{
+	delete keyPressedListeners;
+	delete keyReleasedListeners;
+	delete keyDownListeners;
+	delete keyDownKeys;
+	delete session;
 }
 
 EngineModel* EngineModel::getInstance()
@@ -64,17 +75,16 @@ void EngineModel::key_callback(GLFWwindow* window, Key key, int scancode, int ac
 
 void EngineModel::key_down(GLFWwindow* window) const
 {
-	for(unsigned int i = 0; i < keyDownKeys->size(); i++)
+	for (unsigned int i = 0; i < keyDownKeys->size(); i++)
 	{
 		auto key = keyDownKeys->at(i);
-		if(glfwGetKey(window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
+		if (glfwGetKey(window, key) == GLFW_PRESS && keyDownListeners->find(key) != keyDownListeners->end())
 		{
 			std::function<void()>* fptr = keyDownListeners->at(key);
 			(*fptr)();
 		}
 	}
 }
-
 
 
 std::map<Key, std::function<void()>*>* EngineModel::getKeyPressedListeners() const
@@ -113,11 +123,10 @@ void EngineModel::handleCollisions()
 	// TODO
 }
 
-
 // getter
-Session* EngineModel::getSession() 
-{	
-	return session;	
+Session* EngineModel::getSession()
+{
+	return session;
 }
 
 Level* EngineModel::getLevel()
@@ -133,7 +142,7 @@ Physics* EngineModel::getPhysics()
 // setter
 void EngineModel::setSession(Session* session)
 {
-	if(this->session != nullptr)
+	if (this->session != nullptr)
 	{
 		delete this->session;
 	}
