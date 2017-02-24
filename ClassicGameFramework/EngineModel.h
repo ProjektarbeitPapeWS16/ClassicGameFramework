@@ -3,6 +3,8 @@
 #include <map>
 #include <functional>
 #include <vector>
+#include <set>
+#include "Session.h"
 class Session;
 class Level;
 class Entity;
@@ -19,37 +21,40 @@ private:
 
 	// Listener
 	// Monitors player input; to be used for computing events.
-	std::map<Key, std::function<void()>*>* keyPressedListeners = nullptr;
-	std::map<Key, std::function<void()>*>* keyReleasedListeners = nullptr;
-	std::map<Key, std::function<void()>*>* keyDownListeners = nullptr;
+	std::map<Key, std::function<void()>*>* keyPressedListeners;
+	std::map<Key, std::function<void()>*>* keyReleasedListeners;
+	std::map<Key, std::function<void()>*>* keyDownListeners;
 
-	std::vector<Key>* keyDownKeys = nullptr;
+	std::vector<Key>* keyDownKeys;
 
-	
 protected:
 	Session* session; // contains physics, level, and its entities
 	virtual void handleCollisions(); // defines game events for game's respective entity types
 
+
 public:
+
+	std::vector<unsigned long>* getImagesToDelete() const;
 	bool shouldClose = false;
+	// Konstruktor
+	
+	
 
 	// Empty constructor for creating model with basic physics, session and level with default dimensions.
 	EngineModel(); 
-
+	// Standard constructor for creating model with custom session, but basic physics and level
+	EngineModel(Session* session);
 	// Standard constructor for creating model with custom physics, session, and level.
 	EngineModel(Physics* physics, Session* session, Level* level);
-
-	// Destructor
-	virtual ~EngineModel()
-	{
-	}
+	// Destruktor
+	virtual ~EngineModel();
 
 	// listeners [registered with key] are being called.
 	void key_callback(GLFWwindow* window, Key key, int scancode, int action, int mode) const;
-	
+
 	// TODO description
 	void key_down(GLFWwindow* window) const;
-	
+
 
 	// initializes the keyListeners and other stuff
 	virtual void initialization();

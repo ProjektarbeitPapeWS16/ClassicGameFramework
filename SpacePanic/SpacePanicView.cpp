@@ -23,16 +23,21 @@ void SpacePanicView::draw()
 {
 	display->clearDrawables();
 
-	auto level = model->getSession()->getLevel();
-
-	if (level != nullptr)
+	auto session = model->getSession();
+	if(session)
 	{
-		//static_cast<Stage*>(level)->generateSortedEntities();
-		auto entities = level->getEntities();
+		auto level = session->getLevel();
 
-		for (auto i = 0; i < entities->size(); i++)
+		if (level)
 		{
-			display->addDrawable(entities->at(i));
+			//static_cast<Stage*>(level)->generateSortedEntities();
+			auto entities = level->getEntities();
+
+			for (auto i = 0; i < entities->size(); i++)
+			{
+				display->addDrawable(entities->at(i));
+			}
 		}
 	}
+	
 }

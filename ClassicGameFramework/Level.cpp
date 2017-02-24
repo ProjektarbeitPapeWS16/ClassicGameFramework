@@ -15,11 +15,11 @@ Level::~Level()
 	}
 
 	if (entities != nullptr)
-	{
-		for(size_t i = 0; i < entities->size(); i++)
-		{
-			delete entities->at(i);
-		}
+	{ // TODO : Testen ob alle ENtities tatsächlich gelöscht werden
+		//for (size_t i = 0; i < entities->size(); i++)
+		//{
+		//	delete entities->at(i);
+		//}
 		delete entities;
 	}
 }

@@ -14,19 +14,44 @@ Physics::Physics(EngineModel* model) : model(model)
 {
 }
 
+
+std::vector<PhysicalObject*>* Physics::backgroundOnPosition(Position pos) const
+{
+	auto ret = new std::vector<PhysicalObject*>();
+	auto physObj = model->getLevel()->getPhysicalObjects();
+	for (auto i = 0; i < physObj->size(); i++)
+	{
+		auto x = physObj->at(i);
+		if (x->isMovable()) // Nur Hintergründe, keine beweglichen Entities
+		{
+			continue;
+		}
+
+		auto y = x->getBoundaries();
+		if (pos.x >= y->real_x()
+			&& pos.x <= y->real_x() + y->real_width() - 1
+			&& pos.y >= y->real_y()
+			&& pos.y <= y->real_y() + y->real_height() - 1)
+		{
+			ret->push_back(x);
+		}
+	}
+	delete physObj;
+	return ret;
+}
+
 // Checks collisions for a given vector of physical objects; selection for check can be filtered.
-// Details: Checks, if any boundaries of movable POs intersect with other POs.
-// @all: If true, checks collisions with all types of other objects. Set false if you want to check for certain attributes only.
-// @moveable: If true [&&all=false], checks only collisions with other movable objects
-// @solid: If true [&&all=false], checks only collisions with solid objects
+// Checks, if any boundaries of movable POs intersect with other POs.
+// @param all If true, checks collisions with all types of other objects. Set false if you want to check for certain attributes only.
+// @param movable If true [&&all=false], checks only collisions with other movable objects
+// @param solid If true [&&all=false], checks only collisions with solid objects
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions(std::vector<PhysicalObject*>* physicalObjects, bool all, bool movable, bool solid)
 {
-	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
+	auto collisions = new std::vector<std::pair<PhysicalObject*, PhysicalObject*>>();
 
 	// bewegbare Objekte werden nach Kollision abgefragt
 	if (physicalObjects)
 	{
-
 		for (unsigned int i = 0; i < physicalObjects->size(); i++)
 		{
 			auto objA = physicalObjects->at(i);
@@ -177,7 +202,16 @@ std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisio
 // Asserts: this.model has a session with a level that are both initialized.
 std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* Physics::checkCollisions() const
 {
-	return model != nullptr ? checkCollisions(model->getSession()->getLevel()->getPhysicalObjects()) : nullptr;
+	if(model != nullptr)
+	{
+		auto physObj = model->getSession()->getLevel()->getPhysicalObjects();
+		auto collisions = checkCollisions(physObj);
+		delete physObj;
+		return collisions;
+	} else
+	{
+		return nullptr;
+	}
 }
 
 // Checks by comparing the amount of pixels adjacent to the given edge.

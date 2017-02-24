@@ -1,6 +1,7 @@
 ﻿#include "HoleEntity.h"
 #include "GameConfig.h"
 #include "Image.h"
+#include "SpacePanicModel.h"
 
 Image* HoleEntity::getImage()
 {
@@ -12,6 +13,32 @@ Image* HoleEntity::getImage()
 	}
 }
 
+bool HoleEntity::canGrow() const
+{
+	switch (state)
+	{
+	case STAGE1: return true;
+	case STAGE2: return true;
+	default: return false;
+	}
+}
+
+bool HoleEntity::canShrink() const
+{
+	switch (state)
+	{
+	case STAGE1: return true;
+	case STAGE2: return true;
+	case STAGE3: return true;
+	default: return false;
+	}
+}
+
+HoleEntity::HoleState HoleEntity::getStage() const
+{
+	return state;
+}
+
 HoleEntity::HoleEntity(
 	SpacePanicModel* model,
 	Position position
@@ -21,13 +48,19 @@ HoleEntity::HoleEntity(
 		0,
 		true,
 		new Boundaries(
-			(model->getConfig()->getRasterWidth()-1) * position.x,
-			model->getConfig()->getRasterHeight() * position.y,
+			position.x,
+			position.y,
 			model->getConfig()->getRasterWidth() * 3,
-			model->getConfig()->getRasterHeight()),
+			model->getConfig()->getRasterHeight(),
+			model->getConfig()->applyFactor(6),
+			model->getConfig()->applyFactor(0),
+			model->getConfig()->applyFactor(6),
+			model->getConfig()->applyFactor(0)
+		),
 		false,
 		0
-	), state(STAGE1),
+	),
+	state(STAGE1),
 	stage1(new Image("textures/hole1.bmp", this, 200, 80, 0)),
 	stage2(new Image("textures/hole2.bmp", this, 200, 80, 0)),
 	stage3(new Image("textures/hole3.bmp", this, 200, 80, 0))
@@ -65,4 +98,11 @@ bool HoleEntity::shrink()
 	default:
 		return false;
 	}
+}
+
+HoleEntity::~HoleEntity()
+{
+	delete stage1;
+	delete stage2;
+	delete stage3;
 }

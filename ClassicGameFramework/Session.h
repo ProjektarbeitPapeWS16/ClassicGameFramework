@@ -3,10 +3,9 @@
 
 
 class Level;
-
-
 class Session
 {
+protected:
 	int lifes;
 	unsigned __int64 creationTime = Config::currentTimeMillis();
 	int score;
@@ -16,7 +15,7 @@ public:
 	// Konstruktor
 	Session();
 	Session(int defaultLifes, int defaultScore);
-
+	Session(int defaultLifes, int defaultScore, Level* level);
 	int getLifes();
 	void setLifes(int lifes);
 

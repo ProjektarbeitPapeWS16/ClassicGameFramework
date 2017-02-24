@@ -4,6 +4,7 @@
 #include "Image.h"
 #include <iostream>
 #include "../SpacePanic/GameConfig.h"
+#include <locale>
 
 void Text::setWidth(int width)
 {
@@ -63,14 +64,18 @@ textLength(0),
 	font(font),
 	//position(position),
 	image(nullptr),
-	text(text),
+	text(std::string(text)),
 	R(255.0 / R),
 	G(255.0 / G),
 	B(255.0 / B),
 	scale(scale)
 {
+	for (auto & c : this->text) {
+		c = toupper(c);
+	}
+
 	// count letters
-	while (text[this->textLength] != '\0')
+	while (this->text[this->textLength] != '\0')
 	{
 		this->textLength++;
 	}
@@ -82,6 +87,7 @@ textLength(0),
 
 Text::~Text()
 {
+	delete image;
 }
 
 
@@ -133,7 +139,7 @@ void Text::loadImage()
 }
 
 
-const char* Text::getText() const
+std::string Text::getText() const
 {
 	return text;
 }

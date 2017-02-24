@@ -1,14 +1,16 @@
 ﻿#pragma once
 #include "Entity.h"
 #include "SpacePanicModel.h"
+#include "MovableEntity.h"
 
 
 class GameConfig;
 
-class PlayerEntity : public Entity
+class PlayerEntity : public MovableEntity
 {
 	GameConfig* config;
 
+private:
 	Image* moveRight1;
 	Image* moveRight2;
 	Image* moveLeft1;
@@ -24,6 +26,9 @@ class PlayerEntity : public Entity
 	Image* digRight2;
 	unsigned long long deadSince = 0L;
 	SpacePanicModel* model;
+
+	unsigned long  cycle_counter = 0;
+	Boundaries* original_boundaries;
 public:
 	enum Request
 	{
@@ -32,7 +37,8 @@ public:
 		MOVE_LEFT,
 		MOVE_UP,
 		MOVE_DOWN,
-		DO_ACTION
+		DIG,
+		UNDIG
 	};
 
 	enum PlayerState
@@ -50,7 +56,10 @@ public:
 		DEAD_RIGHT,
 		DEAD_LEFT,
 		DEAD_LADDER,
+		FALLING_RIGHT,
+		FALLING_LEFT,
 	};
+
 private:
 	PlayerState state = MOVE_RIGHT_1;
 	Request lastRequest = NONE;
@@ -59,10 +68,27 @@ public:
 	void request(Request request);
 	int schrittweite() const;
 	bool canMove();
+	bool dig() const;
+	bool unDig() const;
+	int fallingUntil;
+	//static int until;
+	//static unsigned long long lastMovement;
+	//static unsigned long movement_counter;
+	bool canDig() const;
+	bool canUnDig() const;
+	bool tryFall();
 	void execute();
 	Image* getImage() override;
 	bool isDead() const;
+	void reset();
 
+protected:
+	SpacePanicModel* getModel() const override;
+	GameConfig* getConfig() const override;
+	void setPosition(int xPos, int yPos) override;
+public:
+	~PlayerEntity() override;
 	void collideWith(PhysicalObject* physicalObject) override;
 	unsigned long long getDeadSince() const;
+	Boundaries* getBoundaries() override;
 };

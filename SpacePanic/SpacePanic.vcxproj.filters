@@ -72,6 +72,144 @@
     <Image Include="textures\stone2right.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="textures\player_dead_right.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dead_left.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\player_dead_ladder.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\hole3.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\hole2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\hole1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\enemy_lauf2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\enemy_lauf1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\Z.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\Y.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\X.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\W.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\V.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\U.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\T.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\S.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\R.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\Q.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\P.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\O.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\N.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\M.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\L.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\K.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\J.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\I.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\H.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\G.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\F.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\E.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\D.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\C.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\B.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\A.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\9.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\8.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\7.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\6.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\5.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\4.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\3.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\0.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="fonts\normal\.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\floor.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sample1.cpp">
@@ -113,6 +251,27 @@
     <ClCompile Include="HoleEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="MovableEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TopEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="OxygenCount.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="OxygenBar.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpacePanicController.h">
@@ -151,8 +310,30 @@
     <ClInclude Include="HoleEntity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="MovableEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TopEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OxygenCount.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OxygenBar.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\stage1.txt" />
+    <Text Include="levels\stage1_movement.txt" />
   </ItemGroup>
 </Project>

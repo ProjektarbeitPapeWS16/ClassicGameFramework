@@ -8,17 +8,18 @@ class SpacePanicModel : public EngineModel
 {
 	GameConfig* config;
 	const char** stageFiles;
-	const char** movementFiles;
+	Stage* stage0;
 	typedef EngineModel super;
 public:
 	SpacePanicModel();
+	Stage* getStage(int id) const;
 	~SpacePanicModel() override;
 	
 	void initialization() override;
+	static unsigned long long lastFrameDrawn;
+	static long timePerCycle;
 	void nextIteration() override;
 	GameConfig* getConfig() const;
 	const char* getStageFile(int i) const;
-	const char* getMovementFile(int i) const;
-	
 	//SpacePanicSession* getSpacePanicSession();
 };

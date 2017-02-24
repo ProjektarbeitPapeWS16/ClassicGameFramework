@@ -2,10 +2,11 @@
 #include "Entity.h"
 #include "Image.h"
 #include "GameConfig.h"
+#include "SpacePanicModel.h"
 
 class LadderEntity : public Entity
 {
 public:
 
-	LadderEntity(GameConfig* config, Position* position);
+	LadderEntity(SpacePanicModel* model, Position* position);
 };

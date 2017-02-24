@@ -38,6 +38,18 @@ void rightDown()
 	player->request(PlayerEntity::MOVE_RIGHT);
 }
 
+void ctrlDown()
+{
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	player->request(PlayerEntity::DIG);
+}
+
+void altDown()
+{
+	auto player = static_cast<Stage*>(EngineModel::getInstance()->getSession()->getLevel())->getPlayer();
+	player->request(PlayerEntity::UNDIG);
+}
+
 void escPress()
 {
 	EngineModel::getInstance()->shouldClose = true;
@@ -60,34 +72,18 @@ SpacePanicController::SpacePanicController(SpacePanicView* view, SpacePanicModel
 
 	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_RIGHT, new std::function<void()>(rightDown));
 	this->model->getKeyDownKeys()->push_back(GLFW_KEY_RIGHT);
+
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_LEFT_CONTROL, new std::function<void()>(ctrlDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_LEFT_CONTROL);
+
+	this->model->getKeyDownListeners()->insert_or_assign(GLFW_KEY_LEFT_ALT, new std::function<void()>(altDown));
+	this->model->getKeyDownKeys()->push_back(GLFW_KEY_LEFT_ALT);
 }
 
 SpacePanicController::~SpacePanicController()
 {
 }
 
-long cycles = 0L;
 void SpacePanicController::cycle()
 {
-
-	if(cycles++ % 4 == 0)
-	{
-		SpacePanicSession* session = static_cast<SpacePanicSession*>(model->getSession());
-
-		session->respawnIfPossible();
-
-		auto player = session->getStage()->getPlayer();
-		if(player != nullptr)
-		{
-			player->execute();
-		}
-
-		auto enemys = session->getStage()->getEnemys();
-		for(auto i = 0; i < enemys->size(); i++)
-		{
-			enemys->at(i)->execute();
-		}
-		
-		session->getStage()->getCollisions();
-	}
 }

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <vector>
 #include "EngineModel.h"
+#include "Position.h"
 class PhysicalObject;
 class Level;
 
@@ -62,7 +63,15 @@ public:
 	 * @param model The game model.
 	 */
 	Physics(EngineModel* model);
-	
+
+	/**
+	 * Gets all background objects on given position.
+	 * @param pos The position.
+	 * @returns Vector of Objects on the given position.
+	 */
+	std::vector<PhysicalObject*>* backgroundOnPosition(Position pos) const;
+
+
 	/**
 	* For locating the horizontal direction towards an object B relative to object A.
 	* Used by: checkAdjacency; Model (for enemy behavior)

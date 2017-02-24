@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Entity.h"
-
+class SpacePanicModel;
 class GameConfig;
 
 class WallEntity : public Entity
@@ -17,6 +17,10 @@ public:
 	} WallState;
 private:
 	WallState wallState;
+	SpacePanicModel* model;
+	GameConfig* config;
 public:
-	WallEntity(GameConfig* config, Position* position, WallState wallState);	
+	WallEntity(SpacePanicModel* model, Position* position, WallState wallState);
+	bool isMiddleWall() const;
+	bool makeHole() const;
 };

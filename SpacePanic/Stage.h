@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Level.h"
 #include "Physics.h"
+#include "HoleEntity.h"
 class SpacePanicModel;
 class Session;
 class GameConfig;
@@ -37,16 +38,6 @@ public:
 			UP_DOWN_LEFT = 'd',
 			ALL = '5',
 		} Direction;
-
-
-		Direction** possibleDirections;
-		GameConfig* config;
-		unsigned rowsCount, columnsCount;
-		Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount);
-		bool canMove(Direction direction, int row, int column) const;
-		bool canMove(Direction direction, double row, double column) const;
-		bool canDig(unsigned row, unsigned column) const;
-		Direction getDirectionsOn(int column, int row);
 	};
 
 private:
@@ -54,17 +45,18 @@ private:
 	PlayerEntity* player;
 	std::vector<EnemyEntity*>* enemys;
 	std::vector<Entity*>* backgroundEntities;
-	Cells* cells;
+	//Cells* cells;
 	UI* ui;
 	const char* stageFile;
-	const char* stageMovementFile;
-	std::vector<PhysicalObject*>* physicalObjects;
+	//std::vector<PhysicalObject*>* physicalObjects;
 	char** leveldata;
+	std::vector<HoleEntity*>* holeEntities;
+	SpacePanicModel* model;
 	void generateSortedEntities() const;
 	typedef Level super;
 public:
 
-	Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile);
+	Stage(SpacePanicModel* model, const char* stageFile);
 	~Stage() override;
 
 	
@@ -73,12 +65,19 @@ public:
 	void setPlayer(PlayerEntity* player);
 	void addEnemy(EnemyEntity* enemy) const;
 	void addBackgroundEntity(Entity* backgroundEntity) const;
+	
+	//std::vector<PhysicalObject*>* getPhysicalObjects() const override;
 
 	const char* getFilePath() const;
 	PlayerEntity* getPlayer() const;
 	std::vector<EnemyEntity*>* getEnemys() const;
 	std::vector<Entity*>* getBackgroundEntities() const;
 
-	Cells* getCells() const;
+	//Cells* getCells() const;
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* getCollisions() const;
+	void addHole(HoleEntity* hole) const;
+	void removeHole(HoleEntity* hole) const;
+	UI* getUI() const;
+	void reset();
+	void gameOver();
 };
