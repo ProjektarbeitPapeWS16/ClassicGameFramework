@@ -38,6 +38,10 @@ DK_Controller::~DK_Controller()
 {
 }
 
+void DK_Controller::cycle()
+{
+}
+
 void DK_Controller::handleRequest(Input input)
 {
 }

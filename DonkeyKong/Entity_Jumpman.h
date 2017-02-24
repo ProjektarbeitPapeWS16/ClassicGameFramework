@@ -60,5 +60,5 @@ public:
 	int schrittweite() const;
 	bool canMove();
 	void execute();
-	Image* getImage() override;
+	//Image* getImage() override;
 };

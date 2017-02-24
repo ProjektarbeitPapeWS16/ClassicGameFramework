@@ -11,5 +11,5 @@ private:
 public:
 	Entity_OilDrum(Position* position);
 	Image* spritesheet;	// col1: stand, col2: pound chest, col3: throwbarrel down, col4: throwbarrel right
-	Image* getImage() override;
+	//Image* getImage() override;
 };

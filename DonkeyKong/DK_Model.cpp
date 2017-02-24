@@ -1,6 +1,7 @@
 #include "DK_Model.h"
 #include "Physics.h"
 #include "EngineController.h"
+#include "DK_Session.h"
 
 /*
 #include "EngineView.h"
@@ -13,8 +14,8 @@
 #include "Entity.h"
 #include "Level.h"
 */
-class DK_Session;
-class DK_Level;
+//class DK_Session;
+//class DK_Level;
 
 // Constructor for custom session
 DK_Model::DK_Model(DK_Session* session) : EngineModel(new Physics(), session)
@@ -90,6 +91,16 @@ void DK_Model::keyEscPress()
 GameConfig * DK_Model::getConfig() const
 {
 	return this->config;
+}
+
+const char * DK_Model::getLevelFilepath(int i) const
+{
+	return nullptr;
+}
+
+const char * DK_Model::getUiLayout() const
+{
+	return nullptr;
 }
 
 const char * DK_Model::getHighscoreInfo() const

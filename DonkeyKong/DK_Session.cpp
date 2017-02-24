@@ -15,6 +15,26 @@ DK_Session::DK_Session()
 {
 }
 
+void DK_Session::doEvent_Death()
+{
+}
+
+void DK_Session::doEvent_nextLevel()
+{
+}
+
+void DK_Session::increaseScore(int points)
+{
+}
+
+void DK_Session::doEvent_TimePassed()
+{
+}
+
+void DK_Session::doEvent_Reset()
+{
+}
+
 DK_Level* DK_Session::getLevel()
 {
 	return this->level;

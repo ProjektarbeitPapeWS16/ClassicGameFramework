@@ -16,6 +16,10 @@ EngineModel::EngineModel() : EngineModel(new Physics(), new Session(), new Level
 {
 }
 
+EngineModel::EngineModel(Physics * physics, Session * session) : EngineModel(new Physics(), new Session())
+{
+}
+
 EngineModel::EngineModel(Physics* physics, Session* session, Level* level) :
 session(session)
 {

@@ -20,5 +20,5 @@ public:
 	Entity_DonkeyKong(Position* position);
 	void execute();
 	Image* spritesheet;	// col1: stand, col2: pound chest, col3: throwbarrel down, col4: throwbarrel right
-	Image* getImage() override;
+	//Image* getImage();
 };

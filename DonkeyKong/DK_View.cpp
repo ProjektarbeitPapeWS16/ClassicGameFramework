@@ -8,6 +8,10 @@
 
 const char* TITLE = "Donkey Kong";
 
+DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) : EngineView((EngineModel*)(model), display, renderer)
+{
+}
+
 DK_View::DK_View(DK_Model* model)
 	: EngineView(
 		reinterpret_cast<EngineModel*>(model),

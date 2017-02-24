@@ -16,6 +16,7 @@ public:
 private:
 	State state;
 	unsigned long counter = 0;
+	Image * img;
 public:
 	Entity_Barrel(GameConfig* config, Position* position);
 	void execute();

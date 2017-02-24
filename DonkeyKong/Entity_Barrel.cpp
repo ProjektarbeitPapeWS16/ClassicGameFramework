@@ -10,5 +10,15 @@ Entity_Barrel::Entity_Barrel(GameConfig* config, Position* position) :
 		config->getRasterHeight() * 2
 	), true, 3)
 {
+	img = new Image("stone1left.bmp", this, 0, 0, 0);
 	//todo
+}
+
+void Entity_Barrel::execute()
+{
+}
+
+Image * Entity_Barrel::getImage()
+{
+	return img;
 }

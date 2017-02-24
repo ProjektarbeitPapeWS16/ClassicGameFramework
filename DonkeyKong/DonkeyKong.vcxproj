@@ -205,6 +205,11 @@
     <Text Include="levels\stage1.txt" />
     <Text Include="levels\stage1_movement.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassicGameFramework\ClassicGameFramework.vcxproj">
+      <Project>{464950ca-c785-40e9-bc97-b6c7251751eb}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
