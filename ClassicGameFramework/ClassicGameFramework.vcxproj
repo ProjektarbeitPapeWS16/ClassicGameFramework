@@ -134,6 +134,7 @@
     <ClCompile Include="EngineView.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="ImageRenderer.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Doku\readme.txt" />
     <Text Include="textureShader.vert">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -184,6 +187,11 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <FileType>Document</FileType>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doku\frameworkDokuV1.pdf" />
+    <None Include="Doku\frameworkDokuV1.tex" />
+    <None Include="Doku\UMLKlassendiagrammV1.xmi" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

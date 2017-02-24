@@ -27,10 +27,10 @@ ImageRenderer::ImageRenderer(Renderer* renderer, Drawable* drawable): renderer(r
 
 	GLfloat vertices[] = {
 		// Positions					// Colors				// Texture Coords
-		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
+		end[0], end[1], 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,		// Top Right
+		end[0], start[1], 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,	// Bottom Right
 		start[0], start[1], 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f // Top Left 
+		start[0], end[1], 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f	// Top Left 
 	};
 
 	delete[] start;

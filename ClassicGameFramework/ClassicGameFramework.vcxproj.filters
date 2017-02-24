@@ -78,6 +78,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="GameConfig.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
@@ -146,6 +149,9 @@
     <ClInclude Include="Font.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="GameConfig.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="textureShader.frag">
@@ -154,5 +160,11 @@
     <Text Include="textureShader.vert">
       <Filter>Shader</Filter>
     </Text>
+    <Text Include="Doku\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doku\frameworkDokuV1.pdf" />
+    <None Include="Doku\frameworkDokuV1.tex" />
+    <None Include="Doku\UMLKlassendiagrammV1.xmi" />
   </ItemGroup>
 </Project>

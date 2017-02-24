@@ -6,10 +6,13 @@
 #include "EnemyEntity.h"
 #include "Session.h"
 #include "Image.h"
+#include "Renderer.h"
 
-PacManView::PacManView(PacManModel* model, Display* display, Renderer* renderer)
-	: EngineView((EngineModel*)(model), display, renderer)
+PacManView::PacManView(PacManModel* model)
+	: EngineView((EngineModel*)(model), new Display(), new Renderer(224 * 3, 288 * 3, "PacMan"))
 {
+	//auto display = new Display();
+	//auto renderer = new Renderer(224 * 3, 288 * 3, "PacMan");
 
 	// add entities from level to display
 	std::vector<Entity*>* entities = model->getEntities();

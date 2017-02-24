@@ -51,6 +51,13 @@ void PlayerEntity::setMemoryRequest()
 
 void PlayerEntity::execute()
 {
+	if (getPosX() < -(13 * 3)) {
+		setPosX((224 + 13 - 1) * 3);
+	}
+	if (getPosX() > (224 + 13) * 3) {
+		setPosX(-(12 * 3));
+	}
+
 	switch (lastRequest)
 	{
 	case MOVE_RIGHT:

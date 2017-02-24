@@ -6,7 +6,7 @@ class PacManModel;
 class PacManView : public EngineView
 {
 public:
-	PacManView(PacManModel* model, Display* display, Renderer* renderer);
+	PacManView(PacManModel* model);
 	void draw() override;
 };
 

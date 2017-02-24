@@ -33,6 +33,7 @@ void EngineController::key_callback(GLFWwindow* window, Key key, int scancode, i
 	}*/
 }
 
+// Basic constructor
 EngineController::EngineController(EngineView* view, EngineModel* model): view(view), model(model)
 {
 	//instance = this;
@@ -43,18 +44,18 @@ EngineController::EngineController(EngineView* view, EngineModel* model): view(v
 
 void EngineController::gameLoop()
 {
-	EngineController::lastTime = glfwGetTime();
+	EngineController::lastTime = glfwGetTime(); // Set first timestamp
 	while (glfwWindowShouldClose(view->renderer->window) == 0 && !model->shouldClose)
 	{
 		double now = glfwGetTime();
 		EngineController::timeElapsed = now - EngineController::lastTime;
 		EngineController::lastTime = now;
 
-		model->key_down(view->renderer->window);
-		model->nextIteration(); 
-		cycle();
-		view->update();
-		glfwPollEvents();
+		model->key_down(view->renderer->window); // Deliver keys pressed to window
+		model->nextIteration();					 // Have Model perform actions
+		cycle();								 // Execute the game's basic action for each cycle
+		view->update();							 // Update changes in view
+		glfwPollEvents();						 // Have GLFW process received events
 	}
 }
 

@@ -7,6 +7,13 @@ int Entity::getImageCount() const
 	return this->imageCount;
 }
 
+// Generic entity type with graphics and basic attributes to place in the level.
+//
+// @image			Pointer to array of images containing all sprites needed for animation
+// @movement_speed	Units the entity can move forward in one tick
+// @boundaries		contains information about size and level position in pixels
+// @movable		If true, can be moved. Used by Physics.
+// @animation_speed	Amount of ticks before image with current sprite is replaced by the next
 Entity::Entity(Image** image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): image(image),
                                                                                                                              movementSpeed(movement_speed),
                                                                                                                              solid(solid),
@@ -51,6 +58,7 @@ Boundaries* Entity::getBoundaries()
 	return this->boundaries;
 }
 
+// Setter for:	pixel position in the level.
 void Entity::setPosition(int xPos, int yPos)
 {
 	this->boundaries->position.x = xPos;
@@ -87,6 +95,8 @@ Entity* Entity::getEntity()
 	return this;
 }
 
+// Getter for:	image to be displayed by view for current tick.
+// Assumes:		internalCounter gets incremented by EngineModel with each tick.
 Image* Entity::getImage()
 {
 	auto imageIndex = animationSpeed == 0 ? 0 : internalCounter / animationSpeed;

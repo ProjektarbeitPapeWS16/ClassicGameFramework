@@ -361,5 +361,11 @@
     <Image Include="textures\Ghosts\redGhost\redGhostUp2.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="textures\Walls\wall5x38.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Walls\wall5x70.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

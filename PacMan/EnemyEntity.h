@@ -6,6 +6,7 @@ class Renderer;
 class Physics;
 class Level;
 
+
 class EnemyEntity : public Entity
 {
 	Image* moveUp1;
@@ -64,6 +65,12 @@ public:
 		Clyde // orange
 	};
 
+	enum MovementMode
+	{
+		SCATTER,
+		CHASE,
+		FRIGHTENED
+	};
 
 private: 
 	GhostState state = MOVE_NONE;
@@ -79,24 +86,18 @@ private:
 		RIGHT,
 		LEFT
 	};
-	enum MovementMode
-	{
-		SCATTER,
-		CHASE,
-		FRIGHTENED
-	};
-	MovementMode movementMode;
+	MovementMode movementMode = SCATTER;
 
 	// move one unit in the direction
 	void move(Direction);
 
 	// in which direction should we move?
 	void findDirection();
-	Direction direction;
+	Direction direction = LEFT;
 
 	// calculate target tile
 	void findTargetTile();
-	Boundaries targetTile;
+	Boundaries* targetTile = new Boundaries(0,0,0,0);
 
 	// are we at a crossing?
 	bool isCrossing();
@@ -109,6 +110,11 @@ private:
 
 	Physics* physics;
 	Level* level;
+
+	bool imageDifferRight = true;
+	bool imageDifferLeft = true;
+	bool imageDifferUp = true;
+	bool imageDifferDown = true;
 
 public:
 	EnemyEntity();

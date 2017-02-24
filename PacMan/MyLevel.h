@@ -2,8 +2,10 @@
 #include "Level.h"
 #include "Config.h"
 class PlayerEntity;
-class EnemyEntity;
+#include "EnemyEntity.h"
 
+#include "Font.h"
+#include "Text.h"
 
 class MyLevel :
 	public Level
@@ -38,6 +40,7 @@ private:
 	EnemyEntity* orangeGhost;
 	EnemyEntity* pinkGhost;
 
+	bool blinkyOut = false;
 	bool pinkyOut = false;
 	bool inkyOut = false;
 	bool clydeOut = false;
@@ -50,5 +53,15 @@ private:
 	int slowit = 0;
 
 	__int64 timer = Config::currentTimeMillis();
+	__int64 ghostTimer = Config::currentTimeMillis();
+	EnemyEntity::MovementMode movementMode = EnemyEntity::SCATTER;
+
+	__int64 energizerTimer;
+	EnemyEntity::MovementMode memoryMovementMode = EnemyEntity::SCATTER;
+
+	int score = 0;
+	void showScore();
+	Font* font = new Font("fonts/normal/", 8, 8, 200, 80, 0);
+	Text text = Text(font, "0", new Position(24 * 3, 272 * 3), 3, 255, 255, 255);
 };
 
