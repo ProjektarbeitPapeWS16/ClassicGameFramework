@@ -37,6 +37,18 @@ Level::Level(int colsGrid, int rowsGrid, int xTileSize, int yTileSize, Physics* 
 {
 }
 
+// Get reference object for level dimensions
+Grid * Level::getGrid() const
+{
+	return grid;
+}
+
+// Get 2D array of level layout (usually derived from external file)
+char ** Level::getLevelLayout() const
+{
+	return levelLayout;
+}
+
 Physics* Level::getPhysics() const
 {
 	return physics;
@@ -122,34 +134,3 @@ char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int
 	
 	return array2D;
 }
-
-/*
-// from http://stackoverflow.com/questions/4823177/reading-a-file-character-by-character-in-c 
-// checks file length, then reads char by char
-char *readFile(char *fileName) {
-	FILE *file = fopen(fileName, "r");
-	char *code;
-	size_t n = 0;
-	int c;
-
-	if (file == NULL) return NULL; //could not open file
-	fseek(file, 0, SEEK_END);
-	long f_size = ftell(file);
-	fseek(file, 0, SEEK_SET);
-	code = malloc(f_size);
-
-	while ((c = fgetc(file)) != EOF) {
-		code[n++] = (char)c;
-	}
-
-	code[n] = '\0';
-
-	return code;
-}*/
-
-/*
-Physics* Level::getPhysics()
-{
-	return physics;
-}
-*/

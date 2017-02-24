@@ -13,7 +13,7 @@ Session::Session(int defaultLifes, int defaultScore) : lifes(defaultLifes), scor
 
 }
 
-int Session::getLifes()
+int Session::getLives()
 {
 	return lifes;
 }

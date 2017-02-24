@@ -36,6 +36,9 @@ public:
 	// Empty constructor for creating model with basic physics, session and level with default dimensions.
 	EngineModel(); 
 
+	// Standard constructor for creating model with custom physics and session.
+	EngineModel(Physics* physics, Session* session);
+
 	// Standard constructor for creating model with custom physics, session, and level.
 	EngineModel(Physics* physics, Session* session, Level* level);
 

@@ -17,7 +17,7 @@ public:
 	Session();
 	Session(int defaultLifes, int defaultScore);
 
-	int getLifes();
+	int getLives();
 	void setLifes(int lifes);
 
 	unsigned __int64 getCreationTime();

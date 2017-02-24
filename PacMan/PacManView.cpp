@@ -29,8 +29,6 @@ PacManView::PacManView(PacManModel* model, Display* display, Renderer* renderer)
 		*/
 	}
 
-	
-
 }
 
 void PacManView::draw()

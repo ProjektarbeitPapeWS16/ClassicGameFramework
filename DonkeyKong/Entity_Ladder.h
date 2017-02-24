@@ -8,5 +8,5 @@ class Entity_Ladder : public Entity
 {
 public:
 
-	Entity_Ladder(GameConfig* config, Position* position);
+	Entity_Ladder(Position* position);
 };

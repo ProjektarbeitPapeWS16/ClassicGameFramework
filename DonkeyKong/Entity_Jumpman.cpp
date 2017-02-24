@@ -5,7 +5,7 @@
 #include "Image.h"
 #include "GameConfig.h"
 #include "Level.h"
-#include "Level_25m.h"
+#include "DK_Level.h"
 
 Entity_Jumpman::Entity_Jumpman(GameConfig* config, Position* position) :
 	config(config),
@@ -50,7 +50,7 @@ int Entity_Jumpman::schrittweite() const
 
 bool Entity_Jumpman::canMove()
 {
-	Level_25m::Cells* cells = static_cast<Level_25m*>(EngineModel::getInstance()->getSession()->getLevel())->getCells();
+	DK_Level::Cells* cells = static_cast<DK_Level*>(EngineModel::getInstance()->getSession()->getLevel())->getCells();
 
 	double row = static_cast<double>(this->getPosY()) / config->getRasterHeight();
 	double column = (static_cast<double>(this->getPosX()) + (0.5 * config->getRasterWidth())) / config->getRasterWidth();
@@ -58,13 +58,13 @@ bool Entity_Jumpman::canMove()
 	switch (lastRequest)
 	{
 	case MOVE_RIGHT:
-		return cells->canMove(Level_25m::Cells::RIGHT, row, column);
+		return cells->canMove(DK_Level::Cells::RIGHT, row, column);
 	case MOVE_LEFT:
-		return cells->canMove(Level_25m::Cells::LEFT, row, column);
+		return cells->canMove(DK_Level::Cells::LEFT, row, column);
 	case MOVE_UP:
-		return cells->canMove(Level_25m::Cells::UP, row, column);
+		return cells->canMove(DK_Level::Cells::UP, row, column);
 	case MOVE_DOWN:
-		return cells->canMove(Level_25m::Cells::DOWN, row, column);
+		return cells->canMove(DK_Level::Cells::DOWN, row, column);
 	case DO_ACTION:
 		return cells->canDig(row, column);
 	default: return true;

@@ -10,7 +10,7 @@
 #include "DK_View.h"
 #include "DK_Controller.h"
 #include "GameConfig.h"
-#include "Level_25m.h"
+#include "DK_Level.h"
 
 
 //#include <iostream>
@@ -25,7 +25,7 @@ int main()
 {
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
-	auto config = new GameConfig(192, 256, 2, 8, 8);
+	auto config = new GameConfig(192, 256, 2, 8, 8, "Donkey Kong");
 
 	//std::string x = getexepath();
 
@@ -34,7 +34,7 @@ int main()
 	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Donkey Kong");
 
 	//std::vector<Level*> levels;
-	//levels.push_back(new Level_25m(config));
+	//levels.push_back(new DK_Level(config));
 
 
 	auto model = new DK_Model(session);

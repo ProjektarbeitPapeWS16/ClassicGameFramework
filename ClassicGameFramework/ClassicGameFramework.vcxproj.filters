@@ -16,6 +16,15 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{3fe00507-aebd-48d6-8375-324f965d175c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Controller">
+      <UniqueIdentifier>{8b342d19-7b0f-41c9-a5b4-0b8315da605d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Model">
+      <UniqueIdentifier>{a5790dc5-e4fc-4a89-9d99-33f636232e0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\View">
+      <UniqueIdentifier>{a612ca43-916a-4228-8321-7212779a072a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineController.cpp">
@@ -84,73 +93,73 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineController.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Controller</Filter>
     </ClInclude>
     <ClInclude Include="EngineModel.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
     <ClInclude Include="EngineView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Session.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicalObject.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Position.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\View</Filter>
     </ClInclude>
     <ClInclude Include="Boundaries.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
-    <ClInclude Include="ImageRenderer.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="Display.h">
+      <Filter>Headerdateien\View</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="Drawable.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageRenderer.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalObject.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
     <ClInclude Include="GameConfig.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Headerdateien\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

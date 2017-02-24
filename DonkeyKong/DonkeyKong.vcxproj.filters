@@ -19,74 +19,101 @@
     <Filter Include="Ressourcendateien\Leveldata">
       <UniqueIdentifier>{788c3a58-71dd-4db6-9e37-f907895a3b08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\MVC">
+      <UniqueIdentifier>{e1fe8e4b-67e9-45c5-b4d0-bbaf10dc2d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Session">
+      <UniqueIdentifier>{422f746f-c480-4262-b625-33204114ca7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Session\Level">
+      <UniqueIdentifier>{6fa3ce16-05df-423c-8b89-1690d403f810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\MVC">
+      <UniqueIdentifier>{8330ecc4-851d-4326-a20a-949a72491155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Session">
+      <UniqueIdentifier>{1890b513-71cb-47e1-9faf-81ad3bf2536d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Session\Level">
+      <UniqueIdentifier>{cd852460-b36a-4a5d-ad1a-54a478dcbfbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Entity_DonkeyKong.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="DK_Controller.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="DK_Model.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="DK_View.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_Jumpman.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_Girder.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_Ladder.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_Barrel.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_OilDrum.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity_Pauline.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Level_25m.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="DK_Factory.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Entity_Barrel.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_DonkeyKong.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_Girder.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_Jumpman.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_Ladder.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_OilDrum.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_Pauline.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_View.h">
+      <Filter>Headerdateien\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_Model.h">
+      <Filter>Headerdateien\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_Controller.h">
+      <Filter>Headerdateien\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_Session.h">
+      <Filter>Headerdateien\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_Factory.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="DK_Level.h">
+      <Filter>Headerdateien\Session\Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DK_Controller.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="DK_Model.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\MVC</Filter>
     </ClCompile>
-    <ClCompile Include="Entity_Barrel.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity_Girder.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity_Jumpman.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity_Ladder.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Level_25m.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="DK_Controller.cpp">
+      <Filter>Quelldateien\MVC</Filter>
     </ClCompile>
     <ClCompile Include="DK_View.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="DK_Session.cpp">
+      <Filter>Quelldateien\Session</Filter>
     </ClCompile>
     <ClCompile Include="DK_Launcher.cpp">
+      <Filter>Quelldateien\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Barrel.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Girder.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Jumpman.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Ladder.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="DK_Level.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_OilDrum.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

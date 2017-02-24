@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="DK_Controller.h" />
     <ClInclude Include="DK_Model.h" />
+    <ClInclude Include="DK_Session.h" />
     <ClInclude Include="DK_View.h" />
     <ClInclude Include="DK_Factory.h" />
     <ClInclude Include="Entity_Barrel.h" />
@@ -153,19 +154,21 @@
     <ClInclude Include="Entity_Ladder.h" />
     <ClInclude Include="Entity_OilDrum.h" />
     <ClInclude Include="Entity_Pauline.h" />
-    <ClInclude Include="Level_25m.h" />
+    <ClInclude Include="DK_Level.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Controller.cpp" />
     <ClCompile Include="DK_Launcher.cpp" />
     <ClCompile Include="DK_Model.cpp" />
+    <ClCompile Include="DK_Session.cpp" />
     <ClCompile Include="DK_View.cpp" />
     <ClCompile Include="Entity_Barrel.cpp" />
     <ClCompile Include="Entity_Girder.cpp" />
     <ClCompile Include="Entity_Jumpman.cpp" />
     <ClCompile Include="Entity_Ladder.cpp" />
-    <ClCompile Include="Level_25m.cpp" />
+    <ClCompile Include="DK_Level.cpp" />
+    <ClCompile Include="Entity_OilDrum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\border_bottom.bmp" />

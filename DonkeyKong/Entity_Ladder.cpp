@@ -1,6 +1,6 @@
 #include "Entity_Ladder.h"
 
-Entity_Ladder::Entity_Ladder(GameConfig* config, Position* position) : Entity(
+Entity_Ladder::Entity_Ladder(Position* position) : Entity(
 	new Image*[1]
 	, 0, false, new Boundaries(
 		position->x * config->getRasterWidth(),

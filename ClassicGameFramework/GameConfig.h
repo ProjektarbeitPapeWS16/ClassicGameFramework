@@ -1,6 +1,6 @@
+//Chr: Copied from SpacePanic PJ since it's used by "Text.h"
 #pragma once
 
-//Chr: Copied from SpacePanic PJ since it's used by "Text.h"
 class GameConfig
 {
 
@@ -10,12 +10,12 @@ class GameConfig
 	int external_factor;
 	int raster_width;
 	int raster_height;
-
+	const char* title;
 public:
+
 	//Constructors
-	GameConfig();
-	GameConfig(int internal_width, int internal_height, int external_factor, int raster_width, int raster_height);
-	~GameConfig();
+	//GameConfig();
+	GameConfig(const char* title, int internal_width, int internal_height, int external_factor, int raster_width, int raster_height);
 
 	//Getters
 	int getInternalWidth() const;
@@ -34,4 +34,5 @@ public:
 
 	// Functions
 	int applyFactor(int intX) const;
+	const char* getTitle() const;
 };

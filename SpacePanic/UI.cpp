@@ -46,13 +46,13 @@ void UI::update()
 			                 model->getConfig()->getRasterHeight() * 3), model->getConfig()->getExternalFactor(), 255, 0, 0);
 	}
 
-	if (livesLast != session->getLifes())
+	if (livesLast != session->getLives())
 	{
 		if (lives != nullptr)
 		{
 			delete lives;
 		}
-		livesLast = session->getLifes();
+		livesLast = session->getLives();
 		lives = new Text(defaultFont, (std::to_string(livesLast) + " lives left").c_str(), new Position(
 			                 model->getConfig()->getRasterWidth() * 1,
 			                 model->getConfig()->getRasterHeight() * 2), model->getConfig()->getExternalFactor(), 255, 0, 0);
