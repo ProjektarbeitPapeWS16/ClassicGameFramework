@@ -14,17 +14,12 @@
 #include "Level.h"
 */
 
-// Empty constructor
-DK_Model::DK_Model()
-{
-}
-
 // Constructor for custom session
 DK_Model::DK_Model(DK_Session* session) : EngineModel(new Physics(), session)
 {
 }
 
-DK_Model::DK_Model(DK_Session * session, GameConfig * config, char ** levelFilepaths) : EngineModel(new Physics(), session)
+DK_Model::DK_Model(DK_Session * session, GameConfig * config, std::vector<char*>* levelLayouts)
 {
 	this->config = config;
 	this->levelFilepaths = levelFilepaths;
@@ -42,7 +37,7 @@ void DK_Model::initialization()
 // Game loop
 void DK_Model::nextIteration()
 {
-	if (session->getLives <= 0)
+	if (session->getLives() <= 0)
 	{
 		//session->
 	}
@@ -93,16 +88,6 @@ void DK_Model::keyEscPress()
 GameConfig * DK_Model::getConfig() const
 {
 	return this->config;
-}
-
-const char * DK_Model::getLevelLayout(int i) const
-{
-	return this->levelFilepaths[i];
-}
-
-const char * DK_Model::getUiLayout() const
-{
-	return this->uiLayoutFilepaths;
 }
 
 const char * DK_Model::getHighscoreInfo() const

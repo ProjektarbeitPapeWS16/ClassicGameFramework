@@ -10,6 +10,10 @@ Grid::Grid(unsigned int xCount, unsigned int yCount, unsigned int xSize, unsigne
 	 *	*/
 }
 
+Grid::~Grid()
+{
+}
+
 unsigned int Grid::getColCount()
 {
 	return colCount;
@@ -30,12 +34,12 @@ unsigned int Grid::getYCellSize()
 	return yCellSize;
 }
 
-Position Grid::getCoordinates(unsigned int xGridPos, unsigned int yGridPos)
+Position* Grid::getCoordinates(unsigned int xGridPos, unsigned int yGridPos)
 {
-	return Position(this->xCellSize * xGridPos, this->yCellSize * yGridPos);
+	return &Position(this->xCellSize * xGridPos, this->yCellSize * yGridPos);
 }
 
-Position Grid::getCoordinates(unsigned int xGridPos, unsigned int yGridPos, int xPixelOffset, int yPixelOffset)
+Position* Grid::getCoordinates(unsigned int xGridPos, unsigned int yGridPos, int xPixelOffset, int yPixelOffset)
 {
-	return Position(this->xCellSize * xGridPos + xPixelOffset, this->yCellSize * yGridPos + yPixelOffset);
+	return &Position(this->xCellSize * xGridPos + xPixelOffset, this->yCellSize * yGridPos + yPixelOffset);
 }

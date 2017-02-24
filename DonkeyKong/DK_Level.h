@@ -51,10 +51,12 @@ private:
 
 	Entity_Jumpman* player;		// Jumpman. Takes inputs from model
 	Entity_DonkeyKong* kong;	// Donkey Kong. Spawns barrels.
+	Entity_Pauline* pauline;	// Donkey Kong. Spawns barrels.
 	Entity_OilDrum* oildrum;	// Oil Drum. Despans barrels [TODO: spawns fire/foxes]
 	std::vector<Entity_Barrel*>* barrels;	// Spawned barrels. 
 	std::vector<Entity_Ladder*>* ladders;	// Spawned first.
 	std::vector<Entity_Girder*>* girders;	// obstacles
+
 	unsigned int jumpStateCount;	// used for determining direction change in jump state.
 	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descending after that.
 	
@@ -77,6 +79,8 @@ private:
 	void initEntities_Ladders(char** levelLayout);
 	void initEntities_Obstacles(char** levelLayout);
 	void initEntities_Others(char** levelLayout);
+	// Used by: initEntities. Sets entity-vector for view.
+	std::vector<Entity*>* getEntityListSortedByType();
 	bool isGirderChar(char c);	// True, if any char representing a girder in levelLayout
 public:			
 	// Standard constructor to get information for initializing all entities.

@@ -7,12 +7,12 @@ class Level;
 /**
 * Used by: checkAdjacency.
 */
-typedef enum Direction {
+typedef enum {
 	UP,
 	DOWN,
 	LEFT,
 	RIGHT
-};
+} Direction;
 
 class Physics
 {

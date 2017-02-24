@@ -5,18 +5,21 @@
 #include "DK_Level.h"
 #include "Entity_Jumpman.h"
 #include "DK_Session.h"
+class GameConfig;
+class DK_Session;
 
 class DK_Model : public EngineModel
 {
-	GameConfig* config;			//sets grid, display size, title for game
-	const char** levelFilepaths;	//array to filepaths that store level entity layout
-	const char* uiLayoutFilepaths;		//array filepaths with interface entity layout
-	const char* highscoreInfo;	// TODO: High Score data from previous games
-	DK_Session* session;		// Game session
 public:
-	DK_Model();
+	GameConfig* config; //sets grid, display size, title for game
+	std::vector<char*>* levelFilepaths; //array to filepaths that store level entity layout
+	std::vector<char*>* uiLayoutFilepaths; //array filepaths with interface entity layout
+	char* highscoreInfo; // TODO: High Score data from previous games
+	
+	//DK_Session* session; // Game session
+
 	DK_Model(DK_Session* session);
-	DK_Model(DK_Session* session, GameConfig* config, char** levelLayouts);
+	DK_Model(DK_Session* session, GameConfig* config, std::vector<char*>* levelLayouts);
 	~DK_Model() override;
 
 	void initialization() override;
@@ -32,7 +35,7 @@ public:
 	// Getter for player entity
 	// Used by:		Controller
 	GameConfig* getConfig() const;
-	const char* getLevelLayout(int i) const;
+	const char* getLevelFilepath(int i) const;
 	const char* getUiLayout() const;
 	const char* getHighscoreInfo() const;
 

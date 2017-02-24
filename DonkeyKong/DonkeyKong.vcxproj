@@ -155,7 +155,6 @@
     <ClInclude Include="Entity_OilDrum.h" />
     <ClInclude Include="Entity_Pauline.h" />
     <ClInclude Include="DK_Level.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Controller.cpp" />
@@ -164,18 +163,25 @@
     <ClCompile Include="DK_Session.cpp" />
     <ClCompile Include="DK_View.cpp" />
     <ClCompile Include="Entity_Barrel.cpp" />
+    <ClCompile Include="Entity_DonkeyKong.cpp" />
     <ClCompile Include="Entity_Girder.cpp" />
     <ClCompile Include="Entity_Jumpman.cpp" />
     <ClCompile Include="Entity_Ladder.cpp" />
     <ClCompile Include="DK_Level.cpp" />
     <ClCompile Include="Entity_OilDrum.cpp" />
+    <ClCompile Include="Entity_Pauline.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\border_bottom.bmp" />
-    <Image Include="textures\border_top.bmp" />
+    <Image Include="textures\DK_Arcade_SpriteSheet.png" />
+    <Image Include="textures\DK_DonkeyKong.bmp" />
+    <Image Include="textures\DK_Girder.bmp" />
+    <Image Include="textures\DK_Ladder.bmp" />
+    <Image Include="textures\DK_Mario_idle.bmp" />
+    <Image Include="textures\DK_Pauline.bmp" />
     <Image Include="textures\enemy_lauf1.bmp" />
     <Image Include="textures\enemy_lauf2.bmp" />
     <Image Include="textures\ladder.bmp" />
+    <Image Include="textures\Ladder_8x8.png" />
     <Image Include="textures\player_climb1.bmp" />
     <Image Include="textures\player_climb2.bmp" />
     <Image Include="textures\player_dig1_left.bmp" />
@@ -198,11 +204,6 @@
     <Text Include="levels\level_ui.txt" />
     <Text Include="levels\stage1.txt" />
     <Text Include="levels\stage1_movement.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="html1.htm">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

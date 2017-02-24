@@ -42,18 +42,20 @@ public:
 		MOVE_LEFT_2,
 		CLIMB_1,
 		CLIMB_2,
-		DIG_LEFT_1,
-		DIG_LEFT_2,
-		DIG_RIGHT_1,
-		DIG_RIGHT_2,
-		DEAD,
-		// JUMPING
+		JUMP_LEFT,
+		JUMP_RIGHT,
+		JUMP_STRIAGHT_LEFT,
+		JUMP_STRAIGHT_RIGHT,
+		DEAD1,
+		DEAD2,
+		DEAD3,
+		DEAD4
 	};
 private:
 	PlayerState state = MOVE_RIGHT_1;
 	Request lastRequest = NONE;
 public:
-	Entity_Jumpman(GameConfig* config, Position* position);
+	Entity_Jumpman(Position* position);
 	void request(Request request);
 	int schrittweite() const;
 	bool canMove();

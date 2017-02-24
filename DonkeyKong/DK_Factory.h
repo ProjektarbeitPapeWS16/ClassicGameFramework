@@ -38,7 +38,7 @@ public:
 		CHAR_GIRDER_D7 = 'T', // Girder with an offset of 7 pixels downwards
 	} EntityChar;
 private:
-	GameConfig config;	// Grid and window size reference
+	GameConfig* config;	// Grid and window size reference
 public:
 	// Creates entity of desired type and position for level.
 	// Used by: Level classes when loading levelinfo from file.

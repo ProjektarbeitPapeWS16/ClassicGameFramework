@@ -6,7 +6,7 @@ class DK_View;
 class DK_Controller : public EngineController
 {
 public:
-	typedef enum Input
+	typedef enum 
 	{
 		UP,
 		DOWN,
@@ -15,7 +15,7 @@ public:
 		JUMP,
 		LEFT_JUMP, // both left and jump button pressed
 		RIGHT_JUMP, // both right and jump button pressed
-	};
+	} Input;
 	DK_Controller(DK_View* view, DK_Model* model);
 
 	~DK_Controller() override;

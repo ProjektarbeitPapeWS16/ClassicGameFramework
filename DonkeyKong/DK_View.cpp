@@ -13,7 +13,7 @@ DK_View::DK_View(DK_Model* model)
 		reinterpret_cast<EngineModel*>(model),
 		new Display(),
 		new Renderer(model->getConfig()->getWidth(),
-			model->getConfig()->getHeight(), TITLE
+			model->getConfig()->getHeight(), model->getConfig()->getTitle()
 		)
 	)
 {
@@ -29,7 +29,7 @@ void DK_View::draw()
 	display->clearDrawables();
 	if (drawables != nullptr)
 	{		
-		for (int i = 0; i < drawables->size(); i++)
+		for (unsigned int i = 0; i < drawables->size(); i++)
 		{	
 			// draw from first to last
 			// TODO: add layer-info to vector, then get	them from model method?

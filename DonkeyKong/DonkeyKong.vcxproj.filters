@@ -39,9 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Entity_Barrel.h">
       <Filter>Headerdateien\Session\Level</Filter>
     </ClInclude>
@@ -113,17 +110,17 @@
     <ClCompile Include="DK_Level.cpp">
       <Filter>Quelldateien\Session\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Entity_DonkeyKong.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
     <ClCompile Include="Entity_OilDrum.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Session\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Pauline.cpp">
+      <Filter>Quelldateien\Session\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\border_bottom.bmp">
-      <Filter>Ressourcendateien\Images</Filter>
-    </Image>
-    <Image Include="textures\border_top.bmp">
-      <Filter>Ressourcendateien\Images</Filter>
-    </Image>
     <Image Include="textures\enemy_lauf1.bmp">
       <Filter>Ressourcendateien\Images</Filter>
     </Image>
@@ -181,6 +178,27 @@
     <Image Include="textures\stone2right.bmp">
       <Filter>Ressourcendateien\Images</Filter>
     </Image>
+    <Image Include="textures\DK_Arcade_SpriteSheet.png">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\DK_Girder.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\DK_Pauline.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\DK_Mario_idle.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\Ladder_8x8.png">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\DK_Ladder.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
+    <Image Include="textures\DK_DonkeyKong.bmp">
+      <Filter>Ressourcendateien\Images</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\stage1.txt">
@@ -195,8 +213,5 @@
     <Text Include="levels\level_ui.txt">
       <Filter>Ressourcendateien\Leveldata</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="html1.htm" />
   </ItemGroup>
 </Project>

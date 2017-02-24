@@ -1,3 +1,4 @@
+#pragma once
 #include <windows.h>
 #include "Config.h"
 
@@ -23,13 +24,15 @@ std::string getexepath()
 
 int main()
 {
+	/*
+	char* levelLayout1 = "\\level\\level_25m.txt";
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
 	auto config = new GameConfig(192, 256, 2, 8, 8, "Donkey Kong");
 
 	//std::string x = getexepath();
 
-	auto session = new Session();
+	auto session = new DK_Session();
 	auto display = new Display();
 	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Donkey Kong");
 
@@ -37,7 +40,7 @@ int main()
 	//levels.push_back(new DK_Level(config));
 
 
-	auto model = new DK_Model(session);
+	auto model = new DK_Model(session, config, levelLayout1[0]);
 	auto view = new DK_View(model, display, renderer, config);
 	auto controller = new DK_Controller(view, model);
 
@@ -45,4 +48,5 @@ int main()
 	controller->gameLoop();
 
 	return 0;
+	*/
 }
