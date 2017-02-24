@@ -13,13 +13,15 @@
 #include "Entity.h"
 #include "Level.h"
 */
+class DK_Session;
+class DK_Level;
 
 // Constructor for custom session
 DK_Model::DK_Model(DK_Session* session) : EngineModel(new Physics(), session)
 {
 }
 
-DK_Model::DK_Model(DK_Session * session, GameConfig * config, std::vector<char*>* levelLayouts)
+DK_Model::DK_Model(DK_Session* session, GameConfig * config, std::vector<char*>* levelLayouts)
 {
 	this->config = config;
 	this->levelFilepaths = levelFilepaths;
@@ -37,9 +39,9 @@ void DK_Model::initialization()
 // Game loop
 void DK_Model::nextIteration()
 {
-	if (session->getLives() <= 0)
+	if (session != nullptr && session->getLives() <= 0)
 	{
-		//session->
+		session = new DK_Session(this->levelFilepaths, this->uiLayoutFilepaths, nullptr, this->config, this->getPhysics());
 	}
 
 	// session->getLevel()->gameLoop();

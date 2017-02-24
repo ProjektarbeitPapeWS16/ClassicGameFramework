@@ -15,14 +15,13 @@ private:
 	int highScore;		// Set by previous plays. Get from model, from external file.
 	int* highScores;	// HighscoreList
 	
-	char* levels;	// Info for initializing levels
-	char* uiLayout;	// Info for UI entities
+	std::vector<char*>* levelLayoutPaths;	// Info for initializing levels
+	std::vector<char*>* uiLayoutPaths;	// Info for UI entities
 
 	DK_Level* level;	// Current level
 	Physics* physics;  // Used for level. (Currently only one type --> always same physics)
 public:
-	DK_Session(char* levels, char* uiLayout, int* highScores, GameConfig* config, Physics* physics);
-	DK_Session(char* levels, char* uiLayout, GameConfig* config);
+	DK_Session(std::vector<char*>* levelLayoutPaths, std::vector<char*>* uiLayoutPaths, int* highScores, GameConfig* config, Physics* physics);
 	DK_Session();
 
 	// Event handlers
