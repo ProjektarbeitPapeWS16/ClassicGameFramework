@@ -160,5 +160,11 @@
     <Text Include="textureShader.vert">
       <Filter>Shader</Filter>
     </Text>
+    <Text Include="Doku\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doku\frameworkDokuV1.pdf" />
+    <None Include="Doku\frameworkDokuV1.tex" />
+    <None Include="Doku\UMLKlassendiagrammV1.xmi" />
   </ItemGroup>
 </Project>
