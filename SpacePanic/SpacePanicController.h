@@ -10,5 +10,6 @@ public:
 	SpacePanicController(SpacePanicView* view, SpacePanicModel* model);
 
 	~SpacePanicController() override;
+	//unsigned long cycles = 0L;
 	void cycle() override;
 };

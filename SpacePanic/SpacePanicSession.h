@@ -6,11 +6,15 @@ class SpacePanicSession : public Session
 {
 	int oxygen;
 	int defaultOxygen;
+	bool gameOver;
+	long long gameOverSince;
 public:
-	SpacePanicSession(SpacePanicModel* model, int defaultOxygen);
 	SpacePanicSession(SpacePanicModel* model);
-	void respawnIfPossible();
+	Stage* nextStage() const;
+	bool resetLevelIfNecessary();
+	Level* getLevel();
 	Stage* getStage();
+	void resetLevel();
 	void resetOxygen();
 	SpacePanicModel* model;
 	int getOxygen();

@@ -9,17 +9,17 @@ LivesEntity::LivesEntity(SpacePanicModel* model):
 		false,
 		new Boundaries(model->getConfig()->getRasterWidth() * 2,
 		               model->getConfig()->getRasterHeight(),
-		               model->getConfig()->getRasterWidth() * 3,
+		               model->getConfig()->getRasterWidth() * 4,
 		               model->getConfig()->getRasterHeight()),
 
 		false,
 		0
 	),
 	model(model),
-lives0(new Image("textures/lives0.bmp", this)),
-lives1(new Image("textures/lives1.bmp", this)),
-lives2(new Image("textures/lives2.bmp", this)),
-lives3(new Image("textures/lives3.bmp", this))
+lives0(new Image("textures/0lives.bmp", this)),
+lives1(new Image("textures/1lives.bmp", this)),
+lives2(new Image("textures/2lives.bmp", this)),
+lives3(new Image("textures/3lives.bmp", this))
 {
 }
 

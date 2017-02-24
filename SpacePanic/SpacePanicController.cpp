@@ -84,28 +84,6 @@ SpacePanicController::~SpacePanicController()
 {
 }
 
-long cycles = 0L;
 void SpacePanicController::cycle()
 {
-
-	if(cycles++ % 4 == 0)
-	{
-		SpacePanicSession* session = static_cast<SpacePanicSession*>(model->getSession());
-
-		session->respawnIfPossible();
-
-		auto player = session->getStage()->getPlayer();
-		if(player != nullptr)
-		{
-			player->execute();
-		}
-
-		auto enemys = session->getStage()->getEnemys();
-		for(auto i = 0; i < enemys->size(); i++)
-		{
-			enemys->at(i)->execute();
-		}
-		
-		 delete session->getStage()->getCollisions();
-	}
 }

@@ -28,6 +28,7 @@ private:
 	SpacePanicModel* model;
 
 	unsigned long  cycle_counter = 0;
+	Boundaries* original_boundaries;
 public:
 	enum Request
 	{
@@ -55,6 +56,8 @@ public:
 		DEAD_RIGHT,
 		DEAD_LEFT,
 		DEAD_LADDER,
+		FALLING_RIGHT,
+		FALLING_LEFT,
 	};
 
 private:
@@ -67,13 +70,18 @@ public:
 	bool canMove();
 	bool dig() const;
 	bool unDig() const;
+	int fallingUntil;
+	//static int until;
+	//static unsigned long long lastMovement;
+	//static unsigned long movement_counter;
 	bool canDig() const;
 	bool canUnDig() const;
+	bool tryFall();
 	void execute();
 	Image* getImage() override;
 	bool isDead() const;
+	void reset();
 
-	
 protected:
 	SpacePanicModel* getModel() const override;
 	GameConfig* getConfig() const override;

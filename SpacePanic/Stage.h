@@ -38,16 +38,6 @@ public:
 			UP_DOWN_LEFT = 'd',
 			ALL = '5',
 		} Direction;
-
-
-		Direction** possibleDirections;
-		GameConfig* config;
-		unsigned rowsCount, columnsCount;
-		Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount);
-		bool canMove(Direction direction, int row, int column) const;
-		bool canMove(Direction direction, double row, double column) const;
-		bool canDig(unsigned row, unsigned column) const;
-		Direction getDirectionsOn(int column, int row);
 	};
 
 private:
@@ -58,15 +48,15 @@ private:
 	//Cells* cells;
 	UI* ui;
 	const char* stageFile;
-	const char* stageMovementFile;
 	//std::vector<PhysicalObject*>* physicalObjects;
 	char** leveldata;
 	std::vector<HoleEntity*>* holeEntities;
+	SpacePanicModel* model;
 	void generateSortedEntities() const;
 	typedef Level super;
 public:
 
-	Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile);
+	Stage(SpacePanicModel* model, const char* stageFile);
 	~Stage() override;
 
 	
@@ -87,4 +77,7 @@ public:
 	std::vector<std::pair<PhysicalObject*, PhysicalObject*>>* getCollisions() const;
 	void addHole(HoleEntity* hole) const;
 	void removeHole(HoleEntity* hole) const;
+	UI* getUI() const;
+	void reset();
+	void gameOver();
 };

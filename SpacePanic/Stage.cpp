@@ -36,7 +36,7 @@ void Stage::generateSortedEntities() const
 {
 	//TODO: optimize (don't always throw everything away)
 	entities->clear();
-	
+
 	//Hintergrund-Entities
 	for (auto i = 0; i < backgroundEntities->size(); i++)
 	{
@@ -55,10 +55,14 @@ void Stage::generateSortedEntities() const
 	//Enemys
 	for (auto i = 0; i < enemys->size(); i++)
 	{
-		entities->push_back(enemys->at(i));
+		if(enemys->at(i)->getState() != EnemyEntity::DEAD)
+		{
+			entities->push_back(enemys->at(i));
+		}
+		
 	}
 
-	ui->update();
+	//ui->update();
 	//UI
 	for (auto i = 0; i < ui->getEntities()->size(); i++)
 	{
@@ -66,7 +70,7 @@ void Stage::generateSortedEntities() const
 	}
 }
 
-Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMovementFile):
+Stage::Stage(SpacePanicModel* model, const char* stageFile):
 	Level(
 		model->getConfig()->getRasterColumnsCount(),
 		model->getConfig()->getRasterRowsCount(),
@@ -80,9 +84,9 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 	backgroundEntities(new std::vector<Entity*>()),
 	ui(new UI(model)),
 	stageFile(stageFile),
-	stageMovementFile(stageMovementFile),
 	//physicalObjects(new std::vector<PhysicalObject*>()),
-	holeEntities(new std::vector<HoleEntity*>())
+	holeEntities(new std::vector<HoleEntity*>()),
+	model(model)
 {
 	addBackgroundEntity(new FloorEntity(model));
 	leveldata = this->getLeveldata(stageFile, 22, config->getRasterColumnsCount());
@@ -108,7 +112,7 @@ Stage::Stage(SpacePanicModel* model, const char* stageFile, const char* stageMov
 				break;
 			case 'P': setPlayer(new PlayerEntity(model, new Position(col, 25 - row)));
 				break;
-			case 'M': addEnemy(new EnemyEntity(model, new Position(col, 25 - row), 0.9));
+			case 'M': addEnemy(new EnemyEntity(model, new Position(col, 25 - row), 0.5));
 				break;
 			case 'H': addBackgroundEntity(new LadderEntity(model, new Position(col, 25 - row)));
 				break;
@@ -159,7 +163,7 @@ Stage::~Stage()
 std::vector<Entity*>* Stage::getEntities() const
 {
 	generateSortedEntities();
-	return super::getEntities();
+	return entities;
 }
 
 //Stage::Cells* Stage::getCells() const
@@ -192,106 +196,30 @@ void Stage::removeHole(HoleEntity* hole) const
 	generateSortedEntities();
 }
 
-Stage::Cells::Cells(GameConfig* config, char** movementData, unsigned rowsCount, unsigned columnsCount) :
-	possibleDirections(new Direction*[rowsCount]),
-	config(config), rowsCount(rowsCount), columnsCount(columnsCount)
+UI* Stage::getUI() const
 {
-	for (unsigned row = 0; row < rowsCount; row++)
-	{
-		possibleDirections[row] = new Direction[columnsCount];
-		for (unsigned column = 0; column < columnsCount; column++)
-		{
-			possibleDirections[row][column] = static_cast<Direction>(movementData[row][column]);
-		}
-	}
+	return ui;
 }
 
-bool Stage::Cells::canMove(Direction direction, int row, int column) const
+void Stage::reset()
 {
-	if (row < 0 || row >= rowsCount || column < 0 || column >= columnsCount)
+	player->reset();
+	
+	for(auto i = 0; i < enemys->size(); i++)
 	{
-		return false;
+		enemys->at(i)->reset();
 	}
 
-	switch (direction)
+	for(auto i = 0; i < holeEntities->size(); i++)
 	{
-	case UP:
-		switch (possibleDirections[row][column])
-		{
-		case UP:
-		case UP_RIGHT:
-		case UP_LEFT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN:
-		case UP_DOWN_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	case RIGHT:
-		switch (possibleDirections[row][column])
-		{
-		case RIGHT:
-		case LEFT_RIGHT:
-		case DOWN_RIGHT:
-		case DOWN_LEFT_RIGHT:
-		case UP_RIGHT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN_RIGHT:
-
-		case ALL: return true;
-		default: return false;
-		}
-	case LEFT:
-		switch (possibleDirections[row][column])
-		{
-		case LEFT:
-		case LEFT_RIGHT:
-		case DOWN_LEFT:
-		case DOWN_LEFT_RIGHT:
-		case UP_LEFT:
-		case UP_LEFT_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	case DOWN:
-		switch (possibleDirections[row][column])
-		{
-		case DOWN:
-		case DOWN_RIGHT:
-		case DOWN_LEFT:
-		case DOWN_LEFT_RIGHT:
-		case UP_DOWN:
-		case UP_DOWN_RIGHT:
-		case UP_DOWN_LEFT:
-		case ALL: return true;
-		default: return false;
-		}
-	default: return false;
+		delete holeEntities->at(i);
 	}
+	holeEntities->clear();
+	generateSortedEntities();
 }
 
-bool Stage::Cells::canMove(Direction direction, double row, double column) const
+void Stage::gameOver()
 {
-	row = 25 - row + 0.5;
-
-	int row1, col1;// , row2, col2;
-	row1 = row;
-	col1 = column;
-	//row2 = row + 0.5;
-	//col2 = column + 0.5; // TODO?
-
-	return canMove(direction, row1, col1);
+	
 }
 
-
-bool Stage::Cells::canDig(unsigned row, unsigned column) const
-{
-	return this->possibleDirections[row][column] == LEFT_RIGHT;
-}
-
-Stage::Cells::Direction Stage::Cells::getDirectionsOn(int column, int row)
-{
-	return possibleDirections[column][25 - row];
-}

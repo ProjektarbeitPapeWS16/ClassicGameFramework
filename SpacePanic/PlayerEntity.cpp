@@ -21,7 +21,9 @@ PlayerEntity::PlayerEntity(SpacePanicModel* model, Position* position):
 			position->x * model->getConfig()->getRasterWidth(),
 			position->y * model->getConfig()->getRasterHeight(),
 			model->getConfig()->getRasterWidth() * 2,
-			model->getConfig()->getRasterHeight() * 2
+			model->getConfig()->getRasterHeight() * 2,
+				model->getConfig()->applyFactor(4),
+					0, model->getConfig()->applyFactor(4), 0
 		),
 		true,
 		30
@@ -40,7 +42,11 @@ PlayerEntity::PlayerEntity(SpacePanicModel* model, Position* position):
 	digLeft2(new Image("textures/player_dig2_left.bmp", this, 200, 80, 0)),
 	digRight1(new Image("textures/player_dig1_right.bmp", this, 200, 80, 0)),
 	digRight2(new Image("textures/player_dig2_right.bmp", this, 200, 80, 0)),
-	model(model)
+	model(model),
+	original_boundaries(new Boundaries(boundaries->position.x, boundaries->position.y,
+	                                   boundaries->width, boundaries->height,
+	                                   boundaries->off_left, boundaries->off_bottom,
+	                                   boundaries->off_right, boundaries->off_top))
 
 {
 }
@@ -58,6 +64,8 @@ int PlayerEntity::schrittweite() const
 
 bool PlayerEntity::canMove()
 {
+
+
 	PhysicalObject* physObj = nullptr;
 	switch (lastRequest)
 	{
@@ -70,7 +78,7 @@ bool PlayerEntity::canMove()
 		if (physObj)
 		{
 			HoleEntity* hole = dynamic_cast<HoleEntity*>(physObj);
-			if(hole)
+			if (hole && hole->getStage() != HoleEntity::STAGE3)
 			{
 				return false;
 			}
@@ -84,7 +92,7 @@ bool PlayerEntity::canMove()
 		if (physObj)
 		{
 			HoleEntity* hole = dynamic_cast<HoleEntity*>(physObj);
-			if (hole)
+			if (hole && hole->getStage() != HoleEntity::STAGE3)
 			{
 				return false;
 			}
@@ -309,8 +317,30 @@ bool PlayerEntity::unDig() const
 	return ret;
 }
 
+//int PlayerEntity::fallingUntil = 0;
 void PlayerEntity::execute()
 {
+	if(state == FALLING_RIGHT || state == FALLING_LEFT || tryFall())
+	{
+		setPosY(getPosY() - schrittweite());
+		if(getPosY() <= fallingUntil)
+		{
+			if(state == FALLING_LEFT)
+			{
+				
+					state = MOVE_LEFT_1;
+				
+			} else
+			{
+				
+					state = MOVE_RIGHT_1;
+				
+			}
+			
+		}
+		return;
+	} 
+
 	if (!canMove())
 	{
 		lastRequest = NONE;
@@ -475,7 +505,7 @@ void PlayerEntity::execute()
 				break;
 
 			case DIG_RIGHT_2:
-			 default:
+			default:
 				if (unDig())
 				{
 					state = DIG_RIGHT_1;
@@ -489,12 +519,48 @@ void PlayerEntity::execute()
 	lastRequest = NONE;
 }
 
+bool PlayerEntity::tryFall()
+{
+	auto entities = model->getPhysics()->backgroundOnPosition(Position(boundaries->position.x + boundaries->width / 2, boundaries->position.y - 1));
+	HoleEntity* hole = nullptr;
+	for(int i = 0; i < entities->size(); i++)
+	{
+		hole = dynamic_cast<HoleEntity*>(entities->at(i));
+		if(hole)
+		{
+			setPosX(hole->getPosX() + config->getRasterWidth() / 2);
+			break;
+		}
+	}
+
+	if(hole && hole->getStage() == HoleEntity::STAGE3)
+	{
+		switch(state)
+		{
+		case MOVE_RIGHT_1: ;
+		case MOVE_RIGHT_2: ;
+		case FALLING_RIGHT: 
+			state = PlayerState::FALLING_RIGHT;
+			break;
+		default: 
+			state = PlayerState::FALLING_LEFT;
+			break;
+		}
+		
+		fallingUntil = hole->getPosY() - 3 * config->getRasterHeight();
+	}
+
+	return state == FALLING_RIGHT || state == FALLING_LEFT;
+}
+
 Image* PlayerEntity::getImage()
 {
 	switch (state)
 	{
+	case FALLING_RIGHT:
 	case MOVE_RIGHT_1: return moveRight1;
 	case MOVE_RIGHT_2: return moveRight2;
+	case FALLING_LEFT:
 	case MOVE_LEFT_1: return moveLeft1;
 	case MOVE_LEFT_2: return moveLeft2;
 	case CLIMB_1: return climb1;
@@ -512,6 +578,21 @@ Image* PlayerEntity::getImage()
 bool PlayerEntity::isDead() const
 {
 	return state == DEAD_LEFT || state == DEAD_RIGHT || state == DEAD_LADDER;
+}
+
+void PlayerEntity::reset()
+{
+	this->state = MOVE_RIGHT_1;
+	this->lastRequest = NONE;
+
+	this->boundaries->position.x = original_boundaries->position.x;
+	this->boundaries->position.y = original_boundaries->position.y;
+	this->boundaries->width = original_boundaries->width;
+	this->boundaries->height = original_boundaries->height;
+	this->boundaries->off_left = original_boundaries->off_left;
+	this->boundaries->off_right = original_boundaries->off_right;
+	this->boundaries->off_top = original_boundaries->off_top;
+	this->boundaries->off_bottom = original_boundaries->off_bottom;
 }
 
 SpacePanicModel* PlayerEntity::getModel() const
@@ -560,7 +641,7 @@ void PlayerEntity::collideWith(PhysicalObject* physicalObject)
 	}
 
 	EnemyEntity* enemy;
-	if ((enemy = dynamic_cast<EnemyEntity*>(physicalObject->getEntity())))
+	if (((enemy = dynamic_cast<EnemyEntity*>(physicalObject->getEntity()))) && enemy->getState() != EnemyEntity::DEAD)
 	{
 		if (enemy->getPosX() < getPosX())
 		{

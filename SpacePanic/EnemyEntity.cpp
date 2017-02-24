@@ -29,6 +29,26 @@ void EnemyEntity::collideWith(PhysicalObject* physicalObject)
 	}
 }
 
+void EnemyEntity::reset()
+{
+	state = EnemyState::LAUF_1;
+	currentRunningDirection = Stage::Cells::NONE;
+
+	this->boundaries->position.x = original_boundaries->position.x;
+	this->boundaries->position.y = original_boundaries->position.y;
+	this->boundaries->width = original_boundaries->width;
+	this->boundaries->height = original_boundaries->height;
+	this->boundaries->off_left = original_boundaries->off_left;
+	this->boundaries->off_right = original_boundaries->off_right;
+	this->boundaries->off_top = original_boundaries->off_top;
+	this->boundaries->off_bottom = original_boundaries->off_bottom;
+}
+
+EnemyEntity::EnemyState EnemyEntity::getState() const
+{
+	return state;
+}
+
 EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double difficulty) :
 	MovableEntity(new Image*[0], 5, false, new Boundaries(
 		              position->x * model->getConfig()->getRasterWidth(),
@@ -44,7 +64,11 @@ EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double diff
 	state(LAUF_1),
 	model(model),
 	difficulty(difficulty),
-	lastDecision(0, 0)
+	lastDecision(0, 0),
+	original_boundaries(new Boundaries(boundaries->position.x, boundaries->position.y,
+	                                   boundaries->width, boundaries->height,
+	                                   boundaries->off_left, boundaries->off_bottom,
+	                                   boundaries->off_right, boundaries->off_top))
 {
 	lauf1 = new Image("textures/enemy_lauf1.bmp", this, 200, 80, 0);
 	lauf2 = new Image("textures/enemy_lauf2.bmp", this, 200, 80, 0);
@@ -53,6 +77,8 @@ EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double diff
 
 Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection()
 {
+	//return Stage::Cells::NONE;
+
 	auto stage = static_cast<Stage*>(model->getSession()->getLevel());
 	auto playerPosition = stage->getPlayer()->getBoundaries()->position;
 	//auto cells = stage->getCells();
@@ -193,15 +219,17 @@ Stage::Cells::Direction EnemyEntity::getRandomAllowedDirection()
 
 Stage::Cells::Direction EnemyEntity::getNextRunningDirection()
 {
-	auto behind = model->getPhysics()->backgroundOnPosition(Position(boundaries->real_x() + boundaries->real_width() / 2, boundaries->real_y() + boundaries->real_height() / 2));
-	for(int i = 0; i < behind->size(); i++)
-	{
-		LadderEntity* ladder = dynamic_cast<LadderEntity*>(behind->at(i));
-		if(ladder)
-		{
-			
-		}
-	}
+	//auto behind = model->getPhysics()->backgroundOnPosition(Position(boundaries->real_x() + boundaries->real_width() / 2, boundaries->real_y() + boundaries->real_height() / 2));
+	//LadderEntity* ladder = nullptr;
+	//for(int i = 0; i < behind->size(); i++)
+	//{
+	//ladder = dynamic_cast<LadderEntity*>(behind->at(i));
+	//if(ladder)
+	//{
+	//	break;
+	//}
+	//}
+
 
 	if (getBoundaries()->real_x() % (getConfig()->getRasterWidth()) != 0 &&
 		getPosY() % (getConfig()->getRasterHeight()) != 0)
@@ -214,13 +242,15 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection()
 	switch (currentRunningDirection)
 	{
 	case Stage::Cells::UP:
-		if(canMoveLeft() || canMoveRight())
+		if (canMoveLeft() || canMoveRight())
 		{
 			return getRandomAllowedDirection();
-		} else if(canMoveUp())
+		}
+		else if (canMoveUp())
 		{
 			return Stage::Cells::UP;
-		} else
+		}
+		else
 		{
 			return Stage::Cells::DOWN;
 		}
@@ -268,16 +298,67 @@ Stage::Cells::Direction EnemyEntity::getNextRunningDirection()
 	}
 }
 
+int EnemyEntity::schrittweite()
+{
+	return model->getConfig()->getRasterWidth() / 2;
+}
+
+bool EnemyEntity::tryFall()
+{
+	if(state == DEAD)
+	{
+		return false;
+	}
+
+	auto entities = model->getPhysics()->backgroundOnPosition(Position(boundaries->position.x + boundaries->width / 2, boundaries->position.y - 1));
+	HoleEntity* hole = nullptr;
+	for (int i = 0; i < entities->size(); i++)
+	{
+		hole = dynamic_cast<HoleEntity*>(entities->at(i));
+		if (hole)
+		{
+			setPosX(hole->getPosX() + model->getConfig()->getRasterWidth() / 2);
+			break;
+		}
+	}
+
+	if (hole && hole->getStage() == HoleEntity::STAGE3)
+	{
+		
+		state = FALLING;
+			
+
+		fallingUntil = hole->getPosY() - 3 * model->getConfig()->getRasterHeight();
+	}
+
+	return state == FALLING;
+}
+
 void EnemyEntity::execute()
 {
-	if (static_cast<Stage*>(model->getSession()->getLevel())->getPlayer()->isDead())
+	if (state == DEAD || static_cast<Stage*>(model->getSession()->getLevel())->getPlayer()->isDead())
 	{
+		return;
+	}
+
+	if (state == FALLING || tryFall())
+	{
+		setPosY(getPosY() - schrittweite());
+		if (getPosY() <= fallingUntil)
+		{
+			state = EnemyState::DEAD;
+			model->getSession()->setScore(model->getSession()->getScore() + 100);
+		}
 		return;
 	}
 
 	double row = static_cast<double>(this->getPosY()) / model->getConfig()->getRasterHeight();
 	double column = (static_cast<double>(this->getPosX()) + (0.5 * model->getConfig()->getRasterWidth())) / model->getConfig()->getRasterWidth();
 
+	if (movement_counter++ % 2 == 1)
+	{
+		return;
+	}
 
 	switch (state)
 	{
@@ -293,12 +374,12 @@ void EnemyEntity::execute()
 			switch (currentRunningDirection)
 			{
 			case Stage::Cells::RIGHT:
-				setPosX(getPosX() + model->getConfig()->getRasterWidth() * 0.25);
+				setPosX(getPosX() + schrittweite());
 				//setPosY((int)row * model->getConfig()->getRasterHeight());
 				break;
 			case Stage::Cells::LEFT:
 				{
-					setPosX(getPosX() - model->getConfig()->getRasterWidth() * 0.25);
+					setPosX(getPosX() - schrittweite());
 
 					auto holePos = Position(boundaries->position);
 					holePos.x += (boundaries->width / 2) - 1;
@@ -323,11 +404,11 @@ void EnemyEntity::execute()
 				break;
 			case Stage::Cells::DOWN:
 				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
-				setPosY(getPosY() - model->getConfig()->getRasterHeight() * 0.25);
+				setPosY(getPosY() - schrittweite());
 				break;
 			case Stage::Cells::UP:
 				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
-				setPosY(getPosY() + model->getConfig()->getRasterHeight() * 0.25);
+				setPosY(getPosY() + schrittweite());
 				break;
 			default: break;
 			}
@@ -384,6 +465,8 @@ Image* EnemyEntity::getImage()
 {
 	switch (state)
 	{
+	case DEAD:
+		return nullptr;
 	case LAUF_1:
 		return lauf1;
 		break;
