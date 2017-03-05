@@ -8,12 +8,12 @@ class DK_Controller : public EngineController
 public:
 	typedef enum 
 	{
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT,
-		JUMP,
-		LEFT_JUMP, // both left and jump button pressed
+		UP,			// climb ladder upwards
+		DOWN,		// climb ladder downwards
+		LEFT,		// walk left
+		RIGHT,		// walk right
+		JUMP,		// jump horizontally upwards
+		LEFT_JUMP,	// both left and jump button pressed
 		RIGHT_JUMP, // both right and jump button pressed
 	} Input;
 	DK_Controller(DK_View* view, DK_Model* model);

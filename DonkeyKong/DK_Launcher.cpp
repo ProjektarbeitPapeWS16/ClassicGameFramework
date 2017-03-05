@@ -27,9 +27,9 @@ std::string getexepath()
 int main()
 {
 	
-	char* levelLayout1 = "\\level\\level_25m.txt";
+	char* levelLayout1 = DK_Model::DK_LEVELLAYOUTPATH_1;// "\\level\\level_25m.txt";
 	std::vector<char*>* levelLayout = new std::vector<char*>();
-	levelLayout->push_back(levelLayout1);
+	levelLayout->push_back(DK_Model::DK_LEVELLAYOUTPATH_1);
 	//Original Auflösung: 192x256; 8x8 Pixel Raster; 24x32 Kästchen
 	//Skalierung x3
 	auto config = new GameConfig("Donkey Kong", 192, 256, 2, 8, 8);
@@ -38,7 +38,7 @@ int main()
 
 	auto session = new DK_Session();
 	auto display = new Display();
-	auto renderer = new Renderer(config->getWidth(), config->getHeight(), "Donkey Kong");
+	auto renderer = new Renderer(config->getWidth(), config->getHeight(), config->getTitle());
 
 	//std::vector<Level*> levels;
 	//levels.push_back(new DK_Level(config));

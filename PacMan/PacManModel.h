@@ -16,11 +16,11 @@ public:
 	void nextIteration() override;
 
 	// keys
-	void static keyUpPress();
-	void static keyDownPress();
-	void static keyLeftPress();
-	void static keyRightPress();
-	void static keyEscPress();
+	static void keyUpPress();
+	static void keyDownPress();
+	static void keyLeftPress();
+	static void keyRightPress();
+	static void keyEscPress();
 	
 };
 

@@ -1,20 +1,21 @@
-#include "DK_View.h"
-#include "Level.h"
-#include "DK_Model.h"
 #include "Renderer.h"
 #include "Display.h"
-#include "Session.h"
-#include "Entity.h"
 
-const char* TITLE = "Donkey Kong";
+#include "DK_View.h"
+#include "DK_Model.h"
 
-DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) : EngineView((EngineModel*)(model), display, renderer)
+// Standard constructor for custom model, display, and renderer.
+// (No custom Display and Renderer required for DK)
+DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) 
+	: EngineView(static_cast<EngineModel*>(model), display, renderer)
 {
+	this->config = model->getConfig(); // FIXME: Unneeded after renderer init?
 }
 
+// Simple constructor for custom model
+// Renderer settings are determined by given model.
 DK_View::DK_View(DK_Model* model)
-	: EngineView(
-		reinterpret_cast<EngineModel*>(model),
+	: DK_View(model,
 		new Display(),
 		new Renderer(model->getConfig()->getWidth(),
 			model->getConfig()->getHeight(), model->getConfig()->getTitle()
@@ -28,7 +29,7 @@ DK_View::DK_View(DK_Model* model)
 // Assumes: vector containing entities was ordered to ensure that respective entities are in the foreground
 void DK_View::draw()
 {
-	auto drawables = model->getDrawables();
+	auto drawables = model->getEntities();
 	//display->setDrawables(drawables);
 	display->clearDrawables();
 	if (drawables != nullptr)
