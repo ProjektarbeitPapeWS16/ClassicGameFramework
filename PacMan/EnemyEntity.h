@@ -25,36 +25,25 @@ class EnemyEntity : public Entity
 	Image* deadLeft;
 
 	bool energized;
+	
+	void alternateVar();
+	bool alternate = true;
 
 public:
-	enum Request
+	enum State
 	{
 		NONE,
-		MOVE_RIGHT,
-		MOVE_LEFT,
-		MOVE_UP,
-		MOVE_DOWN
-	};
-
-	enum GhostState
-	{
-		MOVE_NONE, 
-		MOVE_RIGHT_1,
-		MOVE_RIGHT_2,
-		MOVE_LEFT_1,
-		MOVE_LEFT_2,
-		MOVE_UP_1,
-		MOVE_UP_2,
-		MOVE_DOWN_1,
-		MOVE_DOWN_2
-	};
-
-	enum SpecialState
-	{
-		ALIVE,
 		DEAD,
-		ENERGIZED1,
-		ENERGIZED2
+		ENERGIZED,
+		CAGED
+	};
+
+	enum Direction
+	{
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT
 	};
 
 	enum Ghost
@@ -68,32 +57,53 @@ public:
 	enum MovementMode
 	{
 		SCATTER,
-		CHASE,
-		FRIGHTENED
+		CHASE
 	};
 
 private: 
-	GhostState state = MOVE_NONE;
-	Request lastRequest = NONE;
-	SpecialState specialState = ALIVE;
-	__int64 energizerTimer = 0;
-	__int64 energizerTimer2 = 0;
+	Ghost name;
+	PlayerEntity* pacman;
+	EnemyEntity* blinky; // for Inky
 
-	enum Direction
-	{
-		UP,
-		DOWN,
-		RIGHT,
-		LEFT
-	};
+	Physics* physics;
+	Level* level;
+	
+	State state = NONE;
+	State lastRequest = NONE;
+
+	bool energizeAlt = false;
+
 	MovementMode movementMode = SCATTER;
 
-	// move one unit in the direction
-	void move(Direction);
+	// TODO change timers
+	__int64 energizerTimer = 0;
+	__int64 energizerTimer2 = 0;
 
 	// in which direction should we move?
 	void findDirection();
 	Direction direction = LEFT;
+
+	// move one unit in the direction
+	void move(Direction);
+	bool canMove(Direction);
+
+public:
+	enum Cage
+	{
+		IN,
+		OUT,
+		LEFTPLACE,
+		RIGHTPLACE,
+		LOCKED, //clever?
+		NO
+	};
+	Cage getCageState();
+	void setCageState(Cage);
+private:
+	Cage cageState = LOCKED;
+	void moveInCage();
+
+	void die(); //?
 
 	// calculate target tile
 	void findTargetTile();
@@ -102,19 +112,8 @@ private:
 	// are we at a crossing?
 	bool isCrossing();
 
-	bool canMove(Direction);
-
-	Ghost name;
-	PlayerEntity* pacman;
-	EnemyEntity* blinky; // for Inky
-
-	Physics* physics;
-	Level* level;
-
-	bool imageDifferRight = true;
-	bool imageDifferLeft = true;
-	bool imageDifferUp = true;
-	bool imageDifferDown = true;
+	// at specialCrossings, Ghosts cannot move upwards
+	bool isSpecialCrossing();
 
 public:
 	EnemyEntity();
@@ -122,13 +121,15 @@ public:
 	void setTextures(char* moveUp1, char* moveUp2, char* moveDown1, char* moveDown2, 
 		char* moveRight1, char* moveRight2, char* moveLeft1, char* moveLeft2, 
 		char* energized1, char* energized2);
-	void request(Request request);
-	void setState(GhostState state);
-	void specialRequest(SpecialState request);
+
+	void request(State request);
 	void execute();
-	void stepBack(); // for collision
+	void energize();
+
+	void invertDirection();
+
 	Image* getImage() override;
-	EnemyEntity::SpecialState getSpecialState();
+	EnemyEntity::State getState();
 	EnemyEntity::Ghost getName();
 
 	void setName(EnemyEntity::Ghost);
@@ -138,8 +139,9 @@ public:
 	void setPhysics(Physics*);
 	void setLevel(Level*);
 
-	EnemyEntity::MovementMode getMovementMode();
 	void setMovementMode(EnemyEntity::MovementMode);
+	void setDirection(Direction);
 
+	// TODO do internally
 	bool moveOutOfCage();
 };

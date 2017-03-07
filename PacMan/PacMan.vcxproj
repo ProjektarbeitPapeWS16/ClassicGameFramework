@@ -131,30 +131,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BonusEntity.h" />
     <ClInclude Include="DotEntity.h" />
     <ClInclude Include="EnemyEntity.h" />
     <ClInclude Include="EnergizerEntity.h" />
     <ClInclude Include="MyLevel.h" />
+    <ClInclude Include="MySession.h" />
     <ClInclude Include="PacManController.h" />
     <ClInclude Include="PacManModel.h" />
     <ClInclude Include="PacManView.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SpecialEntity.h" />
     <ClInclude Include="WallEntity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BonusEntity.cpp" />
     <ClCompile Include="DotEntity.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
     <ClCompile Include="EnergizerEntity.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyLevel.cpp" />
+    <ClCompile Include="MySession.cpp" />
     <ClCompile Include="PacManController.cpp" />
     <ClCompile Include="PacManModel.cpp" />
     <ClCompile Include="PacManView.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
+    <ClCompile Include="SpecialEntity.cpp" />
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="textures\Cherry12x12.bmp" />
     <Image Include="textures\dot.bmp" />
     <Image Include="textures\energizer.bmp" />
     <Image Include="textures\Ghosts\blueGhost\blueGhostDown1.bmp" />
@@ -165,6 +172,10 @@
     <Image Include="textures\Ghosts\blueGhost\blueGhostRight2.bmp" />
     <Image Include="textures\Ghosts\blueGhost\blueGhostUp1.bmp" />
     <Image Include="textures\Ghosts\blueGhost\blueGhostUp2.bmp" />
+    <Image Include="textures\Ghosts\deadGhostDown.bmp" />
+    <Image Include="textures\Ghosts\deadGhostLeft.bmp" />
+    <Image Include="textures\Ghosts\deadGhostRight.bmp" />
+    <Image Include="textures\Ghosts\deadGhostUp.bmp" />
     <Image Include="textures\Ghosts\energizedGhost1.bmp" />
     <Image Include="textures\Ghosts\energizedGhost2.bmp" />
     <Image Include="textures\Ghosts\orangeGhost\orangeGhostDown1.bmp" />

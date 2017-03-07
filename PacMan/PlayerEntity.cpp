@@ -2,7 +2,8 @@
 #include "Image.h"
 
 
-PlayerEntity::PlayerEntity(Boundaries* boundaries) : Entity(nullptr, 3 * 3, false, boundaries, true, 100)
+PlayerEntity::PlayerEntity(Boundaries* boundaries) 
+	: Entity(nullptr, 3 * 3, false, boundaries, true, 100)
 {
 	this->imageCount = 0;
 	this->image = new Image*[0];
@@ -27,7 +28,7 @@ PlayerEntity::PlayerEntity(Boundaries* boundaries) : Entity(nullptr, 3 * 3, fals
 	
 }
 
-void PlayerEntity::request(Request request)
+void PlayerEntity::request(PlayerState request)
 {
 	pufferRequest = request;
 }
@@ -51,91 +52,33 @@ void PlayerEntity::setMemoryRequest()
 
 void PlayerEntity::execute()
 {
-	if (getPosX() < -(13 * 3)) {
-		setPosX((224 + 13 - 1) * 3);
+	// teleportpath
+	if (getPosX() <= -(11 * 3)) {
+		setPosX(220 * 3);
 	}
-	if (getPosX() > (224 + 13) * 3) {
-		setPosX(-(12 * 3));
+	if (getPosX() >= 223 * 3) {
+		setPosX(-(8 * 3));
 	}
 
-	switch (lastRequest)
+
+	state = lastRequest;
+	switch (state)
 	{
 	case MOVE_RIGHT:
-		switch (state)
-		{
-		case DEAD: break;
-		case MOVE_RIGHT_1:
-			this->setPosX(this->getPosX() + movementSpeed);
-			state = MOVE_RIGHT_2;
-			break;
-		case MOVE_RIGHT_2:
-			this->setPosX(this->getPosX() + movementSpeed);
-			state = MOVE_RIGHT_1;
-			break;
-		default:
-			this->setPosX(this->getPosX() + movementSpeed);
-			state = MOVE_RIGHT_1;
-			break;
-		}
-
-		break;
+		this->setPosX(this->getPosX() + movementSpeed); break;
 	case MOVE_LEFT:
-		switch (state)
-		{
-		case DEAD: break;
-		case MOVE_LEFT_1:
-			this->setPosX(this->getPosX() - movementSpeed);
-			state = MOVE_LEFT_2;
-			break;
-		case MOVE_LEFT_2:
-			this->setPosX(this->getPosX() - movementSpeed);
-			state = MOVE_LEFT_1;
-			break;
-		default:
-			this->setPosX(this->getPosX() - movementSpeed);
-			state = MOVE_LEFT_1;
-			break;
-		}
-		break;
+		this->setPosX(this->getPosX() - movementSpeed); break;
 	case MOVE_UP:
-		switch (state)
-		{
-		case DEAD: break;
-		case MOVE_UP_1:
-			this->setPosY(this->getPosY() + movementSpeed);
-			state = MOVE_UP_2;
-			break;
-		case MOVE_UP_2:
-			this->setPosY(this->getPosY() + movementSpeed);
-			state = MOVE_UP_1;
-			break;
-		default:
-			this->setPosY(this->getPosY() + movementSpeed);
-			state = MOVE_UP_1;
-			break;
-		}
-		break;
+		this->setPosY(this->getPosY() + movementSpeed); break;
 	case MOVE_DOWN:
-		switch (state)
-		{
-		case DEAD: break;
-		case MOVE_DOWN_1:
-			this->setPosY(this->getPosY() - movementSpeed);
-			state = MOVE_DOWN_2;
-			break;
-		case MOVE_DOWN_2:
-			this->setPosY(this->getPosY() - movementSpeed);
-			state = MOVE_DOWN_1;
-			break;
-		default:
-			this->setPosY(this->getPosY() - movementSpeed);
-			state = MOVE_DOWN_1;
-			break;
-		}
-		break;
+		this->setPosY(this->getPosY() - movementSpeed); break;
 	case DIE:
 		animationCounter++;
-		state = DEAD;
+		if (animationCounter > 10)
+		{
+			state = DEAD;
+		}
+	case DEAD:
 	default: break;
 	}
 }
@@ -144,14 +87,10 @@ void PlayerEntity::stepBack()
 {
 	switch (state)
 	{
-	case MOVE_RIGHT_1:
-	case MOVE_RIGHT_2: this->setPosX(this->getPosX() - movementSpeed); break;
-	case MOVE_LEFT_1:
-	case MOVE_LEFT_2: this->setPosX(this->getPosX() + movementSpeed); break;
-	case MOVE_UP_1:
-	case MOVE_UP_2: this->setPosY(this->getPosY() - movementSpeed); break;
-	case MOVE_DOWN_1:
-	case MOVE_DOWN_2: this->setPosY(this->getPosY() + movementSpeed); break;
+	case MOVE_RIGHT: this->setPosX(this->getPosX() - movementSpeed); break;
+	case MOVE_LEFT: this->setPosX(this->getPosX() + movementSpeed); break;
+	case MOVE_UP: this->setPosY(this->getPosY() - movementSpeed); break;
+	case MOVE_DOWN: this->setPosY(this->getPosY() + movementSpeed); break;
 	default: break;
 	}
 	//lastRequest = memoryRequest;
@@ -161,15 +100,20 @@ Image* PlayerEntity::getImage()
 {
 	switch (state)
 	{
-	case MOVE_RIGHT_1: return move;
-	case MOVE_RIGHT_2: return moveRight;
-	case MOVE_LEFT_1: return move;
-	case MOVE_LEFT_2: return moveLeft;
-	case MOVE_UP_1: return move;
-	case MOVE_UP_2: return moveUp;
-	case MOVE_DOWN_1: return move;
-	case MOVE_DOWN_2: return moveDown;
-	case DEAD: return deadAnimation();
+	case MOVE_RIGHT:
+		if (alternate) {return move;}
+		else {return moveRight;}
+	case MOVE_LEFT:
+		if (alternate) {return move;}
+		else {return moveLeft;}
+	case MOVE_UP: 
+		if (alternate) {return move;}
+		else {return moveUp;}
+	case MOVE_DOWN: 
+		if (alternate) {return move;}
+		else {return moveDown;}
+	case DIE: return deadAnimation();
+	case DEAD:
 	default: return move;
 	}
 }
@@ -190,6 +134,18 @@ Image* PlayerEntity::deadAnimation()
 		return none;
 	}
 	return pacmanDeath[animationCounter - 2];
+}
+
+void PlayerEntity::alternateMovement()
+{
+	if (alternate)
+	{
+		alternate = false;
+	}
+	else 
+	{
+		alternate = true;
+	}
 }
 
 PlayerEntity::~PlayerEntity()

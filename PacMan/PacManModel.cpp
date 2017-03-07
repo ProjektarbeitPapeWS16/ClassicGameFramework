@@ -6,7 +6,7 @@
 #include "Display.h"
 #include "EnemyEntity.h"
 #include "Physics.h"
-#include "Session.h"
+#include "MySession.h"
 #include "PhysicalObject.h"
 #include "Entity.h"
 #include "Level.h"
@@ -20,8 +20,7 @@
 
 PacManModel::PacManModel() : EngineModel()
 {
-	session = new Session();
-	session->setLevel(new MyLevel(100, 100, 1, 1));
+	session = new MySession();
 }
 
 PacManModel::~PacManModel()
@@ -29,19 +28,13 @@ PacManModel::~PacManModel()
 }
 
 
-
 void PacManModel::initialization()
 {
-	// Done in Constructor
 }
 
 void PacManModel::nextIteration()
 {
-	if (static_cast<MyLevel*>(session->getLevel())->gameState == MyLevel::RESTARTGAME)
-	{
-		session->setLevel(new MyLevel(100, 100, 1, 1));
-	}
-	static_cast<MyLevel*>(session->getLevel())->gameLoop();
+	static_cast<MySession*>(session)->nextIteration();
 }
 
 

@@ -7,50 +7,21 @@ class Renderer;
 
 class PlayerEntity : public Entity
 {
-	Image* none;
-	Image* move;
-	Image* moveUp;
-	Image* moveDown;
-	Image* moveRight;
-	Image* moveLeft;
-	Image* pacmanDeath[9];
 
 public:
-	enum Request
+	enum PlayerState
 	{
 		NONE,
 		MOVE_RIGHT,
 		MOVE_LEFT,
 		MOVE_UP,
 		MOVE_DOWN,
-		DIE
-	};
-
-	enum PlayerState
-	{
-		MOVE_RIGHT_1,
-		MOVE_RIGHT_2,
-		MOVE_LEFT_1,
-		MOVE_LEFT_2,
-		MOVE_UP_1,
-		MOVE_UP_2,
-		MOVE_DOWN_1,
-		MOVE_DOWN_2,
+		DIE,
 		DEAD
 	};
-private:
-	PlayerState state = MOVE_DOWN_1;
-	PlayerState memoryState = MOVE_DOWN_1;
-	Request lastRequest = NONE;
-	Request pufferRequest = NONE;
-	Request memoryRequest = NONE;
 
-	Image* deadAnimation();
-	int animationCounter = 0;
-
-public:
 	PlayerEntity(Boundaries* boundaries);
-	void request(Request request);
+	void request(PlayerState request);
 	void requestPuffer();
 	void requestMemory();
 	void setMemoryRequest();
@@ -59,4 +30,26 @@ public:
 	Image* getImage() override;
 	PlayerEntity::PlayerState getState();
 	~PlayerEntity();
+
+	void alternateMovement();
+
+private:
+	Image* none;
+	Image* move;
+	Image* moveUp;
+	Image* moveDown;
+	Image* moveRight;
+	Image* moveLeft;
+	Image* pacmanDeath[9];
+
+	PlayerState state = MOVE_DOWN;
+	PlayerState memoryState = MOVE_DOWN;
+	PlayerState lastRequest = NONE;
+	PlayerState pufferRequest = NONE;
+	PlayerState memoryRequest = NONE;
+
+	Image* deadAnimation();
+	int animationCounter = 0;
+
+	bool alternate = true;
 };

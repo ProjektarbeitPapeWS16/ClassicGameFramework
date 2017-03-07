@@ -49,102 +49,94 @@ void EnemyEntity::setTextures(char* moveUp1, char* moveUp2, char* moveDown1, cha
 	this->energized2 = new Image(energized2, this, 0, 0, 0);
 }
 
-void EnemyEntity::request(Request request)
+void EnemyEntity::request(State request)
 {
-	lastRequest = request;
-}
-
-void EnemyEntity::setState(GhostState state)
-{
-	this->state = state;
-}
-
-void EnemyEntity::specialRequest(SpecialState request)
-{
-	if (request == ENERGIZED1)
+	state = request;
+	if (request == ENERGIZED)
 	{
 		energizerTimer = 0;
 		energizerTimer2 = 0;
 	}
-	specialState = request;
 }
+
 
 void EnemyEntity::execute()
 {
-	if (getPosX() < -(14 * 3)) {
-		setPosX((224 + 14 - 1) * 3);
+	alternateVar();
+
+	// if Ghost leaves screen
+	if (getPosX() <= -(13 * 3)) {
+		setPosX(219 * 3);
 	}
-	if (getPosX() > (224 + 14) * 3) {
-		setPosX(-(13 * 3));
+	if (getPosX() >= 222 * 3) {
+		setPosX(-(9 * 3));
 	}
 
-	if (specialState == DEAD)
+
+	if (cageState == NO)
 	{
+		findDirection();
+		move(direction);
+	} 
+	else
+	{
+		moveInCage();
+	}
+
+
+	switch (state)
+	{
+	case NONE:
+		break;
+	case DEAD: // TODO revive animation
 		if (getPosX() == 105 * AMP)
 		{
 			if (getPosY() == 165 * AMP)
 			{
-				specialState = ALIVE;
+				cageState = IN;
 			}
 		}
-	}
-
-	findDirection();
-	move(direction);
-
-	if (specialState == ENERGIZED1 || specialState == ENERGIZED2)
-	{
-		if (energizerTimer == 0) 
-		{
-			energizerTimer = Config::currentTimeMillis();
-		}
+		break;
+	case ENERGIZED:
 		if ((Config::currentTimeMillis() - energizerTimer) > 4500) // 4,5 sekunden
 		{
-			if (energizerTimer2 == 0)
-			{
-				specialState = ENERGIZED1;
-				energizerTimer2 = Config::currentTimeMillis();
-			}
-			if ((Config::currentTimeMillis() - energizerTimer2) > 500)
-			{
-				if (specialState == ENERGIZED1)
-				{
-					specialState = ENERGIZED2;
-				}
-				else if (specialState == ENERGIZED2)
-				{
-					specialState = ENERGIZED1;
-				}
-			}
+			if (energizeAlt) { energizeAlt = false; }
+			else { energizeAlt = true; }
 			if ((Config::currentTimeMillis() - energizerTimer) > 6000)
 			{
-				specialState = ALIVE;
+				state = NONE;
 			}
 		}
+		break;
 	}
 }
 
-void EnemyEntity::stepBack()
+void EnemyEntity::energize()
 {
-	switch (state)
+	if (state != DEAD)
 	{
-	case MOVE_RIGHT_1:
-	case MOVE_RIGHT_2: this->setPosX(this->getPosX() - movementSpeed); break;
-	case MOVE_LEFT_1:
-	case MOVE_LEFT_2: this->setPosX(this->getPosX() + movementSpeed); break;
-	case MOVE_UP_1:
-	case MOVE_UP_2: this->setPosY(this->getPosY() - movementSpeed); break;
-	case MOVE_DOWN_1:
-	case MOVE_DOWN_2: this->setPosY(this->getPosY() + movementSpeed); break;
-	default: break;
+		state = ENERGIZED;
+		energizeAlt = false;
+		energizerTimer = Config::currentTimeMillis();
+		invertDirection();
+	}
+}
+
+void EnemyEntity::invertDirection()
+{
+	switch (direction)
+	{
+	case UP: direction = DOWN; break;
+	case DOWN: direction = UP; break;
+	case RIGHT: direction = LEFT; break;
+	case LEFT: direction = RIGHT; break;
 	}
 }
 
 Image* EnemyEntity::getImage()
 {
-	switch (specialState)
+	switch (state)
 	{
-	case ALIVE: break;
 	case DEAD: 
 		switch (direction)
 		{
@@ -155,132 +147,90 @@ Image* EnemyEntity::getImage()
 		default: break;
 		}
 		break;
-	case ENERGIZED1: return energized1;
-	case ENERGIZED2: return energized2;
+	case ENERGIZED: 
+		if (energizeAlt) { return energized2; }
+		else { return energized1; }
+	default: break;
 	}
 
 	switch (direction)
 	{
 	case UP:
-		if (imageDifferUp)
-		{
-			imageDifferUp = false;
-			return moveUp1;
-		}
-		else
-		{
-			imageDifferUp = true;
-			return moveUp2;
-		}
+		if (alternate) { return moveUp1; }
+		else { return moveUp2; }
 	case DOWN:
-		if (imageDifferDown)
-		{
-			imageDifferDown = false;
-			return moveDown1;
-		}
-		else
-		{
-			imageDifferDown = true;
-			return moveDown2;
-		}
+		if (alternate) { return moveDown1; }
+		else { return moveDown2; }
 	case RIGHT:
-		if (imageDifferRight)
-		{
-			imageDifferRight = false;
-			return moveRight1;
-		}
-		else
-		{
-			imageDifferRight = true;
-			return moveRight2;
-		}
+		if (alternate) { return moveRight1; }
+		else { return moveRight2; }
 	case LEFT:
-		if (imageDifferLeft)
-		{
-			imageDifferLeft = false;
-			return moveLeft1;
-		}
-		else
-		{
-			imageDifferLeft = true;
-			return moveLeft2;
-		}
+		if (alternate) { return moveLeft1; }
+		else { return moveLeft2; }
 	default: return moveRight1;
 	}
 }
 
 
-EnemyEntity::SpecialState EnemyEntity::getSpecialState()
+EnemyEntity::State EnemyEntity::getState()
 {
-	return specialState;
+	return state;
 }
 
 void EnemyEntity::move(Direction direction)
 {
 	switch (direction)
 	{
-	case UP:
-		setPosY(getPosY() + movementSpeed);
-		break;
-	case DOWN:
-		setPosY(getPosY() - movementSpeed);
-		break;
-	case RIGHT:
-		setPosX(getPosX() + movementSpeed);
-		break;
-	case LEFT:
-		setPosX(getPosX() - movementSpeed);
+	case UP:	setPosY(getPosY() + movementSpeed);	break;
+	case DOWN:	setPosY(getPosY() - movementSpeed);	break;
+	case RIGHT:	setPosX(getPosX() + movementSpeed);	break;
+	case LEFT:	setPosX(getPosX() - movementSpeed); break;
 	}
+}
+
+void EnemyEntity::alternateVar()
+{
+	if (alternate) {	alternate = false;	}
+	else {	alternate = true;	}
 }
 
 void EnemyEntity::findDirection()
 {
 	if (isCrossing())
 	{
-		// TODO is specialcrossing?
-
-
-		if (movementMode == FRIGHTENED)
+		if (isSpecialCrossing())
 		{
+			if (direction == RIGHT || direction == LEFT)
+			{
+				return;
+			}
+		}
+
+		switch (state)
+		{
+		case NONE: 
+		case DEAD:
+			findTargetTile();
+			break;
+		case ENERGIZED:
 			switch (rand() % 4)
 			{
 			case 0: //  UP
-				if (direction != DOWN)
-				{
-					if (canMove(UP)) { direction = UP; }
-				}
+				if (canMove(UP)) { direction = UP; return; }
 			case 1: // DOWN
-				if (direction != UP)
-				{
-					if (canMove(DOWN)) { direction = DOWN; }
-				}
+				if (canMove(DOWN)) { direction = DOWN; return; }
 			case 2: // RIGHT
-				if (direction != LEFT)
-				{
-					if (canMove(RIGHT)) { direction = RIGHT; }
-				}
+				if (canMove(RIGHT)) { direction = RIGHT; return; }
 			case 3: // LEFT
-				if (direction != RIGHT)
-				{
-					if (canMove(LEFT)) { direction = LEFT; }
-				}
-				if (direction != UP)
-				{
-					if (canMove(DOWN)) { direction = DOWN; }
-				}
-				if (direction != DOWN)
-				{
-					if (canMove(UP)) { direction = UP; }
-				}
-				if (direction != LEFT)
-				{
-					if (canMove(RIGHT)) { direction = RIGHT; }
-				}
+				if (canMove(LEFT)) { direction = LEFT; return; }
+				if (canMove(DOWN)) { direction = DOWN; return; }
+				if (canMove(UP)) { direction = UP; return; }
+				if (canMove(RIGHT)) { direction = RIGHT; return; }
 			}
 			return;
 		}
 
-		findTargetTile();
+
 		// Pfad finden
 		double zDown = std::numeric_limits<int>::max();
 		double zUp = std::numeric_limits<int>::max();
@@ -383,138 +333,111 @@ void EnemyEntity::findDirection()
 // TODO targetTile speicherlecks
 void EnemyEntity::findTargetTile()
 {
-	if (specialState == DEAD)
+	switch (state)
 	{
+	case DEAD:
 		targetTile = new Boundaries((105 + 3) * AMP, (165 + 3) * AMP, 8 * AMP, 8 * AMP);
 		return;
-	}
-
-	if (movementMode == FRIGHTENED)
-	{
-		// random movement
-		switch (rand() % 4) 
+	case NONE:
+		switch (name)
 		{
-		case 0:
-			targetTile = new Boundaries(getPosX() + 16 * AMP + 3 * AMP, getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		case 1:
-			targetTile = new Boundaries(getPosX() + 3 * AMP, getPosY() + 16 * AMP + 3 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		case 2:
-			targetTile = new Boundaries(getPosX() - 16 * AMP + 3 * AMP, getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		case 3:
-			targetTile = new Boundaries(getPosX() + 3 * AMP, getPosY() - 16 * AMP + 3 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		}
-		return;
-	}
-	switch (name)
-	{
-	case Blinky:
-		switch (movementMode)
-		{
-		case SCATTER:
-			targetTile = new Boundaries(200 * AMP, 264 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		case CHASE:
-			// PacmanPosition
-			targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
-		}
-		break;
-	case Pinky:
-		switch (movementMode)
-		{
-		case SCATTER:
-			targetTile = new Boundaries(16 * AMP, 264 * AMP, 8 * AMP, 8 * AMP);
-			break;
-		case CHASE:
-			// PacmanPosition + 4 Tiles
-			switch (pacman->getState())
+		case Blinky:
+			switch (movementMode)
 			{
-			case PlayerEntity::MOVE_UP_1:
-			case PlayerEntity::MOVE_UP_2:
-				targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + (3 + 32) * AMP, 8 * AMP, 8 * AMP);
+			case SCATTER:
+				targetTile = new Boundaries(200 * AMP, 264 * AMP, 8 * AMP, 8 * AMP);
 				break;
-			case PlayerEntity::MOVE_DOWN_1:
-			case PlayerEntity::MOVE_DOWN_2:
-				targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + (3 - 32) * AMP, 8 * AMP, 8 * AMP);
-				break;
-			case PlayerEntity::MOVE_RIGHT_1:
-			case PlayerEntity::MOVE_RIGHT_2:
-				targetTile = new Boundaries(pacman->getPosX() + (2 + 32) * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
-				break;
-			case PlayerEntity::MOVE_LEFT_1:
-			case PlayerEntity::MOVE_LEFT_2:
-				targetTile = new Boundaries(pacman->getPosX() + (2 - 32) * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
-				break;
+			case CHASE:
+				// PacmanPosition
+				targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
 			}
-		}
-		break;
-	case Inky:
-		switch (movementMode)
-		{
-		case SCATTER:
-			targetTile = new Boundaries(216 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
 			break;
-		case CHASE:
-			int x = 0;
-			int y = 0;
-			// PacmanPosition + 2 Tiles + vektor from Blinky to Pacman
-			switch (pacman->getState())
+		case Pinky:
+			switch (movementMode)
 			{
-			case PlayerEntity::MOVE_UP_1:
-			case PlayerEntity::MOVE_UP_2:
-				x = pacman->getPosX() + 2 * AMP;
-				y = pacman->getPosY() + (3 + 16) * AMP;
+			case SCATTER:
+				targetTile = new Boundaries(16 * AMP, 264 * AMP, 8 * AMP, 8 * AMP);
 				break;
-			case PlayerEntity::MOVE_DOWN_1:
-			case PlayerEntity::MOVE_DOWN_2:
-				x = pacman->getPosX() + 2 * AMP;
-				y = pacman->getPosY() + (3 - 16) * AMP;
-				break;
-			case PlayerEntity::MOVE_RIGHT_1:
-			case PlayerEntity::MOVE_RIGHT_2:
-				x = pacman->getPosX() + (2 + 16) * AMP;
-				y = pacman->getPosY() + 3 * AMP;
-				break;
-			case PlayerEntity::MOVE_LEFT_1:
-			case PlayerEntity::MOVE_LEFT_2:
-				x = pacman->getPosX() + (2 - 16) * AMP;
-				y = pacman->getPosY() + 3 * AMP;
-				break;
+			case CHASE:
+				// PacmanPosition + 4 Tiles
+				switch (pacman->getState())
+				{
+				case PlayerEntity::MOVE_UP:
+					targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + (3 + 32) * AMP, 8 * AMP, 8 * AMP);
+					break;
+				case PlayerEntity::MOVE_DOWN:
+					targetTile = new Boundaries(pacman->getPosX() + 2 * AMP, pacman->getPosY() + (3 - 32) * AMP, 8 * AMP, 8 * AMP);
+					break;
+				case PlayerEntity::MOVE_RIGHT:
+					targetTile = new Boundaries(pacman->getPosX() + (2 + 32) * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
+					break;
+				case PlayerEntity::MOVE_LEFT:
+					targetTile = new Boundaries(pacman->getPosX() + (2 - 32) * AMP, pacman->getPosY() + 3 * AMP, 8 * AMP, 8 * AMP);
+					break;
+				}
 			}
-			int vektorX = pacman->getPosX() + 2 * AMP - blinky->getPosX() + 3 * AMP;
-			int vektorY = pacman->getPosY() + 3 * AMP - blinky->getPosY() + 3 * AMP;
-			targetTile = new Boundaries(x + vektorX, y + vektorY, 8 * AMP, 8 * AMP);
-
-		}
-		break;
-	case Clyde:
-		switch (movementMode)
-		{
-		case SCATTER:
-			targetTile = new Boundaries(0 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
 			break;
-		case CHASE:
-			// if(pacman away more than 8 tiles) set targettile to pacman
-			// if(pacman is closer than 8 tiles) set targettile to scattertile
-
-			int a = abs(pacman->getPosX() + 2 * AMP - getPosX() + 3 * AMP);
-			int b = abs(pacman->getPosY() + 3 * AMP - getPosY() + 3 * AMP);
-
-			double distance = sqrt(pow(a, 2) + pow(b, 2));
-			if (distance > 8 * 8 * AMP)
+		case Inky:
+			switch (movementMode)
 			{
-				targetTile = new Boundaries(pacman->getPosX() - 2 * AMP, pacman->getPosY() - 3 * AMP, 8 * AMP, 8 * AMP);
+			case SCATTER:
+				targetTile = new Boundaries(216 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
+				break;
+			case CHASE:
+				int x = 0;
+				int y = 0;
+				// PacmanPosition + 2 Tiles + vektor from Blinky to Pacman
+				switch (pacman->getState())
+				{
+				case PlayerEntity::MOVE_UP:
+					x = pacman->getPosX() + 2 * AMP;
+					y = pacman->getPosY() + (3 + 16) * AMP;
+					break;
+				case PlayerEntity::MOVE_DOWN:
+					x = pacman->getPosX() + 2 * AMP;
+					y = pacman->getPosY() + (3 - 16) * AMP;
+					break;
+				case PlayerEntity::MOVE_RIGHT:
+					x = pacman->getPosX() + (2 + 16) * AMP;
+					y = pacman->getPosY() + 3 * AMP;
+					break;
+				case PlayerEntity::MOVE_LEFT:
+					x = pacman->getPosX() + (2 - 16) * AMP;
+					y = pacman->getPosY() + 3 * AMP;
+					break;
+				}
+				int vektorX = pacman->getPosX() + 2 * AMP - blinky->getPosX() + 3 * AMP;
+				int vektorY = pacman->getPosY() + 3 * AMP - blinky->getPosY() + 3 * AMP;
+				targetTile = new Boundaries(x + vektorX, y + vektorY, 8 * AMP, 8 * AMP);
+
 			}
-			else
+			break;
+		case Clyde:
+			switch (movementMode)
 			{
-				targetTile = targetTile = new Boundaries(0 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
+			case SCATTER:
+				targetTile = new Boundaries(0 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
+				break;
+			case CHASE:
+				// if(pacman away more than 8 tiles) set targettile to pacman
+				// if(pacman is closer than 8 tiles) set targettile to scattertile
+
+				int a = abs(pacman->getPosX() + 2 * AMP - getPosX() + 3 * AMP);
+				int b = abs(pacman->getPosY() + 3 * AMP - getPosY() + 3 * AMP);
+
+				double distance = sqrt(pow(a, 2) + pow(b, 2));
+				if (distance > 8 * 8 * AMP)
+				{
+					targetTile = new Boundaries(pacman->getPosX() - 2 * AMP, pacman->getPosY() - 3 * AMP, 8 * AMP, 8 * AMP);
+				}
+				else
+				{
+					targetTile = targetTile = new Boundaries(0 * AMP, 0 * AMP, 8 * AMP, 8 * AMP);
+				}
+				break;
 			}
 			break;
 		}
-		break;
 	}
 }
 
@@ -529,6 +452,45 @@ bool EnemyEntity::isCrossing()
 	{
 		return true;
 	}
+	return false;
+}
+
+bool EnemyEntity::isSpecialCrossing()
+{
+	// +- 2 Genauigkeit
+
+	// xPos 90 
+	if (abs(getPosX() - 91 * AMP) < 3 * AMP)
+	{
+		// yPos 165
+		if (abs(getPosY() - 165 * AMP) < 3 * AMP)
+		{
+			return true;
+		}
+
+		// yPos 69
+		if (abs(getPosY() - 69 * AMP) < 3 * AMP)
+		{
+			return true;
+		}
+	}
+
+	// xPos 120
+	// yPos 165
+	if (abs(getPosX() - 115 * AMP) < 3 * AMP)
+	{
+		if (abs(getPosY() - 165 * AMP) < 3 * AMP)
+		{
+			return true;
+		}
+
+		// yPos 69
+		if (abs(getPosY() - 69 * AMP) < 3 * AMP)
+		{
+			return true;
+		}
+	}
+
 	return false;
 }
 
@@ -631,59 +593,69 @@ void EnemyEntity::setLevel(Level * level)
 	this->level = level;
 }
 
-EnemyEntity::MovementMode EnemyEntity::getMovementMode()
-{
-	return movementMode;
-}
-
 void EnemyEntity::setMovementMode(EnemyEntity::MovementMode mode)
 {
 	movementMode = mode;
 }
 
-bool EnemyEntity::moveOutOfCage()
+void EnemyEntity::setDirection(Direction dir)
 {
-	switch (name)
+	direction = dir;
+}
+
+EnemyEntity::Cage EnemyEntity::getCageState()
+{
+	return cageState;
+}
+
+void EnemyEntity::setCageState(Cage cage)
+{
+	cageState = cage;
+}
+
+void EnemyEntity::moveInCage()
+{
+	switch (cageState)
 	{
-	case Blinky: direction = LEFT; return true; // once
-	case Pinky:
-		if (getPosY() >= 165 * AMP) {
-			direction = LEFT; 
-			return true;
-		}
-		else
+	case IN:
+		move(DOWN);
+		if (getPosY() <= 141 * AMP)
 		{
-			move(UP);
+			setPosY(141 * AMP);
+			cageState = OUT;
+			if (state = DEAD)
+			{
+				state = NONE;
+			}
 		}
-		return false;
-	case Inky:
-		if (getPosY() >= 165 * AMP) {
+		break;
+	case OUT:
+		move(UP);
+		if (getPosY() >= 165 * AMP) 
+		{
 			direction = LEFT;
-			return true;
+			cageState = NO;
 		}
-		else if (getPosX() >= 105 * AMP) {
-			setPosX(105 * AMP);
-			move(UP);
-		}
-		else
+		break;
+	case LEFTPLACE:
+		move(RIGHT);
+		if (getPosX() >= 105 * AMP) 
 		{
-			move(RIGHT);
-		}
-		return false;
-	case Clyde:
-		if (getPosY() >= 165 * AMP) {
-			direction = LEFT;
-			return true;
-		}
-		else if (getPosX() <= 105 * AMP) {
 			setPosX(105 * AMP);
-			move(UP);
+			cageState = OUT;
 		}
-		else
+		break;
+	case RIGHTPLACE:
+		move(LEFT);
+		if (getPosX() <= 105 * AMP) 
 		{
-			move(LEFT);
+			setPosX(105 * AMP);
+			cageState = OUT;
 		}
-		return false;
+		break;
+	case LOCKED:
+		break;
+	case NO:
+		break;
 	}
-	return false;
 }

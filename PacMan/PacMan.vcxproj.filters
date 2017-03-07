@@ -45,6 +45,15 @@
     <ClInclude Include="MyLevel.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="MySession.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecialEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="BonusEntity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacManController.cpp">
@@ -75,6 +84,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="MyLevel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="MySession.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecialEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="BonusEntity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -365,6 +383,21 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="textures\Walls\wall5x70.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Cherry12x12.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\deadGhostDown.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\deadGhostLeft.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\deadGhostRight.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="textures\Ghosts\deadGhostUp.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
