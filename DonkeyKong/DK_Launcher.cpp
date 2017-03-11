@@ -2,8 +2,6 @@
 #include <windows.h>
 #include "Config.h"
 
-#include "Level.h"
-#include "Session.h"
 #include "Renderer.h"
 #include "Display.h"
 
@@ -11,7 +9,6 @@
 #include "DK_View.h"
 #include "DK_Controller.h"
 #include "GameConfig.h"
-#include "DK_Level.h"
 #include "DK_Session.h"
 
 
@@ -26,6 +23,19 @@ std::string getexepath()
 
 int main()
 {
+	auto model = new DK_Model();
+	auto view = new DK_View(model);
+	auto controller = new DK_Controller(view, model);
+
+	controller->gameLoop();
+
+	delete controller;
+	delete view;
+	delete model;
+
+	return 0;
+}
+/*
 	
 	char* levelLayout1 = DK_Model::DK_LEVELLAYOUTPATH_1;// "\\level\\level_25m.txt";
 	std::vector<char*>* levelLayout = new std::vector<char*>();
@@ -40,17 +50,4 @@ int main()
 	auto display = new Display();
 	auto renderer = new Renderer(config->getWidth(), config->getHeight(), config->getTitle());
 
-	//std::vector<Level*> levels;
-	//levels.push_back(new DK_Level(config));
-
-
-	auto model = new DK_Model(session, config, levelLayout);
-	auto view = new DK_View(model, display, renderer);
-	auto controller = new DK_Controller(view, model);
-
-
-	controller->gameLoop();
-
-	return 0;
-	
-}
+*/

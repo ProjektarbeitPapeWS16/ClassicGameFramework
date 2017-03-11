@@ -51,16 +51,16 @@ private:
 
 	Entity_Jumpman* player;		// Jumpman. Takes inputs from model
 	Entity_DonkeyKong* kong;	// Donkey Kong. Spawns barrels.
-	Entity_Pauline* pauline;	// Donkey Kong. Spawns barrels.
+	Entity_Pauline* pauline;	// Visual only.
 	Entity_OilDrum* oildrum;	// Oil Drum. Despans barrels [TODO: spawns fire/foxes]
 	std::vector<Entity_Barrel*>* barrels;	// Spawned barrels. 
-	std::vector<Entity_Ladder*>* ladders;	// Spawned first.
-	std::vector<Entity_Girder*>* girders;	// obstacles
+	std::vector<Entity_Ladder*>* ladders;	// Spawned on init
+	std::vector<Entity_Girder*>* girders;	// Spawned on init.
 
 	unsigned int jumpStateCount;	// used for determining direction change in jump state.
 	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descending after that.
 	
-	//UI Entities [TODO; determined by Session] (only placement and look level-dependant)
+	//UI Entities [TODO; determined by Session] (only placement and look level-dependent)
 
 
 	//void setPlayer(Entity_Jumpman* player);

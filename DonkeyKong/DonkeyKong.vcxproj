@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DK_Config.h" />
     <ClInclude Include="DK_Controller.h" />
     <ClInclude Include="DK_Model.h" />
     <ClInclude Include="DK_Session.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="DK_Level.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DK_Config.cpp" />
     <ClCompile Include="DK_Controller.cpp" />
     <ClCompile Include="DK_Launcher.cpp" />
     <ClCompile Include="DK_Model.cpp" />

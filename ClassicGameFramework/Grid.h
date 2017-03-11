@@ -6,7 +6,7 @@ struct Boundaries;
 const unsigned int COUNT_DEFAULT = 32; // 32x32 Grid, e.g. for PacMan
 const unsigned int GRIDSIZE_DEFAULT = 8; // for Entities with 8x8px Graphics
 
-// 2D Grid structure for initial entity positions in a Level
+// 2D Grid structure for entity positions in a Level
 class Grid 
 {
 	Boundaries* boundaries; // default: window size?

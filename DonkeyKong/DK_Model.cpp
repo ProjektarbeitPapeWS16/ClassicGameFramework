@@ -1,25 +1,28 @@
 #include "DK_Model.h"
 #include "Physics.h"
 #include "DK_Session.h"
+#include "DK_Config.h"
 
-// TODO: Put in custom DK_CONFIG
-static const unsigned int DK_CELLSIZE = 8;		// Pixels used for grid cell subdivision in a level (for 8x8px tiles)
-static const unsigned int DK_ROWCOUNT = 32;	// Amount of horizontal grid subdivisions
-static const unsigned int DK_COLCOUNT = 28;	// Amount of vertical grid subdivisions
-static const unsigned int DK_WIDTH = 224;		// Window width --	28 x 8px tiles
-static const unsigned int DK_HEIGHT = 256;		// Window height --	32 x 8px tiles
-static const char* DK_TITLE = "DONKEY KONG";	// Game Title
 
-static const char* DK_LEVELLAYOUTPATH_1 = "..\\levels\\level_25m.txt"; // Relative PJ path to first level						
-static const char* DK_UILAYOUTPATH_1 = "..\\levels\\level_ui.txt"; // Relative PJ path to ui layout for first level
-
-std::vector<const char*>* DK_LEVELLAYOUTPATHS = (DK_LEVELLAYOUTPATH_1, nullptr); // HACK doesitwork?
-std::vector<const char*>* DK_UILAYOUTPATHS = (DK_UILAYOUTPATH_1, nullptr); // HACK
-
-// Constructor for custom session; and otherwise default values
+// Constructor for default values
 DK_Model::DK_Model()
 	: DK_Model(session, new GameConfig(DK_TITLE, DK_WIDTH, DK_HEIGHT, 3, DK_CELLSIZE, DK_CELLSIZE), DK_LEVELLAYOUTPATHS, DK_UILAYOUTPATHS, nullptr) // HACK
 {
+}
+
+
+SpacePanicModel::SpacePanicModel() :
+	EngineModel(nullptr, nullptr, nullptr),
+	config(new GameConfig("Space Panic", 192, 256, 2, 8, 8)),
+	stageFiles(new const char*[1]{
+	"levels/stage1.txt"
+}),
+movementFiles(new const char*[1]{
+	"levels/stage1_movement.txt"
+})
+{
+	setSession(new SpacePanicSession(this));
+	//session->setLevel(new Stage(this, "levels/stage1.txt", "levels/stage1_movement.txt"));
 }
 
 /* Main Constructor.
@@ -30,7 +33,7 @@ DK_Model::DK_Model()
  * @param uiLayouPaths		VList of relative paths to the files containing UI entity layout information for a level.
  * @highscoreEntriesPath	Relative path to the file containing high score information.
  */
-DK_Model::DK_Model(GameConfig* config, std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath)
+DK_Model::DK_Model(DK_Config* config) // std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath
 {
 	this->config = config;
 	this->levelLayoutPaths = levelLayoutPaths;
