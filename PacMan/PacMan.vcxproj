@@ -161,6 +161,9 @@
     <ClCompile Include="WallEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Projektbericht\PacManPushStartButton.PNG" />
+    <Image Include="Projektbericht\PacManStartPic.jpg" />
+    <Image Include="Projektbericht\PacManUebersicht.png" />
     <Image Include="textures\Cherry12x12.bmp" />
     <Image Include="textures\dot.bmp" />
     <Image Include="textures\energizer.bmp" />
@@ -262,6 +265,10 @@
     <Image Include="textures\Walls\wallCornerUL5x5.bmp" />
     <Image Include="textures\Walls\wallCornerUR4x4.bmp" />
     <Image Include="textures\Walls\wallCornerUR5x5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Projektbericht\literatur.bib" />
+    <None Include="Projektbericht\projektbericht.tex" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -400,5 +400,18 @@
     <Image Include="textures\Ghosts\deadGhostUp.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Projektbericht\PacManPushStartButton.PNG">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Projektbericht\PacManStartPic.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Projektbericht\PacManUebersicht.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Projektbericht\literatur.bib" />
+    <None Include="Projektbericht\projektbericht.tex" />
   </ItemGroup>
 </Project>
