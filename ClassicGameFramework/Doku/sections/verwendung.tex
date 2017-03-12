@@ -1,0 +1,15 @@
+\section{Verwendung}
+
+Am Besten verwendet man das Rahmenwerk indem man einige Klassen generalisiert und deren Funktionalität ergänzt und erweitert. Hier werden die wichtigsten Funktionalitäten erläutert die man erweitern muss.
+
+\subsection{Controller}
+
+Der Controller muss um die Instanzierung von Model und View ergänzt werden. Außerdem müssen hier die KeyListener für die Eingaben initialisiert werden.
+
+\subsection{View}
+
+In der View muss durch einen Aufruf auf dem Model die Entities geholt werden. Weiterhin muss angegeben werden welche Entities bzw. Drawables pro Iteration gezeichnet werden sollen.
+
+\subsection{Model}
+
+Im Model sind die wichtigen Klassen das EngineModel, das Level und die Entity. Im EngineModel müssen die KeyListener implementiert werden sowie das Spiel angestoßen, also das Level erzeugt werden. Im Level sollte das Verhalten des einzelnen Levels beschrieben werden. Für eine Spielsitzung wichtige Variablen können in die Session gelegt werden. Es sollten auch mehrere verschiedene Entities angelegt werden mit jeweiligen Texturen (Images) die als 24-Bit-Bitmaps angegeben werden sollten. Mithilfe der Physics können Kollisionen erkannt werden womit man verschiedene Interaktionen erreichen kann.

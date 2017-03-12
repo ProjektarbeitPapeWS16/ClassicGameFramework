@@ -1,0 +1,15 @@
+\section{Umsetzung}
+
+\subsection{Controller}
+
+Der Controller startet die Initialisierungroutine und stößt das Spiel an. Er nimmt außerdem Eingaben von der View entgegen und übergibt die entsprechenden Anweisungen an das Model.
+
+\subsection{View}
+
+Die View kümmert sich um die Anzeige auf dem Bildschirm. Die einzige Schnittstelle zum Model sind die Entities. Die View holt sich die Entities aus dem Model welche das Interface Drawable implementieren. Dieses Interface beschreibt alle wichtigen Informationen die die View benötigt. Sie beschreibt die Position und bietet eine Methode zum Holen eines Image an dass für die Entity dargestellt werden soll. Das Display verwaltet die Entities die angezeigt werden sollen und der Renderer kümmert sich darum wie die im Display enthaltenen Informationen angezeigt werden müssen. 
+
+\subsection{Model}
+
+Das Model wird von der Klasse EngineModel gesteuert. Es hat eine Session (Sitzung), welches wiederum mehrere Level haben kann, die mehrere Entities besitzen. Das Level hat ein Grid (Raster) um die Entities sinnvoll anordnen zu können. Im Level werden die Entities angeordnet. Mit einer Spielschleife, einer Steuerung und Interaktionen zwischen Entities kann man damit einem Spiel Leben eingehaucht werden.
+
+Die Physics ist einem dabei eine Hilfe. Sie bietet Methoden an um zu prüfen ob Entities miteinander kollidieren oder welche Distanz zwischen ihnen ist.
