@@ -3,11 +3,13 @@
 #include "Config.h"
 #include "Level.h"
 
+// Delegate constructor for three lifes and a starting score of 0.
 Session::Session() : Session(3, 0)
 {
 
 }
 
+// Basic constructor
 Session::Session(int defaultLifes, int defaultScore) : lifes(defaultLifes), score(defaultScore), level(nullptr)
 {
 

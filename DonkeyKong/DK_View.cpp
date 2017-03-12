@@ -23,14 +23,12 @@ EngineView(model, display, renderer)
 // Simple constructor for custom model
 // Renderer configurations are determined by given model.
 DK_View::DK_View(DK_Model* model)
-	: EngineView(model,
+	: EngineView( reinterpret_cast<EngineModel*>(model), //#n
 		new Display(),
-		new Renderer(model->config->width,
-			model->config->height, model->config->title
+		new Renderer(model->config->width, model->config->height, model->config->title
 		)
 	)
 {
-	this->model = model;
 }
 
 // Method for updating view.
@@ -38,10 +36,10 @@ DK_View::DK_View(DK_Model* model)
 // Assumes: vector containing entities was ordered to ensure that respective entities are in the foreground
 void DK_View::draw()
 {
+	display->clearDrawables();
+
 	//TODO: drawables
 	auto drawables = model->getEntities();
-	//display->setDrawables(drawables);
-	display->clearDrawables();
 	if (drawables != nullptr)
 	{		
 		for (unsigned int i = 0; i < drawables->size(); i++)

@@ -18,7 +18,7 @@ private:
 	unsigned long counter = 0;
 	Image * img;
 public:
-	Entity_Barrel(GameConfig* config, Position* position);
+	Entity_Barrel(Position position);
 	void execute();
 	Image* spritesheet;
 

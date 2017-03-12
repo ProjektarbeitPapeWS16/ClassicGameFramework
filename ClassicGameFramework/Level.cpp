@@ -114,7 +114,7 @@ char** Level::getLeveldata(const char* filepath, const unsigned int rows, const 
 		std::ifstream in(filepath);
 		if (!in)
 		{
-			std::cout << "While opening a file an error is encountered" << std::endl;
+			std::cout << "Error opening file: " << filepath << std::endl;
 		}
 
 		std::string str;
@@ -124,20 +124,22 @@ char** Level::getLeveldata(const char* filepath, const unsigned int rows, const 
 		{
 			// load next line of text; which contains one row
 			array2D[iRow] = new char[cols]; //#length is 36; determined earlier
+			array2D[iRow][cols] = '\0';		//End String after col-length
 			std::getline(in, str);
-			for (auto iCol = 0; iCol < str.length() && iCol < cols; iCol++)
+			int iCol;
+			for (iCol = 0; iCol < cols; iCol++)
 			{
-				entityCharacter = str[iCol];
-				array2D[iRow][iCol] = entityCharacter;
+				if (iCol < str.length())
+				{	// Add level info.
+					entityCharacter = str[iCol];
+					array2D[iRow][iCol] = entityCharacter;
+				}
+				else // Formatting error in file. Fill up remaining row with spaces.
+				{
+					array2D[iRow][iCol] = ' ';
+				}				
 			}
 		}
-		
-		/*
-		//Free memory after use
-		for (int iRow = 0; iRow < rows; iRow++)
-			delete[] array2D[iRow];
-		delete[] array2D;
-		*/
 	}
 	catch (const std::exception& ex)
 	{
@@ -145,4 +147,18 @@ char** Level::getLeveldata(const char* filepath, const unsigned int rows, const 
 	}
 
 	return array2D;
+}
+
+// Creates a level layout file named "output" for a given 2D char array.
+void Level::createLeveldata(char** levelLayout) const
+{
+	std::string str;
+	std::ofstream outFile("levels\\output.txt");
+
+	for (auto row = 0; row < grid->getRowCount(); row++)
+	{
+		str = levelLayout[row];
+		outFile << levelLayout[row] << std::endl;
+	}
+	outFile.close();
 }

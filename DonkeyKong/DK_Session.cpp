@@ -1,15 +1,13 @@
 #include "DK_Session.h"
 #include "Physics.h"
 
-DK_Session::DK_Session(DK_Model* model) // (std::vector<char*>* levelLayoutPaths, std::vector<char*>* uiLayoutPaths, int * highScores, GameConfig * config)
-	: Session(this->INIT_LIVES, this->INIT_SCORE)
+DK_Session::DK_Session(DK_Model* model)
+	: Session(this->INIT_LIVES, this->INIT_SCORE) // Note: Base class gets initialzed before derived class const variables.
 {
 	this->model = model;
 	this->bonus = INIT_BONUS;
-	this->lifes = INIT_LIVES;
+	this->lifes = INIT_LIVES;	// Base class gets
 	this->score = INIT_SCORE;
-	//this->uiLayoutPaths = uiLayoutPaths;
-	//this->levelLayoutPaths = levelLayoutPaths;
 
 	//this->highScores = highScores;
 	//this->highScore = highScores[0]; // First place

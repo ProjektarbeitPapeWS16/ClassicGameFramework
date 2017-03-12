@@ -5,7 +5,7 @@
 #pragma once
 
 // Constructor for default values
-DK_Model::DK_Model() : DK_Model(new DK_Config()) // HACK
+DK_Model::DK_Model() : DK_Model(new DK_Config())
 { 
 }
 
@@ -20,12 +20,8 @@ DK_Model::DK_Model() : DK_Model(new DK_Config()) // HACK
 DK_Model::DK_Model(DK_Config* config) // std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath
 {
 	this->config = config;
-	/*
-	this->levelLayoutPaths = levelLayoutPaths;
-	this->uiLayoutPaths = uiLayoutPaths;
-	this->highscoreEntriesPath = highscoreEntriesPath;
-	*/
-	this->session = new DK_Session(this);	//Create from parameters
+	this->timer = new Timer();
+	this->session = new DK_Session(this);
 }
 
 DK_Model::~DK_Model()
@@ -37,19 +33,29 @@ void DK_Model::initialization()
 {
 }
 
-// Game loop
+// Game loop for world simulation.
 void DK_Model::nextIteration()
 {
-	// 1. Check if session is still active.
+	if(timer->hasTickTimePassed())
+	{
+		// 1. Check session
 	if (session != nullptr && session->getLives() <= 0)
 	{
-		// [1A] Start new session
+		// 1A	Session over? Start new session
 		session = new DK_Session(this);
+	} else 
+		// 1B	Update session.
+	{
+		//session->update(); TODO
 	}
-	// 2. Make session update for current cycle.
+	// 2. Update level
+	/*
+	 * - update entities
+	 * - move player according to controller request.
+	 */
+	}
 	
-	// session->sessionLoop() TODO
-	// session->getLevel()->gameLoop();
+	
 }
 
 

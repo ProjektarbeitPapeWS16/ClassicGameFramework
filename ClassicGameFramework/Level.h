@@ -33,6 +33,6 @@ public:
 	
 	std::vector<PhysicalObject*>* getPhysicalObjects() const;
 
-	//char** getLeveldata(const char* filepath, unsigned int rows, unsigned int cols) const;
 	char** getLeveldata(const char* filepath, const unsigned int rows, const unsigned int cols) const;
+	void createLeveldata(char ** levelLayout) const;
 };

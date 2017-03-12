@@ -7,6 +7,9 @@
 #include "Entity_Ladder.h"
 #include "Physics.h"
 
+#include <iostream>
+#include <fstream>
+
 
 //backgroundEntities->push_back(backgroundEntity);
 	//this->entities->push_back(backgroundEntity);
@@ -21,7 +24,7 @@ void DK_Level::initEntities(char ** levelLayout, char ** uiLayout)
 	//		extend [unbroken] ladders upwards to next girder
 	initEntities_Ladders(levelLayout);
 	//	2.2 add girders
-	initEntities_Obstacles(levelLayout);
+    initEntities_Obstacles(levelLayout);
 	//	2.3 add other special objects (DK, Jumpman, Pauline, Oildrum)
 	initEntities_Others(levelLayout);
 	//	2.4 store all in that order in entity-vector (ensures rendering with desired layers) TODO: add layer info for view?
@@ -43,9 +46,9 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 			{
 				// Initiate ladder Entity creation at respective coordinate...
 				ladderComplete = false;
-				for (int ladderRow = row; ladderComplete; ladderRow--) {
+				for (auto ladderRow = row; !ladderComplete; ladderRow--) {
 					//...and keep creating ladders while moving upwards on grid...
-					this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(row, col)));
+					this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(col, ladderRow)));
 					//...until one connects with a girder (or top of level), and the ladder is complete.
 					if (isGirderChar(levelLayout[ladderRow][col]) || ladderRow<=0) 
 					{
@@ -55,7 +58,7 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 			}
 			else if (levelLayout[row][col] == EntityChar::CHAR_LADDER_BROKEN) {
 				// Create one ladder entity. TODO: Check next girder and place below?
-				this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(row, col)));
+				this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(col,row)));
 			}
 		}
 	}
@@ -73,6 +76,9 @@ void DK_Level::initEntities_Obstacles(char ** levelLayout)
 			{
 			case EntityChar::CHAR_GIRDER:
 				this->girders->push_back(new Entity_Girder(grid->getCoordinates(col, row, 0, 0)));
+				break;
+			case EntityChar::CHAR_GIRDER_U1:
+				this->girders->push_back(new Entity_Girder(grid->getCoordinates(col, row, 0, 1)));
 				break;
 			case EntityChar::CHAR_GIRDER_U2:
 				this->girders->push_back(new Entity_Girder(grid->getCoordinates(col, row, 0, 2)));
@@ -118,9 +124,10 @@ void DK_Level::initEntities_Others(char ** levelLayout)
 				this->pauline = new Entity_Pauline(this->grid->getCoordinates(col, row)); //TODO
 				break;
 			case EntityChar::CHAR_OIL_DRUM:
-			default:
 				this->oildrum = new Entity_OilDrum(this->grid->getCoordinates(col, row)); //TODO
-				break;			
+				break;
+			default:
+				break;
 			}
 		}
 	}

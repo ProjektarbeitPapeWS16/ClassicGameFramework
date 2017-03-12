@@ -1,11 +1,11 @@
 #include "Entity_Ladder.h"
 #include "Image.h"
 
-Entity_Ladder::Entity_Ladder(Position* position) : Entity(
-	new Image*[1]
+Entity_Ladder::Entity_Ladder(Position position) : Entity(
+	new Image*[0]
 	, 0, false, new Boundaries(
-		position->x,
-		position->y,
+		position.x,
+		position.y,
 		8,8
 	), false, 0)
 {

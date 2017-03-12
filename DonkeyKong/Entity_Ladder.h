@@ -4,6 +4,5 @@
 class Entity_Ladder : public Entity
 {
 public:
-
-	Entity_Ladder(Position* position);
+	Entity_Ladder(Position position);
 };

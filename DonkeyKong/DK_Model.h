@@ -3,6 +3,7 @@
 #include "DK_Config.h"
 #include "DK_Level.h"
 #include "Entity_Jumpman.h"
+#include "Timer.h"
 
 class DK_Config; //class GameConfig;
 class DK_Session;
@@ -11,7 +12,7 @@ class DK_Model : public EngineModel
 {
 public:
 	DK_Config* config; //sets grid, display size, title for game
-	
+	Timer* timer;
 	/// External file path info
 	//std::vector<const char*>* levelLayoutPaths; //array to filepaths that store level entity layout
 	//std::vector<const char*>* uiLayoutPaths; //array filepaths with interface entity layout

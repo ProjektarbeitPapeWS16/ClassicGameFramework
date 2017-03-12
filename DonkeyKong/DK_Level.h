@@ -72,7 +72,7 @@ protected:
 	// then creates an entity vector from them for view and physics;
 	// with an order that draws their images in correct order
 	void initEntities(char** levelLayout, char** uiLayout);
-	
+
 	// Helper function for initEntities.
 	// Initializes attribute containing all entities of one particular type,
 	// identified by representative character.

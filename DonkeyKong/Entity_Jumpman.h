@@ -5,11 +5,9 @@ class GameConfig;
 
 class Entity_Jumpman : public Entity
 {
-	GameConfig* config;
-
-	Image* sprites;	//Spritesheet containing all sprites
-	int* animationStateCycleCount; // = { 2, 3, 4, 3 };
-	const static int stateSpriteCount = 4;
+	//Image* sprites;	//Spritesheet containing all sprites
+	//int* animationStateCycleCount; // = { 2, 3, 4, 3 };
+	//const static int stateSpriteCount = 4;
 
 	Image* moveRight1;
 	Image* moveRight2;
@@ -18,10 +16,6 @@ class Entity_Jumpman : public Entity
 	Image* climb1;
 	Image* climb2;
 	Image* dead;
-	Image* digLeft1;
-	Image* digLeft2;
-	Image* digRight1;
-	Image* digRight2;
 
 public:
 	enum Request
@@ -55,10 +49,7 @@ private:
 	PlayerState state = MOVE_RIGHT_1;
 	Request lastRequest = NONE;
 public:
-	Entity_Jumpman(Position* position);
+	Entity_Jumpman(Position position);
 	void request(Request request);
-	int schrittweite() const;
-	bool canMove();
-	void execute();
 	//Image* getImage() override;
 };

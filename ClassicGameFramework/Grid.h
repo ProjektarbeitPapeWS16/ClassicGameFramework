@@ -19,15 +19,15 @@ public:
 	Grid(unsigned int colCount = COUNT_DEFAULT, unsigned int rowCount = COUNT_DEFAULT,
 			unsigned int xCellSize = GRIDSIZE_DEFAULT, unsigned int yCellSize = GRIDSIZE_DEFAULT);
 	~Grid();
-	unsigned int getColCount();
-	unsigned int getRowCount();
-	unsigned int getXCellSize();
-	unsigned int getYCellSize();
+	unsigned int getColCount() const;
+	unsigned int getRowCount() const;
+	unsigned int getXCellSize() const;
+	unsigned int getYCellSize() const;
 
 	// Returns Pixel coordinates for a given Grid coordinate
-	Position* getCoordinates(unsigned int xGridPos, unsigned int yGridPos);
+	Position getCoordinates(unsigned int xGridPos, unsigned int yGridPos) const;
 
 	// For creating pixel coordinates with an offset, based on a grid coordinate
-	Position* getCoordinates(unsigned int xGridPos, unsigned int yGridPos, int xPixelOffset, int yPixelOffset);
+	Position getCoordinates(unsigned int xGridPos, unsigned int yGridPos, int xPixelOffset, int yPixelOffset) const;
 };
 

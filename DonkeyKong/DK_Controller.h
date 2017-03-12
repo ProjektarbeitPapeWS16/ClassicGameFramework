@@ -1,10 +1,13 @@
 #pragma once
 #include "EngineController.h"
-class DK_Model;
-class DK_View;
+#include "DK_Model.h"
+#include "DK_View.h"
+//class DK_Model;
+//class DK_View;
 
 class DK_Controller : public EngineController
 {
+	DK_Model* model;
 public:
 	typedef enum 
 	{
@@ -17,8 +20,8 @@ public:
 		RIGHT_JUMP, // both right and jump button pressed
 	} Input;
 	DK_Controller(DK_View* view, DK_Model* model);
-
 	~DK_Controller() override;
+
 	void cycle() override;
 
 	// Checks input of latest tick and handles player entity accordingly.
