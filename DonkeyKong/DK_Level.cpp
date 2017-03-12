@@ -28,9 +28,12 @@ void DK_Level::initEntities(char ** levelLayout, char ** uiLayout)
 	this->entities = getEntityListSortedByType();
 }
 
-
+// Assumes: levelLayout is 2D array with [DK_cols, DK_rows]
+// Sets ladder entities of a level.
+// Affects:	ladders
 void DK_Level::initEntities_Ladders(char ** levelLayout)
 {
+	this->ladders = new std::vector<Entity_Ladder*>;
 	bool ladderComplete;
 	for (auto row = 0; row < grid->getRowCount(); row++)
 	{
@@ -38,13 +41,13 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 		{
 			if (levelLayout[row][col] == EntityChar::CHAR_LADDER)
 			{
-				this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(row, col)));
-				// Create ladder Entity with respective coordinates.
+				// Initiate ladder Entity creation at respective coordinate...
 				ladderComplete = false;
-				// Then create further ladder entities connecting to the next girder above.
-				for (auto ladderRow = row - 1; ladderComplete || ladderRow >= 0; ladderRow--) {
+				for (int ladderRow = row; ladderComplete; ladderRow--) {
+					//...and keep creating ladders while moving upwards on grid...
 					this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(row, col)));
-					if (isGirderChar(levelLayout[ladderRow][col])) 
+					//...until one connects with a girder (or top of level), and the ladder is complete.
+					if (isGirderChar(levelLayout[ladderRow][col]) || ladderRow<=0) 
 					{
 						ladderComplete = true;
 					}					
@@ -59,8 +62,9 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 }
 
 // Creates girder entities with respective offsets (can overlap with ladders)
-void DK_Level::initEntities_Obstacles(char ** levelLayout) const
+void DK_Level::initEntities_Obstacles(char ** levelLayout)
 {
+	this->girders = new std::vector<Entity_Girder*>;
 	for (auto row = 0; row < grid->getRowCount(); row++)
 	{
 		for (auto col = 0; col < grid->getColCount(); col++)
@@ -114,8 +118,9 @@ void DK_Level::initEntities_Others(char ** levelLayout)
 				this->pauline = new Entity_Pauline(this->grid->getCoordinates(col, row)); //TODO
 				break;
 			case EntityChar::CHAR_OIL_DRUM:
+			default:
 				this->oildrum = new Entity_OilDrum(this->grid->getCoordinates(col, row)); //TODO
-				break;
+				break;			
 			}
 		}
 	}
@@ -187,6 +192,7 @@ DK_Level::DK_Level(DK_Model* model, unsigned id) :
 	)
 {
 	// 1. Retrieve Level[UI]layoutpaths from Config, then convert the file info into 2D char arrays
+	this->model = model;
 	this->levelLayout =	this->getLeveldata(model->config->getLevelLayoutPath(1), model->config->rows, model->config->cols);
 	this->uiLayout = this->getLeveldata(model->config->getUILayoutPath(1), model->config->rows, model->config->cols);
 	// 2. Initialize entity data for level and ui entities using 2D char arrays

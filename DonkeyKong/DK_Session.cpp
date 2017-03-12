@@ -6,18 +6,17 @@ DK_Session::DK_Session(DK_Model* model) // (std::vector<char*>* levelLayoutPaths
 {
 	this->model = model;
 	this->bonus = INIT_BONUS;
+	this->lifes = INIT_LIVES;
+	this->score = INIT_SCORE;
 	//this->uiLayoutPaths = uiLayoutPaths;
 	//this->levelLayoutPaths = levelLayoutPaths;
 
 	//this->highScores = highScores;
 	//this->highScore = highScores[0]; // First place
 
-	if (levelLayoutPaths != nullptr && uiLayoutPaths != nullptr)
-	{
+	//if (levelLayoutPaths != nullptr && uiLayoutPaths != nullptr)
 		// Init first level with default physics.
-		this->level = new DK_Level(model, 1);// levelLayoutPaths->at(0), uiLayoutPaths->at(0), new Physics(), this->config);
-	}
-	
+		this->level = new DK_Level(model, 1);// levelLayoutPaths->at(0), uiLayoutPaths->at(0), new Physics(), this->config);	
 }
 
 void DK_Session::doEvent_Death()

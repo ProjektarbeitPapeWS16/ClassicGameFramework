@@ -100,37 +100,49 @@ std::vector<PhysicalObject*>* Level::getPhysicalObjects() const
 // Assumes: give textfile has proper syntax to mach a game's level layout.
 //		(Correct amount of lines and characters corresponding with
 //		level grid; and known entity type symbols.)
-char** Level::getLeveldata(const char* filepath, unsigned int rows, unsigned int cols) const
+char** Level::getLeveldata(const char* filepath, const unsigned int rows, const unsigned int cols) const
 {
 	char** array2D = nullptr;
 	FILE* file;
 
 	try
 	{
-		// load levelinfo in binary mode
-		fopen_s(&file, filepath, "rb");
+		// load levelinfo in read text mode
+		fopen_s(&file, filepath, "r");
 
 		// read content of textfile line by line
 		std::ifstream in(filepath);
+		if (!in)
+		{
+			std::cout << "While opening a file an error is encountered" << std::endl;
+		}
+
 		std::string str;
 		char entityCharacter;
-		array2D = new char*[rows];
-		for (auto iRow = 0; iRow < rows; iRow++)
+		array2D = new char*[rows];	// for variably sized cols
+		for (int iRow = 0; iRow < rows; iRow++)
 		{
 			// load next line of text; which contains one row
-			array2D[iRow] = new char[cols];
+			array2D[iRow] = new char[cols]; //#length is 36; determined earlier
 			std::getline(in, str);
-			for (auto iCol = 0; iCol < str.length() || iCol < cols; iCol++)
+			for (auto iCol = 0; iCol < str.length() && iCol < cols; iCol++)
 			{
 				entityCharacter = str[iCol];
 				array2D[iRow][iCol] = entityCharacter;
 			}
 		}
+		
+		/*
+		//Free memory after use
+		for (int iRow = 0; iRow < rows; iRow++)
+			delete[] array2D[iRow];
+		delete[] array2D;
+		*/
 	}
 	catch (const std::exception& ex)
 	{
 		std::cout << ex.what(); //TODO: What went wrong?
 	}
-	
+
 	return array2D;
 }

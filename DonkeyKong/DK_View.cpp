@@ -38,6 +38,7 @@ DK_View::DK_View(DK_Model* model)
 // Assumes: vector containing entities was ordered to ensure that respective entities are in the foreground
 void DK_View::draw()
 {
+	//TODO: drawables
 	auto drawables = model->getEntities();
 	//display->setDrawables(drawables);
 	display->clearDrawables();

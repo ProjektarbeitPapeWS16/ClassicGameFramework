@@ -19,8 +19,8 @@ namespace dk_Config_general
 	static const unsigned int DK_LEVELCOUNT = 1;		// Amount of levels in the game (currently only 1)
 	static const unsigned int DK_UICOUNT = 1;			// Amount of UI types in the game
 
-	static const char* DK_LEVELLAYOUTPATH_1 = "..\\levels\\level_25m.txt"; // Relative PJ path to first level						
-	static const char* DK_UILAYOUTPATH_1 = "..\\levels\\level_ui.txt"; // Relative PJ path to ui layout for first level
+	static const char* DK_LEVELLAYOUTPATH_1 = "levels\\level_25m.txt"; // Relative PJ path to first level						
+	static const char* DK_UILAYOUTPATH_1 = "levels\\level_ui.txt"; // Relative PJ path to ui layout for first level
 
 	static const std::array<const char*, DK_LEVELCOUNT>* DK_LEVELLAYOUTPATHS;	// pre-defined list of all paths to file for layout of n-th level
 	static const std::array<const char*, DK_UICOUNT>* DK_UILAYOUTPATHS;		// pre-defined list of all paths to file for layout of n-th ui	

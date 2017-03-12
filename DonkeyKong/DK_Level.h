@@ -78,7 +78,7 @@ protected:
 	// identified by representative character.
 	// Affects: Respective attribute containing those entities
 	void initEntities_Ladders(char** levelLayout);
-	void initEntities_Obstacles(char** levelLayout) const;
+	void initEntities_Obstacles(char** levelLayout);
 	void initEntities_Others(char** levelLayout);
 	// Used by: initEntities. Sets entity-vector for view.
 	std::vector<Entity*>* getEntityListSortedByType() const;
