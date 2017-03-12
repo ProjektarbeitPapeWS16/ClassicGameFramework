@@ -153,21 +153,24 @@ Jegliche Objekte des Spielfelds (Spielfiguren, Hindernisse, Sammelbares) die ang
 
 Nachdem die Charakteristiken des Frameworks und der Struktur des Projekts grob umrissen wurden, wird jetzt auf die Eigenheiten dieser Implementierung im Vergleich zum Original eingegangen. 
 
-\subsubsection{Level}
-%behandel auch Wände
-Das Level wurde manuell dem Original nachempfunden. Mittels einer Vorlage wurden die Wände pixelgenau codiert. Für die Wände, die Dots, die Energizer, die Geister und Pac-Man wurden jeweils ein Entitytyp angelegt. 
+Momentan sind folgende Spielelemente implementiert. Das Spielfeld, Pac-Man, Geister, Dots, Energizer und Bonuspunkte werden originalgetreu angezeigt. Die Bonusleben und Scoreanzeige weicht vom Aussehen her ein wenig ab, funktional sind sie aber dem Original treu. Das Bewegungsverhalten von Pac-Man und den Geistern ist ebenfalls originalgetreu, allerdings ist die Geschwindigkeit eine andere. Die Anfangsanimation beim Spielstart fehlt. Außerdem gibt es keine steigende Schwierigkeit. Man spielt also immer wieder Level 1. Im Original wurde die Position von Objeken über ein Raster gelöst. In dieser Implementierung sind die Objekte allerdings als Rechtecke mit Position, Breite und Höhe realisiert, die sich Pixelgenau bewegen können. Daher ist die Kollision nicht so barmherzig wie im Original. Es gibt kein Menü oder Highscoreanzeige. 
 
-\subsubsection{Pac-Man}
+
+\subsubsection{Level}
+
+Das Level wurde dem Original pixelgenau nachempfunden. Mittels einer Vorlage wurden die Wände einzeln codiert. Für die Wände, die Dots, die Energizer, die Geister und Pac-Man wurde jeweils ein Entitytyp angelegt. In einer Intialisierungsroute werden alle Entities erzeugt und positioniert. 
+
+Die gameloop() enthält den Spielablauf. Pac-Man und die Geister führen ihre Aktionen aus. Daraufhin wird mithilfe der Physik Engine geprüft ob Spielereignisse eingetreten sind. Dazu zählen Kollisionen mit Pac-Man und die daraus resultierenden Ereignisse wie Pac-Mans Tod, das Gewinnen des Levels oder das Fressen von Objekten. Diese Spielereignisse steuern den Spielablauf. 
 
 \subsubsection{Ghosts}
 
+Die Geister bewegen sich dem Original entsprechend. Hier wird die KI der Geister erläutert. 
+
+Geister haben drei Bewegungsmodi Scatter, Chase und Frightened. Geister bewegen sich immer vorwärts. Sie können sich nicht umdrehen, ausser bei einem Moduswechsel. Bei dem Wechsel zwischen Modi dreht sich jeder Geist um. Ausser beim Wechsel vom Modus Frightened zu einem anderen Modus. Sind Geister an einer Kreuzung suchen sie sich ein Zielkästchen der Größe 8x8. Geister bewegen sich in die Richtung die ihrem Zielkästchen in direkter Linie am nächsten ist. Dabei wird sich von der Kreuzung aus in jede Richtung sich um ein Kästchen bewegt und von dort aus die Entfernung gemessen. Im Scatter Modus hat jeder Geist sein Zielkästchen in einer der Ecken. Im Chase Modus hat jeder Geist ein anderes Verhalten. Der rote Geist hat als Zielkästchen Pac-Mans Position. Der pinke Geist hat als Zielkästchen Pac-Mans Position plus vier Kästchen in die Richtung in die Pac-Man schaut. Der blaue Geist hat als Zielkästchen Pac-Mans Position plus zwei Kästchen in die Richtung in die er schaut verschoben um den Vektor vom roten Geist zu Pac-Man. Der orange Geist hat als Zielkästchen Pac-Mans Position wenn er mehr als acht Kästchen von Pac-Man entfernt ist. Wenn er näher dran ist hat er als Zielkästchen das Zielkästchen des Scatter Modus. Im Frightened Modus bewegen sich die Geister an Kreuzungen zufällig. Bei ihrem Tod bewegen sich Geister in ihr Haus in die Mitte des Feldes zurück und werden dort wiederbelebt. \cite{PacManDossier}
+
 \subsection{Ausblick}
 
-\subsubsection{Bugs?}
-
-\subsubsection{ToDo}
-
-\section{Fazit}
+Das Spiel funktioniert bereits, allerdings bestehen zum Original noch einige Unterschiede. Diese könnten noch implementiert werden. Dazu gehören ein Menü bzw. ein Startbildschirm, die steigende Schwierigkeit der Level, eine Highscore-Anzeige, die Anpassung der Geschwindigkeit und Sound. 
 
 \pagebreak
 

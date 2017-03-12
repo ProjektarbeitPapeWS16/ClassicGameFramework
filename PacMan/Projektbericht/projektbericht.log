@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.9.13)  12 MAR 2017 17:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.9.13)  12 MAR 2017 22:56
 entering extended mode
 **./projektbericht.tex
 (projektbericht.tex
@@ -524,26 +524,32 @@ Overfull \hbox (1.34496pt too wide) in paragraph at lines 99--100
  : / / www . classicgaming . cc / classics /
  []
 
-[7] [8] [9] [10] (projektbericht.bbl) [11] (projektbericht.aux) ) 
+[7] [8]
+Overfull \hbox (1.16496pt too wide) in paragraph at lines 156--157
+[]\OT1/cmr/m/n/10.95 Momentan sind fol-gen-de Spiel-ele-men-te im-ple-men-tiert
+. Das Spiel-feld, Pac-
+ []
+
+[9] [10] [11] (projektbericht.bbl) [12] (projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 2389 strings out of 493334
- 31910 string characters out of 3136643
- 99724 words of memory out of 3000000
- 5879 multiletter control sequences out of 15000+200000
+ 2390 strings out of 493334
+ 31925 string characters out of 3136643
+ 99728 words of memory out of 3000000
+ 5880 multiletter control sequences out of 15000+200000
  8979 words of font info for 32 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,7n,25p,1044b,266s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program File
-s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on projektbericht.pdf (11 pages, 440075 bytes).
+ 40i,7n,25p,1490b,266s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on projektbericht.pdf (12 pages, 442896 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
+ 74 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

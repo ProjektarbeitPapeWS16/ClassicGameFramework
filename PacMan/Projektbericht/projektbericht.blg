@@ -9,4 +9,6 @@ Warning--entry type for "MuseumPacMan" isn't style-file defined
 --line 16 of file literatur.bib
 Warning--entry type for "SoundPacMan" isn't style-file defined
 --line 23 of file literatur.bib
-(There were 4 warnings)
+Warning--entry type for "PacManDossier" isn't style-file defined
+--line 37 of file literatur.bib
+(There were 5 warnings)

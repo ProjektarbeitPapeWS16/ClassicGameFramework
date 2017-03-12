@@ -356,7 +356,6 @@ void MyLevel::gameLoop()
 			bbonus2 = true;
 			createDots();
 			restart();
-			//gameState = MyLevel::RESTARTGAME; // tell the guy above
 			return;
 		}
 
