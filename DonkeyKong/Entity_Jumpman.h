@@ -18,16 +18,6 @@ class Entity_Jumpman : public Entity
 	Image* dead;
 
 public:
-	enum Request
-	{
-		NONE,
-		MOVE_RIGHT,
-		MOVE_LEFT,
-		MOVE_UP,
-		MOVE_DOWN,
-		DO_ACTION
-	};
-
 	enum PlayerState
 	{
 		MOVE_RIGHT_1, //TODO: Combine states

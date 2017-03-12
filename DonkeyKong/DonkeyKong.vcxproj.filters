@@ -81,6 +81,9 @@
     <ClInclude Include="DK_Config.h">
       <Filter>Headerdateien\MVC</Filter>
     </ClInclude>
+    <ClInclude Include="DK_RequestHandler.h">
+      <Filter>Headerdateien\MVC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DK_Model.cpp">
@@ -123,6 +126,9 @@
       <Filter>Quelldateien\Session\Level</Filter>
     </ClCompile>
     <ClCompile Include="DK_Config.cpp">
+      <Filter>Quelldateien\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="DK_RequestHandler.cpp">
       <Filter>Quelldateien\MVC</Filter>
     </ClCompile>
   </ItemGroup>

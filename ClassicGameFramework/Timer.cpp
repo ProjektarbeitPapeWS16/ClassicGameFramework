@@ -18,6 +18,8 @@ Timer::Timer(int timelimit)
 	// alternative: https://www.opengl.org/sdk/docs/man4/html/glQueryCounter.xhtml
 }
 
+Timer::~Timer() {}
+
 // Returns time passed in seconds since session start
 // @return time passed in seconds since session start
 int Timer::getTimePassed() const

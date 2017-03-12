@@ -53,79 +53,10 @@ void DK_Model::nextIteration()
 	 * - update entities
 	 * - move player according to controller request.
 	 */
-	}
-	
-	
+	}	
 }
 
 
-// Key input for climbing up a ladder.
-void DK_Model::keyUpPress()
-{
-	// request(PlayerEntity::MOVE_UP);
-}
-
-// Key input for climbing down a ladder.
-void DK_Model::keyDownPress()
-{
-	
-}
-
-// Key input for walking left.
-void DK_Model::keyLeftPress()
-{
-	// check if obstacle left
-	// then move left
-}
-
-// Key input for walking right.
-void DK_Model::keyRightPress()
-{
-	// check if obstacle right
-	// then move right
-}
-
-// Key input for jump.
-void DK_Model::keySpacePress()
-{
-	// check player state
-	// if on ground, change to jump state
-
-}
-
-// Key input for closing the game.
-void DK_Model::keyEscPress()
-{
-	EngineModel::getInstance()->shouldClose = true;
-}
-
-
-
-// Getters:
-
-	/*
-	GameConfig * DK_Model::getConfig() const
-	{
-		return this->config;
-	}
-
-	// Returns vector with all relative paths for a level's entity layout
-	const std::vector<char*> * DK_Model::getLevelLayoutPaths(int i) const
-	{
-		return this->levelLayoutPaths;
-	}
-
-	// Returns vector with all relative paths for a level's UI layout
-	const std::vector<char*> * DK_Model::getUiLayoutPaths() const
-	{
-		return this->uiLayoutPaths;
-	}
-
-	const char * DK_Model::getHighscoreInfo() const
-	{
-		return this->highscoreEntriesPath;
-	}
-	*/
 
 // Returns a level's current entities (both ui and interactive)
 // Used by: View, for update()
