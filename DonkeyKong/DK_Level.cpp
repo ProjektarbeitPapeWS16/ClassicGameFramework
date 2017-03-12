@@ -2,14 +2,16 @@
 #include "Text.h"
 
 #include "DK_Level.h"
+#include "DK_Model.h"
 #include "Entity_Girder.h"
 #include "Entity_Ladder.h"
+#include "Physics.h"
 
 
-	//backgroundEntities->push_back(backgroundEntity);
+//backgroundEntities->push_back(backgroundEntity);
 	//this->entities->push_back(backgroundEntity);
 
-
+/// Helper Methods for initialization:
 
 void DK_Level::initEntities(char ** levelLayout, char ** uiLayout)
 {
@@ -40,7 +42,7 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 				// Create ladder Entity with respective coordinates.
 				ladderComplete = false;
 				// Then create further ladder entities connecting to the next girder above.
-				for (int ladderRow = row - 1; ladderComplete || ladderRow >= 0; ladderRow--) {
+				for (auto ladderRow = row - 1; ladderComplete || ladderRow >= 0; ladderRow--) {
 					this->ladders->push_back(new Entity_Ladder(grid->getCoordinates(row, col)));
 					if (isGirderChar(levelLayout[ladderRow][col])) 
 					{
@@ -57,7 +59,7 @@ void DK_Level::initEntities_Ladders(char ** levelLayout)
 }
 
 // Creates girder entities with respective offsets (can overlap with ladders)
-void DK_Level::initEntities_Obstacles(char ** levelLayout)
+void DK_Level::initEntities_Obstacles(char ** levelLayout) const
 {
 	for (auto row = 0; row < grid->getRowCount(); row++)
 	{
@@ -85,6 +87,8 @@ void DK_Level::initEntities_Obstacles(char ** levelLayout)
 				break;
 			case EntityChar::CHAR_GIRDER_U7:
 				this->girders->push_back(new Entity_Girder(grid->getCoordinates(col, row, 0, 7)));
+				break;
+			default:
 				break;
 			}
 		}
@@ -117,7 +121,7 @@ void DK_Level::initEntities_Others(char ** levelLayout)
 	}
 }
 
-std::vector<Entity*>* DK_Level::getEntityListSortedByType()
+std::vector<Entity*>* DK_Level::getEntityListSortedByType() const
 {
 	std::vector<Entity*>* result = new std::vector<Entity*>;
 
@@ -160,8 +164,11 @@ bool DK_Level::isGirderChar(char c)
 		
 }
 
+
+/// Constructor
+
 // Basic constructor for creating level layout based on given files, physics, and config.
-DK_Level::DK_Level(char * levelFilepath, char * uiFilepath, Physics * physics, GameConfig * config) :
+/*DK_Level::DK_Level(char * levelFilepath, char * uiFilepath, Physics * physics, GameConfig * config) :
 	Level(config->getRasterColumnsCount(), config->getRasterRowsCount(),
 		config->getInternalRasterWidth(), config->getInternalRasterHeight(), physics)
 {
@@ -171,7 +178,21 @@ DK_Level::DK_Level(char * levelFilepath, char * uiFilepath, Physics * physics, G
 	this->config = config;
 	// 2. create entities in layered order by reading layout
 	initEntities(levelLayout, uiLayout);
+}*/
+
+DK_Level::DK_Level(DK_Model* model, unsigned id) :
+	Level(model->config->cols, model->config->rows,
+		model->config->xCellSize, model->config->yCellSize,
+		new Physics(model)
+	)
+{
+	// 1. Retrieve Level[UI]layoutpaths from Config, then convert the file info into 2D char arrays
+	this->levelLayout =	this->getLeveldata(model->config->getLevelLayoutPath(1), model->config->rows, model->config->cols);
+	this->uiLayout = this->getLeveldata(model->config->getUILayoutPath(1), model->config->rows, model->config->cols);
+	// 2. Initialize entity data for level and ui entities using 2D char arrays
+	initEntities(this->levelLayout, this->uiLayout);
 }
+
 
 DK_Level::~DK_Level()
 {

@@ -11,6 +11,8 @@
 #include "Entity_Pauline.h"
 #include "Entity_Ladder.h"
 
+class DK_Model;
+
 typedef enum {
 	CHAR_JUMPMAN = 'J',
 	CHAR_DONKEY_KONG = 'K',
@@ -41,11 +43,10 @@ typedef enum {
 // Meant to replicate the first Level of the Donkey Kong arcade game; titled "25m".
 class DK_Level : public Level
 {
-private:
+protected:
 
 	// Entity lists for checking through:
-	char** uiLayout;				// 2D array containing UI layout.
-	GameConfig* config;				//TODO: make consistent [Grid]
+	char** uiLayout;				// 2D array containing UI layout for n-th level.
 	
 	//Entities determined by level
 
@@ -58,7 +59,7 @@ private:
 	std::vector<Entity_Girder*>* girders;	// Spawned on init.
 
 	unsigned int jumpStateCount;	// used for determining direction change in jump state.
-	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descending after that.
+	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descend after that.
 	
 	//UI Entities [TODO; determined by Session] (only placement and look level-dependent)
 
@@ -77,16 +78,21 @@ private:
 	// identified by representative character.
 	// Affects: Respective attribute containing those entities
 	void initEntities_Ladders(char** levelLayout);
-	void initEntities_Obstacles(char** levelLayout);
+	void initEntities_Obstacles(char** levelLayout) const;
 	void initEntities_Others(char** levelLayout);
 	// Used by: initEntities. Sets entity-vector for view.
-	std::vector<Entity*>* getEntityListSortedByType();
+	std::vector<Entity*>* getEntityListSortedByType() const;
 	bool isGirderChar(char c);	// True, if any char representing a girder in levelLayout
 public:			
-	// Standard constructor to get information for initializing all entities.
-	DK_Level(char* levelFilepath, char* uiFilepath, Physics* physics, GameConfig* config);
+	/* Standard constructor to get information for initializing all entities.
+	 * @param model The Engine Model.
+	 * @oaram id The level ID. Determines which filepath for level and ui info will be read to initialize level.
+	 */
+	DK_Level(DK_Model* model, unsigned int id); //  char* levelFilepath, char* uiFilepath, Physics* physics, GameConfig* config);
 	~DK_Level() override;
 	
+	DK_Model* model;			// To retrieve information on initialization
+
 	// main event function. executes respective function for a game loop
 	void nextTick();
 

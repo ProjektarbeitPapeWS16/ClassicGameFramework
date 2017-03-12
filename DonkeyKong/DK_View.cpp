@@ -3,25 +3,34 @@
 
 #include "DK_View.h"
 #include "DK_Model.h"
+#pragma once
 
 // Standard constructor for custom model, display, and renderer.
 // (No custom Display and Renderer required for DK)
-DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) 
+/*DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) 
 	: EngineView(static_cast<EngineModel*>(model), display, renderer)
 {
 	this->config = model->getConfig(); // FIXME: Unneeded after renderer init?
+}*/
+
+/*
+DK_View::DK_View(DK_Model * model, Display * display, Renderer * renderer) :
+EngineView(model, display, renderer)
+{
 }
+*/
 
 // Simple constructor for custom model
-// Renderer settings are determined by given model.
+// Renderer configurations are determined by given model.
 DK_View::DK_View(DK_Model* model)
-	: DK_View(model,
+	: EngineView(model,
 		new Display(),
-		new Renderer(model->getConfig()->getWidth(),
-			model->getConfig()->getHeight(), model->getConfig()->getTitle()
+		new Renderer(model->config->width,
+			model->config->height, model->config->title
 		)
 	)
 {
+	this->model = model;
 }
 
 // Method for updating view.

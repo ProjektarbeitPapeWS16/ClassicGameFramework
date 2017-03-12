@@ -8,10 +8,7 @@
 #include "DK_Model.h"
 #include "DK_View.h"
 #include "DK_Controller.h"
-#include "GameConfig.h"
-#include "DK_Session.h"
-
-
+#pragma once
 
 //#include <iostream>
 

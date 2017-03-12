@@ -2,16 +2,12 @@
 
 #include <glfw3.h>
 #include "Display.h"
-//#include "Drawable.h"
-#include "Session.h"
 #include "EngineController.h"
 #include "EngineModel.h"
 #include "EngineView.h"
-//#include "Level.h"
 
-//#include "Entity_Jumpman.h"
-//#include "DK_Level.h"
 #include "DK_Model.h"
+#pragma once
 
 DK_Controller::DK_Controller(DK_View* view, DK_Model* model)
 		: EngineController(reinterpret_cast<EngineView*>(view), reinterpret_cast<EngineModel*>(model))

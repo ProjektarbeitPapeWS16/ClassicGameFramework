@@ -1,32 +1,16 @@
 #include "DK_Model.h"
 #include "Physics.h"
 #include "DK_Session.h"
-#include "DK_Config.h"
-
+//#include "DK_Config.h"
+#pragma once
 
 // Constructor for default values
-DK_Model::DK_Model()
-	: DK_Model(session, new GameConfig(DK_TITLE, DK_WIDTH, DK_HEIGHT, 3, DK_CELLSIZE, DK_CELLSIZE), DK_LEVELLAYOUTPATHS, DK_UILAYOUTPATHS, nullptr) // HACK
-{
-}
-
-
-SpacePanicModel::SpacePanicModel() :
-	EngineModel(nullptr, nullptr, nullptr),
-	config(new GameConfig("Space Panic", 192, 256, 2, 8, 8)),
-	stageFiles(new const char*[1]{
-	"levels/stage1.txt"
-}),
-movementFiles(new const char*[1]{
-	"levels/stage1_movement.txt"
-})
-{
-	setSession(new SpacePanicSession(this));
-	//session->setLevel(new Stage(this, "levels/stage1.txt", "levels/stage1_movement.txt"));
+DK_Model::DK_Model() : DK_Model(new DK_Config()) // HACK
+{ 
 }
 
 /* Main Constructor.
- * Notes: Creates no physics engine, which instead gets used within a level class.
+ * Notes: Creates no physics engine, which instead gets used within the level class.
  * @param session			Game-Session containing general game information to keep track of, like High Score or Lives left.
  * @param config			Game Configuration determining window size, pixel and grid dimensions, game title, etc.
  * @param levelLayoutPaths	VList of relative paths to the files containing interactive entity layout information for a level.
@@ -36,10 +20,12 @@ movementFiles(new const char*[1]{
 DK_Model::DK_Model(DK_Config* config) // std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath
 {
 	this->config = config;
+	/*
 	this->levelLayoutPaths = levelLayoutPaths;
 	this->uiLayoutPaths = uiLayoutPaths;
 	this->highscoreEntriesPath = highscoreEntriesPath;
-	this->session = new DK_Session(levelLayoutPaths, uiLayoutPaths, highscoreEntriesPath, config);	//Create from parameters
+	*/
+	this->session = new DK_Session(this);	//Create from parameters
 }
 
 DK_Model::~DK_Model()
@@ -58,7 +44,7 @@ void DK_Model::nextIteration()
 	if (session != nullptr && session->getLives() <= 0)
 	{
 		// [1A] Start new session
-		session = new DK_Session(this->levelLayoutPaths, this->uiLayoutPaths, nullptr, this->config, this->getPhysics());
+		session = new DK_Session(this);
 	}
 	// 2. Make session update for current cycle.
 	
@@ -111,27 +97,29 @@ void DK_Model::keyEscPress()
 
 // Getters:
 
-GameConfig * DK_Model::getConfig() const
-{
-	return this->config;
-}
+	/*
+	GameConfig * DK_Model::getConfig() const
+	{
+		return this->config;
+	}
 
-// Returns vector with all relative paths for a level's entity layout
-const std::vector<char*> * DK_Model::getLevelLayoutPaths(int i) const
-{
-	return this->levelLayoutPaths;
-}
+	// Returns vector with all relative paths for a level's entity layout
+	const std::vector<char*> * DK_Model::getLevelLayoutPaths(int i) const
+	{
+		return this->levelLayoutPaths;
+	}
 
-// Returns vector with all relative paths for a level's UI layout
-const std::vector<char*> * DK_Model::getUiLayoutPaths() const
-{
-	return this->uiLayoutPaths;
-}
+	// Returns vector with all relative paths for a level's UI layout
+	const std::vector<char*> * DK_Model::getUiLayoutPaths() const
+	{
+		return this->uiLayoutPaths;
+	}
 
-const char * DK_Model::getHighscoreInfo() const
-{
-	return this->highscoreEntriesPath;
-}
+	const char * DK_Model::getHighscoreInfo() const
+	{
+		return this->highscoreEntriesPath;
+	}
+	*/
 
 // Returns a level's current entities (both ui and interactive)
 // Used by: View, for update()

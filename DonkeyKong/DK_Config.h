@@ -38,46 +38,35 @@ public:
 
 	static const unsigned int width = dk_Config_general::DK_WIDTH;			// Window width
 	static const unsigned int height = dk_Config_general::DK_HEIGHT;		// Window height
-	static const Grid* grid;	
+	static const unsigned int cols = dk_Config_general::DK_COLCOUNT;
+	static const unsigned int rows = dk_Config_general::DK_ROWCOUNT;
+	static const unsigned int xCellSize = dk_Config_general::DK_CELLSIZE;		
+	static const unsigned int yCellSize = dk_Config_general::DK_CELLSIZE;		
+	static const Grid* grid;
+	// Grid* myGrid = new Grid(10, 10, 10, 10);
 	static const std::array<const char*, dk_Config_general::DK_LEVELCOUNT>* levelLayoutPaths;	// pre-defined list of all paths to file for layout of n-th level
 	static const std::array<const char*, dk_Config_general::DK_UICOUNT>* uiLayoutPaths;		// pre-defined list of all paths to file for layout of n-th ui
-
 	
+	static const char* levelLayoutPath1;
+	static const char* uilLayoutPath1;
+
 	//Constructor
-	DK_Config();
+	explicit DK_Config(){};
 
 	// Functions
 	
-	//Getters
-	/*int getInternalWidth() const; 
-	int getInternalHeight() const;
-	int getExternalFactor() const;
-	int getInternalRasterWidth() const; xCellSze
-	int getInternalRasterHeight() const; yCellSze
-	int getWidth() const;
-	int getHeight() const;
-	int getX(int x) const;
-	int getY(int y) const;
-	int getRasterWidth() const;	
-	int getRasterHeight() const;
-	int getRasterColumnsCount() const;	colCOunt
-	int getRasterRowsCount() const; rowCount
-*/
 	static const char* getTitle();
-	static char* getLevelLayoutPath(unsigned int levelNr);
-	static char* getUILayoutPath(unsigned int uiNr);
+	static const char* getLevelLayoutPath(unsigned int levelID);
+	static const char* getUILayoutPath(unsigned int uiID);
 };
-
-// Initialize static members:
-char const* DK_Config::title = dk_Config_general::DK_TITLE;
-const Grid* DK_Config::grid = dk_Config_general::DK_GRID;
 
 // init file path vectors
 //std::array<const char*, dk_Config_general::DK_LEVELCOUNT>* DK_Config::levelLayoutPaths[1] = new std::array<const char*, dk_Config_general::DK_LEVELCOUNT>; //dk_Config_general::DK_LEVELLAYOUTPATH_1;
-const std::array<const char*, dk_Config_general::DK_LEVELCOUNT>* DK_Config::levelLayoutPaths = dk_Config_general::DK_LEVELLAYOUTPATHS;
 
+// const std::array<const char*, dk_Config_general::DK_LEVELCOUNT>* DK_Config::levelLayoutPaths = dk_Config_general::DK_LEVELLAYOUTPATHS;
+//const std::array<const char*, dk_Config_general::DK_LEVELCOUNT>* DK_Config::levelLayoutPaths = { "a", "b" };
 //DK_Config::levelLayoutPaths
 
-const std::array<const char*, dk_Config_general::DK_UICOUNT>* DK_Config::uiLayoutPaths = dk_Config_general::DK_UILAYOUTPATHS;
+//const std::array<const char*, dk_Config_general::DK_UICOUNT>* DK_Config::uiLayoutPaths = std::array<dk_Config_general::DK_UILAYOUTPATH_1, dk_Config_general::DK_LEVELLAYOUTPATH_1>; //DK_UILAYOUTPATHS;
 // DK_Config::uiLayoutPaths->push_back(DK_UILAYOUTPATH_1);
 

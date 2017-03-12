@@ -14,8 +14,6 @@ protected:
 	int bonus;			// Counts bonus points left. Resets with each level (or session).
 	int highScore;		// Set by previous plays. Get from model, from external file.
 	int* highScores;	// Highscore list, sorted from first to last place.
-	
-	GameConfig * config;
 
 	std::vector<const char*>* levelLayoutPaths;	// Info for initializing levels
 	std::vector<const char*>* uiLayoutPaths;	// Info for UI entities
@@ -23,8 +21,10 @@ protected:
 	// DK_Level* level;	// Current level
 	// Physics* physics;  // Used for level. (Currently only one type --> always same physics)
 public:
-	DK_Session(std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath, GameConfig* config);
-	DK_Session();
+	//DK_Session(std::vector<const char*>* levelLayoutPaths, std::vector<const char*>* uiLayoutPaths, const char* highscoreEntriesPath, GameConfig* config);
+	DK_Session(DK_Model* model);
+
+	DK_Model * model;			// For config and file paths
 
 	// Event handlers
 	void doEvent_Death();		// do events on death; including score and lvl reset
