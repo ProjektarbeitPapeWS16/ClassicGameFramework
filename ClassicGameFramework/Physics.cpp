@@ -128,7 +128,7 @@ int Physics::getRelativeDistance(PhysicalObject * fromA, PhysicalObject * toB, b
 {
 	// Determine overlap. Positive value describes an interval size along the axis.
 	//					  Negative value describes a distance along the axis.
-	int distance;
+	int distance = 0;
 	int overlap = Physics::getOverlapOnAxis(fromA, toB, xAxis);
 	if (overlap < 0) {
 		// Determine direction of distance: is B left or right from A?
@@ -195,17 +195,22 @@ std::vector<PhysicalObject*>* Physics::checkAdjacency(PhysicalObject * checkObje
 	static int STRICT_OVERLAP = 3;
 	static int ADJACENCY_DIST = 1;
 	//int pixelOverlap;	// Pixel overlap of boundaries [x or y direction only]; perpendicular to adjacency-test
-	int requiredOverlap = checkStrict ? STRICT_OVERLAP : 1;
+	int requiredOverlap = checkStrict ? STRICT_OVERLAP : 0;
 
 	if (physicalObjects)
 	{
 		for (auto iteratorB = physicalObjects->begin(); iteratorB != physicalObjects->end(); ++iteratorB)
 		{
 			auto obj = *iteratorB;
-			if (!obj->isMovable())	// Only check walls/floors
+			if (!obj->isMovable())	// Only check walls/ladders
 			{
 				isAdjacent = false;
 				// Check if any pixels are adjacent
+				auto overlapXAxis = Physics::getOverlapOnXAxis(checkObject, obj);
+				auto overlapYAxis = Physics::getOverlapOnYAxis(checkObject, obj);
+				auto relativeDist = getRelativeYDistance(checkObject, obj);
+				auto isAbove = isAboveOther(checkObject, obj);
+
 				switch (boundaryEdge) {
 					// Boundary corner reference:
 					// topleft	(x     | y + height)		upper edge	y + height
@@ -238,11 +243,15 @@ std::vector<PhysicalObject*>* Physics::checkAdjacency(PhysicalObject * checkObje
 					break;
 				}
 				// Store obj in result list, if deemed adjacent.
-				if (isAdjacent) adjacentObjects->push_back(obj);
+				if (isAdjacent) {
+					adjacentObjects->push_back(obj);
+					isAdjacent = false;
+				}
 			}
 		}
 		return nullptr;
 	}
+	return nullptr;
 }
 
 

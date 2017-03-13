@@ -12,5 +12,5 @@ Entity_DonkeyKong::Entity_DonkeyKong(Position position)
 		), false, 0
 	)
 {
-this->image[0] = new Image("textures/DK_DonkeyKong.bmp", this, 91, 127, 255);
+this->image[0] = new Image("textures/DK_DonkeyKong.bmp", this, 0, 91, 127);
 }

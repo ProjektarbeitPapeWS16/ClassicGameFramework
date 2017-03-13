@@ -8,6 +8,7 @@
 #include "Physics.h"
 
 #include <fstream>
+#include "../SpacePanic/LadderEntity.h"
 
 
 //backgroundEntities->push_back(backgroundEntity);
@@ -115,6 +116,7 @@ void DK_Level::initEntities_Others(char ** levelLayout)
 			{
 			case EntityChar::CHAR_DONKEY_KONG:
 				this->kong = new Entity_DonkeyKong(this->grid->getCoordinates(col,row)); //TODO
+				this->adjustPosition(kong);	// Move upwards to stand on girders.
 				break;
 			case EntityChar::CHAR_JUMPMAN:
 				this->player = new Entity_Jumpman(this->grid->getCoordinates(col, row)); //TODO
@@ -216,40 +218,142 @@ DK_Level::~DK_Level()
 // Main Function for changing entities.
 void DK_Level::update() const
 {
+	auto request = model->requestHandler->getRequest();
+	auto playerState = player->getPlayerState();
+	bool velocityUp = (player->jumpVelocityRemaining() > 0);
+
+	auto onGround = isOnGround(player);
+	auto canMoveLeft = !isBlocked(player, Direction::LEFT);
+	auto canMoveRight = !isBlocked(player, Direction::RIGHT);
+	auto canClimbUp = canClimb(player, UP);
+	auto canClimbDown = canClimb(player, DOWN);
+
+	// 0. Calculate possible offset
+	int xLeft = 0;
+	if (canMoveLeft) xLeft = -1;
+	int xRight = 0;
+	if (canMoveLeft) xRight = 1;
+	int yJumpDirection = -1;
+	if (velocityUp) yJumpDirection = 1;
+
 	// 1. add time tick to all entities
-	// 2. Move player according to request, if possible
-	//
-	switch (model->requestHandler->getRequest())
+	// 2. check collision with barrels:
+	// 3. Move player according to request, if possible
+	switch (playerState)
+	{
+	case Entity_Jumpman::JUMP:
+		this->player->update(yJumpDirection, 0, Entity_Jumpman::JUMP);
+		break;
+	case Entity_Jumpman::JUMP_LEFT:
+		this->player->update(yJumpDirection, xLeft, Entity_Jumpman::JUMP);
+		break;
+	case Entity_Jumpman::JUMP_RIGHT:
+		this->player->update(yJumpDirection, xLeft, Entity_Jumpman::JUMP);
+		break;
+	default: ;
+	}
+	
+
+	switch (request)
 	{
 	case JUMP:
+		if (onGround)
+			this->player->update(1, 0, Entity_Jumpman::JUMP);
+		break;
 	case JUMP_LEFT:
+		if (onGround)
+			this->player->update(xLeft, 1, Entity_Jumpman::JUMP_LEFT);
+		break;
 	case JUMP_RIGHT:
-		//check for ground below
+		if (onGround)
+			this->player->update(xRight, 1, Entity_Jumpman::JUMP_RIGHT);
 		break;
 	case MOVE_RIGHT:
-		//check for obstacles right
-		this->player->update(1, 0, Entity_Jumpman::MOVE_RIGHT);
+		if (onGround) this->player->update(xRight, 0, Entity_Jumpman::MOVE_RIGHT);
 		break;
 	case MOVE_LEFT:
-		// check for obstacles left
-		this->player->update(-1, 0, Entity_Jumpman::MOVE_LEFT);
+		if (onGround) this->player->update(xLeft, 0, Entity_Jumpman::MOVE_LEFT);
 		break;
 	case CLIMB_UP:
-		this->player->update(0, 1, Entity_Jumpman::CLIMB);
+		if (canClimbUp) this->player->update(0, 1, Entity_Jumpman::CLIMB);
 		break;
 	case CLIMB_DOWN:
-		this->player->update(0, -1, Entity_Jumpman::CLIMB);
+		if (canClimbDown) this->player->update(0, -1, Entity_Jumpman::CLIMB);
 		break;
 	default: ;
 		// check for ladder intersecting [and ground below]
 	}
-	//		check state
+	// 4. Adjust position after movement change.
+	adjustPosition(player);
 	//		check for bonus points
-	// 3. Update DK
-	// 4. Update barrels
-	//	4.1 movement
-	//	4.2 despawn
+	// 5. Update DK
+	// 6. Update barrels
+	//	6.1 movement
+	//	6.2 despawn
 }
 
+bool DK_Level::isOnGround(Entity* entity) const
+{
+	auto adjacentEntities = physics->checkAdjacency(static_cast<::PhysicalObject*>(entity), getPhysicalObjects(), Direction::DOWN, false);
+	if (adjacentEntities != nullptr)
+	{
+		return true;
+	}
+	return false;
+}
 
+bool DK_Level::isBlocked(Entity* entity, Direction direction) const
+{
+	auto adjacentEntities = physics->checkAdjacency(static_cast<::PhysicalObject*>(entity), getPhysicalObjects(), direction, false);
+	if (adjacentEntities != nullptr)
+	{
+		return true;
+	}
+	return false;
+}
 
+// Moves a given entity outside of a solid object (upwards) if an overlap has been detected.
+// Note: If multiple objects overlap, moves it the upmost overlap upwards.
+void DK_Level::adjustPosition(Entity* entity) const
+{
+	int maxOverlap = 0;
+	auto adjacentEntities = physics->checkAdjacency(static_cast<::PhysicalObject*>(entity), getPhysicalObjects(), Direction::DOWN, true);
+	if (adjacentEntities != nullptr)
+	{
+		for (auto iteratorB = adjacentEntities->begin(); iteratorB != adjacentEntities->end(); ++iteratorB)
+		{
+			auto obj = *iteratorB;
+			auto distance = (physics->getRelativeYDistance(entity, obj));
+			auto overlap = distance * -1;
+			if (overlap > maxOverlap) maxOverlap = overlap;
+			if (maxOverlap > 0) {
+				entity->setPosition(entity->getPosX(), entity->getPosY() + maxOverlap);
+			}
+		}
+	}
+}
+
+bool DK_Level::canClimb(Entity* entity, Direction direction) const
+{
+	const int distanceCentered = 0; // Distance from ladder to entity if they are both centered.
+	auto adjacentEntities = physics->checkAdjacency(static_cast<::PhysicalObject*>(entity), getPhysicalObjects(), direction, true);
+	if (adjacentEntities != nullptr)
+	{
+		for (auto iteratorB = adjacentEntities->begin(); iteratorB != adjacentEntities->end(); ++iteratorB)
+		{
+			auto obj = *iteratorB;
+			// Check if object is a ladder
+			if (static_cast<LadderEntity*>(obj) != nullptr) {
+				auto distanceX = (physics->getRelativeXDistance(entity, obj));
+				auto distanceY = (physics->getRelativeYDistance(entity, obj));
+				int minOverlapY;
+				// Ladders must touch player for climbing; but can just be adjacent for descending.
+				direction == DOWN ? minOverlapY = 0 : minOverlapY = 1;
+				if ((distanceX = distanceCentered) && (distanceY = -1 * minOverlapY)){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}

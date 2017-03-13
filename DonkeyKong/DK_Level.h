@@ -9,6 +9,7 @@
 #include "Entity_OilDrum.h"
 #include "Entity_Pauline.h"
 #include "Entity_Ladder.h"
+#include "Physics.h"
 
 class DK_Model;
 
@@ -81,5 +82,10 @@ public:
 
 	// main event function. executes respective function for a game loop
 	void update() const;
-
+	
+	/// Functions for managing possible movement checks:
+	bool isOnGround(Entity * entity) const;
+	bool isBlocked(Entity * entity, Direction direction) const;
+	void adjustPosition(Entity * entity) const;
+	bool canClimb(Entity * entity, Direction direction) const;
 };

@@ -46,9 +46,10 @@ Entity_Jumpman::Entity_Jumpman(Position position)
 // Externally Updates player position and sprite
 void Entity_Jumpman::update(unsigned int xOffset, unsigned int yOffset, PlayerState newState)
 {
+	tickCount++;
 	// 1. update player-state; consider animation state switch
 	if (state == newState) {
-		animationStateCount++;
+		if ((tickCount % 3) == 2) animationStateCount++;	// Don't increase with every possible tick
 		jumpStateCount--;
 	}
 	else {
@@ -59,7 +60,7 @@ void Entity_Jumpman::update(unsigned int xOffset, unsigned int yOffset, PlayerSt
 	switch (newState)
 	{
 	case MOVE_RIGHT:
-		switch (animationStateCount%3)
+		switch (animationStateCount % 3)
 		{
 		case 0:	
 		default:
@@ -139,7 +140,12 @@ void Entity_Jumpman::update(unsigned int xOffset, unsigned int yOffset, PlayerSt
 
 // Returns the amount of upwards movement left to perform from the jump.
 // Decrements it
-bool Entity_Jumpman::jumpVelocityLeft() const
+bool Entity_Jumpman::jumpVelocityRemaining() const
 {
 	return jumpStateCount > 0;
+}
+
+Entity_Jumpman::PlayerState Entity_Jumpman::getPlayerState() const
+{
+	return state;
 }
