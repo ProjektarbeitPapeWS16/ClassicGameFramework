@@ -1,18 +1,25 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Vorwort}{1}{section.1}
+\contentsline {section}{\numberline {1}Vorwort}{2}{section.1}
 \contentsline {section}{\numberline {2}Anforderungen}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Beschreibung}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Spielprinzip}{2}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Bildschirmelemente}{3}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Titelbildschirm}{4}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.1}Titelbildschirm}{5}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Spielbildschirm}{5}{subsubsection.2.3.2}
 \contentsline {subsubsection}{\numberline {2.3.3}Game Over-Bildschirm}{6}{subsubsection.2.3.3}
 \contentsline {subsubsection}{\numberline {2.3.4}Namenseingabe-Bildschirm}{7}{subsubsection.2.3.4}
 \contentsline {subsection}{\numberline {2.4}Leveldesign}{8}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Monster}{8}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Animation}{8}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.6}Animation}{9}{subsection.2.6}
 \contentsline {subsection}{\numberline {2.7}Sounddesign}{9}{subsection.2.7}
-\contentsline {section}{\numberline {3}Entwurf}{10}{section.3}
-\contentsline {section}{\numberline {4}Implementierung}{10}{section.4}
-\contentsline {section}{\numberline {5}Reflektion}{10}{section.5}
-\contentsline {section}{Literatur}{11}{section*.4}
+\contentsline {section}{\numberline {3}Implementierung}{10}{section.3}
+\contentsline {subsection}{\numberline {3.1}Level}{10}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Erlaubte Bewegungsrichtungen}{11}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Entit\IeC {\"a}ten (Entity)}{11}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Spieler (PlayerEntity)}{11}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Monster (EnemyEntity)}{12}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Weitere Entit\IeC {\"a}ten}{13}{subsubsection.3.3.3}
+\contentsline {section}{\numberline {4}Reflektion}{13}{section.4}
+\contentsline {subsection}{\numberline {4.1}Bewusste Unterschiede zum Original}{13}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Bekannte Fehler}{14}{subsection.4.2}
+\contentsline {section}{Literatur}{15}{subsection.4.2}

@@ -77,9 +77,9 @@
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{abstract}
-%        \noindent\lipsum[1]
-%\end{abstract}
+\begin{abstract}
+        \noindent Diese Projektarbeit handelt von der Entwicklung eines Spiele-Rahmenwerks, sowie von der des Spieleklassikers \textbf{Space Panic}. Sie reicht über die Analyse des Originals, über die Umsetzung, bis hin zum fertigen Spiel. Allerdings bleiben zum Schluss einige Features des Originals offen.
+\end{abstract}
     
 \tableofcontents
 %\pagebreak
@@ -332,15 +332,104 @@ Folgende Musiksequenzen existieren im Spiel:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Entwurf}
-	\todo[inline]{Entwurf beschreiben}
-    %\lipsum[1-3]
 \section{Implementierung}
-\todo[inline]{Implementierung beschreiben}
-	%\lipsum[2-4]
+Um die Funktionalität von Space Panic umsetzen zu können, mussten die meisten Modellklassen aus dem Rahmenwerk durch Vererbung erweitert werden. In diesem Abschnitt werden die wichtigsten 
+
+\subsection{Level}
+	Levels werden aus Leveldateien eingelesen. Elemente werden dabei wie folgt kodiert:
+	\begin{tabular}{|c|c|}
+			\hline
+			Kodierung & Interpretation \\ 
+			\hline
+			\hline 
+			H & Leiter \\ 
+			\hline 
+			M & Monster \\ 
+			\hline 
+			P & Spieler \\ 
+			\hline 
+			Qq & Linkes Wandstück \\ 
+			\hline 
+			Ww & Mittleres Wandstück \\ 
+			\hline 
+			Ee & Rechtes Wandstück \\ 
+			\hline 
+	\end{tabular}
+	
+\subsection{Erlaubte Bewegungsrichtungen}	
+Bewegungsrichtungen werden ermittelt, indem die Physics-Engine nach den Hintergrund-Elementen an der gewünschten Zielposition abgefragt wird. Wenn an der Zielposition ein unerlaubtes Objekt liegt (z.B. eine Wand), bzw die Zielposition keine passende Umgebung bietet (z.B. in der Luft) dann wird die Bewegung nicht gestattet.
+
+\subsection{Entitäten (Entity)}
+	Entitäten sind die wahrnehmbaren Objekte innerhalb des Spiels. Darunter zählen unter anderem der Spielercharakter und die Monster. In dieser Implementierung habe ich mich dazu entschieden, auch die UI-Elemente als Entitäten zu pflegen, sodass diese ihre eigenen Attribute nach den Grundsätzen der Objektorientierung selbst pflegen können. Dazu mehr unter \ref{sssec:weitere}.
+
+\subsubsection{Spieler (PlayerEntity)}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[height=180pt]{images/sd_player}
+		\caption{Zustandsdiagramm: PlayerEntity}
+		\label{fig:impl:player_entity}
+	\end{figure}
+	Der Spieler kann durch die Richtungstasten (Hoch, Runter, Links, Rechts) in alle Richtungen bewegt werden (sofern der Untergrund dies erlaubt). Zusätzlich kann er durch STRG Löcher graben und durch ALT diese wieder zuschaufeln. Kollidiert der Spieler mit einem Monster, stirbt er.
+
+\subsubsection{Monster (EnemyEntity)}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[height=90pt]{images/sd_enemy}
+		\caption{Zustandsdiagramm: EnemyEntity}
+		\label{fig:impl:enemy_entity}
+	\end{figure}
+	Die künstliche Intelligenz der Monster ermittelt an jeder Kreuzung und in jeder Sackgasse zwei unterschiedliche Bewegungsrichtungen.
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[height=230pt]{images/ad_monster}
+		\caption{Aktivitätsdiagramm: Algorithmus zur Bestimmung der kürzesten Richtung zum Spieler.}
+		\label{fig:impl:ki_enemy_entity}
+	\end{figure}
+
+	\begin{itemize}
+	\item Eine \textbf{rein zufällige Richtung}, die aber stets erlaubt ist.
+	\item Die \textbf{kürzeste Richtung} zum Spieler. Siehe Abb. \ref{fig:impl:ki_enemy_entity}.
+	\end{itemize}
+
+	Das Monster wählt mit einer Wahrscheinlichkeit von 50\% eine der beiden ermittelten Richtungen aus. Ist diese nicht erlaubt, wird die zufällige Richtung gewählt.
+	
+
+\subsubsection{Weitere Entitäten}\label{sssec:weitere}
+\begin{itemize}
+		\item HoleEntity: Ein Loch.
+		\item WallEntity: Ein Wandelement.
+		\item LadderEntity: Eine Leiter.
+		\item OxygenBar: Stellt den Sauerstoff-Füllstand grafisch dar.
+		\item OxygenCount: Zeigt den Sauerstoff-Füllstand numerisch.
+		\item LivesEntity: Die Lebensanzeige.
+		\item TopEntity: Der Obere Spielfeldrand.
+		\item FloorEntity: Der untere Spielfeldrand.
+		\item GameOver: Der GameOver-Schriftzug.
+\end{itemize}
+
+
+
 \section{Reflektion}
-\todo[inline]{Unterschiede zum Original beschreiben}
-	%\lipsum[5]
+Aufgrund der Komplexität des Originals und des gegebenen Zeitfensters zur Umsetzung mussten einige Kompromisse eingegangen werden. Dazu zählen bewusst ausgelassene Features, die nicht zum Spielen notwendig sind, sowie Fehler, die bis dato nicht entfernt werden konnten.
+
+\subsection{Bewusste Unterschiede zum Original}
+	\begin{itemize}
+		\item Der GameOver-Schriftzug ist statisch rot, statt dynamisch grün/pink. Die dynamische Farbe hätte unverhältnismäßig höheren Aufwand erfordert.
+		\item Es gibt nur einen Monstertyp.
+		\item Es gibt nur einen Level, der sich nach jeder Runde wiederholt.
+		\item Monster sterben immer nach dem Aufprall aus einer Ebenentiefe. Im Original variiert die notwendige Tiefe nach Monstertyp. Da es keine verschiedenen Monstertypen, macht es wenig Sinn, verschiedene Falltiefen zu erfordern.
+		\item Keine Sounds. Diese erfordern eine Sound-Engine, welche bist zum jetzigen Zeitpunkt nicht in das Framework implementiert wurde.
+		\item Kein Punkte-Popup nach Sterben eines Monsters.
+		\item Spiel pausiert nicht während eines Falls.
+		\item Löcher schließen sich nicht automatisch, nachdem ein Monster hindurch fällt.
+	\end{itemize}
+
+\subsection{Bekannte Fehler}
+	\begin{itemize}
+		\item Nach GameOver startet sich das Spiel nicht immer ordentlich neu (Monster zucken und bewegen sich nicht).
+		\item Nach dem Tod des Spielers startet die Zeit nicht wieder, bis das Spielende eintritt.
+		\item Nach einer Weile läuft der Heap voll und das Spiel stürzt ab.
+	\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \addcontentsline{toc}{section}{Literatur}
