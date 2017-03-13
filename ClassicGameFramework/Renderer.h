@@ -48,7 +48,7 @@ class Renderer
 	/// <param name="message">the message</param>
 	static void log(const char* message);
 
-	std::map<unsigned long, ImageRenderer*> imageRenderers;
+	std::map<std::pair<Drawable*, Image*>, ImageRenderer*> imageRenderers;
 	const GLuint WINDOW_WIDTH;
 	const GLuint WINDOW_HEIGHT;
 

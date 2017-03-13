@@ -4,14 +4,13 @@
 Font::Font(char* folder, int fontSize, int fontWidth, unsigned short transR = 256, unsigned short transG = 256, unsigned short transB = 256) :
 	fontSize(fontSize),
 	fontWidth(fontWidth),
-	letterImageBytes(new std::map<char, unsigned char*>()),
 	transR(transR),
 	transG(transG),
 	transB(transB),
 	folder(folder)
 {
 }
-
+/*
 unsigned char* Font::getImageBytesForLetter(char letter) const
 {
 	if (letterImageBytes->find(letter) == letterImageBytes->end())
@@ -104,6 +103,7 @@ unsigned char* Font::getImageBytesForLetter(char letter) const
 
 	return letterImageBytes->at(letter);
 }
+*/
 
 int Font::getFontSize() const
 {
@@ -128,4 +128,42 @@ unsigned short Font::getTransG() const
 unsigned short Font::getTransB() const
 {
 	return transB;
+}
+
+Image* Font::getImageForLetter(char letter)
+{
+	if(images.find(letter) == images.end())
+	{
+		images.insert_or_assign(letter, new Image(getPathFor(letter), 200, 80, 0));
+	}
+	return images.at(letter);
+}
+
+const char* Font::getPathFor(char letter) const
+{
+	std::string replacement;
+	switch(letter)
+	{
+	case '?': replacement = "questionmark"; break;
+	case '(': replacement = "paran_open"; break;
+	case ')': replacement = "paran_close"; break;
+	case ',': replacement = "comma"; break;
+	case '.': replacement = "point"; break;
+	case '-': replacement = "dash"; break;
+	case ' ': replacement = "space"; break;
+
+	default: replacement = letter; break;
+	}
+
+
+
+	std::string str_path = std::string(folder) + replacement + ".bmp";
+	char* c_path = new char[str_path.length() + 1];
+	for(int i = 0; i < str_path.length(); i++)
+	{
+		c_path[i] = str_path[i];
+	}
+	c_path[str_path.length()] = '\0';
+
+	return c_path;
 }

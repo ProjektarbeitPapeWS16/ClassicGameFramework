@@ -2,8 +2,6 @@
 #include "Font.h"
 #include "Position.h"
 #include "Image.h"
-#include <iostream>
-#include "../SpacePanic/GameConfig.h"
 #include <locale>
 
 void Text::setWidth(int width)
@@ -56,33 +54,64 @@ Image* Text::getImage()
 	return image;
 }
 
-Text::Text(Font* font, const char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned char B = 255) :
-	Entity(nullptr, 0, false, nullptr, false ,0),
-textLength(0),
+void Text::setText(const char* text)
+{
+	image = nullptr;
+	this->text = std::string(text);
+	toUpper();
+	countLetters();
+	generateBoundaries();
+	loadImage();
+}
+
+void Text::toUpper()
+{
+	for (auto& c : this->text)
+	{
+		c = toupper(c);
+	}
+}
+
+void Text::countLetters()
+{
+	// count letters
+	this->textLength = this->text.length();
+}
+
+void Text::generateBoundaries() const
+{
+	this->boundaries->width = this->textLength * this->font->getFontWidth();
+	this->boundaries->height = this->font->getFontSize();
+}
+
+Text::Text(Font* font, const char* text, Position* position, Anchor anchor, double scale, unsigned char R, unsigned char G, unsigned char B, unsigned char backR, unsigned char backG, unsigned char backB) :
+	Entity(new Image*[0], 0, false, new Boundaries(position->x, position->y, 0, 0), false, 0),
+	anchor(anchor),
+	textLength(0),
 	//textWidth(0),
 	//textHeight(font->getFontSize()),
 	font(font),
-	//position(position),
 	image(nullptr),
-	text(std::string(text)),
 	R(255.0 / R),
 	G(255.0 / G),
 	B(255.0 / B),
-	scale(scale)
+	scale(scale),
+	backgroundSet(true),
+backR(backR), backG(backG), backB(backB)
 {
-	for (auto & c : this->text) {
-		c = toupper(c);
-	}
+}
 
-	// count letters
-	while (this->text[this->textLength] != '\0')
-	{
-		this->textLength++;
-	}
+Text::Text(Font* font, const char* text, Position* position, Anchor anchor, double scale, unsigned char R, unsigned char G, unsigned char B) :
+	Text(font, text, position, anchor, scale, R, G, B, 0, 0, 0)
+{
+	backgroundSet = false;
+}
 
-	//this->textWidth = this->textLength * font->getFontWidth();
+Text::Text(Font* font, const char* text, Position* position, double scale = 1.0, unsigned char R = 255, unsigned char G = 255, unsigned char B = 255) :
+	Text(font, text, position, LEFT, scale, R, G, B)
 
-	boundaries = new Boundaries(position->x, position->y, this->textLength * font->getFontWidth(), font->getFontSize());
+{
+	setText(text);
 }
 
 Text::~Text()
@@ -98,41 +127,54 @@ void Text::loadImage()
 		return;
 	}
 
+	letters.clear();
+	for (auto i = 0; i < textLength; i++)
+	{
+		letters.push_back(font->getImageForLetter(text[i]));
+	}
+
 
 	auto letterImageBytesLength = font->getFontWidth() * font->getFontSize() * 4;
 	auto imageBytes = new unsigned char[textLength * letterImageBytesLength];
 
 	for (auto i = 0; i < textLength; i++)
 	{
-		auto letterBytes = font->getImageBytesForLetter(text[i]);
+		auto letterBytes = letters.at(i)->getImageBytes();
 		auto offset = i * font->getFontWidth() * 4;
 
-		for (auto relIndex = 0; relIndex < letterImageBytesLength; relIndex++)
+		for (auto relIndex = 0; relIndex < letterImageBytesLength; relIndex+= 4)
 		{
 			auto absRowLength = textLength * font->getFontWidth() * 4;
 			auto row = relIndex / (font->getFontWidth() * 4);
 			auto column = relIndex % (font->getFontWidth() * 4);
 			auto absIndex = offset + (row * absRowLength) + column;
-			auto channel = relIndex % 4;
-
-			auto colorValue = letterBytes[relIndex];
-			auto colorValueMultiplier = static_cast<double>(colorValue) / 255.0;
-
-			switch (channel)
+			//auto channel = relIndex % 4;
+			if(!letterBytes)
 			{
-			case 0:
-				imageBytes[absIndex] = static_cast<unsigned char>(colorValueMultiplier * R * 255);
-				break;
-			case 1:
-				imageBytes[absIndex] = static_cast<unsigned char>(colorValueMultiplier * G * 255);
-				break;
-			case 2:
-				imageBytes[absIndex] = static_cast<unsigned char>(colorValueMultiplier * B * 255);
-				break;
-			default:
-				imageBytes[absIndex] = colorValue;
+				imageBytes[absIndex] = 0;
+				imageBytes[absIndex+1] = 0;
+				imageBytes[absIndex+2] = 0;
+				imageBytes[absIndex+3] = 255;
+				continue;
 			}
+			auto colorValueR = letterBytes[relIndex];
+			auto colorValueG = letterBytes[relIndex+1];
+			auto colorValueB = letterBytes[relIndex+2];
+			auto colorValueA = letterBytes[relIndex+3];
+			auto colorValueMultiplierR = static_cast<double>(colorValueR) / 255.0;
+			auto colorValueMultiplierG = static_cast<double>(colorValueG) / 255.0;
+			auto colorValueMultiplierB = static_cast<double>(colorValueB) / 255.0;
+
+			imageBytes[absIndex]   = backgroundSet && colorValueA == 0 ? backR : static_cast<unsigned char>(colorValueMultiplierR * R * 255);
+			imageBytes[absIndex+1] = backgroundSet && colorValueA == 0 ? backG : static_cast<unsigned char>(colorValueMultiplierG * G * 255);
+			imageBytes[absIndex+2] = backgroundSet && colorValueA == 0 ? backB : static_cast<unsigned char>(colorValueMultiplierB * B * 255);
+			imageBytes[absIndex+3] = backgroundSet ? 255 : colorValueA;
 		}
+	}
+
+	if (image)
+	{
+		delete image;
 	}
 
 	image = new Image(imageBytes, boundaries->width, boundaries->height, font->getTransR(), font->getTransG(), font->getTransB());

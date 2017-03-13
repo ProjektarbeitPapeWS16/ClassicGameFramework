@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Entity.h"
 #include <vector>
+#include "GameOver.h"
 class Font;
 class Text;
 class TopEntity;
@@ -24,9 +25,12 @@ class UI
 	int livesLast = -1;
 	Entity* top;
 	Entity* oxygenBar;
+	GameOver* gameOver;
 public:
 	UI(SpacePanicModel* model);
+	void reset() const;
 	std::vector<Entity*>* getEntities() const;	
 	~UI();
 	Font* getDefaultFont() const;
+	void showGameOver() const;
 };

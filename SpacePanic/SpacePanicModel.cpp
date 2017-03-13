@@ -8,22 +8,29 @@
 
 SpacePanicModel::SpacePanicModel():
 	EngineModel(),
-	config(new GameConfig("Space Panic", 192, 256, 2, 8, 8)),
-	stageFiles(new const char*[1] {
-		"levels/stage1.txt"
-	}),
-	stage0(new Stage(this, getStageFile(0)))//,
+	config(new GameConfig("Space Panic", 192, 256, 2, 8, 8))
 //stage1(new Stage(this, getStageFile(1)))
 {
+	stageFiles.push_back("levels/stage1.txt");
 	session = new SpacePanicSession(this);
 }
 
-Stage* SpacePanicModel::getStage(int id) const
+Stage* SpacePanicModel::getStage(int id)
 {
-	switch (id)
+	if(stages.find(id) == stages.end())
 	{
-	case 0: default:
-		return stage0;
+		if(id >= stageFiles.size())
+		{
+			return nullptr;
+		} else
+		{
+			Stage* stage = new Stage(this, getStageFile(id));
+			stages.insert_or_assign(id, stage);
+			return stage;
+		}
+	} else
+	{
+		return stages.at(id);
 	}
 }
 
@@ -51,6 +58,8 @@ void SpacePanicModel::nextIteration()
 	auto session = static_cast<SpacePanicSession*>(this->session);
 	bool reset = session->resetLevelIfNecessary();
 
+	session->calcNext();
+	
 	auto player = session->getStage()->getPlayer();
 	if (player != nullptr)
 	{

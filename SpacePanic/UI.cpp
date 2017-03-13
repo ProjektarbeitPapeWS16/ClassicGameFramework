@@ -9,6 +9,7 @@
 #include "OxygenCount.h"
 #include "ScoreEntity.h"
 #include "OxygenBar.h"
+#include "GameOver.h"
 
 UI::UI(SpacePanicModel* model) :
 	model(model),
@@ -18,15 +19,21 @@ UI::UI(SpacePanicModel* model) :
 	score(new ScoreEntity(model)),
 	lives(new LivesEntity(model)),
 	top(new TopEntity(model)),
-	oxygenBar(new OxygenBar(model))
+	oxygenBar(new OxygenBar(model)),
+	gameOver(new GameOver(model, "GAME OVER", defaultFont))
 {
 	entities->push_back(top);
 	entities->push_back(score);
 	entities->push_back(lives);
 	entities->push_back(oxygenCount);
 	entities->push_back(oxygenBar);
+	entities->push_back(gameOver);
 }
 
+void UI::reset() const
+{
+	gameOver->reset();
+}
 
 std::vector<Entity*>* UI::getEntities() const
 {
@@ -41,9 +48,15 @@ UI::~UI()
 	delete oxygenCount;
 	delete defaultFont;
 	delete entities;
+	delete gameOver;
 }
 
 Font* UI::getDefaultFont() const
 {
 	return defaultFont;
+}
+
+void UI::showGameOver() const
+{
+	gameOver->showNext();
 }

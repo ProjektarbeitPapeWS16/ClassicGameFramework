@@ -51,24 +51,24 @@ EnemyEntity::EnemyState EnemyEntity::getState() const
 
 EnemyEntity::EnemyEntity(SpacePanicModel* model, Position* position, double difficulty) :
 	MovableEntity(new Image*[0], 5, false, new Boundaries(
-		              position->x * model->getConfig()->getRasterWidth(),
-		              position->y * model->getConfig()->getRasterHeight(),
-		              model->getConfig()->getRasterWidth() * 2,
-		              model->getConfig()->getRasterHeight() * 2,
-		              model->getConfig()->applyFactor(2),
-		              model->getConfig()->applyFactor(1),
-		              model->getConfig()->applyFactor(2),
-		              model->getConfig()->applyFactor(5)
-	              ), true, 3),
+		position->x * model->getConfig()->getRasterWidth(),
+		position->y * model->getConfig()->getRasterHeight(),
+		model->getConfig()->getRasterWidth() * 2,
+		model->getConfig()->getRasterHeight() * 2,
+		model->getConfig()->applyFactor(2),
+		model->getConfig()->applyFactor(1),
+		model->getConfig()->applyFactor(2),
+		model->getConfig()->applyFactor(5)
+	), true, 3),
 	currentRunningDirection(Stage::Cells::NONE),
 	state(LAUF_1),
 	model(model),
 	difficulty(difficulty),
 	lastDecision(0, 0),
 	original_boundaries(new Boundaries(boundaries->position.x, boundaries->position.y,
-	                                   boundaries->width, boundaries->height,
-	                                   boundaries->off_left, boundaries->off_bottom,
-	                                   boundaries->off_right, boundaries->off_top))
+		boundaries->width, boundaries->height,
+		boundaries->off_left, boundaries->off_bottom,
+		boundaries->off_right, boundaries->off_top))
 {
 	lauf1 = new Image("textures/enemy_lauf1.bmp", this, 200, 80, 0);
 	lauf2 = new Image("textures/enemy_lauf2.bmp", this, 200, 80, 0);
@@ -305,7 +305,7 @@ int EnemyEntity::schrittweite()
 
 bool EnemyEntity::tryFall()
 {
-	if(state == DEAD)
+	if (state == DEAD)
 	{
 		return false;
 	}
@@ -324,9 +324,9 @@ bool EnemyEntity::tryFall()
 
 	if (hole && hole->getStage() == HoleEntity::STAGE3)
 	{
-		
+
 		state = FALLING;
-			
+
 
 		fallingUntil = hole->getPosY() - 3 * model->getConfig()->getRasterHeight();
 	}
@@ -364,56 +364,56 @@ void EnemyEntity::execute()
 	{
 	case LAUF_1:
 	case LAUF_2:
+	{
+		Stage::Cells::Direction nextDirection = getNextRunningDirection();
+		if (nextDirection != Stage::Cells::NONE)
 		{
-			Stage::Cells::Direction nextDirection = getNextRunningDirection();
-			if (nextDirection != Stage::Cells::NONE)
+			currentRunningDirection = nextDirection;
+		}
+
+		switch (currentRunningDirection)
+		{
+		case Stage::Cells::RIGHT:
+			setPosX(getPosX() + schrittweite());
+			//setPosY((int)row * model->getConfig()->getRasterHeight());
+			break;
+		case Stage::Cells::LEFT:
+		{
+			setPosX(getPosX() - schrittweite());
+
+			auto holePos = Position(boundaries->position);
+			holePos.x += (boundaries->width / 2) - 1;
+			holePos.y -= 1;
+			HoleEntity::HoleState holeState = canFall(holePos);
+
+			this->inHole = holeState;
+
+			if (this->inHole == HoleEntity::STAGE3)
 			{
-				currentRunningDirection = nextDirection;
+				inHole = HoleEntity::STAGE0;
+				state = EnemyState::FALLING;
+			}
+			else
+			{
+				state = EnemyState::IN_HOLE_WAITING;
+				inHoleWaitingSince = Config::currentTimeMillis();
 			}
 
-			switch (currentRunningDirection)
-			{
-			case Stage::Cells::RIGHT:
-				setPosX(getPosX() + schrittweite());
-				//setPosY((int)row * model->getConfig()->getRasterHeight());
-				break;
-			case Stage::Cells::LEFT:
-				{
-					setPosX(getPosX() - schrittweite());
-
-					auto holePos = Position(boundaries->position);
-					holePos.x += (boundaries->width / 2) - 1;
-					holePos.y -= 1;
-					HoleEntity::HoleState holeState = canFall(holePos);
-
-					this->inHole = holeState;
-
-					if (this->inHole == HoleEntity::STAGE3)
-					{
-						inHole = HoleEntity::STAGE0;
-						state = EnemyState::FALLING;
-					}
-					else
-					{
-						state = EnemyState::IN_HOLE_WAITING;
-						inHoleWaitingSince = Config::currentTimeMillis();
-					}
-
-					//setPosY((int)row * model->getConfig()->getRasterHeight());
-				}
-				break;
-			case Stage::Cells::DOWN:
-				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
-				setPosY(getPosY() - schrittweite());
-				break;
-			case Stage::Cells::UP:
-				//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
-				setPosY(getPosY() + schrittweite());
-				break;
-			default: break;
-			}
+			//setPosY((int)row * model->getConfig()->getRasterHeight());
 		}
 		break;
+		case Stage::Cells::DOWN:
+			//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
+			setPosY(getPosY() - schrittweite());
+			break;
+		case Stage::Cells::UP:
+			//setPosX((int)column * model->getConfig()->getRasterWidth() - model->getConfig()->getRasterWidth() * 0.5);
+			setPosY(getPosY() + schrittweite());
+			break;
+		default: break;
+		}
+	}
+	break;
 	default: break;
 	}
 

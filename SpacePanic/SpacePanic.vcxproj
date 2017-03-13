@@ -205,8 +205,9 @@
     <ClCompile Include="OxygenBar.cpp" />
     <ClCompile Include="OxygenCount.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="sample1.cpp" />
+    <ClCompile Include="SpacePanicMain.cpp" />
     <ClCompile Include="ScoreEntity.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="SpacePanicController.cpp" />
     <ClCompile Include="SpacePanicModel.cpp" />
     <ClCompile Include="SpacePanicSession.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="OxygenCount.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="ScoreEntity.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="SpacePanicController.h" />
     <ClInclude Include="SpacePanicModel.h" />
     <ClInclude Include="SpacePanicSession.h" />

@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include <vector>
+#include <memory>
 
 class Drawable;
 
 class Display
 {
+	typedef std::shared_ptr<Drawable> drawable_ptr;
 	std::vector<Drawable*>* drawables = new std::vector<Drawable*>();
 
 public:

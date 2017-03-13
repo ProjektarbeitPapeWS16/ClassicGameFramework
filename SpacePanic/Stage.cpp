@@ -201,8 +201,9 @@ UI* Stage::getUI() const
 	return ui;
 }
 
-void Stage::reset()
+void Stage::reset() const
 {
+	ui->reset();
 	player->reset();
 	
 	for(auto i = 0; i < enemys->size(); i++)
@@ -218,8 +219,8 @@ void Stage::reset()
 	generateSortedEntities();
 }
 
-void Stage::gameOver()
+void Stage::showGameOver()
 {
-	
+	ui->showGameOver();
 }
 

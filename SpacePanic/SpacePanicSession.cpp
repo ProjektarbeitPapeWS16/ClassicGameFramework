@@ -6,12 +6,25 @@
 SpacePanicSession::SpacePanicSession(SpacePanicModel* model) :
 	Session(2, 0), oxygen(2000), defaultOxygen(oxygen), model(model)
 {
-	level = new Stage(model, model->getStageFile(0));
+	level = new Stage(model, model->getStageFile(currentStage));
 }
 
-Stage* SpacePanicSession::nextStage() const
+Stage* SpacePanicSession::nextStage()
 {
-	return model->getStage(0);
+	Stage* stage = model->getStage(currentStage+1);
+	if(!stage)
+	{
+		return getStage();
+	} else
+	{
+		currentStage++;
+		return stage;
+	}
+}
+
+void SpacePanicSession::resetLifes()
+{
+	setLifes(defaultLifes);
 }
 
 bool SpacePanicSession::resetLevelIfNecessary()
@@ -19,15 +32,24 @@ bool SpacePanicSession::resetLevelIfNecessary()
 	Stage* stage = getStage();
 	PlayerEntity* player = stage->getPlayer();
 
+	if(player->isDead())
+	{
+		paused = true;
+	}
+
 	if (gameOver)
 	{
-		// TODO?
-		if(gameOverSince + 3 * 1000 < Config::currentTimeMillis())
+		
+		if(gameOverSince + 5 * 1000 < Config::currentTimeMillis())
 		{
-			level = model->getStage(0);
-			getStage()->reset();
+			level = nextStage();
+			resetLevel();
 			resetOxygen();
-			setLifes(2);
+			resetLifes();
+			gameOver = false;
+		} else
+		{
+			stage->showGameOver();
 		}
 		
 	}
@@ -39,7 +61,7 @@ bool SpacePanicSession::resetLevelIfNecessary()
 		}
 		else
 		{
-			stage->gameOver();
+			
 			gameOverSince = Config::currentTimeMillis();
 			gameOver = true;
 		}
@@ -70,11 +92,6 @@ bool SpacePanicSession::resetLevelIfNecessary()
 
 Level* SpacePanicSession::getLevel()
 {
-	if (!level)
-	{
-		level = new Stage(model, model->getStageFile(0));
-	}
-
 	return level;
 }
 
@@ -92,12 +109,38 @@ void SpacePanicSession::resetOxygen()
 {
 	oxygen = defaultOxygen;
 	creationTime = Config::currentTimeMillis();
+	paused = false;
 }
 
-int SpacePanicSession::getOxygen()
+void SpacePanicSession::calcNext()
 {
-	int oxygen = defaultOxygen - (getPassedTime() / 1000) * 20;
-	return oxygen < 0 ? 0 : oxygen;
+	if(gameOver || paused)
+	{
+		return;
+	}
+
+	if (lastOxygenUpdate + 1000 < Config::currentTimeMillis()) {
+		lastOxygenUpdate = Config::currentTimeMillis();
+
+		if (this->oxygen > 0)
+		{
+			this->oxygen -= 20;
+		}
+		if (this->oxygen < 0)
+		{
+			this->oxygen = 0;
+		}
+	}
+}
+
+bool SpacePanicSession::oxygenIsCritical() const
+{
+	return oxygen < 500;
+}
+
+int SpacePanicSession::getOxygen() const
+{
+	return oxygen;
 }
 
 void SpacePanicSession::setOxygen(int oxygen)

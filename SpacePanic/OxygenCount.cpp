@@ -15,18 +15,20 @@ Image* OxygenCount::getImage()
 {
 	auto currentOxygen = static_cast<SpacePanicSession*>(model->getSession())->getOxygen();
 
-	if(!this->text || lastOxygenLevel != currentOxygen)
+	if(!text)
 	{
-		
-		if(this->text)
-		{
-			delete this->text;
-		}
 		this->text = new Text(static_cast<Stage*>(model->getLevel())->getUI()->getDefaultFont(), std::to_string(currentOxygen).c_str(), new Position(boundaries->position.x, boundaries->position.y), model->getConfig()->getExternalFactor(), 255, 0, 0);
 		this->boundaries->width = text->getWidth();
 		this->boundaries->height = text->getHeight();
 		this->lastOxygenLevel = currentOxygen;
+	} else
+	{
+		text->setText(std::to_string(currentOxygen).c_str());
+		this->boundaries->width = text->getWidth();
+		this->boundaries->height = text->getHeight();
+		this->lastOxygenLevel = currentOxygen;
 	}
+
 
 	return text->getImage();
 }

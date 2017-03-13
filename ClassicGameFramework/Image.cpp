@@ -1,9 +1,12 @@
 ﻿#include "Image.h"
-#include "Entity.h"
 #include <cstdio>
 #include "EngineModel.h"
 
-unsigned long Image::image_count = 0;
+
+std::map<std::string, unsigned char*> Image::path_images = std::map<std::string, unsigned char*>();
+std::map<std::string, long> Image::path_refcount = std::map<std::string, long>();
+std::map<std::string, std::pair<int, int>> Image::path_width_height = std::map<std::string, std::pair<int, int>>();
+
 
 const char* Image::getImageFile() const
 {
@@ -74,40 +77,73 @@ unsigned char* Image::readImage2ByteArray()
 	return ret;
 }
 
-Image::Image(const char* imageFile, Entity* entity,
-             unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
-                                                                                    imageWidth(0), imageHeight(0), imageFile(imageFile), entity(entity), imageBytes(nullptr),
-                                                                                    transR(transR), transG(transG), transB(transB)
+Image::Image(const char* imageFile,
+             unsigned short transR, unsigned short transG, unsigned short transB) : imageWidth(0), imageHeight(0), imageFile(imageFile),
+                                                                                    imageBytes(nullptr), transR(transR), transG(transG), transB(transB)
+{
+	if (path_refcount.find(imageFile) == path_refcount.end())
+	{
+		path_refcount.insert_or_assign(imageFile, 1);
+		loadImageBytes();
+
+		auto x = path_width_height.at(imageFile);
+		this->imageWidth = x.first;
+		this->imageHeight = x.second;
+	}
+	else
+	{
+		auto cnt = path_refcount.at(imageFile) + 1;
+		path_refcount.insert_or_assign(imageFile, cnt);
+
+		auto x = path_width_height.at(imageFile);
+		this->imageWidth = x.first;
+		this->imageHeight = x.second;
+	}
+}
+
+Image::Image(const char* imageFile, Entity* entity, unsigned short transR, unsigned short transG, unsigned short transB) :
+	Image(imageFile, transR, transG, transB)
 {
 }
 
-Image::Image(unsigned char* imageBytes, int width, int height, unsigned short transR, unsigned short transG, unsigned short transB) : id(image_count++),
-                                                                                                                                      imageWidth(width), imageHeight(height), imageFile(nullptr), entity(nullptr), imageBytes(imageBytes),
-                                                                                                                                      transR(transR), transG(transG), transB(transB)
+Image::Image(unsigned char* imageBytes, int width, int height, unsigned short transR, unsigned short transG, unsigned short transB):
+	imageWidth(width), imageHeight(height), imageFile(nullptr), imageBytes(imageBytes), transR(transR), transG(transG), transB(transB)
 {
 }
-
 
 Image::~Image()
 {
-	delete imageBytes;
-}
-
-Entity* Image::getEntity() const
-{
-	return entity;
+	if(imageFile)
+	{
+		auto cnt = path_refcount.at(imageFile) - 1;
+		if (cnt == 0)
+		{
+			delete path_images.at(imageFile);
+			path_images.erase(imageFile);
+			path_refcount.erase(imageFile);
+		}
+		else
+		{
+			path_refcount.insert_or_assign(imageFile, cnt);
+		}
+	} else
+	{
+		delete imageBytes;
+	}
+	
 }
 
 bool Image::isLoaded() const
 {
-	return imageBytes != nullptr;
+	return imageBytes || imageFile && path_images.find(imageFile) != path_images.end();
 }
 
 void Image::loadImageBytes()
 {
-	if (!isLoaded())
+	if (!isLoaded() && imageFile)
 	{
-		imageBytes = readImage2ByteArray();
+		path_images.insert_or_assign(imageFile, readImage2ByteArray());
+		path_width_height.insert_or_assign(imageFile, std::make_pair(imageWidth, imageHeight));
 	}
 }
 
@@ -120,12 +156,13 @@ int Image::getHeight() const
 {
 	return imageHeight;
 }
-unsigned char* Image::getImageBytes() const
-{
-	return imageBytes;
-}
 
-unsigned long Image::getId() const
+unsigned char* Image::getImageBytes()
 {
-	return id;
+	if (!isLoaded())
+	{
+		loadImageBytes();
+	}
+
+	return imageBytes ? imageBytes : path_images.at(imageFile);
 }

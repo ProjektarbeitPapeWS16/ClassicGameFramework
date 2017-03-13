@@ -212,9 +212,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sample1.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="SpacePanicController.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -270,6 +267,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="OxygenBar.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePanicMain.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -329,6 +332,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="OxygenBar.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

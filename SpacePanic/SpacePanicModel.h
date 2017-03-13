@@ -7,12 +7,13 @@ class GameConfig;
 class SpacePanicModel : public EngineModel
 {
 	GameConfig* config;
-	const char** stageFiles;
-	Stage* stage0;
+	std::vector<const char*> stageFiles;
+	std::map<long, Stage*> stages;
 	typedef EngineModel super;
 public:
+
 	SpacePanicModel();
-	Stage* getStage(int id) const;
+	Stage* getStage(int id);
 	~SpacePanicModel() override;
 	
 	void initialization() override;

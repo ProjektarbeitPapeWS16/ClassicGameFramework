@@ -234,6 +234,6 @@ HoleEntity::HoleState MovableEntity::canFall()
 	return canFall(Position(getBoundaries()->position.x + getBoundaries()->width / 2, getBoundaries()->position.y - 1));
 }
 
-MovableEntity::MovableEntity(Image** image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed): Entity(image, movement_speed, solid, boundaries, movable, animation_speed)
+MovableEntity::MovableEntity(Image** image, int movement_speed, bool solid, Boundaries* boundaries, bool movable, int animation_speed) : Entity(image, movement_speed, solid, boundaries, movable, animation_speed)
 {
 }

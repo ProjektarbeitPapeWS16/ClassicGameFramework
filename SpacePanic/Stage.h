@@ -78,6 +78,6 @@ public:
 	void addHole(HoleEntity* hole) const;
 	void removeHole(HoleEntity* hole) const;
 	UI* getUI() const;
-	void reset();
-	void gameOver();
+	void reset() const;
+	void showGameOver();
 };

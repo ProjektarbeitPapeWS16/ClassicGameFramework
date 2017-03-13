@@ -85,7 +85,7 @@ Renderer::Renderer(int width, int height, const char* title) : WINDOW_WIDTH(widt
 	glViewport(0, 0, width, height);
 
 	// Turn on Vsync
-	if (VSYNC == GL_TRUE)
+	if (false && VSYNC == GL_TRUE)
 	{
 		glfwSwapInterval(1);
 	}
@@ -113,14 +113,14 @@ void Renderer::render(Display* display)
 	
 	for(size_t i = 0; i < drawables->size(); i++)
 	{
-		auto image = drawables->at(i)->getImage();
+		auto pair = std::make_pair(drawables->at(i), drawables->at(i)->getImage());
 
-		if(imageRenderers.find(image->getId()) == imageRenderers.end())
+		if(imageRenderers.find(pair) == imageRenderers.end())
 		{
-			imageRenderers.insert(std::make_pair(image->getId(), new ImageRenderer(this, drawables->at(i))));
+			imageRenderers.insert_or_assign(pair, new ImageRenderer(this, pair.first));
 		}
 
-		imageRenderers.at(image->getId())->render();
+		imageRenderers.at(pair)->render();
 	}
 
 	// Swap the buffers
