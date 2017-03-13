@@ -21,6 +21,7 @@ DK_Model::DK_Model(DK_Config* config) // std::vector<const char*>* levelLayoutPa
 {
 	this->config = config;
 	this->timer = new Timer();
+	this->requestHandler = new DK_RequestHandler(this);
 	this->session = new DK_Session(this);
 }
 
@@ -36,8 +37,9 @@ void DK_Model::initialization()
 // Game loop for world simulation.
 void DK_Model::nextIteration()
 {
-	if(timer->hasTickTimePassed())
-	{
+	if (DK_RequestHandler::esc == true) {
+		this->shouldClose = true;
+	}
 		// 1. Check session
 	if (session != nullptr && session->getLives() <= 0)
 	{
@@ -53,9 +55,55 @@ void DK_Model::nextIteration()
 	 * - update entities
 	 * - move player according to controller request.
 	 */
-	}	
+	static_cast<DK_Session*>(session)->update();
+	// Clear inputs for next iteration
+	this->requestHandler->resetKeyInputs();
 }
 
+
+// Key input for climbing up a ladder.
+void DK_Model::keyUpPress()
+{
+	DK_RequestHandler::up = true;
+}
+
+// Key input for climbing down a ladder.
+void DK_Model::keyDownPress()
+{
+	DK_RequestHandler::down = true;
+}
+
+
+// Key input for walking left.
+void DK_Model::keyLeftPress()
+{
+	DK_RequestHandler::left = true;
+	// check if obstacle left
+	// then move left
+}
+
+// Key input for walking right.
+void DK_Model::keyRightPress()
+{
+	DK_RequestHandler::right = true;
+	// check if obstacle right
+	// then move right
+}
+
+// Key input for jump.
+void DK_Model::keySpacePress()
+{
+	DK_RequestHandler::space = true;
+	// check player state
+	// if on ground, change to jump state
+
+}
+
+// Key input for closing the game.
+void DK_Model::keyEscPress()
+{
+	DK_RequestHandler::esc = true;
+}
 
 
 // Returns a level's current entities (both ui and interactive)

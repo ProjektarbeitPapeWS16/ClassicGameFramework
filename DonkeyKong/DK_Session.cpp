@@ -36,3 +36,14 @@ void DK_Session::doEvent_TimePassed()
 void DK_Session::doEvent_Reset()
 {
 }
+
+void DK_Session::update()
+{
+	// 1. Update level and return level state
+	static_cast<DK_Level*>(level)->update();
+
+	// 2. Update session according to state
+	// level finished? load next level and add points
+	// points gained? add.
+	// player died? decrease lives and reset level
+}

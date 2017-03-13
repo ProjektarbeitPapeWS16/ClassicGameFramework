@@ -31,7 +31,8 @@ public:
 	void increaseScore(int points);	// add points to score when player acquired points
 	void doEvent_TimePassed(); // decrease bonus after certain periods
 	void doEvent_Reset();	   // called after a session has ended.
-
+	
+	void update();
 	// Getters
 	// DK_Level* getLevel();
 	//int getScore();

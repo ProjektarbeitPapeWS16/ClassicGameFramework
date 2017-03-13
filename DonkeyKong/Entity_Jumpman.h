@@ -11,35 +11,45 @@ class Entity_Jumpman : public Entity
 
 	Image* moveRight1;
 	Image* moveRight2;
+	Image* moveRight3;
 	Image* moveLeft1;
 	Image* moveLeft2;
+	Image* moveLeft3;
 	Image* climb1;
 	Image* climb2;
-	Image* dead;
+	Image* climbEnd1;
+	Image* climbEnd2;
+	Image* climbEnd3;
+	Image* jumpLeft;
+	Image* jumpRight;
+	Image* fallLeftEnd;
+	Image* fallRightEnd;
+	Image* death1;
+	Image* death2;
+	Image* death3;
+	Image* death4;
+	Image* death5;
 
+	unsigned int animationStateCount;	// used for determining walking sprites
+	unsigned int jumpStateCount;	// used for determining direction change in jump state.
+	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descend after that.
 public:
 	enum PlayerState
 	{
-		MOVE_RIGHT_1, //TODO: Combine states
-		MOVE_RIGHT_2,
-		MOVE_LEFT_1,
-		MOVE_LEFT_2,
-		CLIMB_1,
-		CLIMB_2,
-		JUMP_LEFT,
-		JUMP_RIGHT,
-		JUMP_STRIAGHT_LEFT,
-		JUMP_STRAIGHT_RIGHT,
-		DEAD1,
-		DEAD2,
-		DEAD3,
-		DEAD4
+		MOVE_RIGHT,
+		MOVE_LEFT,
+		CLIMB,
+		CLIMB_DONE,
+		JUMP,		// jump straight
+		JUMP_LEFT,	// jump left
+		JUMP_RIGHT, // jump right
+		FALL,		// falls (can have different sprites)
+		DEAD,
 	};
 private:
-	PlayerState state = MOVE_RIGHT_1;
-	Request lastRequest = NONE;
+	PlayerState state = MOVE_RIGHT;
 public:
-	Entity_Jumpman(Position position);
-	void request(Request request);
-	//Image* getImage() override;
+	explicit Entity_Jumpman(Position position);
+	void update(unsigned int xOffset, unsigned int yOffset, PlayerState state);
+	bool jumpVelocityLeft() const;
 };

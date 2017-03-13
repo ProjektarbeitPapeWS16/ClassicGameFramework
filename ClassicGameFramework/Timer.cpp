@@ -12,9 +12,10 @@ Timer::Timer(int timelimit)
 {
 	// set GPU timestamp when all previously given commands have been issued
 	iterationCount = 0;
-	glGetInteger64v(GL_TIMESTAMP, &startTimestamp);
+	//glGetInteger64v(GL_TIMESTAMP, &startTimestamp);
+	startTimestamp = 0;
 	this->lastTickTimestamp = startTimestamp;
-	this->timelimit = timelimit * this->SECONDS_TO_NANO;
+	this->timelimit = timelimit; //* this->SECONDS_TO_NANO;
 	// alternative: https://www.opengl.org/sdk/docs/man4/html/glQueryCounter.xhtml
 }
 
@@ -41,7 +42,7 @@ int Timer::getIterationCount() const
 bool Timer::hasTickTimePassed() 
 {
 	long long currTime = GL_TIMESTAMP;
-	if(currTime - lastTickTimestamp > 100000000)
+	if(currTime - lastTickTimestamp > 1000)
 	{
 		lastTickTimestamp = currTime;
 		iterationCount++;

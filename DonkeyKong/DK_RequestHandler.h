@@ -15,25 +15,25 @@
 // Class for scheduling controller inputs to translate into model manipulation on iteration.
 class DK_RequestHandler {
 protected:
-	bool up = false;
-	bool down = false;
-	bool left = false;
-	bool right = false;
-	bool space = false;
-	//bool esc = false;		Possible future use: Pause/Confirm exit
 	DK_Model* model;
 	Request lastRequest = NONE;
 	Request currentRequest = NONE;
 public:
-	DK_RequestHandler(DK_Model* model);
+	static bool up;
+	static bool down;
+	static bool left;
+	static bool right;
+	static bool space;
+	static bool esc;		// Possible future use: Pause/Confirm exit
+	explicit DK_RequestHandler(DK_Model* model);
 	~DK_RequestHandler();
 
-	void keyUpPress();
-	void keyDownPress();
-	void keyLeftPress();
-	void keyRightPress();
-	void keySpacePress();
-	void keyEscPress() const;
-	void resetKeyInputs();
+	static void keyUpPress();
+	static void keyDownPress();
+	static void keyLeftPress();
+	static void keyRightPress();
+	static void keySpacePress();
+	static void keyEscPress();
+	static void resetKeyInputs();
 	Request getRequest();
 };

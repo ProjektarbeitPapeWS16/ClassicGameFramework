@@ -4,15 +4,20 @@
 #include "DK_Level.h"
 #include "Entity_Jumpman.h"
 #include "Timer.h"
+#include "DK_RequestHandler.h"
 
 class DK_Config; //class GameConfig;
 class DK_Session;
+class Timer;
+class DK_RequestHandler;
 
 class DK_Model : public EngineModel
 {
 public:
-	DK_Config* config; //sets grid, display size, title for game
-	Timer* timer;
+	DK_Config* config;					// Sets grid, display size, title for game
+	Timer* timer;						// For managing iterations.
+	DK_RequestHandler* requestHandler;	// Takes Controller Input and translates it into player action requests.
+	//DK_Session* session;
 	/// External file path info
 	//std::vector<const char*>* levelLayoutPaths; //array to filepaths that store level entity layout
 	//std::vector<const char*>* uiLayoutPaths; //array filepaths with interface entity layout
@@ -26,7 +31,7 @@ public:
 	void nextIteration() override;
 
 	/// Events for keyListeners
-	static void  keyUpPress();
+	static void keyUpPress();
 	static void keyDownPress();
 	static void keyLeftPress();
 	static void keyRightPress();

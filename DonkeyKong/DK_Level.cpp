@@ -7,7 +7,6 @@
 #include "Entity_Ladder.h"
 #include "Physics.h"
 
-#include <iostream>
 #include <fstream>
 
 
@@ -158,17 +157,18 @@ std::vector<Entity*>* DK_Level::getEntityListSortedByType() const
 	return result;
 }
 
+// Used for determining where to end ladders
 bool DK_Level::isGirderChar(char c)
 {
 	switch (c) {
-	case EntityChar::CHAR_GIRDER:
-	case EntityChar::CHAR_GIRDER_U1:
-	case EntityChar::CHAR_GIRDER_U2:
-	case EntityChar::CHAR_GIRDER_U3:
-	case EntityChar::CHAR_GIRDER_U4:
-	case EntityChar::CHAR_GIRDER_U5:
-	case EntityChar::CHAR_GIRDER_U6:
-	case EntityChar::CHAR_GIRDER_U7:
+	case CHAR_GIRDER:
+	case CHAR_GIRDER_U1:
+	case CHAR_GIRDER_U2:
+	case CHAR_GIRDER_U3:
+	case CHAR_GIRDER_U4:
+	case CHAR_GIRDER_U5:
+	case CHAR_GIRDER_U6:
+	case CHAR_GIRDER_U7:
 		return true;
 	default:
 		return false;
@@ -210,3 +210,46 @@ DK_Level::DK_Level(DK_Model* model, unsigned id) :
 DK_Level::~DK_Level()
 {
 }
+
+/// Methods for Game Action
+
+// Main Function for changing entities.
+void DK_Level::update() const
+{
+	// 1. add time tick to all entities
+	// 2. Move player according to request, if possible
+	//
+	switch (model->requestHandler->getRequest())
+	{
+	case JUMP:
+	case JUMP_LEFT:
+	case JUMP_RIGHT:
+		//check for ground below
+		break;
+	case MOVE_RIGHT:
+		//check for obstacles right
+		this->player->update(1, 0, Entity_Jumpman::MOVE_RIGHT);
+		break;
+	case MOVE_LEFT:
+		// check for obstacles left
+		this->player->update(-1, 0, Entity_Jumpman::MOVE_LEFT);
+		break;
+	case CLIMB_UP:
+		this->player->update(0, 1, Entity_Jumpman::CLIMB);
+		break;
+	case CLIMB_DOWN:
+		this->player->update(0, -1, Entity_Jumpman::CLIMB);
+		break;
+	default: ;
+		// check for ladder intersecting [and ground below]
+	}
+	//		check state
+	//		check for bonus points
+	// 3. Update DK
+	// 4. Update barrels
+	//	4.1 movement
+	//	4.2 despawn
+}
+
+
+

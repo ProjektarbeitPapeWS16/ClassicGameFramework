@@ -1,28 +1,35 @@
 #include "DK_RequestHandler.h"
 
-DK_RequestHandler::DK_RequestHandler(DK_Model * model) : model(model)
-{
-}
+// Init static variables.
+bool DK_RequestHandler::up = false;
+bool DK_RequestHandler::down = false;
+bool DK_RequestHandler::left = false;
+bool DK_RequestHandler::right = false;
+bool DK_RequestHandler::space = false;
+bool DK_RequestHandler::esc = false;
+
+// Basic constructor
+DK_RequestHandler::DK_RequestHandler(DK_Model * model) : model(model) {}
 
 DK_RequestHandler::~DK_RequestHandler() {}
 
 // Key input for climbing up a ladder.
 void DK_RequestHandler::keyUpPress()
 {
-	this->up = true;
+	up = true;
 }
 
 // Key input for climbing down a ladder.
 void DK_RequestHandler::keyDownPress()
 {
-	this->down = true;
+	down = true;
 }
 
 
 // Key input for walking left.
 void DK_RequestHandler::keyLeftPress()
 {
-	this->left = true;
+	left = true;
 	// check if obstacle left
 	// then move left
 }
@@ -30,7 +37,7 @@ void DK_RequestHandler::keyLeftPress()
 // Key input for walking right.
 void DK_RequestHandler::keyRightPress()
 {
-	this->right = true;
+	right = true;
 	// check if obstacle right
 	// then move right
 }
@@ -38,16 +45,16 @@ void DK_RequestHandler::keyRightPress()
 // Key input for jump.
 void DK_RequestHandler::keySpacePress()
 {
-	this->space = true;
+	space = true;
 	// check player state
 	// if on ground, change to jump state
 
 }
 
 // Key input for closing the game.
-void DK_RequestHandler::keyEscPress() const
+void DK_RequestHandler::keyEscPress() 
 {
-	model->shouldClose = true;
+	esc = true;
 }
 
 // Sets all previously registered inputs as false for next iteration.
@@ -90,4 +97,3 @@ Request DK_RequestHandler::getRequest()
 
 	return currentRequest;
 }
-

@@ -2,7 +2,6 @@
 #include "Level.h"
 #include "Entity.h"
 
-#include "GameConfig.h"
 #include "Entity_Jumpman.h" 
 #include "Entity_DonkeyKong.h" 
 #include "Entity_Barrel.h" 
@@ -29,15 +28,6 @@ typedef enum {
 	CHAR_GIRDER_U5 = '5', // Girder with an offset of 5 pixels upwards
 	CHAR_GIRDER_U6 = '6', // Girder with an offset of 6 pixels upwards
 	CHAR_GIRDER_U7 = '7', // Girder with an offset of 7 pixels upwards
-	/*
-	CHAR_GIRDER_D1 = 'Z', // Girder with an offset of 1 pixels downwards
-	CHAR_GIRDER_D2 = 'Y', // Girder with an offset of 2 pixels downwards
-	CHAR_GIRDER_D3 = 'X', // Girder with an offset of 3 pixels downwards
-	CHAR_GIRDER_D4 = 'W', // Girder with an offset of 4 pixels downwards
-	CHAR_GIRDER_D5 = 'V', // Girder with an offset of 5 pixels downwards
-	CHAR_GIRDER_D6 = 'U', // Girder with an offset of 6 pixels downwards
-	CHAR_GIRDER_D7 = 'T', // Girder with an offset of 7 pixels downwards
-	*/
 } EntityChar;
 
 // Meant to replicate the first Level of the Donkey Kong arcade game; titled "25m".
@@ -58,11 +48,7 @@ protected:
 	std::vector<Entity_Ladder*>* ladders;	// Spawned on init
 	std::vector<Entity_Girder*>* girders;	// Spawned on init.
 
-	unsigned int jumpStateCount;	// used for determining direction change in jump state.
-	const unsigned int JUMPSTATE_TICKS = 16; // Jumpman can jump 16px high, and will descend after that.
-	
 	//UI Entities [TODO; determined by Session] (only placement and look level-dependent)
-
 
 	//void setPlayer(Entity_Jumpman* player);
 	//void addEnemy(Entity_Barrel* enemy) const;
@@ -82,7 +68,7 @@ protected:
 	void initEntities_Others(char** levelLayout);
 	// Used by: initEntities. Sets entity-vector for view.
 	std::vector<Entity*>* getEntityListSortedByType() const;
-	bool isGirderChar(char c);	// True, if any char representing a girder in levelLayout
+	static bool isGirderChar(char c);	// True, if any char representing a girder in levelLayout
 public:			
 	/* Standard constructor to get information for initializing all entities.
 	 * @param model The Engine Model.
@@ -94,6 +80,6 @@ public:
 	DK_Model* model;			// To retrieve information on initialization
 
 	// main event function. executes respective function for a game loop
-	void nextTick();
+	void update() const;
 
 };
